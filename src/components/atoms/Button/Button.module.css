@@ -1,0 +1,23 @@
+.container {
+  @apply flex items-center gap-3 rounded;
+
+  & svg {
+    @apply stroke-2;
+  }
+}
+
+.containerLarge {
+  @apply text-lg font-medium px-6 py-3;
+}
+
+.containerSmall {
+  @apply font-medium px-4 py-2;
+}
+
+.containerPrimary {
+  @apply text-white bg-amber-500;
+}
+
+.containerSecondary {
+  @apply border-2 border-amber-500;
+}
