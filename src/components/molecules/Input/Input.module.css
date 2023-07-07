@@ -1,0 +1,13 @@
+.container {
+  @apply relative flex h-full text-base leading-7;
+}
+
+.label {
+  @apply absolute left-[1.125rem] top-2.5 origin-top-left px-2 bg-white -translate-y-3/4 -translate-x-1 scale-75;
+}
+
+.input {
+  @apply px-4 py-2 rounded-lg border-2 border-neutral-500 outline-none 
+    focus-visible:ring-2 focus-visible:ring-amber-500/50
+    disabled:border-neutral-300 disabled:cursor-not-allowed;
+}
