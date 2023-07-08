@@ -1,0 +1,17 @@
+.container {
+  @apply bg-white border-b border-neutral-200;
+}
+
+.wrapper {
+  @apply flex justify-between gap-2 px-2 py-3.5;
+}
+
+.navigationButton {
+  & svg {
+    @apply w-8 h-8;
+  }
+}
+
+.navigationButtonLabel {
+  @apply sr-only;
+}
