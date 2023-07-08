@@ -8,4 +8,5 @@ export interface ComboboxProps {
   placeholder?: string
   items: ComboboxItemType[]
   disabled?: boolean
+  clearLabel?: string
 }

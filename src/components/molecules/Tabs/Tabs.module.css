@@ -1,0 +1,24 @@
+.container {
+  @apply flex flex-col;
+}
+
+.buttonsWrapper {
+  @apply flex w-full bg-neutral-200 overflow-hidden;
+}
+
+.button {
+  @apply flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2;
+}
+
+.buttonActive {
+  @apply text-amber-500 font-medium bg-white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125);
+}
+
+.contentWrapper {
+  @apply bg-white px-4 py-3;
+}
+
+.content {
+  @apply flex gap-4 outline-none ring-amber-500/50 focus-visible:ring-2 rounded;
+}

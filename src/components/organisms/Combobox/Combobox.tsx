@@ -9,7 +9,13 @@ import { HiChevronDown, HiXMark } from 'react-icons/hi2'
 import clsx from 'clsx'
 
 export const Combobox = (props: ComboboxProps) => {
-  const { label, placeholder = '', items, ...restProps } = props
+  const {
+    label,
+    placeholder = '',
+    items,
+    clearLabel = 'Clear',
+    ...restProps
+  } = props
   const [selectedItem, setSelectedItem] = useState<ComboboxItemType | null>(
     null,
   )
@@ -41,7 +47,7 @@ export const Combobox = (props: ComboboxProps) => {
           >
             <HCombobox.Label className={styles.label}>{label}</HCombobox.Label>
             <HCombobox.Input
-              className={clsx(styles.input, styles.input, 'peer')}
+              className={clsx(styles.input, 'peer')}
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(item: ComboboxItemType) => item?.label}
               placeholder={placeholder}
@@ -49,7 +55,7 @@ export const Combobox = (props: ComboboxProps) => {
             <span
               className={clsx(
                 styles.iconWrapper,
-                'peer-disabled:bg-neutral-50 peer-disabled:border-neutral-300 peer-disabled:cursor-not-allowed',
+                'peer-disabled:bg-neutral-100 peer-disabled:border-neutral-300 peer-disabled:cursor-not-allowed',
               )}
             >
               <HiChevronDown
@@ -64,7 +70,7 @@ export const Combobox = (props: ComboboxProps) => {
                   className={clsx(styles.item, styles.clearButton)}
                   onClick={() => setSelectedItem(null)}
                 >
-                  Wyczyść
+                  {clearLabel}
                   <HiXMark className={styles.clearIcon} />
                 </button>
               </li>
