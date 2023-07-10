@@ -1,5 +1,5 @@
 .container {
-  @apply relative w-full max-w-xs;
+  @apply relative w-full;
 }
 
 .inputWrapper {
@@ -12,12 +12,12 @@
 }
 
 .input {
-  @apply flex-1 px-4 py-2 rounded-l-lg border-2 border-r-0 border-neutral-500 outline-none 
+  @apply flex-1 px-4 py-2 rounded-l-lg border-2 border-r-0 border-neutral-400 outline-none 
     disabled:bg-neutral-100 disabled:border-neutral-300 disabled:cursor-not-allowed;
 }
 
 .iconWrapper {
-  @apply flex items-center px-4 py-2 rounded-r-lg bg-white border-2 border-l-0 border-neutral-500;
+  @apply flex items-center px-4 py-2 rounded-r-lg bg-white border-2 border-l-0 border-neutral-400;
 }
 
 .icon {
@@ -29,7 +29,7 @@
 }
 
 .itemsContainer {
-  @apply flex w-full absolute flex-col py-1.5 mt-2 rounded-lg bg-neutral-100 shadow-md;
+  @apply flex w-full absolute flex-col py-1.5 mt-2 rounded-lg bg-neutral-100 shadow-md z-10;
 }
 
 .item {

@@ -1,0 +1,23 @@
+.form {
+  @apply flex flex-col gap-8 w-full;
+}
+
+.heading {
+  @apply text-2xl leading-loose;
+}
+
+.formFooter {
+  @apply flex items-center justify-between gap-3;
+}
+
+.foundOffersHeading {
+  @apply w-fit whitespace-nowrap text-sm;
+}
+
+.foundOffersCount {
+  @apply mx-2 font-medium text-amber-500;
+}
+
+.submitButton {
+  @apply order-1;
+}

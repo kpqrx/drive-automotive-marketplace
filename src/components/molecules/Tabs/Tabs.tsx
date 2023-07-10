@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import styles from './Tabs.module.css'
 import type { TabsProps } from '@/components/molecules/Tabs/Tabs.types'

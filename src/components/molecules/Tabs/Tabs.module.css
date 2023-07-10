@@ -7,7 +7,7 @@
 }
 
 .button {
-  @apply flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2;
+  @apply flex flex-wrap items-center justify-center gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2;
 }
 
 .buttonActive {

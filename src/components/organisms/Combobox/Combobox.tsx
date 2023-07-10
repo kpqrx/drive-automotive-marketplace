@@ -1,3 +1,4 @@
+'use client'
 import styles from './Combobox.module.css'
 import type {
   ComboboxProps,

@@ -4,12 +4,18 @@ import type { ButtonProps } from '@/components/atoms/Button/Button.types'
 import clsx from 'clsx'
 
 export const Button = (props: ButtonProps) => {
-  const { variant = 'primary', size = 'large', children, ...restProps } = props
+  const {
+    variant = 'primary',
+    size = 'large',
+    children,
+    className = '',
+    ...restProps
+  } = props
 
   return (
     <button
       type="button"
-      className={clsx(styles.container, [
+      className={clsx(className, styles.container, [
         variant === 'primary' && styles.containerPrimary,
         variant === 'secondary' && styles.containerSecondary,
         size === 'large' && styles.containerLarge,

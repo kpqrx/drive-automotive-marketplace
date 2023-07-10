@@ -1,5 +1,5 @@
 .container {
-  @apply flex items-center gap-3 rounded;
+  @apply flex items-center justify-center gap-3 rounded;
 
   & svg {
     @apply stroke-1;
@@ -11,7 +11,7 @@
 }
 
 .containerSmall {
-  @apply font-medium px-4 py-2;
+  @apply text-sm font-medium px-6 py-2;
 }
 
 .containerPrimary {
