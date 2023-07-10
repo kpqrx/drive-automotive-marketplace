@@ -1,0 +1,40 @@
+.container {
+  @apply flex flex-col p-2 rounded-xl bg-white 
+  w-full min-w-[90vw] sm:min-w-[65vw] md:min-w-[45vw] lg:min-w-[30vw];
+}
+
+.thumbnail {
+  @apply w-full rounded-xl aspect-video object-cover;
+}
+
+.wrapper {
+  @apply flex flex-col gap-2 p-3;
+}
+
+.typographyWrapper {
+  @apply flex items-center justify-between text-xl font-medium;
+}
+
+.labelWrapper {
+  @apply inline-flex gap-2 items-center;
+}
+
+.manufacturerIcon {
+  @apply w-8 h-8;
+}
+
+.label {
+  @apply leading-loose;
+}
+
+.description {
+  @apply text-neutral-500 leading-loose py-2;
+}
+
+.price {
+  @apply text-amber-500;
+}
+
+.propertiesWrapper {
+  @apply flex flex-wrap gap-x-3 gap-y-2;
+}
