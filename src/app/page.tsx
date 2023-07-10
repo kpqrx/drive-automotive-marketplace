@@ -1,9 +1,9 @@
 'use client'
 
 import { Tabs } from '@/components/molecules/Tabs/Tabs'
-import { Combobox } from '@/components/organisms/Combobox/Combobox'
+import { Combobox } from '@/components/molecules/Combobox/Combobox'
 import { FaCar, FaTruck, FaMotorcycle } from 'react-icons/fa'
-import {SearchForm} from '@/components/organisms/SearchForm/SearchForm'
+import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
 export default function Home() {
   return (
     <div>

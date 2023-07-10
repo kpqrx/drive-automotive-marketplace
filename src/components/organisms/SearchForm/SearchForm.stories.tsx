@@ -2,7 +2,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 
 import { SearchForm } from './SearchForm'
 import { Input } from '@/components/molecules/Input/Input'
-import { Combobox } from '@/components/organisms/Combobox/Combobox'
+import { Combobox } from '@/components/molecules/Combobox/Combobox'
 
 const meta: Meta<typeof SearchForm> = {
   title: 'Organisms/SearchForm',

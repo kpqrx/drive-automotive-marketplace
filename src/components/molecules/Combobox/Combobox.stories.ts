@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Combobox } from './Combobox'
 
 const meta: Meta<typeof Combobox> = {
-  title: 'Organisms/Combobox',
+  title: 'Molecules/Combobox',
   component: Combobox,
   tags: ['autodocs'],
   args: {

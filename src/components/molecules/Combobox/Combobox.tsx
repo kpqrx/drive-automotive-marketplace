@@ -3,7 +3,7 @@ import styles from './Combobox.module.css'
 import type {
   ComboboxProps,
   ComboboxItemType,
-} from '@/components/organisms/Combobox/Combobox.types'
+} from '@/components/molecules/Combobox/Combobox.types'
 import { Combobox as HCombobox } from '@headlessui/react'
 import { useMemo, useState } from 'react'
 import { HiChevronDown, HiXMark } from 'react-icons/hi2'
