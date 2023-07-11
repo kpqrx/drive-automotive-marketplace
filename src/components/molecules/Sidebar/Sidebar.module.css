@@ -1,0 +1,27 @@
+.container {
+  @apply flex absolute inset-0 w-full h-screen max-w-xs lg:max-w-md bg-white border-r border-neutral-200 z-20;
+}
+
+.backdrop {
+  @apply absolute inset-0 w-screen h-screen bg-neutral-100/50 z-10 cursor-pointer;
+}
+
+.itemsList {
+  @apply flex flex-col w-full divide-y divide-neutral-200;
+}
+
+.item {
+  @apply px-4 hover:bg-neutral-100 first:bg-neutral-50;
+}
+
+.button {
+  @apply w-full my-5;
+}
+
+.link {
+  @apply flex items-center gap-x-3 px-2 py-5;
+}
+
+.icon {
+  @apply w-6 h-6 text-amber-500;
+}

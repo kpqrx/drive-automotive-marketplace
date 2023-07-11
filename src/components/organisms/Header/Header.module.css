@@ -6,12 +6,12 @@
   @apply flex justify-between gap-2 px-2 py-3.5;
 }
 
-.navigationButton {
+.sidebarButton {
   & svg {
     @apply w-8 h-8;
   }
 }
 
-.navigationButtonLabel {
+.sidebarButtonLabel {
   @apply sr-only;
 }
