@@ -1,8 +1,13 @@
-import type { HTMLAttributes, PropsWithChildren } from "react";
+import type {
+  ComponentPropsWithoutRef,
+  HTMLAttributes,
+  PropsWithChildren,
+} from 'react'
 
-export interface ButtonProps
-  extends PropsWithChildren,
-    HTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
-  size?: "large" | "small";
+type BaseProps = ComponentPropsWithoutRef<'a'> &
+  ComponentPropsWithoutRef<'button'>
+export interface ButtonProps extends PropsWithChildren, BaseProps {
+  variant?: 'primary' | 'secondary'
+  size?: 'large' | 'small'
+  href?: string
 }
