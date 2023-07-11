@@ -26,6 +26,7 @@ export const Button = (props: ButtonProps) => {
         size === 'large' && styles.containerLarge,
         size === 'small' && styles.containerSmall,
       ])}
+      data-testid="button"
       {...restProps}
     >
       {children}
