@@ -1,16 +1,47 @@
-import React from 'react'
 import styles from './Sidebar.module.css'
 import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { Button } from '@/components/atoms/Button/Button'
+import { motion } from 'framer-motion'
+import type { Transition, Variants } from 'framer-motion'
+
+const sidebarVariants: Variants = {
+  hidden: {
+    x: '-100%',
+  },
+  visible: {
+    x: 0,
+  },
+}
+
+const backdropVariants: Variants = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+  },
+}
+
+const sidebarTransition: Transition = {
+  type: 'spring',
+  mass: 0.5,
+  stiffness: 85,
+  velocity: 1.5,
+}
 
 export const Sidebar = (props: SidebarProps) => {
   const { stateSetter, items, className = '', ...restProps } = props
 
   return (
     <>
-      <aside
+      <motion.aside
+        variants={sidebarVariants}
+        animate="visible"
+        initial="hidden"
+        exit="hidden"
+        transition={sidebarTransition}
         className={clsx(className, styles.container)}
         {...restProps}
       >
@@ -33,8 +64,12 @@ export const Sidebar = (props: SidebarProps) => {
             </li>
           ))}
         </ul>
-      </aside>
-      <div
+      </motion.aside>
+      <motion.div
+        variants={backdropVariants}
+        animate="visible"
+        initial="hidden"
+        exit="hidden"
         className={styles.backdrop}
         onClick={() => stateSetter(false)}
       />

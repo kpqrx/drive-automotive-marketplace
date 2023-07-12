@@ -4,9 +4,9 @@ import type {
   PropsWithChildren,
 } from 'react'
 
-type BaseProps = ComponentPropsWithoutRef<'a'> &
+export type BaseButtonProps = ComponentPropsWithoutRef<'a'> &
   ComponentPropsWithoutRef<'button'>
-export interface ButtonProps extends PropsWithChildren, BaseProps {
+export interface ButtonProps extends PropsWithChildren, BaseButtonProps {
   variant?: 'primary' | 'secondary'
   size?: 'large' | 'small'
   href?: string

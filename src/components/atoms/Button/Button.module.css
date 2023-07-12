@@ -1,5 +1,5 @@
 .container {
-  @apply flex items-center justify-center gap-3 rounded;
+  @apply flex items-center justify-center gap-3 rounded transition;
 
   & svg {
     @apply stroke-1;
@@ -15,9 +15,9 @@
 }
 
 .containerPrimary {
-  @apply text-white bg-amber-500;
+  @apply text-white bg-amber-500 hover:brightness-[1.05] focus-visible:brightness-[1.05];
 }
 
 .containerSecondary {
-  @apply border-2 border-amber-500;
+  @apply border-2 border-amber-500 hover:brightness-[1.05] focus-visible:brightness-[1.05];
 }

@@ -14,6 +14,7 @@ import {
 import { useCallback, useState } from 'react'
 import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
+import { AnimatePresence } from 'framer-motion'
 
 const sidebarItems: SidebarItemType[] = [
   { icon: HiOutlineUser, label: 'Zaloguj się', href: '#' },
@@ -35,12 +36,14 @@ export const Header = (props: HeaderProps) => {
   )
   return (
     <>
-      {isSidebarVisible && (
-        <Sidebar
-          items={sidebarItems}
-          stateSetter={setSidebarVisible}
-        />
-      )}
+      <AnimatePresence>
+        {isSidebarVisible && (
+          <Sidebar
+            items={sidebarItems}
+            stateSetter={setSidebarVisible}
+          />
+        )}
+      </AnimatePresence>
       <header
         className={styles.container}
         {...props}

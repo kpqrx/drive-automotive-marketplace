@@ -8,6 +8,9 @@ import { Combobox as HCombobox } from '@headlessui/react'
 import { useMemo, useState } from 'react'
 import { HiChevronDown, HiXMark } from 'react-icons/hi2'
 import clsx from 'clsx'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const MotionHComboboxOptions = motion(HCombobox.Options)
 
 export const Combobox = (props: ComboboxProps) => {
   const {
@@ -67,38 +70,45 @@ export const Combobox = (props: ComboboxProps) => {
               />
             </span>
           </HCombobox.Button>
-          <HCombobox.Options className={styles.itemsContainer}>
-            {value && (
-              <li>
-                <button
-                  className={clsx(styles.item, styles.clearButton)}
-                  onClick={() => setSelectedItem(null)}
-                  data-testid="combobox-clear-button"
-                >
-                  {clearLabel}
-                  <HiXMark className={styles.clearIcon} />
-                </button>
-              </li>
-            )}
-            {filteredItems.map((item, i) => (
-              <HCombobox.Option
-                key={i}
-                value={item}
-                data-testid="combobox-option"
-              >
-                {({ selected, active }) => (
-                  <span
-                    className={clsx(styles.item, [
-                      selected && styles.itemSelected,
-                      active && styles.itemActive,
-                    ])}
+          <AnimatePresence>
+            <MotionHComboboxOptions
+              initial={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className={styles.itemsContainer}
+            >
+              {value && (
+                <li>
+                  <button
+                    className={clsx(styles.item, styles.clearButton)}
+                    onClick={() => setSelectedItem(null)}
+                    data-testid="combobox-clear-button"
                   >
-                    {item.label}
-                  </span>
-                )}
-              </HCombobox.Option>
-            ))}
-          </HCombobox.Options>
+                    {clearLabel}
+                    <HiXMark className={styles.clearIcon} />
+                  </button>
+                </li>
+              )}
+              {filteredItems.map((item, i) => (
+                <HCombobox.Option
+                  key={i}
+                  value={item}
+                  data-testid="combobox-option"
+                >
+                  {({ selected, active }) => (
+                    <span
+                      className={clsx(styles.item, [
+                        selected && styles.itemSelected,
+                        active && styles.itemActive,
+                      ])}
+                    >
+                      {item.label}
+                    </span>
+                  )}
+                </HCombobox.Option>
+              ))}
+            </MotionHComboboxOptions>
+          </AnimatePresence>
         </div>
       )}
     </HCombobox>

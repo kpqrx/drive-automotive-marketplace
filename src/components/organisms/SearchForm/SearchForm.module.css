@@ -1,4 +1,4 @@
-.form {
+.container {
   @apply flex flex-col gap-8 w-full;
 }
 

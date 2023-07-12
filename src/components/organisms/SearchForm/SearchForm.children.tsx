@@ -2,22 +2,29 @@ import { Button } from '@/components/atoms/Button/Button'
 import styles from './SearchForm.module.css'
 import clsx from 'clsx'
 import type { ChildrenWithClassNameProps } from '@/components/organisms/SearchForm/SearchFrom.types'
-import { useContext, type ComponentPropsWithoutRef } from 'react'
+import { useContext, forwardRef } from 'react'
 import { SearchFormContext } from '@/components/organisms/SearchForm/SearchForm'
+import type { BaseButtonProps } from '@/components/atoms/Button/Button.types'
 
-export function Container(props: ChildrenWithClassNameProps) {
+export const Container = forwardRef<
+  HTMLFormElement,
+  ChildrenWithClassNameProps
+>((props, ref) => {
   const { children, className = '', ...restProps } = props
   const searchFormContext = useContext(SearchFormContext)
   return (
     <form
       onSubmit={searchFormContext?.handleSubmit}
-      className={clsx(styles.form, className)}
+      className={clsx(styles.container, className)}
+      ref={ref}
       {...restProps}
     >
       {children}
     </form>
   )
-}
+})
+
+Container.displayName = 'Container'
 
 export function Heading(props: ChildrenWithClassNameProps<string>) {
   const { children, className = '', ...restProps } = props
@@ -31,7 +38,7 @@ export function Heading(props: ChildrenWithClassNameProps<string>) {
   )
 }
 
-export function SubmitButton(props: ComponentPropsWithoutRef<'button'>) {
+export function SubmitButton(props: BaseButtonProps) {
   const { className = '', ...restProps } = props
   return (
     <Button

@@ -1,4 +1,5 @@
-import type { ComponentPropsWithoutRef, Dispatch, SetStateAction } from 'react'
+import type { MotionProps } from 'framer-motion'
+import type { ComponentProps, Dispatch, SetStateAction } from 'react'
 import type { IconType } from 'react-icons'
 
 export type SidebarItemType = {
@@ -7,7 +8,8 @@ export type SidebarItemType = {
   href: string
 }
 
-export interface SidebarProps extends ComponentPropsWithoutRef<'aside'> {
+export interface SidebarProps extends MotionProps {
+  className?: string
   stateSetter: Dispatch<SetStateAction<boolean>>
   items: SidebarItemType[]
 }
