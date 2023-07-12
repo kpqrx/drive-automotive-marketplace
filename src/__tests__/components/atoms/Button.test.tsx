@@ -1,6 +1,8 @@
-import { describe, expect, it } from 'vitest'
-import { render } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
+import { cleanup, render } from '@testing-library/react'
 import { Button } from '@/components/atoms/Button/Button'
+
+afterEach(cleanup)
 
 describe('Button component', async () => {
   it("should be rendered as 'a' element if 'href' prop is provided", () => {
@@ -9,8 +11,6 @@ describe('Button component', async () => {
 
     expect(buttonElement.tagName).toMatch(/a/i)
     expect(buttonElement).toHaveProperty('href')
-
-    renderedElement.unmount()
   })
 
   it("should be rendered as 'large sized primary' variant by default", () => {
@@ -19,8 +19,6 @@ describe('Button component', async () => {
 
     expect(buttonElement.className).toMatch(/large/i)
     expect(buttonElement.className).toMatch(/primary/i)
-
-    renderedElement.unmount()
   })
 
   it("should be rendered as 'small sized' variant", () => {
@@ -28,8 +26,6 @@ describe('Button component', async () => {
     const buttonElement = renderedElement.getByTestId('button')
 
     expect(buttonElement.className).toMatch(/small/i)
-
-    renderedElement.unmount()
   })
 
   it("should be rendered as 'secondary' variant", () => {
@@ -40,7 +36,5 @@ describe('Button component', async () => {
     const buttonElement = renderedElement.getByTestId('button')
 
     expect(buttonElement.className).toMatch(/secondary/i)
-
-    renderedElement.unmount()
   })
 })

@@ -9,6 +9,7 @@ export const Chip = (props: ChipProps) => {
   return (
     <span
       className={clsx(className, styles.container)}
+      data-testid="chip"
       {...restProps}
     >
       {children}

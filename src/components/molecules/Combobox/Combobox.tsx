@@ -38,6 +38,7 @@ export const Combobox = (props: ComboboxProps) => {
       value={selectedItem}
       onChange={setSelectedItem}
       nullable
+      data-testid="combobox"
       {...restProps}
     >
       {({ open, value }) => (
@@ -45,6 +46,7 @@ export const Combobox = (props: ComboboxProps) => {
           <HCombobox.Button
             as="div"
             className={styles.inputWrapper}
+            data-testid="combobox-trigger"
           >
             <HCombobox.Label className={styles.label}>{label}</HCombobox.Label>
             <HCombobox.Input
@@ -52,6 +54,7 @@ export const Combobox = (props: ComboboxProps) => {
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(item: ComboboxItemType) => item?.label}
               placeholder={placeholder}
+              data-testid="combobox-input"
             />
             <span
               className={clsx(
@@ -70,6 +73,7 @@ export const Combobox = (props: ComboboxProps) => {
                 <button
                   className={clsx(styles.item, styles.clearButton)}
                   onClick={() => setSelectedItem(null)}
+                  data-testid="combobox-clear-button"
                 >
                   {clearLabel}
                   <HiXMark className={styles.clearIcon} />
@@ -80,6 +84,7 @@ export const Combobox = (props: ComboboxProps) => {
               <HCombobox.Option
                 key={i}
                 value={item}
+                data-testid="combobox-option"
               >
                 {({ selected, active }) => (
                   <span
