@@ -5,6 +5,8 @@ import type { TabsProps } from '@/components/molecules/Tabs/Tabs.types'
 import clsx from 'clsx'
 import { Tab } from '@headlessui/react'
 
+// TODO: Framer motion left/right slide animation
+
 export const Tabs = (props: TabsProps) => {
   const { items, defaultActive = 0, ...restProps } = props
 

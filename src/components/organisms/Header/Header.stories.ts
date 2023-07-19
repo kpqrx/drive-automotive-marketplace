@@ -7,7 +7,7 @@ const meta: Meta<typeof Header> = {
   component: Header,
   tags: ['autodocs'],
   parameters: {
-    layout: 'fullscreen',
+    background: 'light',
   },
 }
 

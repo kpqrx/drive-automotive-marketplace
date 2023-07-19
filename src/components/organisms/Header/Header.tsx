@@ -15,6 +15,7 @@ import { useCallback, useState } from 'react'
 import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
 import { AnimatePresence } from 'framer-motion'
+import { Container } from '@/components/atoms/Container/Container'
 
 const sidebarItems: SidebarItemType[] = [
   { icon: HiOutlineUser, label: 'Zaloguj się', href: '#' },
@@ -35,7 +36,7 @@ export const Header = (props: HeaderProps) => {
     [setSidebarVisible],
   )
   return (
-    <>
+    <Container>
       <AnimatePresence>
         {isSidebarVisible && (
           <Sidebar
@@ -48,20 +49,36 @@ export const Header = (props: HeaderProps) => {
         className={styles.container}
         {...props}
       >
-        <div className={styles.wrapper}>
-          <button
-            className={styles.sidebarButton}
-            onClick={handleSidebarToggle}
-          >
-            <HiBars3BottomLeft />
-            <span className={styles.sidebarButtonLabel}>Toggle navigation</span>
-          </button>
-          <Button size="small">
-            <HiPlus />
-            Sprzedaj pojazd
-          </Button>
+        <div className={styles.wrapperGroup}>
+          <div className={styles.wrapper}>
+            <button
+              className={styles.iconButton}
+              onClick={handleSidebarToggle}
+            >
+              <HiBars3BottomLeft />
+              <span className={styles.iconButtonLabel}>Toggle navigation</span>
+            </button>
+          </div>
+          <ul className={styles.wrapper}>
+            <ul className={styles.iconButtonsList}>
+              <li>
+                <button className={styles.iconButton}>
+                  <HiOutlineUser />
+                  <span className={styles.iconButtonLabel}>
+                    Toggle navigation
+                  </span>
+                </button>
+              </li>
+            </ul>
+            <li>
+              <Button size="small">
+                <HiPlus />
+                Sprzedaj pojazd
+              </Button>
+            </li>
+          </ul>
         </div>
       </header>
-    </>
+    </Container>
   )
 }

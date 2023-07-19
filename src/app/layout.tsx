@@ -1,3 +1,4 @@
+import { Container } from '@/components/atoms/Container/Container'
 import { Header } from '@/components/organisms/Header/Header'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
@@ -27,7 +28,7 @@ export default function RootLayout({
     >
       <body>
         <Header />
-        <main>{children}</main>
+        <Container>{children}</Container>
       </body>
     </html>
   )

@@ -1,13 +1,21 @@
 .container {
-  @apply flex flex-col gap-8 w-full;
+  @apply flex flex-col w-full;
 }
 
 .heading {
-  @apply text-2xl leading-loose;
+  @apply text-2xl leading-loose mb-8;
+}
+
+.fieldsWrapper {
+  @apply flex flex-col gap-8 w-full;
+}
+
+.advancedFieldsWrapper {
+  @apply mb-8;
 }
 
 .formFooter {
-  @apply flex items-center justify-between gap-3;
+  @apply flex items-center justify-between gap-3 my-8;
 }
 
 .foundOffersHeading {

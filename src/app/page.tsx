@@ -6,7 +6,7 @@ import { FaCar, FaTruck, FaMotorcycle } from 'react-icons/fa'
 import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
 export default function Home() {
   return (
-    <div>
+    <>
       <Tabs
         items={[
           {
@@ -24,26 +24,28 @@ export default function Home() {
                 <SearchForm.Heading>
                   Wyszukaj samochód osobowy
                 </SearchForm.Heading>
-                <Combobox
-                  label="Typ nadwozia"
-                  placeholder="Wybierz typ nadwozia"
-                  items={[]}
-                />
-                <Combobox
-                  label="Marka pojazdu"
-                  placeholder="Wybierz markę pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Model pojazdu"
-                  placeholder="Wybierz model pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Generacja"
-                  placeholder="Wybierz generację"
-                  items={[]}
-                />
+                <SearchForm.FieldsWrapper>
+                  <Combobox
+                    label="Typ nadwozia"
+                    placeholder="Wybierz typ nadwozia"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Marka pojazdu"
+                    placeholder="Wybierz markę pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Model pojazdu"
+                    placeholder="Wybierz model pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Generacja"
+                    placeholder="Wybierz generację"
+                    items={[]}
+                  />
+                </SearchForm.FieldsWrapper>
                 <SearchForm.Footer />
                 <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
               </SearchForm>
@@ -64,21 +66,23 @@ export default function Home() {
                 <SearchForm.Heading>
                   Wyszukaj samochód użytkowy
                 </SearchForm.Heading>
-                <Combobox
-                  label="Typ pojazdu"
-                  placeholder="Wybierz typ pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Marka pojazdu"
-                  placeholder="Wybierz markę pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Model pojazdu"
-                  placeholder="Wybierz model pojazdu"
-                  items={[]}
-                />
+                <SearchForm.FieldsWrapper>
+                  <Combobox
+                    label="Typ pojazdu"
+                    placeholder="Wybierz typ pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Marka pojazdu"
+                    placeholder="Wybierz markę pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Model pojazdu"
+                    placeholder="Wybierz model pojazdu"
+                    items={[]}
+                  />
+                </SearchForm.FieldsWrapper>
                 <SearchForm.Footer />
                 <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
               </SearchForm>
@@ -97,21 +101,23 @@ export default function Home() {
                 advancedFields={() => 'elo'}
               >
                 <SearchForm.Heading>Wyszukaj motocykl</SearchForm.Heading>
-                <Combobox
-                  label="Typ pojazdu"
-                  placeholder="Wybierz typ pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Marka pojazdu"
-                  placeholder="Wybierz markę pojazdu"
-                  items={[]}
-                />
-                <Combobox
-                  label="Model pojazdu"
-                  placeholder="Wybierz model pojazdu"
-                  items={[]}
-                />
+                <SearchForm.FieldsWrapper>
+                  <Combobox
+                    label="Typ pojazdu"
+                    placeholder="Wybierz typ pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Marka pojazdu"
+                    placeholder="Wybierz markę pojazdu"
+                    items={[]}
+                  />
+                  <Combobox
+                    label="Model pojazdu"
+                    placeholder="Wybierz model pojazdu"
+                    items={[]}
+                  />
+                </SearchForm.FieldsWrapper>
                 <SearchForm.Footer />
                 <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
               </SearchForm>
@@ -119,6 +125,6 @@ export default function Home() {
           },
         ]}
       />
-    </div>
+    </>
   )
 }

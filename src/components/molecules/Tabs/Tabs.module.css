@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col;
+  @apply flex flex-col rounded-xl overflow-hidden;
 }
 
 .buttonsWrapper {
@@ -11,8 +11,10 @@
 }
 
 .buttonActive {
-  @apply text-amber-500 font-medium bg-white;
+  @apply text-amber-500 bg-white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125);
+  -webkit-text-stroke: 0.045rem currentColor;
+  text-stroke: 0.045rem currentColor;
 }
 
 .contentWrapper {

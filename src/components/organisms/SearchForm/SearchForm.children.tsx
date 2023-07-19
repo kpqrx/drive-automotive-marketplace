@@ -26,6 +26,24 @@ export const Container = forwardRef<
 
 Container.displayName = 'Container'
 
+export const FieldsWrapper = forwardRef<
+  HTMLDivElement,
+  ChildrenWithClassNameProps
+>((props, ref) => {
+  const { children, className = '', ...restProps } = props
+  return (
+    <div
+      className={clsx(styles.fieldsWrapper, className)}
+      ref={ref}
+      {...restProps}
+    >
+      {children}
+    </div>
+  )
+})
+
+FieldsWrapper.displayName = 'FieldsWrapper'
+
 export function Heading(props: ChildrenWithClassNameProps<string>) {
   const { children, className = '', ...restProps } = props
   return (

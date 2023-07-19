@@ -7,7 +7,7 @@
     font-size: 14px;
   }
 
-  main {
-    @apply bg-neutral-100 px-2 py-3;
+  body {
+    @apply bg-neutral-100;
   }
 }

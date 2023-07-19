@@ -1,17 +1,43 @@
 .container {
-  @apply bg-white border-b border-neutral-200;
-}
+  @apply bg-white shadow-sm rounded-xl;
 
-.wrapper {
-  @apply flex justify-between gap-2 px-2 py-3.5;
-}
-
-.sidebarButton {
-  & svg {
-    @apply w-8 h-8;
+  @screen md {
+    @apply bg-transparent shadow-none rounded-none;
   }
 }
 
-.sidebarButtonLabel {
+.wrapperGroup {
+  @apply flex justify-between gap-2 px-4 py-2;
+
+  @screen md {
+    @apply p-0;
+  }
+}
+
+.wrapper {
+  @apply contents;
+
+  @screen md {
+    @apply flex items-center px-4 py-2 bg-white shadow-sm rounded-xl;
+  }
+}
+
+.iconButtonsList {
+  @apply hidden pr-4 mr-4 border-r border-neutral-300;
+
+  @screen md {
+    @apply flex;
+  }
+}
+
+.iconButton {
+  @apply flex items-center px-2;
+
+  & svg {
+    @apply w-7 h-7 text-neutral-600;
+  }
+}
+
+.iconButtonLabel {
   @apply sr-only;
 }
