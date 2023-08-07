@@ -1,0 +1,3 @@
+.container {
+  @apply inline-flex flex-col overflow-hidden;
+}

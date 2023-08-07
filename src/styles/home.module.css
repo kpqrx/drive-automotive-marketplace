@@ -5,7 +5,7 @@
 .heroWrapper {
   @apply flex flex-col justify-center h-full font-medium py-6;
   @screen md {
-    min-height: 35vh;
+    min-height: 25vh;
   }
 }
 

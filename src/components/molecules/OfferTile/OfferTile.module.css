@@ -1,6 +1,7 @@
 .container {
-  @apply flex flex-col p-2 rounded-xl bg-white 
-  w-full min-w-[90vw] sm:min-w-[65vw] md:min-w-[45vw] lg:min-w-[30vw];
+  @apply flex flex-col p-2 rounded-xl bg-white;
+
+  width: clamp(320px, 35vw, 480px);
 }
 
 .thumbnail {

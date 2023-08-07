@@ -1,130 +1,24 @@
-'use client'
+import { VehicleSearchTabs } from '@/components/organisms/VehicleSearchTabs/VehicleSearchTabs'
+import styles from '../styles/home.module.css'
+import { TextCarousel } from '@/components/atoms/TextCarousel/TextCarousel'
 
-import { Tabs } from '@/components/molecules/Tabs/Tabs'
-import { Combobox } from '@/components/molecules/Combobox/Combobox'
-import { FaCar, FaTruck, FaMotorcycle } from 'react-icons/fa'
-import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
 export default function Home() {
   return (
-    <>
-      <Tabs
-        items={[
-          {
-            label: (
-              <>
-                <FaCar />
-                Osobowe
-              </>
-            ),
-            content: (
-              <SearchForm
-                onSubmit={() => console.log('Submitted')}
-                advancedFields={() => 'elo'}
-              >
-                <SearchForm.Heading>
-                  Wyszukaj samochód osobowy
-                </SearchForm.Heading>
-                <SearchForm.FieldsWrapper>
-                  <Combobox
-                    label="Typ nadwozia"
-                    placeholder="Wybierz typ nadwozia"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Marka pojazdu"
-                    placeholder="Wybierz markę pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Model pojazdu"
-                    placeholder="Wybierz model pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Generacja"
-                    placeholder="Wybierz generację"
-                    items={[]}
-                  />
-                </SearchForm.FieldsWrapper>
-                <SearchForm.Footer />
-                <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
-              </SearchForm>
-            ),
-          },
-          {
-            label: (
-              <>
-                <FaTruck />
-                Użytkowe
-              </>
-            ),
-            content: (
-              <SearchForm
-                onSubmit={() => console.log('Submitted')}
-                advancedFields={() => 'elo'}
-              >
-                <SearchForm.Heading>
-                  Wyszukaj samochód użytkowy
-                </SearchForm.Heading>
-                <SearchForm.FieldsWrapper>
-                  <Combobox
-                    label="Typ pojazdu"
-                    placeholder="Wybierz typ pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Marka pojazdu"
-                    placeholder="Wybierz markę pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Model pojazdu"
-                    placeholder="Wybierz model pojazdu"
-                    items={[]}
-                  />
-                </SearchForm.FieldsWrapper>
-                <SearchForm.Footer />
-                <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
-              </SearchForm>
-            ),
-          },
-          {
-            label: (
-              <>
-                <FaMotorcycle />
-                Motocykle
-              </>
-            ),
-            content: (
-              <SearchForm
-                onSubmit={() => console.log('Submitted')}
-                advancedFields={() => 'elo'}
-              >
-                <SearchForm.Heading>Wyszukaj motocykl</SearchForm.Heading>
-                <SearchForm.FieldsWrapper>
-                  <Combobox
-                    label="Typ pojazdu"
-                    placeholder="Wybierz typ pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Marka pojazdu"
-                    placeholder="Wybierz markę pojazdu"
-                    items={[]}
-                  />
-                  <Combobox
-                    label="Model pojazdu"
-                    placeholder="Wybierz model pojazdu"
-                    items={[]}
-                  />
-                </SearchForm.FieldsWrapper>
-                <SearchForm.Footer />
-                <SearchForm.SubmitButton>Wyszukaj</SearchForm.SubmitButton>
-              </SearchForm>
-            ),
-          },
-        ]}
-      />
-    </>
+    <div className={styles.container}>
+      <div className={styles.heroWrapper}>
+        <h1 className={styles.heroHeadingPrimary}>
+          Nowy
+          <TextCarousel
+            className={styles.heroHeadingAccent}
+            texts={['wóz', 'komarek', 'składak']}
+          />
+          ? Mamy go!
+        </h1>
+        <h2 className={styles.heroHeadingSecondary}>Przekonaj się!</h2>
+      </div>
+      <div className={styles.formWrapper}>
+        <VehicleSearchTabs />
+      </div>
+    </div>
   )
 }
