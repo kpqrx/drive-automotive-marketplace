@@ -5,6 +5,11 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
 import { SiBmw } from 'react-icons/si'
+import {
+  HiOutlineHeart as HeartIcon,
+  HiOutlinePhone as PhoneIcon,
+  HiOutlineChatBubbleOvalLeft as CommentsIcon,
+} from 'react-icons/hi2'
 import { Chip } from '@/components/atoms/Chip/Chip'
 
 export const OfferTile = (props: OfferTileProps) => {
@@ -47,6 +52,23 @@ export const OfferTile = (props: OfferTileProps) => {
           ))}
         </div>
       </div>
+      <ul className={styles.iconButtonsContainer}>
+        <li className={styles.iconButtonWrapper}>
+          <button className={styles.iconButton}>
+            <HeartIcon />
+          </button>
+        </li>
+        <li className={styles.iconButtonWrapper}>
+          <button className={styles.iconButton}>
+            <CommentsIcon />
+          </button>
+        </li>
+        <li className={styles.iconButtonWrapper}>
+          <button className={styles.iconButton}>
+            <PhoneIcon />
+          </button>
+        </li>
+      </ul>
     </Link>
   )
 }

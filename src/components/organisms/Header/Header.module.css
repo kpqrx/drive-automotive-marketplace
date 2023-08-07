@@ -1,24 +1,25 @@
 .container {
-  @apply bg-white shadow-sm rounded-xl;
+  @apply bg-white relative
+  before:absolute before:w-[200%] before:h-full before:top-0 before:-left-1/2 before:bg-white before:shadow-sm before:-z-10;
 
   @screen md {
-    @apply bg-transparent shadow-none rounded-none;
+    @apply shadow-sm rounded-b-xl before:hidden;
   }
 }
 
-.wrapperGroup {
-  @apply flex justify-between gap-2 px-4 py-2;
+.outerContainer {
+  @apply py-0;
+}
 
-  @screen md {
-    @apply p-0;
-  }
+.innerContainer {
+  @apply flex justify-between gap-2 px-4 py-2;
 }
 
 .wrapper {
   @apply contents;
 
   @screen md {
-    @apply flex items-center px-4 py-2 bg-white shadow-sm rounded-xl;
+    @apply flex items-center;
   }
 }
 

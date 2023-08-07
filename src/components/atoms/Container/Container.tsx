@@ -8,7 +8,7 @@ export const Container = (props: ContainerProps) => {
 
   return (
     <div
-      className={clsx(className, styles.container)}
+      className={clsx(styles.container, className)}
       data-testid="Container"
       {...restProps}
     >

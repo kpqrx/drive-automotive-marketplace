@@ -1,0 +1,29 @@
+.container {
+  @apply flex flex-col gap-12;
+}
+
+.heroWrapper {
+  @apply flex flex-col justify-center h-full font-medium py-6;
+  @screen md {
+    min-height: 35vh;
+  }
+}
+
+.heroHeadingPrimary {
+  @apply text-4xl leading-loose mb-4;
+}
+
+.heroHeadingAccent {
+  @apply text-amber-500 mx-3;
+}
+
+.heroHeadingSecondary {
+  @apply text-2xl leading-normal;
+}
+
+.formWrapper {
+  @apply grid;
+  @screen md {
+    grid-template-columns: minmax(auto, 560px) auto;
+  }
+}
