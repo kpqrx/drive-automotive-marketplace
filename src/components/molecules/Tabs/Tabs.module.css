@@ -1,13 +1,17 @@
 .container {
-  @apply flex flex-col rounded-xl overflow-hidden;
+  @apply flex flex-col overflow-hidden;
 }
 
 .buttonsWrapper {
-  @apply flex w-full bg-neutral-200 overflow-hidden;
+  @apply flex w-full bg-neutral-200 overflow-hidden px-6;
 }
 
 .button {
-  @apply flex flex-wrap items-center justify-center gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2;
+  @apply flex flex-wrap items-center justify-center gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2 -skew-x-6;
+}
+
+.buttonContentWrapper {
+  @apply skew-x-6;
 }
 
 .buttonActive {
@@ -22,5 +26,5 @@
 }
 
 .content {
-  @apply flex gap-4 outline-none ring-amber-500/50 focus-visible:ring-2 rounded;
+  @apply flex gap-4 outline-none ring-amber-500/50 focus-visible:ring-2;
 }

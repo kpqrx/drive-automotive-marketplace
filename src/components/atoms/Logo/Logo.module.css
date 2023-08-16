@@ -1,0 +1,7 @@
+.sign {
+  @apply fill-amber-500;
+}
+
+.typography {
+  @apply fill-neutral-900;
+}

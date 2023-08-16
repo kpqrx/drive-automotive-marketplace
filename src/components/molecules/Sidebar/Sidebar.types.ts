@@ -1,9 +1,7 @@
 import type { MotionProps } from 'framer-motion'
-import type { ComponentProps, Dispatch, SetStateAction } from 'react'
-import type { IconType } from 'react-icons'
+import type { Dispatch, SetStateAction } from 'react'
 
 export type SidebarItemType = {
-  icon: IconType
   label: string
   href: string
 }

@@ -8,11 +8,7 @@ export default function Home() {
       <div className={styles.heroWrapper}>
         <h1 className={styles.heroHeadingPrimary}>
           Nowy
-          <TextCarousel
-            className={styles.heroHeadingAccent}
-            texts={['wóz', 'komarek', 'składak']}
-          />
-          ? Mamy go!
+          <span className={styles.heroHeadingAccent}>samochód</span>? Mamy go!
         </h1>
         <h2 className={styles.heroHeadingSecondary}>Przekonaj się!</h2>
       </div>

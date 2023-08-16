@@ -3,6 +3,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 import { Sidebar } from './Sidebar'
 import { useState } from 'react'
 import { HiOutlineFaceSmile } from 'react-icons/hi2'
+import { AnimatePresence } from 'framer-motion'
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Molecules/Sidebar',
@@ -10,11 +11,8 @@ const meta: Meta<typeof Sidebar> = {
   tags: ['autodocs'],
   args: {
     items: [
-      { icon: HiOutlineFaceSmile, label: 'Sidebar item 1', href: '1' },
-      { icon: HiOutlineFaceSmile, label: 'Sidebar item 2', href: '2' },
-      { icon: HiOutlineFaceSmile, label: 'Sidebar item 3', href: '3' },
-      { icon: HiOutlineFaceSmile, label: 'Sidebar item 4', href: '4' },
-      { icon: HiOutlineFaceSmile, label: 'Sidebar item 5', href: '5' },
+      { label: 'Obserwowane oferty', href: '1' },
+      { label: 'Obserwowane ogłoszenia', href: '2' },
     ],
   },
   parameters: {
@@ -27,11 +25,13 @@ export default meta
 export const Default: StoryFn<typeof Sidebar> = (props) => {
   const [state, setState] = useState(false)
   return (
-    <>
+    <AnimatePresence>
       {state && (
         <Sidebar
           {...props}
           stateSetter={setState}
+          // to fix storybook related error
+          key={crypto.randomUUID()}
         />
       )}
       <main>
@@ -39,6 +39,6 @@ export const Default: StoryFn<typeof Sidebar> = (props) => {
           Toggle sidebar
         </button>
       </main>
-    </>
+    </AnimatePresence>
   )
 }

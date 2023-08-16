@@ -1,34 +1,17 @@
 .container {
-  @apply bg-white relative
-  before:absolute before:w-[200%] before:h-full before:top-0 before:-left-1/2 before:bg-white before:shadow-sm before:-z-10;
-
-  @screen md {
-    @apply shadow-sm rounded-b-xl before:hidden;
-  }
-}
-
-.outerContainer {
   @apply py-0;
 }
 
-.innerContainer {
-  @apply flex justify-between gap-2 px-4 py-2;
-}
-
 .wrapper {
-  @apply contents;
-
-  @screen md {
-    @apply flex items-center;
-  }
+  @apply relative;
 }
 
-.iconButtonsList {
-  @apply hidden pr-4 mr-4 border-r border-neutral-300;
+.innerWrapper {
+  @apply flex justify-between items-center gap-2 py-2;
+}
 
-  @screen md {
-    @apply flex;
-  }
+.buttonsWrapper {
+  @apply flex gap-4 items-center;
 }
 
 .iconButton {
@@ -41,4 +24,8 @@
 
 .iconButtonLabel {
   @apply sr-only;
+}
+
+.callToActionButton {
+  @apply hidden md:flex;
 }

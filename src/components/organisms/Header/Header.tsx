@@ -4,25 +4,19 @@ import { Button } from '@/components/atoms/Button/Button'
 import styles from './Header.module.css'
 import type { HeaderProps } from '@/components/organisms/Header/Header.types'
 import {
-  HiBars3BottomLeft,
-  HiPlus,
-  HiOutlineUser,
-  HiOutlineUserPlus,
-  HiOutlineStar,
-  HiOutlineMagnifyingGlassCircle,
+  HiBars3BottomRight as MenuIcon,
+  HiPlus as PlusIcon,
 } from 'react-icons/hi2'
 import { useCallback, useState } from 'react'
 import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
 import { AnimatePresence } from 'framer-motion'
 import { Container } from '@/components/atoms/Container/Container'
+import { Logo } from '@/components/atoms/Logo/Logo'
 
 const sidebarItems: SidebarItemType[] = [
-  { icon: HiOutlineUser, label: 'Zaloguj się', href: '#' },
-  { icon: HiOutlineUserPlus, label: 'Zarejestruj się', href: '#' },
-  { icon: HiOutlineStar, label: 'Obserwowane oferty', href: '#' },
+  { label: 'Obserwowane oferty', href: '#' },
   {
-    icon: HiOutlineMagnifyingGlassCircle,
     label: 'Obserwowane wyszukiwania',
     href: '#',
   },
@@ -36,7 +30,7 @@ export const Header = (props: HeaderProps) => {
     [setSidebarVisible],
   )
   return (
-    <Container className={styles.outerContainer}>
+    <Container className={styles.container}>
       <AnimatePresence>
         {isSidebarVisible && (
           <Sidebar
@@ -46,35 +40,28 @@ export const Header = (props: HeaderProps) => {
         )}
       </AnimatePresence>
       <header
-        className={styles.container}
+        className={styles.wrapper}
         {...props}
       >
-        <div className={styles.innerContainer}>
-          <div className={styles.wrapper}>
-            <button
-              className={styles.iconButton}
-              onClick={handleSidebarToggle}
-            >
-              <HiBars3BottomLeft />
-              <span className={styles.iconButtonLabel}>Toggle navigation</span>
-            </button>
-          </div>
-          <ul className={styles.wrapper}>
-            <ul className={styles.iconButtonsList}>
-              <li>
-                <button className={styles.iconButton}>
-                  <HiOutlineUser />
-                  <span className={styles.iconButtonLabel}>
-                    Toggle navigation
-                  </span>
-                </button>
-              </li>
-            </ul>
-            <li>
+        <div className={styles.innerWrapper}>
+          <Logo />
+          <ul className={styles.buttonsWrapper}>
+            <li className={styles.callToActionButton}>
               <Button size="small">
-                <HiPlus />
-                Sprzedaj pojazd
+                <PlusIcon />
+                Dodaj ogłoszenie
               </Button>
+            </li>
+            <li>
+              <button
+                className={styles.iconButton}
+                onClick={handleSidebarToggle}
+              >
+                <MenuIcon />
+                <span className={styles.iconButtonLabel}>
+                  Toggle navigation
+                </span>
+              </button>
             </li>
           </ul>
         </div>

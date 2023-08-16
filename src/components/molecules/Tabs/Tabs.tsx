@@ -26,7 +26,7 @@ export const Tabs = (props: TabsProps) => {
                     selectedIndex === index && styles.buttonActive,
                   ])}
                 >
-                  {label}
+                  <span className={styles.buttonContentWrapper}>{label}</span>
                 </Tab>
               ))}
             </>

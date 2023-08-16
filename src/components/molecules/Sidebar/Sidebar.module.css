@@ -1,31 +1,42 @@
 .container {
-  @apply flex absolute inset-0 w-full h-screen max-w-xs lg:max-w-md bg-white border-r border-neutral-200 z-20;
+  @apply flex flex-col items-start gap-10 px-6 py-8 absolute inset-0 w-full h-screen max-w-sm lg:max-w-md bg-white z-20;
+
+  background-image: linear-gradient(
+      -75deg,
+      theme('colors.neutral.100') 50%,
+      transparent 50%
+    ),
+    linear-gradient(0deg, theme('colors.neutral.100') 5%, transparent);
 }
 
 .backdrop {
-  @apply absolute inset-0 w-screen h-screen bg-neutral-100/50 z-10 cursor-pointer;
+  @apply absolute inset-0 w-screen h-screen bg-black/50 z-10 cursor-pointer;
 }
 
-.itemsList {
-  @apply flex flex-col w-full divide-y divide-neutral-200;
+.userActions {
+  @apply flex gap-4 items-center;
 }
 
-.item {
-  @apply px-4 first:bg-neutral-50;
-
-  &:not(:first-child) {
-    @apply hover:bg-neutral-100;
-  }
+.userActionsIconWrapper {
+  @apply rounded-full p-4 bg-neutral-100;
 }
 
-.button {
-  @apply w-full my-5;
+.userActionsIcon {
+  @apply w-6 h-6;
 }
 
-.link {
-  @apply flex items-center gap-x-3 px-2 py-5;
+.userActionsLinksWrapper {
+  @apply text-neutral-400 text-sm;
 }
 
-.icon {
-  @apply w-6 h-6 text-amber-500;
+.userActionsLink {
+  @apply text-neutral-600 mx-1.5;
+}
+
+.navigationItems {
+  @apply flex flex-col gap-6;
+}
+
+.navigationItem {
+  @apply font-bold text-xl leading-loose text-neutral-800;
 }

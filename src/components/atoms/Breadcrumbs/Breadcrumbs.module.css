@@ -1,0 +1,28 @@
+.container {
+  @apply flex;
+}
+
+.list {
+  @apply flex flex-wrap items-center;
+}
+
+.item {
+  @apply text-sm leading-loose ml-4 last:after:hidden;
+
+  &:after {
+    content: '';
+    @apply inline-block w-1.5 h-0.5 ml-4 rounded bg-neutral-500 align-middle;
+  }
+}
+
+.highlightedItem {
+  @apply font-semibold text-amber-500;
+}
+
+.homeItem {
+  @apply after:hidden ml-0 mr-2;
+
+  svg {
+    @apply inline text-amber-500 w-[18px] h-[18px] -mt-1;
+  }
+}

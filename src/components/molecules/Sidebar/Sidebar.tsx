@@ -5,6 +5,11 @@ import Link from 'next/link'
 import { Button } from '@/components/atoms/Button/Button'
 import { motion } from 'framer-motion'
 import type { Transition, Variants } from 'framer-motion'
+import { Logo } from '@/components/atoms/Logo/Logo'
+import {
+  HiOutlinePlus as PlusIcon,
+  HiOutlineUser as UserIcon,
+} from 'react-icons/hi2'
 
 const sidebarVariants: Variants = {
   hidden: {
@@ -25,10 +30,9 @@ const backdropVariants: Variants = {
 }
 
 const sidebarTransition: Transition = {
-  type: 'spring',
-  mass: 0.5,
-  stiffness: 85,
-  velocity: 1.5,
+  type: 'tween',
+  ease: 'easeOut',
+  duration: 0.25,
 }
 
 export const Sidebar = (props: SidebarProps) => {
@@ -36,7 +40,7 @@ export const Sidebar = (props: SidebarProps) => {
 
   return (
     <>
-      <motion.aside
+      <motion.nav
         variants={sidebarVariants}
         animate="visible"
         initial="hidden"
@@ -45,26 +49,42 @@ export const Sidebar = (props: SidebarProps) => {
         className={clsx(className, styles.container)}
         {...restProps}
       >
-        <ul className={styles.itemsList}>
-          <li className={styles.item}>
-            <Button className={styles.button}>Sprzedaj pojazd</Button>
-          </li>
-          {items.map(({ icon: Icon, label, href }, i) => (
+        <Logo />
+        <div className={styles.userActions}>
+          <span className={styles.userActionsIconWrapper}>
+            <UserIcon className={styles.userActionsIcon} />
+          </span>
+          <span className={styles.userActionsLinksWrapper}>
+            <Link
+              href=""
+              className={styles.userActionsLink}
+            >
+              Zaloguj się
+            </Link>
+            &nbsp;lub&nbsp;
+            <Link
+              href=""
+              className={styles.userActionsLink}
+            >
+              Zarejestuj się
+            </Link>
+          </span>
+        </div>
+        <Button>
+          <PlusIcon />
+          Dodaj ogłoszenie
+        </Button>
+        <ul className={styles.navigationItems}>
+          {items.map(({ label, href }, i) => (
             <li
               key={i}
-              className={styles.item}
+              className={styles.navigationItem}
             >
-              <Link
-                href={href}
-                className={styles.link}
-              >
-                <Icon className={styles.icon} />
-                {label}
-              </Link>
+              <Link href={href}>{label}</Link>
             </li>
           ))}
         </ul>
-      </motion.aside>
+      </motion.nav>
       <motion.div
         variants={backdropVariants}
         animate="visible"

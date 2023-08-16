@@ -6,7 +6,7 @@ import { Open_Sans } from 'next/font/google'
 
 const openSans = Open_Sans({
   subsets: ['latin'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '700'],
   display: 'swap',
   variable: '--font-open-sans',
 })

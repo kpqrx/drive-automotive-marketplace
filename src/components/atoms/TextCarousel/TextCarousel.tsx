@@ -32,6 +32,7 @@ export const TextCarousel = (props: TextCarouselProps) => {
           (text, i) =>
             i === activeIndex && (
               <motion.span
+                className={styles.text}
                 key={`${text}_${i}`}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}

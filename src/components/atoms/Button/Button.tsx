@@ -29,7 +29,7 @@ export const Button = (props: ButtonProps) => {
       data-testid="button"
       {...restProps}
     >
-      {children}
+      <span className={styles.contentWrapper}>{children}</span>
     </Component>
   )
 }

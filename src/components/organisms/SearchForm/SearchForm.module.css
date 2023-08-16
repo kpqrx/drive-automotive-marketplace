@@ -3,7 +3,7 @@
 }
 
 .heading {
-  @apply text-2xl leading-loose mb-8;
+  @apply text-2xl leading-loose mt-2 mb-8;
 }
 
 .fieldsWrapper {
