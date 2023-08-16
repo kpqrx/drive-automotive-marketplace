@@ -3,17 +3,31 @@
 }
 
 .inputWrapper {
-  @apply relative flex w-full h-full text-base leading-7 
-    focus-within:ring-2 focus-within:ring-amber-500/50;
+  @apply relative flex w-full h-full text-base leading-7 z-20;
+
+  &:focus-within {
+    @apply ring-2 ring-amber-500/50;
+  }
 }
 
 .label {
-  @apply absolute left-[1.125rem] top-2.5 origin-top-left px-2 bg-white -translate-y-3/4 -translate-x-1 scale-75;
+  @apply absolute left-0.5 top-0 origin-top-left px-2 bg-white transition translate-x-2 translate-y-1/2;
 }
 
 .input {
-  @apply flex-1 px-4 py-3 border-2 border-r-0 border-neutral-400 outline-none 
-    disabled:bg-neutral-100 disabled:border-neutral-300 disabled:cursor-not-allowed;
+  @apply flex-1 px-4 py-3 border-2 border-r-0 border-neutral-400 outline-none placeholder:transition placeholder:delay-100;
+
+  &:disabled {
+    @apply bg-neutral-100 border-neutral-300 cursor-not-allowed;
+  }
+
+  &:not(:focus-visible)::placeholder {
+    @apply text-transparent transition-colors delay-100;
+  }
+}
+
+.labelFloating {
+  @apply -translate-y-[calc(75%_-_8px)] translate-x-2 scale-75;
 }
 
 .iconWrapper {
@@ -21,7 +35,7 @@
 }
 
 .icon {
-  @apply w-6 h-6;
+  @apply w-6 h-6 transition;
 }
 
 .iconRotated {
@@ -46,6 +60,10 @@
 
 .clearButton {
   @apply flex justify-between mb-1.5 font-medium text-amber-500 bg-neutral-50 hover:bg-amber-500 hover:text-white;
+}
+
+.clearButtonWrapper {
+  @apply overflow-hidden;
 }
 
 .clearIcon {
