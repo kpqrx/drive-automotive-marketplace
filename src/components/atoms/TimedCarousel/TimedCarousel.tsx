@@ -1,22 +1,19 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { motion, AnimatePresence, wrap } from 'framer-motion'
 import styles from './TimedCarousel.module.css'
 import type { TimedCarouselProps } from '@/components/atoms/TimedCarousel/TimedCarousel.types'
 import clsx from 'clsx'
+import { useInterval } from '@/hooks'
 
 export const TimedCarousel = (props: TimedCarouselProps) => {
   const { items, time = 4000, className = '', ...restProps } = props
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((previousIndex) => wrap(0, items.length, ++previousIndex))
-    }, time)
-
-    return () => clearInterval(interval)
-  }, [items, time])
+  useInterval(() => {
+    setCurrentIndex((previousIndex) => wrap(0, items.length, ++previousIndex))
+  }, time)
 
   return (
     <span
