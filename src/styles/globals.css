@@ -10,4 +10,8 @@
   body {
     @apply bg-neutral-100;
   }
+
+  main {
+    @apply flex flex-col gap-12;
+  }
 }

@@ -1,10 +1,11 @@
 import { VehicleSearchTabs } from '@/components/organisms/VehicleSearchTabs/VehicleSearchTabs'
 import styles from '../styles/home.module.css'
 import { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
+import { Container } from '@/components/atoms/Container/Container'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <Container as="main">
       <div className={styles.heroWrapper}>
         <h1 className={styles.heroHeadingPrimary}>
           Now
@@ -28,6 +29,6 @@ export default function Home() {
       <div className={styles.formWrapper}>
         <VehicleSearchTabs />
       </div>
-    </div>
+    </Container>
   )
 }

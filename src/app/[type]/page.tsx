@@ -1,9 +1,9 @@
-import styles from '../../styles/home.module.css'
 import { Breadcrumbs } from '@/components/atoms/Breadcrumbs/Breadcrumbs'
+import { Container } from '@/components/atoms/Container/Container'
 
 export default function Listing() {
   return (
-    <div className={styles.container}>
+    <Container as="main">
       <Breadcrumbs
         items={[
           { label: 'Osobowe', path: '#' },
@@ -12,6 +12,6 @@ export default function Listing() {
       />
       <h1 className="text-4xl font-semibold">BMW M6</h1>
       <h2>3642 ogłoszeń</h2>
-    </div>
+    </Container>
   )
 }

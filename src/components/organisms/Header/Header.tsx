@@ -30,7 +30,7 @@ export const Header = (props: HeaderProps) => {
     [setSidebarVisible],
   )
   return (
-    <Container className={styles.container}>
+    <>
       <AnimatePresence>
         {isSidebarVisible && (
           <Sidebar
@@ -41,10 +41,10 @@ export const Header = (props: HeaderProps) => {
         )}
       </AnimatePresence>
       <header
-        className={styles.wrapper}
+        className={styles.container}
         {...props}
       >
-        <div className={styles.innerWrapper}>
+        <Container className={styles.wrapper}>
           <Logo />
           <ul className={styles.buttonsWrapper}>
             <li className={styles.callToActionButton}>
@@ -65,8 +65,8 @@ export const Header = (props: HeaderProps) => {
               </button>
             </li>
           </ul>
-        </div>
+        </Container>
       </header>
-    </Container>
+    </>
   )
 }
