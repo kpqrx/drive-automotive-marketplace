@@ -8,6 +8,7 @@ export type SidebarItemType = {
 
 export interface SidebarProps extends MotionProps {
   className?: string
-  stateSetter: Dispatch<SetStateAction<boolean>>
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
   items: SidebarItemType[]
 }

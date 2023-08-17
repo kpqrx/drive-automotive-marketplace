@@ -35,7 +35,8 @@ export const Header = (props: HeaderProps) => {
         {isSidebarVisible && (
           <Sidebar
             items={sidebarItems}
-            stateSetter={setSidebarVisible}
+            isOpen={isSidebarVisible}
+            setIsOpen={setSidebarVisible}
           />
         )}
       </AnimatePresence>

@@ -1,5 +1,9 @@
 .container {
   @apply py-0;
+
+  @screen md {
+    @apply py-4;
+  }
 }
 
 .wrapper {

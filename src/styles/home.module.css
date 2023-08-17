@@ -14,7 +14,7 @@
 }
 
 .heroHeadingAccent {
-  @apply text-amber-500 mx-3;
+  @apply text-amber-500 mx-2;
 }
 
 .heroHeadingSecondary {

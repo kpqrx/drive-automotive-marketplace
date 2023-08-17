@@ -29,7 +29,8 @@ export const Default: StoryFn<typeof Sidebar> = (props) => {
       {state && (
         <Sidebar
           {...props}
-          stateSetter={setState}
+          isOpen={state}
+          setIsOpen={setState}
           // to fix storybook related error
           key={crypto.randomUUID()}
         />

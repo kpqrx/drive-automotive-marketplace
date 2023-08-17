@@ -2,7 +2,6 @@
   @apply inline-grid relative;
 }
 
-.text {
-  @apply opacity-0 first:opacity-100;
+.item {
   grid-area: 1 / 1 / 1 / 1;
 }

@@ -7,7 +7,13 @@
 }
 
 .button {
-  @apply flex flex-wrap items-center justify-center gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset focus-visible:ring-2 -skew-x-6;
+  @apply flex flex-wrap items-center justify-center transition gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset -skew-x-6
+  focus-visible:ring-2;
+
+  &:not(.buttonActive):hover,
+  &:not(.buttonActive):focus-visible {
+    @apply bg-neutral-100/50;
+  }
 }
 
 .buttonContentWrapper {
@@ -22,9 +28,11 @@
 }
 
 .contentWrapper {
-  @apply bg-white px-4 py-3;
+  @apply grid bg-white py-3;
 }
 
 .content {
-  @apply flex gap-4 outline-none ring-amber-500/50 focus-visible:ring-2;
+  @apply px-4 outline-none bg-white ring-amber-500/50 focus-visible:ring-2;
+
+  grid-area: 1 / 1 / 1 / 1;
 }

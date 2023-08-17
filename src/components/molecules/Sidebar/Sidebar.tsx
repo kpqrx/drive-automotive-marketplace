@@ -10,6 +10,7 @@ import {
   HiOutlinePlus as PlusIcon,
   HiOutlineUser as UserIcon,
 } from 'react-icons/hi2'
+import { Dialog } from '@headlessui/react'
 
 const sidebarVariants: Variants = {
   hidden: {
@@ -30,17 +31,44 @@ const backdropVariants: Variants = {
 }
 
 const sidebarTransition: Transition = {
-  type: 'tween',
-  ease: 'easeOut',
-  duration: 0.25,
+  type: 'spring',
+  damping: 30,
+  stiffness: 250,
+  mass: 1.25,
+}
+
+const linksWrapperVariants: Variants = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.125,
+      when: 'beforeChildren',
+    },
+  },
+}
+
+const linkVariants: Variants = {
+  initial: { x: -40, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+}
+
+const linkTransition: Transition = {
+  type: 'spring',
+  damping: 8,
+  mass: 1.25,
 }
 
 export const Sidebar = (props: SidebarProps) => {
-  const { stateSetter, items, className = '', ...restProps } = props
+  const { isOpen, setIsOpen, items, className = '', ...restProps } = props
 
   return (
-    <>
-      <motion.nav
+    <Dialog
+      open={isOpen}
+      onClose={() => setIsOpen(false)}
+    >
+      <Dialog.Panel
+        as={motion.nav}
         variants={sidebarVariants}
         animate="visible"
         initial="hidden"
@@ -74,25 +102,32 @@ export const Sidebar = (props: SidebarProps) => {
           <PlusIcon />
           Dodaj ogłoszenie
         </Button>
-        <ul className={styles.navigationItems}>
+        <motion.ul
+          className={styles.navigationItems}
+          variants={linksWrapperVariants}
+          initial="initial"
+          animate="animate"
+        >
           {items.map(({ label, href }, i) => (
-            <li
-              key={i}
+            <motion.li
               className={styles.navigationItem}
+              key={i}
+              variants={linkVariants}
+              transition={linkTransition}
             >
               <Link href={href}>{label}</Link>
-            </li>
+            </motion.li>
           ))}
-        </ul>
-      </motion.nav>
+        </motion.ul>
+      </Dialog.Panel>
       <motion.div
         variants={backdropVariants}
         animate="visible"
         initial="hidden"
         exit="hidden"
         className={styles.backdrop}
-        onClick={() => stateSetter(false)}
+        onClick={() => setIsOpen(false)}
       />
-    </>
+    </Dialog>
   )
 }
