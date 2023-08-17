@@ -2,8 +2,8 @@ import type { Meta, StoryFn } from '@storybook/react'
 
 import { Sidebar } from './Sidebar'
 import { useState } from 'react'
-import { HiOutlineFaceSmile } from 'react-icons/hi2'
 import { AnimatePresence } from 'framer-motion'
+import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Molecules/Sidebar',
@@ -22,7 +22,7 @@ const meta: Meta<typeof Sidebar> = {
 
 export default meta
 
-export const Default: StoryFn<typeof Sidebar> = (props) => {
+export const Default: StoryFn<typeof Sidebar> = (props: SidebarProps) => {
   const [state, setState] = useState(false)
   return (
     <AnimatePresence>
