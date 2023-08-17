@@ -53,7 +53,11 @@ export const Combobox = (props: ComboboxProps) => {
             data-testid="combobox-trigger"
           >
             <HCombobox.Input
-              className={clsx(styles.input, 'peer')}
+              className={clsx(
+                styles.input,
+                (open || value) && styles.inputPlaceholderVisible,
+                'peer',
+              )}
               onChange={(event) => setQuery(event.target.value)}
               displayValue={(item: ComboboxItemType) => item?.label}
               placeholder={placeholder}

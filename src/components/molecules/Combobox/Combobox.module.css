@@ -15,15 +15,16 @@
 }
 
 .input {
-  @apply flex-1 px-4 py-3 border-2 border-r-0 border-neutral-400 outline-none placeholder:transition placeholder:delay-100;
+  @apply flex-1 px-4 py-3 border-2 border-r-0 border-neutral-400 outline-none 
+  placeholder:text-transparent placeholder:transition-colors placeholder:delay-100;
 
   &:disabled {
     @apply bg-neutral-100 border-neutral-300 cursor-not-allowed;
   }
+}
 
-  &:not(:focus-visible)::placeholder {
-    @apply text-transparent transition-colors delay-100;
-  }
+.inputPlaceholderVisible {
+  @apply placeholder:text-neutral-400;
 }
 
 .labelFloating {
