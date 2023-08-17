@@ -16,6 +16,7 @@ const useInterval = (callback: VoidFunction, interval: number) => {
     const requestId = requestAnimationFrame(loop)
 
     return () => cancelAnimationFrame(requestId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }
 
