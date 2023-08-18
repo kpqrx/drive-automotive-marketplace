@@ -3,7 +3,7 @@
 }
 
 .buttonsWrapper {
-  @apply flex w-full bg-neutral-200 overflow-hidden px-6;
+  @apply flex w-full bg-neutral-200 rounded-t px-6 overflow-hidden;
 }
 
 .button {
@@ -28,11 +28,11 @@
 }
 
 .contentWrapper {
-  @apply grid bg-white py-3;
+  @apply grid bg-white py-6 rounded-b border border-t-0 border-neutral-200;
 }
 
 .content {
-  @apply px-4 outline-none bg-white ring-amber-500/50 focus-visible:ring-2;
+  @apply px-6 outline-none ring-amber-500/50 focus-visible:ring-2;
 
   grid-area: 1 / 1 / 1 / 1;
 }

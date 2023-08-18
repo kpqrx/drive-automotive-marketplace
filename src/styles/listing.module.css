@@ -1,5 +1,5 @@
 .titleWrapper {
-  @apply flex flex-col gap-3;
+  @apply flex flex-col gap-3 mt-12;
 }
 
 .title {
@@ -11,7 +11,11 @@
 }
 
 .actionsWrapper {
-  @apply flex gap-4;
+  @apply flex gap-4 relative;
+
+  &::after {
+    @apply content-[''] block bg-neutral-100 w-screen h-full absolute top-0 left-1/2 -translate-x-1/2 -z-10;
+  }
 }
 
 .actionButton {
@@ -19,5 +23,13 @@
 }
 
 .itemsList {
-  @apply flex flex-col gap-4;
+  @apply grid gap-6;
+
+  @screen lg {
+    @apply grid-flow-row grid-cols-2;
+  }
+
+  @screen xl {
+    @apply grid-cols-3;
+  }
 }

@@ -1,13 +1,13 @@
 .container {
-  @apply flex flex-col p-2 rounded-xl bg-white;
+  @apply flex flex-col rounded bg-white border border-neutral-200 overflow-hidden;
 }
 
 .thumbnail {
-  @apply w-full rounded-xl aspect-video object-cover;
+  @apply w-full aspect-video object-cover;
 }
 
 .wrapper {
-  @apply flex flex-col gap-2 p-3;
+  @apply flex flex-col gap-2 px-5 py-4;
 }
 
 .typographyWrapper {
@@ -23,7 +23,7 @@
 }
 
 .label {
-  @apply leading-loose;
+  @apply leading-relaxed;
 }
 
 .description {
@@ -39,7 +39,7 @@
 }
 
 .iconButtonsContainer {
-  @apply flex gap-2 px-3 my-2;
+  @apply flex gap-2 px-5 mt-2 bg-neutral-100;
 }
 
 .iconButtonWrapper {
@@ -47,7 +47,7 @@
 }
 
 .iconButton {
-  @apply px-4 py-3 text-neutral-800 rounded-2xl transition-all hover:bg-neutral-100 hover:ring-1 hover:ring-neutral-200 active:bg-neutral-200;
+  @apply p-4 text-neutral-800 transition hover:bg-neutral-200;
 
   svg {
     @apply w-6 h-6;
