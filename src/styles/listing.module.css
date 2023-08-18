@@ -1,0 +1,23 @@
+.titleWrapper {
+  @apply flex flex-col gap-3;
+}
+
+.title {
+  @apply text-4xl font-semibold;
+}
+
+.itemsCount {
+  @apply text-neutral-700;
+}
+
+.actionsWrapper {
+  @apply flex gap-4;
+}
+
+.actionButton {
+  @apply flex-1;
+}
+
+.itemsList {
+  @apply flex flex-col gap-4;
+}

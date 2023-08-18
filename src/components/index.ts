@@ -11,6 +11,7 @@ export { OfferTile } from '@/components/molecules/OfferTile/OfferTile'
 export { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 export { Tabs } from '@/components/molecules/Tabs/Tabs'
 
+export { FiltersMenu } from '@/components/organisms/FiltersMenu/FiltersMenu'
 export { Header } from '@/components/organisms/Header/Header'
 export { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
 export { VehicleSearchTabs } from '@/components/organisms/VehicleSearchTabs/VehicleSearchTabs'

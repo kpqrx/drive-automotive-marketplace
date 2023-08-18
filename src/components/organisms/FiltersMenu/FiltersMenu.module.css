@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col bg-neutral-100 fixed bottom-0 w-full z-10;
+  @apply flex flex-col bg-neutral-100 fixed bottom-0 w-full min-h-[80vh] z-10;
 
   box-shadow: 0 50vh 0 25vh theme('colors.neutral.100');
 

@@ -31,15 +31,6 @@ export const Header = (props: HeaderProps) => {
   )
   return (
     <>
-      <AnimatePresence>
-        {isSidebarVisible && (
-          <Sidebar
-            items={sidebarItems}
-            isOpen={isSidebarVisible}
-            setIsOpen={setSidebarVisible}
-          />
-        )}
-      </AnimatePresence>
       <header
         className={styles.container}
         {...props}
@@ -67,6 +58,16 @@ export const Header = (props: HeaderProps) => {
           </ul>
         </Container>
       </header>
+
+      <AnimatePresence>
+        {isSidebarVisible && (
+          <Sidebar
+            items={sidebarItems}
+            isOpen={isSidebarVisible}
+            setIsOpen={setSidebarVisible}
+          />
+        )}
+      </AnimatePresence>
     </>
   )
 }
