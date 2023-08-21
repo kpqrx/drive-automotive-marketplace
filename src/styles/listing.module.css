@@ -11,7 +11,7 @@
 }
 
 .actionsWrapper {
-  @apply flex gap-4 items-center flex-wrap relative;
+  @apply flex gap-x-4 gap-y-6 items-center flex-wrap relative;
 
   &::after {
     @apply content-[''] block bg-neutral-100 w-screen h-full absolute top-0 left-1/2 -translate-x-1/2 -z-10;

@@ -1,6 +1,7 @@
+import { LazyMotion, domMax } from 'framer-motion'
 import '../src/styles/globals.css'
-
 import type { Preview } from '@storybook/react'
+import React from 'react'
 
 const preview: Preview = {
   parameters: {
@@ -13,5 +14,16 @@ const preview: Preview = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <LazyMotion
+      features={domMax}
+      strict
+    >
+      <Story />
+    </LazyMotion>
+  ),
+]
 
 export default preview
