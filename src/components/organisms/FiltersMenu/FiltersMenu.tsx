@@ -1,157 +1,160 @@
-import type { FiltersMenuProps } from '@/components/organisms/FiltersMenu/FiltersMenu.types'
-import { Dialog } from '@headlessui/react'
+import type {
+  FiltersMenuItemType,
+  FiltersMenuProps,
+} from '@/components/organisms/FiltersMenu/FiltersMenu.types'
 import {
   HiOutlineChevronRight as ChevronRightIcon,
   HiOutlineXMark as CloseIcon,
   HiOutlineTrash as TrashIcon,
+  HiOutlineChevronLeft as ChevronLeftIcon,
 } from 'react-icons/hi2'
 import styles from './FiltersMenu.module.css'
-import { motion } from 'framer-motion'
-import type { Variants, Transition, PanInfo } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import type { Variants, Transition } from 'framer-motion'
+import { useState, useMemo } from 'react'
+import clsx from 'clsx'
+import { Modal } from '@/components/molecules/Modal/Modal'
+import { Chip } from '@/components'
 
-const panelVariants: Variants = {
-  hidden: {
-    y: '100%',
-  },
-  visible: {
-    y: 0,
-  },
-}
-
-const backdropVariants: Variants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-  },
-}
-
-const panelTransition: Transition = {
+const menuTransition: Transition = {
   type: 'spring',
   damping: 30,
   stiffness: 250,
   mass: 1.25,
 }
 
-// const linksWrapperVariants: Variants = {
-//   initial: { opacity: 0 },
-//   animate: {
-//     opacity: 1,
-//     transition: {
-//       staggerChildren: 0.125,
-//       when: 'beforeChildren',
-//     },
-//   },
-// }
+const menuVariants: Variants = {
+  inLeft: {
+    x: '-100%',
+  },
+  inRight: {
+    x: '100%',
+  },
+  out: {
+    x: 0,
+  },
+}
 
-// const linkVariants: Variants = {
-//   initial: { x: -40, opacity: 0 },
-//   animate: { x: 0, opacity: 1 },
-// }
-
-// const linkTransition: Transition = {
-//   type: 'spring',
-//   damping: 8,
-//   mass: 1.25,
-// }
+const MOCK_MENU_ITEMS: FiltersMenuItemType[] = [
+  {
+    id: 1,
+    title: 'Producent',
+    content: 'producent pojazdu siema',
+    value: 'BMW',
+  },
+  { id: 2, title: 'Model', content: 'model pojazdu siema', value: 'M6' },
+  { id: 3, title: 'Generacja', content: 'generacja pojazdu siema' },
+  { id: 4, title: 'Rok produkcji', content: 'rok produkcji pojazdu siema' },
+  {
+    id: 5,
+    title: 'Cena pojazdu',
+    content: 'cena pojazdu siema',
+    value: '+ 80k PLN',
+  },
+]
 
 export const FiltersMenu = (props: FiltersMenuProps) => {
-  const { isOpen, setIsOpen, ...restProps } = props
+  const { isOpen, setIsOpen, items = MOCK_MENU_ITEMS, ...restProps } = props
 
-  const handlePanelDrag = (event: TouchEvent, info: PanInfo) => {
-    if (info.offset.y > 200) {
-      setIsOpen(false)
-    }
+  const [selectedMenu, setSelectedMenu] = useState<FiltersMenuItemType | null>(
+    null,
+  )
+
+  const handleMenuSelection = (menuId: number | null) => {
+    const menuById = items.find(({ id }) => id === menuId)
+    setSelectedMenu(menuById ?? null)
   }
 
+  const handleChipClick = (menuId: number | null) => {
+    handleMenuSelection(menuId)
+    setIsOpen(true)
+  }
+
+  const activeItems = useMemo(() => items.filter(({ value }) => value), [items])
+
   return (
-    <Dialog
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      {...restProps}
-    >
-      <Dialog.Panel
-        className={styles.container}
-        as={motion.div}
-        variants={panelVariants}
-        animate="visible"
-        initial="hidden"
-        exit="hidden"
-        transition={panelTransition}
-        drag="y"
-        dragConstraints={{
-          top: 0,
-          bottom: 0,
-        }}
-        dragElastic={0.8}
-        dragTransition={{
-          bounceStiffness: 800,
-          bounceDamping: 25,
-        }}
-        onDragEnd={handlePanelDrag}
-      >
-        <div className={styles.titleWrapper}>
+    <>
+      {activeItems && (
+        <div className={styles.activeFiltersWrapper}>
+          <span className={styles.activeFiltersTitle}>Aktywne filtry:</span>
+          <ul className={styles.activeFiltersItemsList}>
+            {activeItems.map(({ id, title, value }) => (
+              <li key={id}>
+                <button onClick={() => handleChipClick(id)}>
+                  <Chip className={styles.activeChip}>
+                    {title}: {value}
+                  </Chip>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <Modal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        title={selectedMenu ? selectedMenu.title : 'Filtrowanie wyników'}
+        renderBeforeTitle={
           <button
             className={styles.closeButton}
-            onClick={() => setIsOpen(false)}
+            onClick={() =>
+              selectedMenu ? handleMenuSelection(null) : setIsOpen(false)
+            }
           >
-            <CloseIcon />
+            {selectedMenu ? <ChevronLeftIcon /> : <CloseIcon />}
           </button>
-          <Dialog.Title
-            as="h2"
-            className={styles.title}
-          >
-            Filtrowanie wyników
-          </Dialog.Title>
+        }
+        renderAfterTitle={
           <button className={styles.iconButton}>
             <TrashIcon /> Wyczyść
           </button>
-        </div>
-        <ul className={styles.itemsList}>
-          <li>
-            <button className={styles.item}>
-              <span className={styles.itemTitle}>
-                Filter 1 <span className={styles.changesIndicator} />
-              </span>
-              <ChevronRightIcon />
-            </button>
-          </li>
-          <li>
-            <button className={styles.item}>
-              <span className={styles.itemTitle}>Filter 2</span>
-              <ChevronRightIcon />
-            </button>
-          </li>
-          <li>
-            <button className={styles.item}>
-              <span className={styles.itemTitle}>
-                Filter 3 <span className={styles.changesIndicator} />
-              </span>
-              <ChevronRightIcon />
-            </button>
-          </li>
-          <li>
-            <button className={styles.item}>
-              <span className={styles.itemTitle}>Filter 4</span>
-              <ChevronRightIcon />
-            </button>
-          </li>
-          <li>
-            <button className={styles.item}>
-              <span className={styles.itemTitle}>Filter 5</span>
-              <ChevronRightIcon />
-            </button>
-          </li>
-        </ul>
-      </Dialog.Panel>
-      <motion.div
-        variants={backdropVariants}
-        animate="visible"
-        initial="hidden"
-        exit="hidden"
-        className={styles.backdrop}
-      />
-    </Dialog>
+        }
+        {...restProps}
+      >
+        <AnimatePresence
+          mode="popLayout"
+          initial={false}
+        >
+          {selectedMenu !== null ? (
+            <motion.div
+              className={styles.contentWrapper}
+              key={`filter-menu-${selectedMenu.id}`}
+              variants={menuVariants}
+              transition={menuTransition}
+              animate="out"
+              initial={selectedMenu ? 'inRight' : 'inLeft'}
+              exit={selectedMenu ? 'inRight' : 'inLeft'}
+            >
+              {selectedMenu.content}
+            </motion.div>
+          ) : (
+            <motion.ul
+              className={clsx(styles.contentWrapper, styles.itemsList)}
+              key="menus-list"
+              variants={menuVariants}
+              transition={menuTransition}
+              animate="out"
+              initial={selectedMenu ? 'inRight' : 'inLeft'}
+              exit={selectedMenu ? 'inRight' : 'inLeft'}
+            >
+              {items.map(({ id, title, value }) => (
+                <li key={id}>
+                  <button
+                    className={styles.item}
+                    onClick={() => handleMenuSelection(id)}
+                  >
+                    <span className={styles.itemTitle}>
+                      {title}&nbsp;
+                      {value && <span className={styles.changesIndicator} />}
+                    </span>
+                    <ChevronRightIcon />
+                  </button>
+                </li>
+              ))}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </Modal>
+    </>
   )
 }

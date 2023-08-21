@@ -11,7 +11,7 @@
 }
 
 .label {
-  @apply absolute left-0.5 top-0 origin-top-left px-2 bg-white transition translate-x-2 translate-y-1/2;
+  @apply absolute left-0.5 top-0 origin-top-left appearance-none px-2 bg-white transition translate-x-2 translate-y-1/2;
 }
 
 .input {

@@ -1,17 +1,17 @@
 'use client'
-import styles from './Combobox.module.css'
 import type {
-  ComboboxProps,
   ComboboxItemType,
+  ComboboxProps,
 } from '@/components/molecules/Combobox/Combobox.types'
 import { Combobox as HCombobox } from '@headlessui/react'
+import clsx from 'clsx'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import {
   HiChevronDown as ChevronIcon,
   HiXMark as CloseIcon,
 } from 'react-icons/hi2'
-import clsx from 'clsx'
-import { motion, AnimatePresence } from 'framer-motion'
+import styles from './Combobox.module.css'
 
 export const Combobox = (props: ComboboxProps) => {
   const {

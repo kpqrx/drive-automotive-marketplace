@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence, wrap } from 'framer-motion'
-import styles from './TimedCarousel.module.css'
 import type { TimedCarouselProps } from '@/components/atoms/TimedCarousel/TimedCarousel.types'
-import clsx from 'clsx'
 import { useInterval } from '@/hooks'
+import clsx from 'clsx'
+import { AnimatePresence, motion, wrap } from 'framer-motion'
+import { useState } from 'react'
+import styles from './TimedCarousel.module.css'
 
 export const TimedCarousel = (props: TimedCarouselProps) => {
   const { items, time = 4000, className = '', ...restProps } = props

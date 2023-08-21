@@ -6,7 +6,6 @@ import {
   FiltersMenu,
   OfferTile,
 } from '@/components'
-import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import {
   HiOutlineFunnel as FilteringIcon,
@@ -15,7 +14,7 @@ import {
 import styles from '../../../styles/listing.module.css'
 
 export default function Listing() {
-  const [isFiltersMenuVisible, setFiltersMenuVisible] = useState(false)
+  const [isFiltersMenuOpen, setFiltersMenuOpen] = useState(false)
 
   return (
     <main>
@@ -32,19 +31,15 @@ export default function Listing() {
         </section>
       </Container>
       <Container className={styles.actionsWrapper}>
-        <AnimatePresence>
-          {isFiltersMenuVisible && (
-            <FiltersMenu
-              isOpen={isFiltersMenuVisible}
-              setIsOpen={setFiltersMenuVisible}
-            />
-          )}
-        </AnimatePresence>
+        <FiltersMenu
+          isOpen={isFiltersMenuOpen}
+          setIsOpen={setFiltersMenuOpen}
+        />
         <Button
           className={styles.actionButton}
           variant="secondary"
           size="small"
-          onClick={() => setFiltersMenuVisible(true)}
+          onClick={() => setFiltersMenuOpen(true)}
         >
           <FilteringIcon /> Filtrowanie
         </Button>

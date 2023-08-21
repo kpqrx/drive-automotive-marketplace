@@ -1,7 +1,7 @@
 .container {
   @apply py-0;
 
-  @screen md {
+  @screen sm {
     @apply py-4;
   }
 }

@@ -11,15 +11,23 @@
 }
 
 .actionsWrapper {
-  @apply flex gap-4 relative;
+  @apply flex gap-4 items-center flex-wrap relative;
 
   &::after {
     @apply content-[''] block bg-neutral-100 w-screen h-full absolute top-0 left-1/2 -translate-x-1/2 -z-10;
+  }
+
+  @screen lg {
+    @apply flex-nowrap;
   }
 }
 
 .actionButton {
   @apply flex-1;
+
+  @screen lg {
+    @apply flex-none;
+  }
 }
 
 .itemsList {

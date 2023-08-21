@@ -38,8 +38,12 @@
   }
 }
 
+.contentWrapper {
+  @apply px-6 py-1;
+}
+
 .itemsList {
-  @apply px-6 py-1 divide-y divide-neutral-200;
+  @apply divide-y divide-neutral-200;
 }
 
 .item {
@@ -60,4 +64,28 @@
 
 .backdrop {
   @apply absolute inset-0 w-full h-full bg-black/50;
+}
+
+.activeFiltersWrapper {
+  @apply flex gap-3 items-baseline basis-full relative -my-4 py-4;
+
+  @screen md {
+    @apply overflow-scroll;
+  }
+}
+
+.activeFiltersTitle {
+  @apply whitespace-nowrap;
+}
+
+.activeFiltersItemsList {
+  @apply flex gap-2 max-w-md flex-wrap;
+
+  @screen md {
+    @apply flex-nowrap;
+  }
+}
+
+.activeChip {
+  @apply bg-white;
 }
