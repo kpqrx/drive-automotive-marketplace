@@ -1,16 +1,16 @@
-import styles from './Sidebar.module.css'
-import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
-import clsx from 'clsx'
-import Link from 'next/link'
 import { Button } from '@/components/atoms/Button/Button'
-import { motion } from 'framer-motion'
-import type { Transition, Variants } from 'framer-motion'
 import { Logo } from '@/components/atoms/Logo/Logo'
+import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
+import { Dialog } from '@headlessui/react'
+import clsx from 'clsx'
+import { m } from 'framer-motion'
+import type { Transition, Variants } from 'framer-motion'
+import Link from 'next/link'
 import {
   HiOutlinePlus as PlusIcon,
   HiOutlineUser as UserIcon,
 } from 'react-icons/hi2'
-import { Dialog } from '@headlessui/react'
+import styles from './Sidebar.module.css'
 
 const sidebarVariants: Variants = {
   hidden: {
@@ -68,7 +68,7 @@ export const Sidebar = (props: SidebarProps) => {
       onClose={() => setIsOpen(false)}
     >
       <Dialog.Panel
-        as={motion.nav}
+        as={m.nav}
         variants={sidebarVariants}
         animate="visible"
         initial="hidden"
@@ -102,25 +102,25 @@ export const Sidebar = (props: SidebarProps) => {
           <PlusIcon />
           Dodaj ogłoszenie
         </Button>
-        <motion.ul
+        <m.ul
           className={styles.navigationItems}
           variants={linksWrapperVariants}
           initial="initial"
           animate="animate"
         >
           {items.map(({ label, href }, i) => (
-            <motion.li
+            <m.li
               className={styles.navigationItem}
               key={i}
               variants={linkVariants}
               transition={linkTransition}
             >
               <Link href={href}>{label}</Link>
-            </motion.li>
+            </m.li>
           ))}
-        </motion.ul>
+        </m.ul>
       </Dialog.Panel>
-      <motion.div
+      <m.div
         variants={backdropVariants}
         animate="visible"
         initial="hidden"

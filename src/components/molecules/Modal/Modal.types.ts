@@ -10,5 +10,5 @@ export interface ModalProps extends PropsWithChildren {
   renderBeforeTitle?: ReactNode
   renderAfterTitle?: ReactNode
   isOpen: boolean
-  setIsOpen: Dispatch<SetStateAction<boolean>>
+  setIsOpen: Dispatch<SetStateAction<boolean>> | ((state: boolean) => void)
 }

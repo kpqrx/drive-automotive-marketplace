@@ -1,10 +1,10 @@
 import type { ModalProps } from '@/components/molecules/Modal/Modal.types'
+import { useBreakpoint } from '@/hooks'
 import { Dialog } from '@headlessui/react'
-import styles from './Modal.module.css'
-import { AnimatePresence, motion } from 'framer-motion'
-import type { Variants, Transition, PanInfo } from 'framer-motion'
-import {useBreakpoint} from '@/hooks'
+import type { PanInfo, Transition, Variants } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useCallback } from 'react'
+import styles from './Modal.module.css'
 
 const panelVariantsMobile: Variants = {
   hidden: {
@@ -74,7 +74,7 @@ export const Modal = (props: ModalProps) => {
         >
           <Dialog.Panel
             className={styles.container}
-            as={motion.div}
+            as={m.div}
             variants={isDesktop ? panelVariantsDesktop : panelVariantsMobile}
             animate="visible"
             initial="hidden"
@@ -104,7 +104,7 @@ export const Modal = (props: ModalProps) => {
             </div>
             <div className={styles.contentWrapper}>{children}</div>
           </Dialog.Panel>
-          <motion.div
+          <m.div
             variants={backdropVariants}
             animate="visible"
             initial="hidden"

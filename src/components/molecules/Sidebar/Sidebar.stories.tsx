@@ -1,9 +1,9 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { Sidebar } from './Sidebar'
-import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
+import { AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
+import { Sidebar } from './Sidebar'
 
 const meta: Meta<typeof Sidebar> = {
   title: 'Molecules/Sidebar',

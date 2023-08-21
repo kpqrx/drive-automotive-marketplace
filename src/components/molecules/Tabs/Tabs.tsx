@@ -1,11 +1,11 @@
 'use client'
-import styles from './Tabs.module.css'
 import type { TabsProps } from '@/components/molecules/Tabs/Tabs.types'
-import clsx from 'clsx'
 import { Tab } from '@headlessui/react'
-import { AnimatePresence, motion, wrap } from 'framer-motion'
+import clsx from 'clsx'
 import type { Transition, Variants } from 'framer-motion'
+import { m, AnimatePresence, wrap } from 'framer-motion'
 import { useState } from 'react'
+import styles from './Tabs.module.css'
 
 // TODO: Framer motion left/right slide animation
 
@@ -82,7 +82,7 @@ export const Tabs = (props: TabsProps) => {
             >
               {tabIndex === i && (
                 <Tab.Panel
-                  as={motion.div}
+                  as={m.div}
                   className={styles.content}
                   key={currentIndex}
                   custom={direction}

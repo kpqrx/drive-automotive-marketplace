@@ -3,7 +3,7 @@
 import type { TimedCarouselProps } from '@/components/atoms/TimedCarousel/TimedCarousel.types'
 import { useInterval } from '@/hooks'
 import clsx from 'clsx'
-import { AnimatePresence, motion, wrap } from 'framer-motion'
+import { m, AnimatePresence, wrap } from 'framer-motion'
 import { useState } from 'react'
 import styles from './TimedCarousel.module.css'
 
@@ -29,7 +29,7 @@ export const TimedCarousel = (props: TimedCarouselProps) => {
           key={i}
         >
           {currentIndex === i && (
-            <motion.span
+            <m.span
               className={styles.item}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -37,7 +37,7 @@ export const TimedCarousel = (props: TimedCarouselProps) => {
               custom={currentIndex}
             >
               {item}
-            </motion.span>
+            </m.span>
           )}
         </AnimatePresence>
       ))}

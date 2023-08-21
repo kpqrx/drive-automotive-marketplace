@@ -2,22 +2,22 @@
 
 import {
   Container,
-  Heading,
-  Footer,
-  SubmitButton,
   FieldsWrapper,
+  Footer,
+  Heading,
+  SubmitButton,
 } from '@/components/organisms/SearchForm/SearchForm.children'
-import styles from './SearchForm.module.css'
 import type {
-  SearchFormProps,
   SearchFormContextType,
+  SearchFormProps,
 } from '@/components/organisms/SearchForm/SearchFrom.types'
-import { motion, AnimatePresence } from 'framer-motion'
-import type { Variants, Transition } from 'framer-motion'
+import type { Transition, Variants } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import type { FormEvent } from 'react'
 import { createContext, useCallback, useState } from 'react'
+import styles from './SearchForm.module.css'
 
-const MotionFieldsWrapper = motion(FieldsWrapper)
+const MotionFieldsWrapper = m(FieldsWrapper)
 
 export const SearchFormContext = createContext<SearchFormContextType | null>(
   null,

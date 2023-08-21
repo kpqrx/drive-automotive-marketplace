@@ -1,20 +1,20 @@
+import { Chip } from '@/components'
+import { Modal } from '@/components/molecules/Modal/Modal'
 import type {
   FiltersMenuItemType,
   FiltersMenuProps,
 } from '@/components/organisms/FiltersMenu/FiltersMenu.types'
+import clsx from 'clsx'
+import type { Transition, Variants } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
+import { useCallback, useMemo, useState } from 'react'
 import {
+  HiOutlineChevronLeft as ChevronLeftIcon,
   HiOutlineChevronRight as ChevronRightIcon,
   HiOutlineXMark as CloseIcon,
   HiOutlineTrash as TrashIcon,
-  HiOutlineChevronLeft as ChevronLeftIcon,
 } from 'react-icons/hi2'
 import styles from './FiltersMenu.module.css'
-import { AnimatePresence, motion } from 'framer-motion'
-import type { Variants, Transition } from 'framer-motion'
-import { useState, useMemo } from 'react'
-import clsx from 'clsx'
-import { Modal } from '@/components/molecules/Modal/Modal'
-import { Chip } from '@/components'
 
 const menuTransition: Transition = {
   type: 'spring',
@@ -47,9 +47,9 @@ const MOCK_MENU_ITEMS: FiltersMenuItemType[] = [
   { id: 4, title: 'Rok produkcji', content: 'rok produkcji pojazdu siema' },
   {
     id: 5,
-    title: 'Cena pojazdu',
+    title: 'Cena',
     content: 'cena pojazdu siema',
-    value: '+ 80k PLN',
+    value: '+80k PLN',
   },
 ]
 
@@ -69,6 +69,14 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
     handleMenuSelection(menuId)
     setIsOpen(true)
   }
+
+  const setIsOpenWithMenuReset = useCallback(
+    (state: boolean) => {
+      setIsOpen(state)
+      setSelectedMenu(null)
+    },
+    [setSelectedMenu, setIsOpen],
+  )
 
   const activeItems = useMemo(() => items.filter(({ value }) => value), [items])
 
@@ -92,7 +100,7 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
       )}
       <Modal
         isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        setIsOpen={setIsOpenWithMenuReset}
         title={selectedMenu ? selectedMenu.title : 'Filtrowanie wyników'}
         renderBeforeTitle={
           <button
@@ -116,7 +124,7 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
           initial={false}
         >
           {selectedMenu !== null ? (
-            <motion.div
+            <m.div
               className={styles.contentWrapper}
               key={`filter-menu-${selectedMenu.id}`}
               variants={menuVariants}
@@ -126,9 +134,9 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
               exit={selectedMenu ? 'inRight' : 'inLeft'}
             >
               {selectedMenu.content}
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.ul
+            <m.ul
               className={clsx(styles.contentWrapper, styles.itemsList)}
               key="menus-list"
               variants={menuVariants}
@@ -151,7 +159,7 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
                   </button>
                 </li>
               ))}
-            </motion.ul>
+            </m.ul>
           )}
         </AnimatePresence>
       </Modal>

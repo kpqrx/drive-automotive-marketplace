@@ -5,7 +5,7 @@ import type {
 } from '@/components/molecules/Combobox/Combobox.types'
 import { Combobox as HCombobox } from '@headlessui/react'
 import clsx from 'clsx'
-import { AnimatePresence, motion } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import {
   HiChevronDown as ChevronIcon,
@@ -86,7 +86,7 @@ export const Combobox = (props: ComboboxProps) => {
           <AnimatePresence>
             {open && (
               <HCombobox.Options
-                as={motion.ul}
+                as={m.ul}
                 initial={{ opacity: 0, y: -25 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -25 }}
@@ -95,7 +95,7 @@ export const Combobox = (props: ComboboxProps) => {
               >
                 <AnimatePresence>
                   {value && (
-                    <motion.li
+                    <m.li
                       className={styles.clearButtonWrapper}
                       initial={false}
                       animate={{ height: 'auto' }}
@@ -109,7 +109,7 @@ export const Combobox = (props: ComboboxProps) => {
                         {clearLabel}
                         <CloseIcon className={styles.clearIcon} />
                       </button>
-                    </motion.li>
+                    </m.li>
                   )}
                 </AnimatePresence>
                 {filteredItems.map((item, i) => (

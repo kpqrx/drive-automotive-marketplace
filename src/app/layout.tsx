@@ -1,4 +1,5 @@
 import { Header } from '@/components/organisms/Header/Header'
+import { FramerMotionProvider } from '@/providers'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
@@ -26,8 +27,10 @@ export default function RootLayout({
       className={`${openSans.variable}`}
     >
       <body>
-        <Header />
-        {children}
+        <FramerMotionProvider>
+          <Header />
+          {children}
+        </FramerMotionProvider>
       </body>
     </html>
   )
