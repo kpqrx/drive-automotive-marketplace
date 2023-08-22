@@ -6,6 +6,7 @@ export { Logo } from '@/components/atoms/Logo/Logo'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 
 export { Combobox } from '@/components/molecules/Combobox/Combobox'
+export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'
 export { Input } from '@/components/molecules/Input/Input'
 export { OfferTile } from '@/components/molecules/OfferTile/OfferTile'
 export { Sidebar } from '@/components/molecules/Sidebar/Sidebar'

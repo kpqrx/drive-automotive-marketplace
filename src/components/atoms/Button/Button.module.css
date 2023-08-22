@@ -1,5 +1,5 @@
 .container {
-  @apply transition rounded-sm mx-0.5;
+  @apply transition-all rounded-sm mx-0.5 relative;
 
   & svg {
     @apply stroke-2;

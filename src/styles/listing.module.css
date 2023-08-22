@@ -23,10 +23,14 @@
 }
 
 .actionButton {
-  @apply flex-1;
+  @apply flex-1 basis-[max-content];
 
   @screen lg {
     @apply flex-none;
+  }
+
+  .actionButtonActive {
+    @apply bg-white z-20;
   }
 }
 

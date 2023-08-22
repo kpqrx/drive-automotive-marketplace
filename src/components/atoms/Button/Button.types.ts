@@ -1,6 +1,5 @@
 import type {
   ComponentPropsWithoutRef,
-  HTMLAttributes,
   PropsWithChildren,
 } from 'react'
 

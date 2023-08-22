@@ -1,0 +1,54 @@
+.container {
+  @apply relative;
+}
+
+.button {
+  @apply w-full;
+}
+
+.itemsWrapper {
+  @apply flex flex-col rounded p-1 bg-neutral-100 w-full max-w-xs absolute mx-[auto] my-4 z-20;
+
+  &::before {
+    @apply content-[''] w-4 h-2 bg-neutral-100 absolute -top-2 mx-1 mt-[1px];
+    clip-path: polygon(50% 0, 0% 100%, 100% 100%);
+  }
+
+  @screen md {
+    @apply min-w-[320px];
+  }
+}
+
+.itemsWrapperLeft {
+  @apply left-0;
+
+  &::before {
+    @apply left-0;
+  }
+}
+
+.itemsWrapperRight {
+  @apply right-0;
+
+  &::before {
+    @apply right-0;
+  }
+}
+
+.item {
+  @apply flex items-center justify-between rounded px-6 py-2 w-full text-start transition;
+
+  &:hover,
+  &:focus-visible,
+  &.activeItem {
+    @apply text-white bg-amber-500;
+  }
+
+  svg {
+    @apply stroke-2;
+  }
+}
+
+.backdrop {
+  @apply fixed inset-0 bg-black/50 z-10 cursor-pointer;
+}

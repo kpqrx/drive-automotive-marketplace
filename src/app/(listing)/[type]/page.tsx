@@ -4,6 +4,7 @@ import {
   Button,
   Container,
   FiltersMenu,
+  Dropdown,
   OfferTile,
 } from '@/components'
 import { useState } from 'react'
@@ -43,13 +44,24 @@ export default function Listing() {
         >
           <FilteringIcon /> Filtrowanie
         </Button>
-        <Button
+        <Dropdown
+          items={[
+            { id: 1, label: 'Od najnowszego', callback: () => {} },
+            { id: 2, label: 'Cena od najniższej', callback: () => {} },
+            { id: 3, label: 'Cena od najwyższej', callback: () => {} },
+            { id: 4, label: 'Moc silnika od najniższej', callback: () => {} },
+            { id: 5, label: 'Moc silnika od najwyższej', callback: () => {} },
+          ]}
+          anchorPoint="right"
           className={styles.actionButton}
-          variant="secondary"
-          size="small"
+          buttonProps={{
+            variant: 'secondary',
+            size: 'small',
+          }}
+          activeButtonClassName={styles.actionButtonActive}
         >
           <SortingIcon /> Sortowanie
-        </Button>
+        </Dropdown>
       </Container>
       <Container
         as="ul"

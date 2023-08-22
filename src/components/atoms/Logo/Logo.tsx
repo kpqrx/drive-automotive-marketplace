@@ -27,7 +27,6 @@ const signTransition: Transition = {
   },
   skewX: { delay: 0.35 },
   scaleX: { delay: 0.4 },
-  opacity: { delay: 0 },
 }
 
 const typographyVariants: Variants = {

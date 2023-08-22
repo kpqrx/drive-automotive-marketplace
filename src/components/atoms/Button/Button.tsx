@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styles from './Button.module.css'
 import type { ButtonProps } from '@/components/atoms/Button/Button.types'
 import clsx from 'clsx'
 import Link from 'next/link'
 
-export const Button = (props: ButtonProps) => {
+export const Button = forwardRef<
+  HTMLAnchorElement & HTMLButtonElement,
+  ButtonProps
+>((props, ref) => {
   const {
     variant = 'primary',
     size = 'large',
@@ -27,9 +30,12 @@ export const Button = (props: ButtonProps) => {
         size === 'small' && styles.containerSmall,
       ])}
       data-testid="button"
+      ref={ref}
       {...restProps}
     >
       <span className={styles.contentWrapper}>{children}</span>
     </Component>
   )
-}
+})
+
+Button.displayName = 'Button'
