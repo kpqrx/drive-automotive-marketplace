@@ -2,13 +2,13 @@ import { Header } from '@/components/organisms/Header/Header'
 import { FramerMotionProvider } from '@/providers'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
-import { Open_Sans } from 'next/font/google'
+import { DM_Sans } from 'next/font/google'
 
-const openSans = Open_Sans({
+const dmSans = DM_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
   display: 'swap',
-  variable: '--font-open-sans',
+  variable: '--font-dm-sans',
 })
 
 export const metadata: Metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${openSans.variable}`}
+      className={`${dmSans.variable}`}
     >
       <body>
         <FramerMotionProvider>

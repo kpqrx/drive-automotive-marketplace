@@ -6,10 +6,10 @@ module.exports = {
     './src/styles/**/*.{ts,tsx,module.css}',
   ],
   theme: {
+    fontFamily: {
+      sans: ['var(--font-dm-sans)'],
+    },
     extend: {
-      fontFamily: {
-        sans: ['var(--font-open-sans)'],
-      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
