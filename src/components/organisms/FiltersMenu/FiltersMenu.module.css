@@ -1,19 +1,19 @@
 .container {
-  @apply flex flex-col bg-neutral-100 rounded-t fixed bottom-0 w-full min-h-[80vh] z-10;
+  @apply fixed bottom-0 z-10 flex min-h-[80vh] w-full flex-col rounded-t bg-neutral-100;
 
   box-shadow: 0 50vh 0 25vh theme('colors.neutral.100');
 
   &::before {
-    @apply content-[''] block absolute left-1/2 -translate-x-1/2 -top-1 w-32 h-1 -my-2 bg-white/25 cursor-grab;
+    @apply absolute -top-1 left-1/2 -my-2 block h-1 w-32 -translate-x-1/2 cursor-grab bg-white/25 content-[''];
   }
 }
 
 .titleWrapper {
-  @apply flex items-center gap-2 px-4 bg-white rounded-t;
+  @apply flex items-center gap-2 rounded-t bg-white px-4;
 }
 
 .closeButton {
-  @apply p-6 -ml-4 transition;
+  @apply -ml-4 p-6 transition;
 
   &:hover,
   &:focus-visible {
@@ -21,7 +21,7 @@
   }
 
   svg {
-    @apply w-6 h-6;
+    @apply h-6 w-6;
   }
 }
 
@@ -30,7 +30,7 @@
 }
 
 .iconButton {
-  @apply flex gap-2 items-center bg-neutral-100 text-sm ml-auto px-4 py-1.5 transition rounded-sm;
+  @apply ml-auto flex items-center gap-2 rounded-sm bg-neutral-100 px-4 py-1.5 text-sm transition;
 
   &:hover,
   &:focus-visible {
@@ -47,27 +47,27 @@
 }
 
 .item {
-  @apply flex justify-between items-center w-full gap-4 px-3 py-6;
+  @apply flex w-full items-center justify-between gap-4 px-3 py-6;
 
   svg {
-    @apply w-6 h-6;
+    @apply h-6 w-6;
   }
 }
 
 .itemTitle {
-  @apply flex items-center justify-between flex-1;
+  @apply flex flex-1 items-center justify-between;
 }
 
 .changesIndicator {
-  @apply inline-block w-2 h-2 rounded-full bg-amber-500;
+  @apply inline-block h-2 w-2 rounded-full bg-amber-500;
 }
 
 .backdrop {
-  @apply absolute inset-0 w-full h-full bg-black/50;
+  @apply absolute inset-0 h-full w-full bg-black/50;
 }
 
 .activeFiltersWrapper {
-  @apply flex gap-3 items-baseline basis-full relative -my-4 py-4;
+  @apply relative -my-4 flex basis-full items-baseline gap-3 py-4;
 
   @screen md {
     @apply overflow-scroll;
@@ -79,7 +79,7 @@
 }
 
 .activeFiltersItemsList {
-  @apply flex gap-2 max-w-md flex-wrap;
+  @apply flex max-w-md flex-wrap gap-2;
 
   @screen md {
     @apply flex-nowrap;

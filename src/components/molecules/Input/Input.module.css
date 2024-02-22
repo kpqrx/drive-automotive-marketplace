@@ -1,13 +1,13 @@
 .container {
-  @apply relative flex w-full h-full text-base leading-7;
+  @apply relative flex h-full w-full text-base leading-7;
 }
 
 .label {
-  @apply absolute left-[1.125rem] top-2.5 origin-top-left px-2 bg-white -translate-y-3/4 -translate-x-1 scale-75;
+  @apply absolute left-[1.125rem] top-2.5 origin-top-left -translate-x-1 -translate-y-3/4 scale-75 bg-white px-2;
 }
 
 .input {
-  @apply px-4 py-3 w-full rounded-xl border-2 border-neutral-400 outline-none 
+  @apply w-full rounded-xl border-2 border-neutral-400 px-4 py-3 outline-none 
     focus-visible:ring-2 focus-visible:ring-amber-500/50
-    disabled:bg-neutral-100 disabled:border-neutral-300 disabled:cursor-not-allowed;
+    disabled:cursor-not-allowed disabled:border-neutral-300 disabled:bg-neutral-100;
 }

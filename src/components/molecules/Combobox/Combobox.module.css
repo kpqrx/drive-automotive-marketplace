@@ -3,7 +3,7 @@
 }
 
 .inputWrapper {
-  @apply relative flex w-full h-full text-base leading-7 z-20 rounded;
+  @apply relative z-20 flex h-full w-full rounded text-base leading-7;
 
   &:focus-within {
     @apply ring-2 ring-amber-500/50;
@@ -11,15 +11,15 @@
 }
 
 .label {
-  @apply absolute left-0.5 top-0 origin-top-left appearance-none px-2 bg-white transition translate-x-2 translate-y-1/2;
+  @apply absolute left-0.5 top-0 origin-top-left translate-x-2 translate-y-1/2 appearance-none bg-white px-2 transition;
 }
 
 .input {
-  @apply flex-1 px-4 py-3 border-2 border-r-0 border-neutral-400 outline-none rounded-l
+  @apply flex-1 rounded-l border-2 border-r-0 border-neutral-400 px-4 py-3 outline-none
   placeholder:text-transparent placeholder:transition-colors placeholder:delay-100;
 
   &:disabled {
-    @apply bg-neutral-100 border-neutral-300 cursor-not-allowed;
+    @apply cursor-not-allowed border-neutral-300 bg-neutral-100;
   }
 }
 
@@ -32,11 +32,11 @@
 }
 
 .iconWrapper {
-  @apply flex items-center px-4 py-2 bg-white border-2 border-l-0 border-neutral-400 rounded-r;
+  @apply flex items-center rounded-r border-2 border-l-0 border-neutral-400 bg-white px-4 py-2;
 }
 
 .icon {
-  @apply w-6 h-6 transition;
+  @apply h-6 w-6 transition;
 }
 
 .iconRotated {
@@ -44,15 +44,15 @@
 }
 
 .itemsContainer {
-  @apply flex w-full absolute flex-col py-1.5 mt-2 bg-neutral-100 shadow-md z-10;
+  @apply absolute z-10 mt-2 flex w-full flex-col bg-neutral-100 py-1.5 shadow-md;
 }
 
 .item {
-  @apply block w-full px-4 py-2 cursor-pointer;
+  @apply block w-full cursor-pointer px-4 py-2;
 }
 
 .itemSelected {
-  @apply font-medium bg-amber-500/50;
+  @apply bg-amber-500/50 font-medium;
 }
 
 .itemActive {
@@ -60,7 +60,7 @@
 }
 
 .clearButton {
-  @apply flex justify-between mb-1.5 font-medium text-amber-500 bg-neutral-50 hover:bg-amber-500 hover:text-white;
+  @apply mb-1.5 flex justify-between bg-neutral-50 font-medium text-amber-500 hover:bg-amber-500 hover:text-white;
 }
 
 .clearButtonWrapper {
@@ -68,5 +68,5 @@
 }
 
 .clearIcon {
-  @apply w-6 h-6;
+  @apply h-6 w-6;
 }

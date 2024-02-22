@@ -1,12 +1,12 @@
 .heroWrapper {
-  @apply flex flex-col justify-center h-full font-medium py-6;
+  @apply flex h-full flex-col justify-center py-6 font-medium;
   @screen md {
     min-height: 25vh;
   }
 }
 
 .heroHeadingPrimary {
-  @apply text-4xl leading-snug mb-4;
+  @apply mb-4 text-4xl leading-snug;
 }
 
 .heroHeadingAccent {

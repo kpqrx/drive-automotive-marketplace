@@ -7,10 +7,10 @@
 }
 
 .itemsWrapper {
-  @apply flex flex-col rounded p-1 bg-neutral-100 w-full max-w-xs absolute mx-[auto] my-4 z-20;
+  @apply absolute z-20 mx-[auto] my-4 flex w-full max-w-xs flex-col rounded bg-neutral-100 p-1;
 
   &::before {
-    @apply content-[''] w-4 h-2 bg-neutral-100 absolute -top-2 mx-1 mt-[1px];
+    @apply absolute -top-2 mx-1 mt-[1px] h-2 w-4 bg-neutral-100 content-[''];
     clip-path: polygon(50% 0, 0% 100%, 100% 100%);
   }
 
@@ -36,12 +36,12 @@
 }
 
 .item {
-  @apply flex items-center justify-between rounded px-6 py-2 w-full text-start transition;
+  @apply flex w-full items-center justify-between rounded px-6 py-2 text-start transition;
 
   &:hover,
   &:focus-visible,
   &.activeItem {
-    @apply text-white bg-amber-500;
+    @apply bg-amber-500 text-white;
   }
 
   svg {
@@ -50,5 +50,5 @@
 }
 
 .backdrop {
-  @apply fixed inset-0 bg-black/50 z-10 cursor-pointer;
+  @apply fixed inset-0 z-10 cursor-pointer bg-black/50;
 }

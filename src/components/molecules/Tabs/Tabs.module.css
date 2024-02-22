@@ -3,11 +3,11 @@
 }
 
 .buttonsWrapper {
-  @apply flex w-full bg-neutral-200 rounded-t px-6 overflow-hidden;
+  @apply flex w-full overflow-hidden rounded-t bg-neutral-200 px-6;
 }
 
 .button {
-  @apply flex flex-wrap items-center justify-center transition gap-x-3 gap-y-2 flex-1 px-2 py-3 outline-none ring-amber-500/50 ring-inset -skew-x-6
+  @apply flex flex-1 -skew-x-6 flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 py-3 outline-none ring-inset ring-amber-500/50 transition
   focus-visible:ring-2;
 
   &:not(.buttonActive):hover,
@@ -21,14 +21,14 @@
 }
 
 .buttonActive {
-  @apply text-amber-500 bg-white;
+  @apply bg-white text-amber-500;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125);
   -webkit-text-stroke: 0.045rem currentColor;
   text-stroke: 0.045rem currentColor;
 }
 
 .contentWrapper {
-  @apply grid bg-white py-6 rounded-b border border-t-0 border-neutral-200;
+  @apply grid rounded-b border border-t-0 border-neutral-200 bg-white py-6;
 }
 
 .content {

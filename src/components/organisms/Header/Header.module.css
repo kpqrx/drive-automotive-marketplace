@@ -7,18 +7,18 @@
 }
 
 .wrapper {
-  @apply flex justify-between items-center gap-2 py-2 relative;
+  @apply relative flex items-center justify-between gap-2 py-2;
 }
 
 .buttonsWrapper {
-  @apply flex gap-4 items-center;
+  @apply flex items-center gap-4;
 }
 
 .iconButton {
   @apply flex items-center px-2;
 
   & svg {
-    @apply w-7 h-7 text-neutral-600;
+    @apply h-7 w-7 text-neutral-600;
   }
 }
 

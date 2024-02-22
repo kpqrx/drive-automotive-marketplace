@@ -1,9 +1,9 @@
 .container {
-  @apply flex flex-col rounded bg-white border border-neutral-200 overflow-hidden;
+  @apply flex flex-col overflow-hidden rounded border border-neutral-200 bg-white;
 }
 
 .thumbnail {
-  @apply w-full aspect-video object-cover;
+  @apply aspect-video w-full object-cover;
 }
 
 .wrapper {
@@ -15,11 +15,11 @@
 }
 
 .labelWrapper {
-  @apply inline-flex gap-2 items-center;
+  @apply inline-flex items-center gap-2;
 }
 
 .manufacturerIcon {
-  @apply w-8 h-8;
+  @apply h-8 w-8;
 }
 
 .label {
@@ -27,7 +27,7 @@
 }
 
 .description {
-  @apply text-neutral-500 leading-loose py-2;
+  @apply py-2 leading-loose text-neutral-500;
 }
 
 .price {
@@ -39,7 +39,7 @@
 }
 
 .iconButtonsContainer {
-  @apply flex gap-2 px-5 mt-2 bg-neutral-100;
+  @apply mt-2 flex gap-2 bg-neutral-100 px-5;
 }
 
 .iconButtonWrapper {
@@ -50,6 +50,6 @@
   @apply p-4 text-neutral-800 transition hover:bg-neutral-200;
 
   svg {
-    @apply w-6 h-6;
+    @apply h-6 w-6;
   }
 }

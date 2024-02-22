@@ -7,11 +7,11 @@
 }
 
 .item {
-  @apply text-sm leading-loose ml-4 last:after:hidden;
+  @apply ml-4 text-sm leading-loose last:after:hidden;
 
   &:after {
     content: '';
-    @apply inline-block w-1.5 h-0.5 ml-4 rounded bg-neutral-500 align-middle;
+    @apply ml-4 inline-block h-0.5 w-1.5 rounded bg-neutral-500 align-middle;
   }
 }
 
@@ -20,9 +20,9 @@
 }
 
 .homeItem {
-  @apply after:hidden ml-0 mr-2;
+  @apply ml-0 mr-2 after:hidden;
 
   svg {
-    @apply inline text-amber-500 w-[18px] h-[18px] -mt-1;
+    @apply -mt-1 inline h-[18px] w-[18px] text-amber-500;
   }
 }
