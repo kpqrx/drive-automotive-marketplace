@@ -1,5 +1,5 @@
 .container {
-  @apply transition-all rounded-sm mx-0.5 relative;
+  @apply transition-all mx-0.5 relative;
 
   & svg {
     @apply stroke-2;
@@ -11,7 +11,7 @@
 }
 
 .containerLarge {
-  @apply font-medium px-8 py-3 -skew-x-6;
+  @apply font-medium px-8 py-3 -skew-x-6 rounded;
 
   .contentWrapper {
     @apply skew-x-6;
@@ -19,7 +19,7 @@
 }
 
 .containerSmall {
-  @apply text-sm font-medium px-6 py-2 -skew-x-6;
+  @apply text-sm font-medium px-6 py-2 -skew-x-6 rounded-sm;
 
   .contentWrapper {
     @apply skew-x-6;
