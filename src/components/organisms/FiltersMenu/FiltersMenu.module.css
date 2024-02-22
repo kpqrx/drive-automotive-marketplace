@@ -86,6 +86,6 @@
   }
 }
 
-.activeChip {
+.activeFilterItem {
   @apply bg-white;
 }

@@ -7,7 +7,7 @@ import type {
 import clsx from 'clsx'
 import type { Transition, Variants } from 'framer-motion'
 import { m, AnimatePresence } from 'framer-motion'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   HiOutlineChevronLeft as ChevronLeftIcon,
   HiOutlineChevronRight as ChevronRightIcon,
@@ -65,18 +65,15 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
     setSelectedMenu(menuById ?? null)
   }
 
-  const handleChipClick = (menuId: number | null) => {
+  const handleActiveFilterClick = (menuId: number | null) => {
     handleMenuSelection(menuId)
     setIsOpen(true)
   }
 
-  const setIsOpenWithMenuReset = useCallback(
-    (state: boolean) => {
-      setIsOpen(state)
-      setSelectedMenu(null)
-    },
-    [setSelectedMenu, setIsOpen],
-  )
+  const setIsOpenWithMenuReset = (state: boolean) => {
+    setIsOpen(state)
+    setSelectedMenu(null)
+  }
 
   const activeItems = useMemo(() => items.filter(({ value }) => value), [items])
 
@@ -88,8 +85,8 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
           <ul className={styles.activeFiltersItemsList}>
             {activeItems.map(({ id, title, value }) => (
               <li key={id}>
-                <button onClick={() => handleChipClick(id)}>
-                  <Chip className={styles.activeChip}>
+                <button onClick={() => handleActiveFilterClick(id)}>
+                  <Chip className={styles.activeFilterItem}>
                     {title}: {value}
                   </Chip>
                 </button>
