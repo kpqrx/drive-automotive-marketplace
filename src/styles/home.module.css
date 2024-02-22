@@ -6,20 +6,26 @@
 }
 
 .heroHeadingPrimary {
-  @apply text-4xl leading-loose mb-4;
+  @apply text-4xl leading-snug mb-4;
 }
 
 .heroHeadingAccent {
-  @apply text-amber-500 mx-2;
+  @apply text-amber-500;
 }
 
 .heroHeadingSecondary {
-  @apply text-2xl leading-normal;
+  @apply text-2xl;
 }
 
 .formWrapper {
   @apply grid;
   @screen md {
     grid-template-columns: minmax(auto, 560px) auto;
+  }
+}
+
+.lineBreak {
+  @screen sm {
+    @apply hidden;
   }
 }

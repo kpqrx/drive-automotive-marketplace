@@ -1,6 +1,7 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import type { HTMLMotionProps } from 'framer-motion'
+import type { ReactNode } from 'react'
 
-export interface TimedCarouselProps extends ComponentPropsWithoutRef<'span'> {
+export interface TimedCarouselProps extends HTMLMotionProps<'span'> {
   items: ReactNode[]
   time?: number
 }

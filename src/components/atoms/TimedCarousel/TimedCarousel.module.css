@@ -1,7 +1,7 @@
 .container {
-  @apply inline-grid relative;
+  @apply inline-grid relative transition-[width];
 }
 
 .item {
-  grid-area: 1 / 1 / 1 / 1;
+  @apply row-span-full col-span-full max-w-fit;
 }
