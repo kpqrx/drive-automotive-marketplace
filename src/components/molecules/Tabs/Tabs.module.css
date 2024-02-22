@@ -7,7 +7,7 @@
 }
 
 .button {
-  @apply flex flex-wrap items-center justify-center transition gap-x-3 gap-y-2 flex-1 px-4 py-3 outline-none ring-amber-500/50 ring-inset -skew-x-6
+  @apply flex flex-wrap items-center justify-center transition gap-x-3 gap-y-2 flex-1 px-2 py-3 outline-none ring-amber-500/50 ring-inset -skew-x-6
   focus-visible:ring-2;
 
   &:not(.buttonActive):hover,

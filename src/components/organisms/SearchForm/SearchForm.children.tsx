@@ -86,6 +86,7 @@ export function Footer(props: { className?: string }) {
         ogłoszeń.
       </h2>
       <Button
+        className={styles.advancedSearchButton}
         onClick={handleAdvancedModeToggle}
         variant="secondary"
         size="small"

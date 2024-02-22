@@ -3,7 +3,7 @@
 }
 
 .heading {
-  @apply text-2xl leading-loose mt-2 mb-6;
+  @apply text-2xl leading-snug mt-2 mb-6;
 }
 
 .fieldsWrapper {
@@ -15,7 +15,8 @@
 }
 
 .formFooter {
-  @apply flex items-center justify-between gap-3 my-6;
+  @apply grid items-center gap-3 mt-6 mb-3;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
 
 .foundOffersHeading {
@@ -24,6 +25,10 @@
 
 .foundOffersCount {
   @apply mx-2 font-medium text-amber-500;
+}
+
+.advancedSearchButton {
+  @apply whitespace-nowrap;
 }
 
 .submitButton {

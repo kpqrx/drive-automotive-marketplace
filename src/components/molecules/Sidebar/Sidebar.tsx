@@ -77,7 +77,7 @@ export const Sidebar = (props: SidebarProps) => {
         className={clsx(className, styles.container)}
         {...restProps}
       >
-        <Logo />
+        <Logo initial={false} />
         <div className={styles.userActions}>
           <span className={styles.userActionsIconWrapper}>
             <UserIcon className={styles.userActionsIcon} />
