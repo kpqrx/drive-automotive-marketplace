@@ -3,7 +3,7 @@ import type {
   ComboboxItemType,
   ComboboxProps,
 } from '@/components/molecules/Combobox/Combobox.types'
-import { Combobox as HCombobox } from '@headlessui/react'
+import * as Popover from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import { m, AnimatePresence } from 'framer-motion'
 import { useMemo, useState } from 'react'
@@ -12,6 +12,7 @@ import {
   HiXMark as CloseIcon,
 } from 'react-icons/hi2'
 import styles from './Combobox.module.css'
+import { Chip } from '@/components'
 
 export const Combobox = (props: ComboboxProps) => {
   const {
@@ -19,11 +20,11 @@ export const Combobox = (props: ComboboxProps) => {
     placeholder = '',
     items,
     clearLabel = 'Clear',
+    className = '',
     ...restProps
   } = props
-  const [selectedItem, setSelectedItem] = useState<ComboboxItemType | null>(
-    null,
-  )
+  const [selectedItems, setSelectedItems] = useState<ComboboxItemType[]>([])
+  const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
 
   const filteredItems = useMemo(
@@ -37,104 +38,70 @@ export const Combobox = (props: ComboboxProps) => {
     [query, items],
   )
 
+  const handleSelectItem = (item: ComboboxItemType) => {
+    setSelectedItems((prevItems) => [...prevItems, item])
+  }
+
   return (
-    <HCombobox
-      value={selectedItem}
-      onChange={setSelectedItem}
-      nullable
-      data-testid="combobox"
-      {...restProps}
+    <Popover.Root
+      open={isOpen}
+      onOpenChange={setIsOpen}
     >
-      {({ open, value }) => (
-        <div className={styles.container}>
-          <HCombobox.Button
-            as="div"
-            className={styles.inputWrapper}
-            data-testid="combobox-trigger"
+      <div
+        className={clsx(className, styles.container)}
+        {...restProps}
+      >
+        <Popover.Trigger className={styles.trigger}>
+          <span
+            className={clsx(
+              styles.label,
+              (isOpen || selectedItems.length > 0) && styles.labelFloating,
+            )}
           >
-            <HCombobox.Input
-              className={clsx(
-                styles.input,
-                (open || value) && styles.inputPlaceholderVisible,
-                'peer',
-              )}
-              onChange={(event) => setQuery(event.target.value)}
-              displayValue={(item: ComboboxItemType) => item?.label}
-              placeholder={placeholder}
-              data-testid="combobox-input"
-            />
-            <HCombobox.Label
-              className={clsx(
-                styles.label,
-                (open || value) && styles.labelFloating,
-                'peer-disabled:mix-blend-darken',
-              )}
+            {label}
+          </span>
+          <ul className={styles.selectedItemsList}>
+            {selectedItems.map((item) => (
+              <li key={item.value}>
+                <Chip>{item.label}</Chip>
+              </li>
+            ))}
+          </ul>
+        </Popover.Trigger>
+        <AnimatePresence>
+          {isOpen && (
+            <Popover.Content
+              asChild
+              forceMount
             >
-              {label}
-            </HCombobox.Label>
-            <span
-              className={clsx(
-                styles.iconWrapper,
-                'peer-disabled:bg-neutral-100 peer-disabled:border-neutral-300 peer-disabled:cursor-not-allowed',
-              )}
-            >
-              <ChevronIcon
-                className={clsx(styles.icon, [open && styles.iconRotated])}
-              />
-            </span>
-          </HCombobox.Button>
-          <AnimatePresence>
-            {open && (
-              <HCombobox.Options
-                as={m.ul}
+              <m.div
+                className={styles.itemsContainer}
                 initial={{ opacity: 0, y: -25 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -25 }}
-                className={styles.itemsContainer}
-                static
               >
-                <AnimatePresence>
-                  {value && (
-                    <m.li
-                      className={styles.clearButtonWrapper}
-                      initial={false}
-                      animate={{ height: 'auto' }}
-                      exit={{ height: 0 }}
+                <input
+                  placeholder={placeholder}
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                />
+                <ul>
+                  {filteredItems.map((item) => (
+                    <li
+                      className={styles.item}
+                      key={item.value}
                     >
-                      <button
-                        className={clsx(styles.item, styles.clearButton)}
-                        onClick={() => setSelectedItem(null)}
-                        data-testid="combobox-clear-button"
-                      >
-                        {clearLabel}
-                        <CloseIcon className={styles.clearIcon} />
-                      </button>
-                    </m.li>
-                  )}
-                </AnimatePresence>
-                {filteredItems.map((item, i) => (
-                  <HCombobox.Option
-                    key={i}
-                    value={item}
-                    data-testid="combobox-option"
-                  >
-                    {({ selected, active }) => (
-                      <span
-                        className={clsx(styles.item, [
-                          selected && styles.itemSelected,
-                          active && styles.itemActive,
-                        ])}
-                      >
+                      <button onClick={() => handleSelectItem(item)}>
                         {item.label}
-                      </span>
-                    )}
-                  </HCombobox.Option>
-                ))}
-              </HCombobox.Options>
-            )}
-          </AnimatePresence>
-        </div>
-      )}
-    </HCombobox>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </m.div>
+            </Popover.Content>
+          )}
+        </AnimatePresence>
+      </div>
+    </Popover.Root>
   )
 }

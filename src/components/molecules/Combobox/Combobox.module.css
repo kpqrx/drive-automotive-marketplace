@@ -11,7 +11,7 @@
 }
 
 .label {
-  @apply absolute left-0.5 top-0 origin-top-left translate-x-2 translate-y-1/2 appearance-none bg-white px-2 transition;
+  @apply absolute top-1/2 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition;
 }
 
 .input {
@@ -28,7 +28,7 @@
 }
 
 .labelFloating {
-  @apply -translate-y-[calc(75%_-_8px)] translate-x-2 scale-75;
+  @apply -translate-y-8 scale-75 bg-white;
 }
 
 .iconWrapper {
@@ -44,7 +44,7 @@
 }
 
 .itemsContainer {
-  @apply absolute z-10 mt-2 flex w-full flex-col bg-neutral-100 py-1.5 shadow-md;
+  @apply flex w-[var(--radix-popover-trigger-width)] flex-col bg-neutral-100 py-1.5 shadow-md;
 }
 
 .item {
@@ -69,4 +69,16 @@
 
 .clearIcon {
   @apply h-6 w-6;
+}
+
+.trigger {
+  @apply relative min-h-12 w-full rounded border-2 border-neutral-400 px-3 py-1 text-left outline-none;
+}
+
+.selectedItemsList {
+  @apply flex gap-2;
+}
+
+.selectedItem {
+  @apply block;
 }
