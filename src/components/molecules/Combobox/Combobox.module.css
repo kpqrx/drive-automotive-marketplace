@@ -2,16 +2,22 @@
   @apply relative w-full;
 }
 
-.inputWrapper {
-  @apply relative z-20 flex h-full w-full rounded text-base leading-7;
+.trigger {
+  @apply relative z-10 flex max-h-12 w-full items-center rounded border border-neutral-400 bg-white px-3 py-1 text-left outline-none transition;
 
-  &:focus-within {
-    @apply ring-2 ring-amber-500/50;
+  &.triggerActive,
+  &:hover,
+  &:focus-visible {
+    @apply border-neutral-600 ring ring-orange-200;
   }
 }
 
 .label {
   @apply absolute top-1/2 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition;
+}
+
+.labelFloating {
+  @apply -translate-y-8 translate-x-0.5 scale-75 bg-white;
 }
 
 .input {
@@ -23,52 +29,67 @@
   }
 }
 
-.inputPlaceholderVisible {
-  @apply placeholder:text-neutral-400;
+.chevronIconWrapper {
+  @apply relative order-last -mr-3 px-3 py-4;
 }
 
-.labelFloating {
-  @apply -translate-y-8 scale-75 bg-white;
-}
-
-.iconWrapper {
-  @apply flex items-center rounded-r border-2 border-l-0 border-neutral-400 bg-white px-4 py-2;
-}
-
-.icon {
-  @apply h-6 w-6 transition;
-}
-
-.iconRotated {
-  @apply rotate-180;
+.popoverContainer {
+  @apply mt-2 flex w-[var(--radix-popover-trigger-width)] flex-col space-y-2 overflow-hidden rounded border border-neutral-200 bg-white p-2 pb-0 shadow-sm;
 }
 
 .itemsContainer {
-  @apply flex w-[var(--radix-popover-trigger-width)] flex-col bg-neutral-100 py-1.5 shadow-md;
+  @apply flex flex-col space-y-1 overflow-y-scroll pb-2;
+  height: calc(4.5 * (theme(spacing.11) + theme(spacing.1)));
 }
 
 .item {
-  @apply block w-full cursor-pointer px-4 py-2;
+  @apply relative h-auto min-h-11 w-full rounded pl-10 pr-2 text-start text-sm leading-5;
+
+  &:hover,
+  &:focus-visible {
+    @apply bg-orange-100 text-orange-600 outline-none;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-inset ring-orange-300;
+  }
 }
 
-.itemSelected {
-  @apply bg-amber-500/50 font-medium;
+.selectedItemsList {
+  @apply relative mt-3 flex h-full flex-1 gap-2 overflow-x-scroll pb-3;
 }
 
-.itemActive {
-  @apply bg-amber-500 text-white;
+.selectedItem {
+  @apply bg-orange-50 text-orange-500;
 }
 
-.clearButton {
-  @apply mb-1.5 flex justify-between bg-neutral-50 font-medium text-amber-500 hover:bg-amber-500 hover:text-white;
+.searchInputContainer {
+  @apply relative;
 }
 
-.clearButtonWrapper {
-  @apply overflow-hidden;
+.searchInputLabel {
+  @apply sr-only;
 }
 
-.clearIcon {
-  @apply h-6 w-6;
+.searchInputIcon {
+  @apply absolute top-0 ml-3 mr-2 h-full w-4 text-neutral-600;
+}
+
+.searchInput {
+  @apply size-full min-h-10 rounded bg-neutral-50 pl-10 pr-3 text-sm text-neutral-600 placeholder:text-current;
+
+  &:hover,
+  &:focus-visible {
+    @apply bg-neutral-100 outline-none;
+  }
+}
+
+.itemCheckIconWrapper {
+  @apply absolute inset-0 mx-3 my-3.5;
+}
+
+.itemCheckIcon {
+  @apply size-4 stroke-1;
 }
 
 .trigger {

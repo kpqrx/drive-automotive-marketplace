@@ -6,9 +6,9 @@ export type ComboboxItemType = {
 }
 
 export interface ComboboxProps extends ComponentProps<'div'> {
+  name?: string
   label: string
   placeholder?: string
   items: ComboboxItemType[]
   disabled?: boolean
-  clearLabel?: string
 }
