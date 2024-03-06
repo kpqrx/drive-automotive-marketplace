@@ -29,7 +29,7 @@
   @apply text-lg;
 }
 
-.iconButton {
+.clearButton {
   @apply ml-auto flex items-center gap-2 rounded-sm bg-neutral-100 px-4 py-1.5 text-sm transition;
 
   &:hover,

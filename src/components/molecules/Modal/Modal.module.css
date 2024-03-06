@@ -1,15 +1,16 @@
 .container {
-  --box-shadow: 0 50vh 0 25vh theme('colors.neutral.100');
+  --box-shadow-position: 0 50vh;
 
-  @apply fixed bottom-0 z-10 flex min-h-[80vh] w-full flex-col rounded-t bg-neutral-100;
-  box-shadow: var(--box-shadow);
+  @apply fixed bottom-0 z-10 flex min-h-[80vh]
+    w-full flex-col rounded-t bg-neutral-100;
+  box-shadow: var(--box-shadow-position) 0 25vh theme('colors.neutral.100');
 
   &::before {
     @apply absolute -top-1 left-1/2 -my-2 block h-1 w-32 -translate-x-1/2 rounded-sm bg-white/50 content-[''];
   }
 
   @screen lg {
-    --box-shadow: 50vw 0 0 25vw theme('colors.neutral.100');
+    --box-shadow-position: 50vw 0;
 
     @apply right-0 min-h-screen max-w-xl;
 
@@ -23,8 +24,9 @@
   }
 }
 
-.titleWrapper {
-  @apply flex items-center gap-2 rounded-t bg-white px-4;
+.headerWrapper {
+  @apply flex h-16 items-center gap-2 bg-white px-4;
+  box-shadow: 50vw 0 0 0 theme('colors.white');
 }
 
 .title {
@@ -37,4 +39,17 @@
 
 .backdrop {
   @apply absolute inset-0 h-full w-full bg-black/50;
+}
+
+.contextButton {
+  @apply -ml-4 flex size-16 items-center justify-center transition;
+
+  &:hover,
+  &:focus-visible {
+    @apply bg-neutral-200;
+  }
+
+  svg {
+    @apply h-6 w-6;
+  }
 }

@@ -6,9 +6,10 @@ import type {
 } from 'react'
 
 export interface ModalProps extends PropsWithChildren {
-  title: string
-  renderBeforeTitle?: ReactNode
-  renderAfterTitle?: ReactNode
+  contextButtonLabel?: ReactNode
+  contextButtonCallback?: (...args: any) => void
+  label: string
+  headerSlot?: ReactNode
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>> | ((state: boolean) => void)
 }

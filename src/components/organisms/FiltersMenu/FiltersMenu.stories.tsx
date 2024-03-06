@@ -22,21 +22,18 @@ export const Default: StoryFn<typeof FiltersMenu> = (
 ) => {
   const [state, setState] = useState(false)
   return (
-    <AnimatePresence>
-      {state && (
-        <FiltersMenu
-          {...props}
-          isOpen={state}
-          setIsOpen={setState}
-          // to fix storybook related error
-          key={crypto.randomUUID()}
-        />
-      )}
-      <main>
-        <button onClick={() => setState((prevState) => !prevState)}>
-          Toggle FiltersMenu
-        </button>
-      </main>
-    </AnimatePresence>
+    <main className="min-h-screen">
+      <button
+        className="mb-4"
+        onClick={() => setState((prevState) => !prevState)}
+      >
+        Toggle FiltersMenu
+      </button>
+      <FiltersMenu
+        {...props}
+        isOpen={state}
+        setIsOpen={setState}
+      />
+    </main>
   )
 }

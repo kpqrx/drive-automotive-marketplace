@@ -17,23 +17,17 @@ export default meta
 export const Default: StoryFn<typeof Modal> = () => {
   const [state, setState] = useState(false)
   return (
-    <main>
+    <main className="min-h-screen">
       <button onClick={() => setState((prevState) => !prevState)}>
         Toggle Modal
       </button>
       <Modal
         isOpen={state}
         setIsOpen={setState}
-        title="Sample Modal Title"
-        renderBeforeTitle={<span>Yooo 👏🏻</span>}
-        renderAfterTitle={
-          <button onClick={() => setState(false)}>Close me duuude</button>
-        }
+        label="Header title"
+        headerSlot={<span className="ml-auto">Yooo 👏🏻</span>}
       >
         <p>I am a modal content</p>
-        <button onClick={() => setState(false)}>
-          Close me if you are brave enough
-        </button>
       </Modal>
     </main>
   )

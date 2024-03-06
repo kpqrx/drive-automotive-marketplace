@@ -98,19 +98,13 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
       <Modal
         isOpen={isOpen}
         setIsOpen={setIsOpenWithMenuReset}
-        title={selectedMenu ? selectedMenu.title : 'Filtrowanie wyników'}
-        renderBeforeTitle={
-          <button
-            className={styles.closeButton}
-            onClick={() =>
-              selectedMenu ? handleMenuSelection(null) : setIsOpen(false)
-            }
-          >
-            {selectedMenu ? <ChevronLeftIcon /> : <CloseIcon />}
-          </button>
+        label={selectedMenu ? selectedMenu.title : 'Filtrowanie wyników'}
+        contextButtonLabel={selectedMenu ? <ChevronLeftIcon /> : <CloseIcon />}
+        contextButtonCallback={() =>
+          selectedMenu ? handleMenuSelection(null) : setIsOpen(false)
         }
-        renderAfterTitle={
-          <button className={styles.iconButton}>
+        headerSlot={
+          <button className={styles.clearButton}>
             <TrashIcon /> Wyczyść
           </button>
         }
