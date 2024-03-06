@@ -1,7 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
 import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
-import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { Sidebar } from './Sidebar'
 
@@ -25,21 +24,15 @@ export default meta
 export const Default: StoryFn<typeof Sidebar> = (props: SidebarProps) => {
   const [state, setState] = useState(false)
   return (
-    <AnimatePresence>
-      {state && (
-        <Sidebar
-          {...props}
-          isOpen={state}
-          setIsOpen={setState}
-          // to fix storybook related error
-          key={crypto.randomUUID()}
-        />
-      )}
-      <main>
-        <button onClick={() => setState((prevState) => !prevState)}>
-          Toggle sidebar
-        </button>
-      </main>
-    </AnimatePresence>
+    <main className="min-h-screen">
+      <button onClick={() => setState((prevState) => !prevState)}>
+        Toggle sidebar
+      </button>
+      <Sidebar
+        {...props}
+        isOpen={state}
+        setIsOpen={setState}
+      />
+    </main>
   )
 }

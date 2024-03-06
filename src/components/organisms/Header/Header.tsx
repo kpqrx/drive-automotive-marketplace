@@ -58,16 +58,11 @@ export const Header = (props: HeaderProps) => {
           </ul>
         </Container>
       </header>
-
-      <AnimatePresence>
-        {isSidebarVisible && (
-          <Sidebar
-            items={sidebarItems}
-            isOpen={isSidebarVisible}
-            setIsOpen={setSidebarVisible}
-          />
-        )}
-      </AnimatePresence>
+      <Sidebar
+        items={sidebarItems}
+        isOpen={isSidebarVisible}
+        setIsOpen={setSidebarVisible}
+      />
     </>
   )
 }
