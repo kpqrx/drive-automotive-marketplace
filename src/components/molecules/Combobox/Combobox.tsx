@@ -12,6 +12,8 @@ import {
 import styles from './Combobox.module.css'
 import { Chip } from '@/components'
 
+// TODO: Use Radix's `ScrollArea` primitive for items and selected items
+
 export const Combobox = (props: ComboboxProps) => {
   const {
     label,
