@@ -89,17 +89,28 @@ export const Combobox = (props: ComboboxProps) => {
           >
             <ChevronIcon />
           </m.div>
-          <ul className={styles.selectedItemsList}>
-            {selectedValues.map((value) => {
-              const item = items.find((item) => item.value === value)
+          <m.ul
+            layout
+            className={styles.selectedItemsList}
+          >
+            <AnimatePresence mode="popLayout">
+              {selectedValues.map((value, index) => {
+                const item = items.find((item) => item.value === value)
 
-              return item ? (
-                <li key={item.value}>
-                  <Chip>{item.label}</Chip>
-                </li>
-              ) : null
-            })}
-          </ul>
+                return item ? (
+                  <m.li
+                    layout
+                    key={item.value}
+                    initial={{ y: 12, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 12, opacity: 0 }}
+                  >
+                    <Chip>{item.label}</Chip>
+                  </m.li>
+                ) : null
+              })}
+            </AnimatePresence>
+          </m.ul>
         </Popover.Trigger>
         <AnimatePresence>
           {isOpen && (
