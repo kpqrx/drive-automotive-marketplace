@@ -6,26 +6,23 @@ const meta: Meta<typeof Dropdown> = {
   title: 'Molecules/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
+  parameters: { layout: 'centered' },
   args: {
-    children: 'Click me',
+    children: 'Trigger dropdown',
     items: [
       {
-        id: 1,
         label: 'First item',
         callback: () => alert("You've clicked first item"),
       },
       {
-        id: 2,
         label: 'Secord item',
         callback: () => alert("You've clicked second item"),
       },
       {
-        id: 3,
         label: 'Third item',
         callback: () => alert("You've clicked third item"),
       },
       {
-        id: 4,
         label: 'Fourth item',
         callback: () => alert("You've clicked fourth item"),
       },
@@ -37,13 +34,16 @@ export default meta
 type Story = StoryObj<typeof Dropdown>
 
 export const Default: Story = {}
-export const LeftAnchorPoint: Story = {
+
+export const EndAlignment: Story = {
   args: {
-    anchorPoint: 'left',
+    align: 'end',
   },
 }
-export const RightAnchorPoint: Story = {
+
+export const CustomTrigger: Story = {
   args: {
-    anchorPoint: 'right',
+    variant: 'secondary',
+    size: 'small',
   },
 }

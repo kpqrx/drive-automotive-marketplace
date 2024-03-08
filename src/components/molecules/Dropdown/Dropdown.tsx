@@ -1,12 +1,14 @@
 import { Button } from '@/components'
 import styles from './Dropdown.module.css'
 import type { DropdownProps } from '@/components/molecules/Dropdown/Dropdown.types'
-import { Menu as MenuPrimitive } from '@headlessui/react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { useState } from 'react'
 import { HiOutlineCheck as CheckIcon } from 'react-icons/hi2'
+import * as Popover from '@radix-ui/react-popover'
+
+// TODO: Adjust styles and add check icon
 
 const itemsVariants: Variants = {
   hidden: {
@@ -32,87 +34,140 @@ export const Dropdown = (props: DropdownProps) => {
   const {
     children,
     items,
-    defaultItemId = null,
-    anchorPoint = 'left',
+    defaultItem = 0,
+    align = 'start',
     className = '',
-    buttonProps = {},
-    activeButtonClassName = '',
     ...restProps
   } = props
-  const { className: buttonClassName = '' } = buttonProps
 
-  const [activeItemId, setActiveItemId] = useState(defaultItemId)
+  const [isOpen, setIsOpen] = useState(false)
+  const [activeItemIndex, setActiveItemIndex] = useState(defaultItem)
 
-  const handleItemCallback = (id: any, callback: Function) => {
-    setActiveItemId(id)
+  const handleItemCallback = (index: number, callback: Function) => {
+    setActiveItemIndex(index)
     callback()
   }
 
   return (
-    <MenuPrimitive
-      className={clsx(className, styles.container)}
-      as="div"
-      {...restProps}
+    <Popover.Root
+      open={isOpen}
+      onOpenChange={setIsOpen}
     >
-      {({ open }) => (
-        <>
-          <MenuPrimitive.Button
-            as={Button}
-            className={clsx(
-              buttonClassName,
-              open && activeButtonClassName,
-              styles.button,
-            )}
-            {...buttonProps}
-          >
-            {children}
-          </MenuPrimitive.Button>
-          <AnimatePresence>
-            {open && (
-              <>
-                <MenuPrimitive.Items
-                  className={clsx(
-                    styles.itemsWrapper,
-                    anchorPoint === 'left' && styles.itemsWrapperLeft,
-                    anchorPoint === 'right' && styles.itemsWrapperRight,
-                  )}
-                  as={m.ul}
+      <Popover.Trigger asChild>
+        <Button
+          className={className}
+          {...restProps}
+        >
+          {children}
+        </Button>
+      </Popover.Trigger>
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <Popover.Portal forceMount>
+              <Popover.Content
+                asChild
+                align={align}
+              >
+                <m.ul
+                  className={styles.itemsWrapper}
                   variants={itemsVariants}
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
                 >
-                  {items.map(({ id, label, callback }) => (
-                    <MenuPrimitive.Item
-                      as="li"
-                      key={id}
-                    >
-                      {({ active }) => (
-                        <button
-                          className={clsx(
-                            styles.item,
-                            active && styles.activeItem,
-                          )}
-                          onClick={() => handleItemCallback(id, callback)}
-                        >
-                          {label}&nbsp;{id === activeItemId && <CheckIcon />}
-                        </button>
-                      )}
-                    </MenuPrimitive.Item>
+                  <Popover.Arrow className={styles.itemsWrapperArrow} />
+                  {items.map(({ label, callback }, index) => (
+                    <li key={`${label}-${index}`}>
+                      <button
+                        className={clsx(
+                          styles.item,
+                          index === activeItemIndex && styles.activeItem,
+                        )}
+                        onClick={() => handleItemCallback(index, callback)}
+                      >
+                        {label}
+                      </button>
+                    </li>
                   ))}
-                </MenuPrimitive.Items>
-                <m.div
-                  variants={backdropVariants}
-                  animate="visible"
-                  initial="hidden"
-                  exit="hidden"
-                  className={styles.backdrop}
-                />
-              </>
-            )}
-          </AnimatePresence>
-        </>
-      )}
-    </MenuPrimitive>
+                </m.ul>
+              </Popover.Content>
+            </Popover.Portal>
+            <m.div
+              variants={backdropVariants}
+              animate="visible"
+              initial="hidden"
+              exit="hidden"
+              className={styles.backdrop}
+            />
+          </>
+        )}
+      </AnimatePresence>
+    </Popover.Root>
+    // <MenuPrimitive
+    //   className={clsx(className, styles.container)}
+    //   as="div"
+    //   {...restProps}
+    // >
+    //   {({ open }) => (
+    //     <>
+    //       <MenuPrimitive.Button
+    //         as={Button}
+    //         className={clsx(
+    //           buttonClassName,
+    //           open && activeButtonClassName,
+    //           styles.button,
+    //         )}
+    //         {...buttonProps}
+    //       >
+    //         {children}
+    //       </MenuPrimitive.Button>
+    //       <AnimatePresence>
+    //         {open && (
+    //           <>
+    //             <MenuPrimitive.Items
+    //               className={clsx(
+    //                 styles.itemsWrapper,
+    //                 anchorPoint === 'left' && styles.itemsWrapperLeft,
+    //                 anchorPoint === 'right' && styles.itemsWrapperRight,
+    //               )}
+    //               as={m.ul}
+    //               variants={itemsVariants}
+    //               initial="hidden"
+    //               animate="visible"
+    //               exit="hidden"
+    //             >
+    //               {items.map(({ id, label, callback }) => (
+    //                 <MenuPrimitive.Item
+    //                   as="li"
+    //                   key={id}
+    //                 >
+    //                   {({ active }) => (
+    //                     <button
+    //                       className={clsx(
+    //                         styles.item,
+    //                         active && styles.activeItem,
+    //                       )}
+    //                       onClick={() => handleItemCallback(id, callback)}
+    //                     >
+    //                       {label}&nbsp;{id === activeItemId && <CheckIcon />}
+    //                     </button>
+    //                   )}
+    //                 </MenuPrimitive.Item>
+    //               ))}
+    //             </MenuPrimitive.Items>
+    //             <m.div
+    //               variants={backdropVariants}
+    //               animate="visible"
+    //               initial="hidden"
+    //               exit="hidden"
+    //               className={styles.backdrop}
+    //             />
+    //           </>
+    //         )}
+    //       </AnimatePresence>
+    //     </>
+    //   )}
+    // </MenuPrimitive>
   )
 }
