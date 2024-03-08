@@ -1,11 +1,14 @@
 'use client'
-import type { TabsProps } from '@/components/molecules/Tabs/Tabs.types'
-import { Tab } from '@headlessui/react'
+import {
+  TabsDirection,
+  type TabsProps,
+} from '@/components/molecules/Tabs/Tabs.types'
 import clsx from 'clsx'
 import type { Transition, Variants } from 'framer-motion'
-import { m, AnimatePresence, wrap } from 'framer-motion'
-import { useState } from 'react'
+import { m, AnimatePresence } from 'framer-motion'
+import { useMemo, useState } from 'react'
 import styles from './Tabs.module.css'
+import * as TabsPrimitive from '@radix-ui/react-tabs'
 
 // TODO: Framer motion left/right slide animation
 
@@ -35,71 +38,85 @@ const transition: Transition = {
 }
 
 export const Tabs = (props: TabsProps) => {
-  const { items, defaultActive = 0, ...restProps } = props
-  const [[currentIndex, direction], setState] = useState([0, 0])
+  const { items, defaultItem = 0, ...restProps } = props
 
-  const handleTabChange = (newTabIndex: number) => {
-    const newDirection = newTabIndex > tabIndex ? 1 : -1
+  const itemsWithValues = useMemo(() => {
+    return items.map((item, index) => ({
+      ...item,
+      value: `${item.label}-${index}`,
+    }))
+  }, [items])
 
-    setState([newTabIndex, newDirection])
+  const [currentValue, setCurrentValue] = useState(
+    itemsWithValues[defaultItem].value,
+  )
+  const [direction, setDirection] = useState(TabsDirection.Right)
+
+  const handleValueChange = (newValue: string) => {
+    const newItemIndex = itemsWithValues.findIndex(
+      (item) => item.value === newValue,
+    )
+    const currentItemIndex = itemsWithValues.findIndex(
+      (item) => item.value === currentValue,
+    )
+    const newDirection =
+      newItemIndex > currentItemIndex ? TabsDirection.Right : TabsDirection.Left
+
+    setCurrentValue(newValue)
+    setDirection(newDirection)
   }
 
-  const tabIndex = wrap(0, items.length, currentIndex)
-
   return (
-    <div
+    <TabsPrimitive.Root
       className={styles.container}
+      value={currentValue}
+      onValueChange={(value) => handleValueChange(value)}
       {...restProps}
     >
-      <Tab.Group
-        defaultIndex={defaultActive}
-        selectedIndex={tabIndex}
-        onChange={(index) => handleTabChange(index)}
-      >
-        <Tab.List className={styles.buttonsWrapper}>
-          {({ selectedIndex }) => (
-            <>
-              {items.map(({ label }, index) => (
-                <Tab
-                  key={index}
-                  className={clsx(styles.button, [
-                    selectedIndex === index && styles.buttonActive,
-                  ])}
-                >
-                  <span className={styles.buttonContentWrapper}>{label}</span>
-                </Tab>
-              ))}
-            </>
-          )}
-        </Tab.List>
-        <Tab.Panels className={styles.contentWrapper}>
-          {items.map(({ content }, i) => (
-            <AnimatePresence
-              initial={false}
-              custom={direction}
-              mode="wait"
-              key={i}
-            >
-              {tabIndex === i && (
-                <Tab.Panel
-                  as={m.div}
+      <TabsPrimitive.List className={styles.buttonsWrapper}>
+        {itemsWithValues.map(({ label, value }) => (
+          <TabsPrimitive.Trigger
+            key={value}
+            value={value}
+            className={clsx(styles.button, [
+              currentValue === value && styles.buttonActive,
+            ])}
+          >
+            <span className={styles.buttonContentWrapper}>{label}</span>
+          </TabsPrimitive.Trigger>
+        ))}
+      </TabsPrimitive.List>
+      <div className={styles.contentWrapper}>
+        {itemsWithValues.map(({ content, value }) => (
+          <AnimatePresence
+            initial={false}
+            custom={direction}
+            mode="wait"
+            key={value}
+          >
+            {currentValue === value && (
+              <TabsPrimitive.Content
+                value={value}
+                asChild
+                forceMount
+              >
+                <m.div
                   className={styles.content}
-                  key={currentIndex}
+                  key={value}
                   custom={direction}
                   variants={variants}
                   transition={transition}
                   animate="center"
                   initial="enter"
                   exit="exit"
-                  static
                 >
                   {content}
-                </Tab.Panel>
-              )}
-            </AnimatePresence>
-          ))}
-        </Tab.Panels>
-      </Tab.Group>
-    </div>
+                </m.div>
+              </TabsPrimitive.Content>
+            )}
+          </AnimatePresence>
+        ))}
+      </div>
+    </TabsPrimitive.Root>
   )
 }
