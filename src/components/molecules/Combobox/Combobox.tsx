@@ -75,6 +75,14 @@ export const Combobox = (props: ComboboxProps) => {
           >
             {label}
           </span>
+          <span
+            className={clsx(
+              styles.placeholder,
+              isOpen && selectedValues.length === 0 && styles.placeholderShown,
+            )}
+          >
+            {placeholder}
+          </span>
           <m.div
             className={styles.chevronIconWrapper}
             animate={{ rotate: isOpen ? '180deg' : '0deg' }}

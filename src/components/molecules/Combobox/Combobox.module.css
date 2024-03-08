@@ -17,12 +17,19 @@
 }
 
 .labelFloating {
-  @apply -translate-y-8 translate-x-0.5 scale-75 bg-white;
+  @apply -translate-y-8 translate-x-0.5 scale-75 bg-gradient-to-t from-white from-65% to-0%;
+}
+
+.placeholder {
+  @apply absolute text-transparent transition-colors;
+
+  &.placeholderShown {
+    @apply text-neutral-400;
+  }
 }
 
 .input {
-  @apply flex-1 rounded-l border-2 border-r-0 border-neutral-400 px-4 py-3 outline-none
-  placeholder:text-transparent placeholder:transition-colors placeholder:delay-100;
+  @apply flex-1 rounded-l border-2 border-r-0 border-neutral-400 px-4 py-3 outline-none;
 
   &:disabled {
     @apply cursor-not-allowed border-neutral-300 bg-neutral-100;
