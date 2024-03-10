@@ -29,6 +29,58 @@ const meta: Meta<typeof Combobox> = {
         label: 'Pumpkin 🎃',
         value: 'pumpkin',
       },
+      {
+        label: 'Cucumber 🥒',
+        value: 'cucumber',
+      },
+      {
+        label: 'Carrot 🥕',
+        value: 'carrot',
+      },
+      {
+        label: 'Broccoli 🥦',
+        value: 'broccoli',
+      },
+      {
+        label: 'Garlic 🧄',
+        value: 'garlic',
+      },
+      {
+        label: 'Potato 🥔',
+        value: 'potato',
+      },
+      {
+        label: 'Eggplant 🍆',
+        value: 'eggplant',
+      },
+      {
+        label: 'Pepper 🫑',
+        value: 'pepper',
+      },
+      {
+        label: 'Corn 🌽',
+        value: 'corn',
+      },
+      {
+        label: 'Mushroom 🍄',
+        value: 'mushroom',
+      },
+      {
+        label: 'Bell pepper 🫒',
+        value: 'bell-pepper',
+      },
+      {
+        label: 'Zucchini 🥬',
+        value: 'zucchini',
+      },
+      {
+        label: 'Beet 🫒',
+        value: 'beet',
+      },
+      {
+        label: 'Radish 🫒',
+        value: 'radish',
+      },
     ],
   },
 }

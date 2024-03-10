@@ -49,8 +49,12 @@
 }
 
 .itemsContainer {
-  @apply flex flex-col space-y-1 overflow-y-scroll pb-2;
+  @apply flex flex-col space-y-1 pb-2;
   height: calc(4.5 * (theme(spacing.11) + theme(spacing.1)));
+
+  &:after {
+    @apply block min-h-2 w-full content-[''];
+  }
 }
 
 .item {
@@ -113,4 +117,20 @@
 
 .selectedItem {
   @apply block;
+}
+
+.itemsContainerViewport {
+  /* 
+    Temporary fix until the issue is resolved, 
+    Ref: https://github.com/radix-ui/primitives/issues/1666#issuecomment-1431497744
+    */
+  @apply !block;
+}
+
+.scrollAreaScrollbar {
+  @apply mb-2 w-1 rounded-sm bg-neutral-200 opacity-50 transition;
+}
+
+.scrollAreaThumb {
+  @apply rounded-sm bg-neutral-400;
 }
