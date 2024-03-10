@@ -8,7 +8,11 @@
   &.triggerActive,
   &:hover,
   &:focus-visible {
-    @apply border-neutral-600 ring ring-orange-200;
+    @apply ring ring-orange-200;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed border-neutral-300 bg-neutral-100 ring-0;
   }
 }
 
@@ -17,7 +21,7 @@
 }
 
 .labelFloating {
-  @apply -translate-y-8 translate-x-0.5 scale-75 bg-gradient-to-t from-white from-65% to-0%;
+  @apply -translate-y-8 translate-x-0.5 scale-75 bg-gradient-to-t from-white from-70% to-0%;
 }
 
 .placeholder {
@@ -87,7 +91,7 @@
 
   &:hover,
   &:focus-visible {
-    @apply bg-neutral-100 outline-none;
+    @apply bg-neutral-100 outline-none ring ring-neutral-200;
   }
 }
 

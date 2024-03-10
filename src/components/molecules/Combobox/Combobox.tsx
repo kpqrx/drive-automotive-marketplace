@@ -21,6 +21,7 @@ export const Combobox = (props: ComboboxProps) => {
     items,
     className = '',
     name,
+    disabled,
     ...restProps
   } = props
   const [selectedValues, setSelectedValues] = useState<string[]>([])
@@ -68,6 +69,7 @@ export const Combobox = (props: ComboboxProps) => {
       >
         <Popover.Trigger
           className={clsx(styles.trigger, isOpen && styles.triggerActive)}
+          disabled={disabled}
         >
           <span
             className={clsx(
@@ -96,12 +98,12 @@ export const Combobox = (props: ComboboxProps) => {
             className={styles.selectedItemsList}
           >
             <AnimatePresence mode="popLayout">
-              {selectedValues.map((value, index) => {
+              {selectedValues.map((value) => {
                 const item = items.find((item) => item.value === value)
 
                 return item ? (
                   <m.li
-                    layout
+                    layout="position"
                     key={item.value}
                     initial={{ y: 12, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
