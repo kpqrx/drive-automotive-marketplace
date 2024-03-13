@@ -4,11 +4,15 @@ import type { ChipProps } from '@/components/atoms/Chip/Chip.types'
 import clsx from 'clsx'
 
 export const Chip = (props: ChipProps) => {
-  const { children, className = '', ...restProps } = props
+  const { children, size = 'lg', className = '', ...restProps } = props
 
   return (
     <span
-      className={clsx(className, styles.container)}
+      className={clsx(
+        className,
+        styles.container,
+        size === 'lg' ? styles.containerLarge : styles.containerSmall,
+      )}
       data-testid="chip"
       {...restProps}
     >
