@@ -1,17 +1,45 @@
 .container {
   @apply flex flex-col overflow-hidden rounded border border-neutral-200 bg-white;
+
+  &.containerHorizontal {
+    @apply flex-row;
+
+    .thumbnail {
+      @apply basis-1/4;
+    }
+
+    .iconButtonsContainer {
+      @apply mt-auto;
+    }
+  }
+
+  &.containerVertical {
+    @apply flex-col;
+
+    .thumbnail {
+      @apply max-h-64 w-full;
+    }
+
+    .iconButtonsContainer {
+      @apply mt-2;
+    }
+  }
 }
 
 .thumbnail {
-  @apply aspect-video w-full object-cover;
+  @apply aspect-video object-cover;
 }
 
 .wrapper {
-  @apply flex flex-col gap-2 px-5 py-4;
+  @apply flex flex-1 flex-col gap-2 px-5 py-4;
 }
 
-.typographyWrapper {
-  @apply flex items-center justify-between text-xl font-medium;
+.contentWrapper {
+  @apply flex items-center justify-between font-medium;
+
+  @screen lg {
+    @apply text-lg;
+  }
 }
 
 .labelWrapper {
@@ -19,7 +47,7 @@
 }
 
 .manufacturerIcon {
-  @apply h-8 w-8;
+  @apply size-8;
 }
 
 .label {
@@ -27,7 +55,11 @@
 }
 
 .description {
-  @apply py-2 leading-loose text-neutral-500;
+  @apply line-clamp-1 py-2 text-xs leading-5 text-neutral-500;
+
+  @screen lg {
+    @apply text-sm;
+  }
 }
 
 .price {
@@ -35,11 +67,11 @@
 }
 
 .propertiesWrapper {
-  @apply flex flex-wrap gap-x-3 gap-y-2;
+  @apply flex flex-wrap gap-x-3 gap-y-2 py-2;
 }
 
 .iconButtonsContainer {
-  @apply mt-2 flex gap-2 bg-neutral-100 px-5;
+  @apply -mx-5 -mb-4 flex gap-2 bg-neutral-50 px-5;
 }
 
 .iconButtonWrapper {
@@ -47,9 +79,21 @@
 }
 
 .iconButton {
-  @apply p-4 text-neutral-800 transition hover:bg-neutral-200;
+  @apply p-4 text-neutral-800 transition hover:bg-neutral-100;
 
   svg {
-    @apply h-6 w-6;
+    @apply size-5;
   }
+}
+
+.location {
+  @apply flex items-center gap-x-2 text-xs leading-6 text-neutral-500;
+
+  @screen lg {
+    @apply text-sm leading-8;
+  }
+}
+
+.mapPinIcon {
+  @apply inline size-4;
 }

@@ -6,10 +6,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { SiBmw } from 'react-icons/si'
 import {
-  HiOutlineHeart as HeartIcon,
-  HiOutlinePhone as PhoneIcon,
-  HiOutlineChatBubbleOvalLeft as CommentsIcon,
-} from 'react-icons/hi2'
+  HeartIcon,
+  PhoneIcon,
+  ChatBubbleOvalLeftIcon as CommentsIcon,
+} from '@heroicons/react/24/outline'
+import { MapPinIcon } from '@heroicons/react/24/solid'
 import { Chip } from '@/components/atoms/Chip/Chip'
 
 export const OfferTile = (props: OfferTileProps) => {
@@ -17,9 +18,11 @@ export const OfferTile = (props: OfferTileProps) => {
     href,
     label,
     description,
+    location,
     price,
     thumbnailSrc,
     properties,
+    orientation = 'vertical',
     className = '',
     ...restProps
   } = props
@@ -27,7 +30,13 @@ export const OfferTile = (props: OfferTileProps) => {
   return (
     <Link
       href={href}
-      className={clsx(className, styles.container)}
+      className={clsx(
+        className,
+        styles.container,
+        orientation === 'horizontal'
+          ? styles.containerHorizontal
+          : styles.containerVertical,
+      )}
       {...restProps}
     >
       <Image
@@ -38,7 +47,7 @@ export const OfferTile = (props: OfferTileProps) => {
         alt={label}
       />
       <div className={styles.wrapper}>
-        <div className={styles.typographyWrapper}>
+        <div className={styles.contentWrapper}>
           <div className={styles.labelWrapper}>
             <SiBmw className={styles.manufacturerIcon} />
             <h3 className={styles.label}>{label}</h3>
@@ -51,24 +60,28 @@ export const OfferTile = (props: OfferTileProps) => {
             <Chip key={i}>{property}</Chip>
           ))}
         </div>
+        <span className={styles.location}>
+          <MapPinIcon className={styles.mapPinIcon} />
+          {location}
+        </span>
+        <ul className={styles.iconButtonsContainer}>
+          <li className={styles.iconButtonWrapper}>
+            <button className={styles.iconButton}>
+              <HeartIcon />
+            </button>
+          </li>
+          <li className={styles.iconButtonWrapper}>
+            <button className={styles.iconButton}>
+              <CommentsIcon />
+            </button>
+          </li>
+          <li className={styles.iconButtonWrapper}>
+            <button className={styles.iconButton}>
+              <PhoneIcon />
+            </button>
+          </li>
+        </ul>
       </div>
-      <ul className={styles.iconButtonsContainer}>
-        <li className={styles.iconButtonWrapper}>
-          <button className={styles.iconButton}>
-            <HeartIcon />
-          </button>
-        </li>
-        <li className={styles.iconButtonWrapper}>
-          <button className={styles.iconButton}>
-            <CommentsIcon />
-          </button>
-        </li>
-        <li className={styles.iconButtonWrapper}>
-          <button className={styles.iconButton}>
-            <PhoneIcon />
-          </button>
-        </li>
-      </ul>
     </Link>
   )
 }
