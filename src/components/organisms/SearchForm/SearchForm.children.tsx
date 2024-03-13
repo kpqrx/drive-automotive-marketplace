@@ -68,31 +68,3 @@ export function SubmitButton(props: BaseButtonProps) {
     </Button>
   )
 }
-
-export function Footer(props: { className?: string }) {
-  const { className = '', ...restProps } = props
-  const searchFormContext = useContext(SearchFormContext)
-
-  const handleAdvancedModeToggle = () =>
-    searchFormContext?.setAdvancedModeActive((prevState) => !prevState)
-  return (
-    <div
-      className={clsx(styles.formFooter, className)}
-      {...restProps}
-    >
-      <h2 className={styles.foundOffersHeading}>
-        Znaleziono
-        <span className={styles.foundOffersCount}>32 900</span>
-        ogłoszeń.
-      </h2>
-      <Button
-        className={styles.advancedSearchButton}
-        onClick={handleAdvancedModeToggle}
-        variant="secondary"
-        size="small"
-      >
-        Wyszukiwanie zaawansowane
-      </Button>
-    </div>
-  )
-}

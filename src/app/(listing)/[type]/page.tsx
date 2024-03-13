@@ -45,20 +45,17 @@ export default function Listing() {
           <FilteringIcon /> Filtrowanie
         </Button>
         <Dropdown
-          items={[
-            { id: 1, label: 'Od najnowszego', callback: () => {} },
-            { id: 2, label: 'Cena od najniższej', callback: () => {} },
-            { id: 3, label: 'Cena od najwyższej', callback: () => {} },
-            { id: 4, label: 'Moc silnika od najniższej', callback: () => {} },
-            { id: 5, label: 'Moc silnika od najwyższej', callback: () => {} },
-          ]}
-          anchorPoint="right"
           className={styles.actionButton}
-          buttonProps={{
-            variant: 'secondary',
-            size: 'small',
-          }}
-          activeButtonClassName={styles.actionButtonActive}
+          items={[
+            { label: 'Od najnowszego', callback: () => {} },
+            { label: 'Cena od najniższej', callback: () => {} },
+            { label: 'Cena od najwyższej', callback: () => {} },
+            { label: 'Moc silnika od najniższej', callback: () => {} },
+            { label: 'Moc silnika od najwyższej', callback: () => {} },
+          ]}
+          size="small"
+          variant="secondary"
+          align="end"
         >
           <SortingIcon /> Sortowanie
         </Dropdown>
@@ -72,6 +69,7 @@ export default function Listing() {
             href="#"
             label="BMW M6"
             description="Shadowline, Akrapovic, komforty, polski salon"
+            location="Poznań, wielkopolskie"
             price="180 000 PLN"
             thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
             properties={['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM']}
@@ -82,6 +80,7 @@ export default function Listing() {
             href="#"
             label="BMW M6"
             description="Shadowline, Akrapovic, komforty, polski salon"
+            location="Poznań, wielkopolskie"
             price="180 000 PLN"
             thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
             properties={['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM']}
@@ -92,6 +91,29 @@ export default function Listing() {
             href="#"
             label="BMW M6"
             description="Shadowline, Akrapovic, komforty, polski salon"
+            location="Poznań, wielkopolskie"
+            price="180 000 PLN"
+            thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            properties={['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM']}
+          />
+        </li>
+        <li>
+          <OfferTile
+            href="#"
+            label="BMW M6"
+            description="Shadowline, Akrapovic, komforty, polski salon"
+            location="Poznań, wielkopolskie"
+            price="180 000 PLN"
+            thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
+            properties={['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM']}
+          />
+        </li>
+        <li>
+          <OfferTile
+            href="#"
+            label="BMW M6"
+            description="Shadowline, Akrapovic, komforty, polski salon"
+            location="Poznań, wielkopolskie"
             price="180 000 PLN"
             thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
             properties={['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM']}

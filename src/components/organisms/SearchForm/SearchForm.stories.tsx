@@ -10,22 +10,6 @@ const meta: Meta<typeof SearchForm> = {
   tags: ['autodocs'],
   args: {
     onSubmit: () => alert('Submitting form...'),
-    advancedFields: () => (
-      <>
-        <Input
-          label="Example advanced field"
-          placeholder="Some value..."
-        />
-        <Input
-          label="Example advanced field"
-          placeholder="Some value..."
-        />
-        <Input
-          label="Example advanced field"
-          placeholder="Some value..."
-        />
-      </>
-    ),
   },
 }
 
@@ -52,7 +36,6 @@ export const Default: StoryFn<typeof SearchForm> = (props) => {
           ]}
         />
       </SearchForm.FieldsWrapper>
-      <SearchForm.Footer />
       <SearchForm.SubmitButton />
     </SearchForm>
   )

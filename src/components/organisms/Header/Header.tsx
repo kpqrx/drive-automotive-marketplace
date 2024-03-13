@@ -3,14 +3,10 @@
 import { Button } from '@/components/atoms/Button/Button'
 import styles from './Header.module.css'
 import type { HeaderProps } from '@/components/organisms/Header/Header.types'
-import {
-  HiBars3BottomRight as MenuIcon,
-  HiPlus as PlusIcon,
-} from 'react-icons/hi2'
+import { HiBars2 as MenuIcon, HiPlus as PlusIcon } from 'react-icons/hi2'
 import { useCallback, useState } from 'react'
 import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
-import { AnimatePresence } from 'framer-motion'
 import { Container } from '@/components/atoms/Container/Container'
 import { Logo } from '@/components/atoms/Logo/Logo'
 
@@ -39,7 +35,10 @@ export const Header = (props: HeaderProps) => {
           <Logo />
           <ul className={styles.buttonsWrapper}>
             <li className={styles.callToActionButton}>
-              <Button size="small">
+              <Button
+                size="small"
+                variant="secondary"
+              >
                 <PlusIcon />
                 Dodaj ogłoszenie
               </Button>

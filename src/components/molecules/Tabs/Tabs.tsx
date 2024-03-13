@@ -74,10 +74,11 @@ export const Tabs = (props: TabsProps) => {
       {...restProps}
     >
       <TabsPrimitive.List className={styles.buttonsWrapper}>
-        {itemsWithValues.map(({ label, value }) => (
+        {itemsWithValues.map(({ label, value, disabled }) => (
           <TabsPrimitive.Trigger
             key={value}
             value={value}
+            disabled={disabled}
             className={clsx(styles.button, [
               currentValue === value && styles.buttonActive,
             ])}

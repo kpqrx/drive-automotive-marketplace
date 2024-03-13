@@ -3,32 +3,11 @@
 }
 
 .heading {
-  @apply mb-6 mt-2 text-2xl leading-snug;
+  @apply mb-4 leading-10;
 }
 
 .fieldsWrapper {
-  @apply flex w-full flex-col gap-6;
-}
-
-.advancedFieldsWrapper {
-  @apply mb-8;
-}
-
-.formFooter {
-  @apply mb-3 mt-6 grid items-center gap-3;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-}
-
-.foundOffersHeading {
-  @apply w-fit whitespace-nowrap text-sm;
-}
-
-.foundOffersCount {
-  @apply mx-2 font-medium text-amber-500;
-}
-
-.advancedSearchButton {
-  @apply whitespace-nowrap;
+  @apply flex w-full flex-col space-y-4;
 }
 
 .submitButton {

@@ -1,9 +1,11 @@
 'use client'
 
+import { Button } from '@/components'
 import { Combobox } from '@/components/molecules/Combobox/Combobox'
 import { Tabs } from '@/components/molecules/Tabs/Tabs'
 import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
-import React, { type ComponentPropsWithoutRef } from 'react'
+import { type ComponentPropsWithoutRef } from 'react'
+import styles from './VehicleSearchTabs.module.css'
 
 const data = [
   {
@@ -33,6 +35,7 @@ const data = [
     ],
   },
   {
+    disabled: true,
     label: 'Motocykle',
     heading: 'Wyszukaj motocykl',
     fields: [
@@ -54,6 +57,7 @@ const data = [
     ],
   },
   {
+    disabled: true,
     label: 'Użytkowe',
     heading: 'Wyszukaj pojazd użytkowy',
     fields: [
@@ -79,13 +83,11 @@ const data = [
 export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
   return (
     <Tabs
-      items={data.map(({ label, heading, fields }) => ({
+      items={data.map(({ label, heading, fields, disabled }) => ({
         label,
+        disabled,
         content: (
-          <SearchForm
-            onSubmit={() => console.log('Submitted')}
-            advancedFields={() => 'Zaawansowane pola'}
-          >
+          <SearchForm onSubmit={() => console.log('Submitted')}>
             <SearchForm.Heading>{heading}</SearchForm.Heading>
             <SearchForm.FieldsWrapper>
               {fields.map((fieldProps, i) => (
@@ -95,8 +97,21 @@ export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
                 />
               ))}
             </SearchForm.FieldsWrapper>
-            <SearchForm.Footer />
-            <SearchForm.SubmitButton />
+            <div className={styles.formFooter}>
+              <h2 className={styles.foundOffersHeading}>
+                Znaleziono
+                <span className={styles.foundOffersCount}>32 900</span>
+                ogłoszeń.
+              </h2>
+              <Button
+                className={styles.advancedSearchButton}
+                variant="secondary"
+                size="small"
+              >
+                Zaawansowane wyszukiwanie
+              </Button>
+              <SearchForm.SubmitButton className={styles.submitButton} />
+            </div>
           </SearchForm>
         ),
       }))}

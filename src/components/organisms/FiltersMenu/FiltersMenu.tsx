@@ -9,11 +9,11 @@ import type { Transition, Variants } from 'framer-motion'
 import { m, AnimatePresence } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import {
-  HiOutlineChevronLeft as ChevronLeftIcon,
-  HiOutlineChevronRight as ChevronRightIcon,
-  HiOutlineXMark as CloseIcon,
-  HiOutlineTrash as TrashIcon,
-} from 'react-icons/hi2'
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  XMarkIcon as CloseIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline'
 import styles from './FiltersMenu.module.css'
 
 const menuTransition: Transition = {

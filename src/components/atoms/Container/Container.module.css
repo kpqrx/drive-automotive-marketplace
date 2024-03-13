@@ -1,11 +1,7 @@
 .container {
-  @apply mx-auto w-full max-w-xl px-2 py-3;
-
-  @screen md {
-    max-width: calc(100% - 2 * 128px);
-  }
+  @apply mx-auto w-full px-6 py-3;
 
   @screen xl {
-    @apply max-w-6xl;
+    @apply max-w-screen-2xl;
   }
 }

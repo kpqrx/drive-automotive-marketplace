@@ -56,7 +56,7 @@ const linkVariants: Variants = {
 
 const linkTransition: Transition = {
   type: 'spring',
-  damping: 8,
+  damping: 12,
   mass: 1.25,
 }
 

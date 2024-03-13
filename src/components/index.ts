@@ -4,6 +4,7 @@ export { Chip } from '@/components/atoms/Chip/Chip'
 export { Container } from '@/components/atoms/Container/Container'
 export { Logo } from '@/components/atoms/Logo/Logo'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
+export { CheckIcon } from '@/components/atoms/CheckIcon/CheckIcon'
 
 export { Combobox } from '@/components/molecules/Combobox/Combobox'
 export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'

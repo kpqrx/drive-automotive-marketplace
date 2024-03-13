@@ -18,7 +18,7 @@
 }
 
 .formWrapper {
-  @apply grid;
+  @apply -mx-6 grid sm:mx-0;
   @screen md {
     grid-template-columns: minmax(auto, 560px) auto;
   }

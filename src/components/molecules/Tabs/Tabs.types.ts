@@ -3,6 +3,7 @@ import type { ReactNode } from 'react'
 export type TabItemType = {
   label: ReactNode
   content: ReactNode
+  disabled?: boolean
 }
 
 export interface TabsProps {

@@ -1,0 +1,27 @@
+.formFooter {
+  @apply mt-4 flex flex-col flex-wrap justify-stretch gap-3;
+
+  @screen md {
+    @apply flex-row items-baseline gap-4;
+  }
+}
+
+.foundOffersHeading {
+  @apply flex-1 whitespace-nowrap text-sm leading-loose;
+}
+
+.advancedSearchButton {
+  @apply order-last;
+
+  @screen md {
+    @apply order-none;
+  }
+}
+
+.foundOffersCount {
+  @apply mx-2 font-medium text-amber-500;
+}
+
+.submitButton {
+  @apply basis-full;
+}

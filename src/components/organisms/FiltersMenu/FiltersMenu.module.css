@@ -32,6 +32,10 @@
 .clearButton {
   @apply ml-auto flex items-center gap-2 rounded-sm bg-neutral-100 px-4 py-1.5 text-sm transition;
 
+  svg {
+    @apply size-4;
+  }
+
   &:hover,
   &:focus-visible {
     @apply bg-neutral-200;

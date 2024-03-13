@@ -3,16 +3,20 @@
 }
 
 .buttonsWrapper {
-  @apply flex w-full overflow-hidden rounded-t bg-neutral-200 px-6;
+  @apply flex w-full bg-neutral-100 px-6;
 }
 
 .button {
-  @apply flex flex-1 -skew-x-6 flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 py-3 outline-none ring-inset ring-amber-500/50 transition
-  focus-visible:ring-2;
+  @apply flex flex-1 -skew-x-6 flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 py-3 text-sm outline-none ring-inset ring-amber-500/50
+  transition focus-visible:ring-2;
 
   &:not(.buttonActive):hover,
   &:not(.buttonActive):focus-visible {
     @apply bg-neutral-100/50;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed text-neutral-400;
   }
 }
 
@@ -22,13 +26,12 @@
 
 .buttonActive {
   @apply bg-white text-amber-500;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125);
   -webkit-text-stroke: 0.045rem currentColor;
   text-stroke: 0.045rem currentColor;
 }
 
 .contentWrapper {
-  @apply grid rounded-b border border-t-0 border-neutral-200 bg-white py-6;
+  @apply grid bg-white py-3;
 }
 
 .content {
