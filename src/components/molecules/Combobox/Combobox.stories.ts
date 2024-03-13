@@ -6,6 +6,17 @@ const meta: Meta<typeof Combobox> = {
   title: 'Molecules/Combobox',
   component: Combobox,
   tags: ['autodocs'],
+  parameters: {
+    backgrounds: {
+      default: 'white',
+      values: [
+        {
+          name: 'white',
+          value: '#fff',
+        },
+      ],
+    },
+  },
   args: {
     label: 'Combobox label',
     items: [

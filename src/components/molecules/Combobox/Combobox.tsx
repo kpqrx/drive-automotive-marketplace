@@ -3,17 +3,18 @@ import type { ComboboxProps } from '@/components/molecules/Combobox/Combobox.typ
 import * as Popover from '@radix-ui/react-popover'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 import clsx from 'clsx'
-import { m, AnimatePresence } from 'framer-motion'
+import { m, AnimatePresence, easeInOut } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
-  HiChevronDown as ChevronIcon,
-  HiMagnifyingGlass as SearchIcon,
-  HiCheck as CheckIcon,
-} from 'react-icons/hi2'
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+} from '@heroicons/react/24/outline'
 import styles from './Combobox.module.css'
-import { Chip } from '@/components'
+import { CheckIcon, Chip } from '@/components'
 
 // TODO: Use Radix's `ScrollArea` primitive for selected items
+
+const MotionChevronDownIcon = m(ChevronDownIcon)
 
 export const Combobox = (props: ComboboxProps) => {
   const {
@@ -23,6 +24,7 @@ export const Combobox = (props: ComboboxProps) => {
     className = '',
     name,
     disabled,
+    searchInputPlaceholder = 'Szukaj...',
     ...restProps
   } = props
   const [selectedValues, setSelectedValues] = useState<string[]>([])
@@ -88,15 +90,13 @@ export const Combobox = (props: ComboboxProps) => {
           >
             {placeholder}
           </span>
-          <m.div
-            className={styles.chevronIconWrapper}
+          <MotionChevronDownIcon
+            className={styles.chevronIcon}
             animate={{ rotate: isOpen ? '180deg' : '0deg' }}
-          >
-            <ChevronIcon />
-          </m.div>
+          />
           <m.ul
             layout
-            className={styles.selectedItemsList}
+            className={styles.selectedItemsContainer}
           >
             <AnimatePresence mode="popLayout">
               {selectedValues.map((value) => {
@@ -125,16 +125,17 @@ export const Combobox = (props: ComboboxProps) => {
             >
               <m.div
                 className={styles.popoverContainer}
-                initial={{ opacity: 0, y: -32, height: 0 }}
+                initial={{ opacity: 0, y: -24, height: 0 }}
                 animate={{ opacity: 1, y: 0, height: 'auto' }}
-                exit={{ opacity: 0, y: -32, height: 0 }}
+                exit={{ opacity: 0, y: -24, height: 0 }}
+                transition={{ ease: easeInOut }}
               >
-                <label className={styles.searchInputContainer}>
+                <label className={styles.searchInputWrapper}>
                   <span className={styles.searchInputLabel}>Search...</span>
-                  <SearchIcon className={styles.searchInputIcon} />
+                  <MagnifyingGlassIcon className={styles.magnifyingGlassIcon} />
                   <input
                     className={styles.searchInput}
-                    placeholder="Search..."
+                    placeholder={searchInputPlaceholder}
                     value={query}
                     onChange={(event) => setQuery(event.target.value)}
                   />
@@ -159,14 +160,7 @@ export const Combobox = (props: ComboboxProps) => {
                             {item.label}
                             <AnimatePresence>
                               {selectedValues.includes(item.value) && (
-                                <m.div
-                                  className={styles.itemCheckIconWrapper}
-                                  initial={{ x: -32 }}
-                                  animate={{ x: 0 }}
-                                  exit={{ x: -32 }}
-                                >
-                                  <CheckIcon className={styles.itemCheckIcon} />
-                                </m.div>
+                                <CheckIcon className={styles.checkIcon} />
                               )}
                             </AnimatePresence>
                           </button>

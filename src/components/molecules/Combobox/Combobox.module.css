@@ -3,49 +3,43 @@
 }
 
 .trigger {
-  @apply relative z-10 flex max-h-12 w-full items-center rounded border border-neutral-400 bg-white px-3 py-1 text-left outline-none transition;
+  @apply relative z-10 flex max-h-12 w-full items-center rounded bg-neutral-50 p-3 text-left outline-none transition;
 
-  &.triggerActive,
-  &:hover,
-  &:focus-visible {
-    @apply ring ring-orange-200;
+  &:hover:not(.triggerActive) {
+    @apply bg-neutral-100;
   }
 
   &:disabled {
-    @apply cursor-not-allowed border-neutral-300 bg-neutral-100 ring-0;
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400;
   }
 }
 
 .label {
-  @apply absolute top-1/2 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition;
-}
+  @apply absolute top-1/2 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition delay-100;
 
-.labelFloating {
-  @apply -translate-y-8 translate-x-0.5 scale-75 bg-gradient-to-t from-white from-70% to-0%;
+  &.labelFloating {
+    @apply -translate-y-8 translate-x-0.5 scale-75;
+  }
 }
 
 .placeholder {
-  @apply absolute text-transparent transition-colors;
+  @apply absolute text-sm text-transparent transition-colors delay-100;
 
   &.placeholderShown {
     @apply text-neutral-400;
   }
 }
 
-.input {
-  @apply flex-1 rounded-l border-2 border-r-0 border-neutral-400 px-4 py-3 outline-none;
-
-  &:disabled {
-    @apply cursor-not-allowed border-neutral-300 bg-neutral-100;
-  }
+.selectedItemsContainer {
+  @apply relative mt-3 flex h-full flex-1 gap-2 overflow-x-scroll pb-3;
 }
 
-.chevronIconWrapper {
-  @apply relative order-last -mr-3 px-3 py-4;
+.chevronIcon {
+  @apply relative order-last size-5;
 }
 
 .popoverContainer {
-  @apply mt-2 flex w-[var(--radix-popover-trigger-width)] flex-col space-y-2 overflow-hidden rounded border border-neutral-200 bg-white p-2 pb-0 shadow-sm;
+  @apply z-20 mt-2 flex w-[var(--radix-popover-trigger-width)] flex-col space-y-2 overflow-hidden rounded bg-neutral-50 p-2 pb-0 ring-1 ring-inset ring-neutral-100;
 }
 
 .itemsContainer {
@@ -55,68 +49,6 @@
   &:after {
     @apply block min-h-2 w-full content-[''];
   }
-}
-
-.item {
-  @apply relative h-auto min-h-11 w-full rounded pl-10 pr-2 text-start text-sm leading-5;
-
-  &:hover,
-  &:focus-visible {
-    @apply bg-orange-100 text-orange-600 outline-none;
-  }
-
-  &:focus-visible {
-    @apply outline-none ring-2 ring-inset ring-orange-300;
-  }
-}
-
-.selectedItemsList {
-  @apply relative mt-3 flex h-full flex-1 gap-2 overflow-x-scroll pb-3;
-}
-
-.selectedItem {
-  @apply bg-orange-50 text-orange-500;
-}
-
-.searchInputContainer {
-  @apply relative;
-}
-
-.searchInputLabel {
-  @apply sr-only;
-}
-
-.searchInputIcon {
-  @apply absolute top-0 ml-3 mr-2 h-full w-4 text-neutral-600;
-}
-
-.searchInput {
-  @apply size-full min-h-10 rounded bg-neutral-50 pl-10 pr-3 text-sm text-neutral-600 placeholder:text-current;
-
-  &:hover,
-  &:focus-visible {
-    @apply bg-neutral-100 outline-none ring ring-neutral-200;
-  }
-}
-
-.itemCheckIconWrapper {
-  @apply absolute inset-0 mx-3 my-3.5;
-}
-
-.itemCheckIcon {
-  @apply size-4 stroke-1;
-}
-
-.trigger {
-  @apply relative min-h-12 w-full rounded border-2 border-neutral-400 px-3 py-1 text-left outline-none;
-}
-
-.selectedItemsList {
-  @apply flex gap-2;
-}
-
-.selectedItem {
-  @apply block;
 }
 
 .itemsContainerViewport {
@@ -133,4 +65,46 @@
 
 .scrollAreaThumb {
   @apply rounded-sm bg-neutral-400;
+}
+
+.item {
+  @apply relative h-auto min-h-11 w-full rounded pl-10 pr-2 text-start text-sm leading-5 transition-colors;
+
+  &.selectedItem,
+  &:hover,
+  &:focus-visible {
+    @apply bg-orange-100 text-orange-500;
+  }
+
+  &:active {
+    @apply bg-orange-200 text-orange-600;
+  }
+
+  &:focus-visible {
+    @apply outline-none ring-2 ring-inset ring-orange-300;
+  }
+}
+
+.checkIcon {
+  @apply absolute inset-0 mx-3 my-3.5 size-4 stroke-2;
+}
+
+.searchInputWrapper {
+  @apply relative;
+}
+
+.searchInputLabel {
+  @apply sr-only;
+}
+
+.magnifyingGlassIcon {
+  @apply absolute top-0 ml-3 mr-2 h-full w-4 text-neutral-600;
+}
+
+.searchInput {
+  @apply size-full min-h-10 rounded bg-neutral-100 pl-10 pr-3 text-sm text-neutral-600 placeholder:text-current;
+
+  &:focus-visible {
+    @apply outline-none;
+  }
 }

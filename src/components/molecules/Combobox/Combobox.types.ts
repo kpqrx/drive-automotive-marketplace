@@ -11,4 +11,5 @@ export interface ComboboxProps extends ComponentProps<'div'> {
   placeholder?: string
   items: ComboboxItemType[]
   disabled?: boolean
+  searchInputPlaceholder?: string
 }
