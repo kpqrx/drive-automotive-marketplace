@@ -38,7 +38,7 @@
 }
 
 .backdrop {
-  @apply absolute inset-0 h-full w-full bg-black/50;
+  @apply absolute inset-0 h-screen w-screen bg-black/50;
 }
 
 .contextButton {
