@@ -1,11 +1,10 @@
-import { Button } from '@/components'
+import { Button, CheckIcon } from '@/components'
 import styles from './Dropdown.module.css'
 import type { DropdownProps } from '@/components/molecules/Dropdown/Dropdown.types'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { useState } from 'react'
-import { HiOutlineCheck as CheckIcon } from 'react-icons/hi2'
 import * as Popover from '@radix-ui/react-popover'
 
 // TODO: Adjust styles and add check icon
@@ -87,6 +86,11 @@ export const Dropdown = (props: DropdownProps) => {
                         onClick={() => handleItemCallback(index, callback)}
                       >
                         {label}
+                        <AnimatePresence>
+                          {index === activeItemIndex && (
+                            <CheckIcon className={styles.checkIcon} />
+                          )}
+                        </AnimatePresence>
                       </button>
                     </li>
                   ))}

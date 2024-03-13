@@ -12,19 +12,19 @@ const meta: Meta<typeof Dropdown> = {
     items: [
       {
         label: 'First item',
-        callback: () => alert("You've clicked first item"),
+        callback: () => console.log("You've clicked first item"),
       },
       {
-        label: 'Secord item',
-        callback: () => alert("You've clicked second item"),
+        label: 'Second item',
+        callback: () => console.log("You've clicked second item"),
       },
       {
         label: 'Third item',
-        callback: () => alert("You've clicked third item"),
+        callback: () => console.log("You've clicked third item"),
       },
       {
         label: 'Fourth item',
-        callback: () => alert("You've clicked fourth item"),
+        callback: () => console.log("You've clicked fourth item"),
       },
     ],
   },
