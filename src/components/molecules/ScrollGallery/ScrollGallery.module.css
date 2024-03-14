@@ -1,0 +1,28 @@
+.container {
+  @apply relative mx-auto w-screen px-6;
+  height: calc(100vh * var(--itemsCount));
+
+  @screen xl {
+    @apply px-36;
+  }
+}
+
+.wrapper {
+  @apply sticky top-1/2 flex w-max origin-left items-center gap-x-6;
+
+  @screen lg {
+    @apply gap-x-20;
+  }
+
+  @screen xl {
+    @apply gap-x-40;
+  }
+}
+
+.item {
+  @apply aspect-video h-auto w-[75vw] overflow-hidden rounded-md;
+}
+
+.image {
+  @apply size-full object-cover;
+}
