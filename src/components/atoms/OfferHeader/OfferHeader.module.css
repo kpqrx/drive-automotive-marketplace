@@ -1,0 +1,35 @@
+.container {
+  @apply flex flex-col justify-between gap-12;
+
+  @screen lg {
+    @apply flex-row;
+  }
+}
+
+.wrapper {
+  @apply flex space-x-8;
+}
+
+.icon {
+  @apply size-16;
+}
+
+.labelWrapper {
+  @apply flex flex-col space-y-8;
+}
+
+.labelPrimary {
+  @apply text-6xl leading-9;
+}
+
+.labelSecondary {
+  @apply text-4xl text-neutral-600;
+}
+
+.price {
+  @apply ml-24 text-4xl font-medium text-orange-400;
+
+  @screen lg {
+    @apply ml-0;
+  }
+}
