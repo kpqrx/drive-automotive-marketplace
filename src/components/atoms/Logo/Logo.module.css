@@ -1,3 +1,11 @@
+.container {
+  @apply h-[24px] w-[66px];
+
+  @screen md {
+    @apply h-[32px] w-[88px];
+  }
+}
+
 .sign {
   @apply fill-amber-500;
 }

@@ -7,22 +7,22 @@
 }
 
 .item {
-  @apply ml-4 text-sm leading-loose last:after:hidden;
+  @apply ml-4 leading-loose last:after:hidden;
 
   &:after {
     content: '';
-    @apply ml-4 inline-block h-0.5 w-1.5 rounded bg-neutral-500 align-middle;
+    @apply ml-4 inline-block h-1 w-1.5 rounded bg-neutral-500 align-middle;
   }
 }
 
 .highlightedItem {
-  @apply font-semibold text-amber-500;
+  @apply font-semibold text-orange-400;
 }
 
 .homeItem {
   @apply ml-0 mr-2 after:hidden;
+}
 
-  svg {
-    @apply -mt-1 inline h-[18px] w-[18px] text-amber-500;
-  }
+.homeIcon {
+  @apply -mt-1 inline size-5 fill-orange-400;
 }

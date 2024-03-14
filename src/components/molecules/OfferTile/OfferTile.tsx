@@ -57,12 +57,7 @@ export const OfferTile = (props: OfferTileProps) => {
         <p className={styles.description}>{description}</p>
         <div className={styles.propertiesWrapper}>
           {properties.map((property, i) => (
-            <Chip
-              key={i}
-              size="sm"
-            >
-              {property}
-            </Chip>
+            <Chip key={i}>{property}</Chip>
           ))}
         </div>
         <span className={styles.location}>

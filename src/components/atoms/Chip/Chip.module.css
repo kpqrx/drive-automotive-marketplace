@@ -1,11 +1,11 @@
 .container {
-  @apply inline-block whitespace-nowrap rounded-sm border border-neutral-200 bg-neutral-100 px-3;
+  @apply inline-block whitespace-nowrap rounded-sm bg-neutral-100 px-3;
 
   &.containerSmall {
     @apply text-xs leading-6;
   }
 
   &.containerLarge {
-    @apply text-sm leading-6;
+    @apply px-4 text-sm leading-8;
   }
 }

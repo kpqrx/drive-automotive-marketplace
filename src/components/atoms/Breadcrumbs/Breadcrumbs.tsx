@@ -3,7 +3,7 @@ import styles from './Breadcrumbs.module.css'
 import type { BreadcrumbsProps } from '@/components/atoms/Breadcrumbs/Breadcrumbs.types'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { HiOutlineHome as HomeIcon } from 'react-icons/hi2'
+import { HomeIcon } from '@heroicons/react/24/solid'
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
   const {
@@ -17,7 +17,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => {
     <div className={clsx(className, styles.container)}>
       <span className={clsx(styles.item, styles.homeItem)}>
         <Link href="/">
-          <HomeIcon />
+          <HomeIcon className={styles.homeIcon} />
         </Link>
       </span>
       <ul

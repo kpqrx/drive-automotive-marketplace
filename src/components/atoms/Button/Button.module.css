@@ -27,9 +27,9 @@
 }
 
 .containerPrimary {
-  @apply bg-amber-500 text-white hover:brightness-[1.05] focus-visible:brightness-[1.05];
+  @apply bg-orange-400 text-white hover:brightness-[1.05] focus-visible:brightness-[1.05];
 }
 
 .containerSecondary {
-  @apply border-2 border-amber-500 hover:brightness-[1.05] focus-visible:brightness-[1.05];
+  @apply border-2 border-orange-400 hover:brightness-[1.05] focus-visible:brightness-[1.05];
 }

@@ -1,5 +1,4 @@
 'use client'
-
 import type { TimedCarouselProps } from '@/components/atoms/TimedCarousel/TimedCarousel.types'
 import { useInterval } from '@/hooks'
 import clsx from 'clsx'

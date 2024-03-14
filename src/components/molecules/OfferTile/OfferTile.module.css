@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col overflow-hidden rounded border border-neutral-200 bg-white;
+  @apply flex flex-col overflow-hidden rounded bg-white;
 
   &.containerHorizontal {
     @apply flex-row;
@@ -31,23 +31,31 @@
 }
 
 .wrapper {
-  @apply flex flex-1 flex-col gap-2 px-5 py-4;
+  @apply flex flex-1 flex-col gap-3 px-6 py-4;
 }
 
 .contentWrapper {
   @apply flex items-center justify-between font-medium;
 
   @screen lg {
-    @apply text-lg;
+    @apply text-2xl;
   }
 }
 
 .labelWrapper {
   @apply inline-flex items-center gap-2;
+
+  @screen lg {
+    @apply gap-4;
+  }
 }
 
 .manufacturerIcon {
   @apply size-8;
+
+  @screen lg {
+    @apply size-10;
+  }
 }
 
 .label {
@@ -58,7 +66,7 @@
   @apply line-clamp-1 py-2 text-xs leading-5 text-neutral-500;
 
   @screen lg {
-    @apply text-sm;
+    @apply text-base;
   }
 }
 
@@ -67,11 +75,11 @@
 }
 
 .propertiesWrapper {
-  @apply flex flex-wrap gap-x-3 gap-y-2 py-2;
+  @apply flex flex-wrap gap-2 py-2;
 }
 
 .iconButtonsContainer {
-  @apply -mx-5 -mb-4 flex gap-2 bg-neutral-50 px-5;
+  @apply -mx-6 -mb-4 flex gap-2 bg-neutral-100 px-6;
 }
 
 .iconButtonWrapper {
@@ -79,10 +87,10 @@
 }
 
 .iconButton {
-  @apply p-4 text-neutral-800 transition hover:bg-neutral-100;
+  @apply p-4 text-neutral-500 transition;
 
   svg {
-    @apply size-5;
+    @apply size-6 fill-neutral-200;
   }
 }
 
@@ -90,10 +98,10 @@
   @apply flex items-center gap-x-2 text-xs leading-6 text-neutral-500;
 
   @screen lg {
-    @apply text-sm leading-8;
+    @apply text-base leading-8;
   }
 }
 
 .mapPinIcon {
-  @apply inline size-4;
+  @apply inline size-5 fill-neutral-200 stroke-neutral-500 stroke-2;
 }

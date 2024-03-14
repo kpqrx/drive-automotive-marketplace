@@ -31,14 +31,11 @@ export const Header = (props: HeaderProps) => {
         className={styles.container}
         {...props}
       >
-        <Container className={styles.wrapper}>
+        <div className={styles.wrapper}>
           <Logo />
           <ul className={styles.buttonsWrapper}>
             <li className={styles.callToActionButton}>
-              <Button
-                size="small"
-                variant="secondary"
-              >
+              <Button size="small">
                 <PlusIcon />
                 Dodaj ogłoszenie
               </Button>
@@ -55,7 +52,7 @@ export const Header = (props: HeaderProps) => {
               </button>
             </li>
           </ul>
-        </Container>
+        </div>
       </header>
       <Sidebar
         items={sidebarItems}

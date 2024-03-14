@@ -1,3 +1,4 @@
+'use client'
 import { Chip } from '@/components'
 import { Modal } from '@/components/molecules/Modal/Modal'
 import type {

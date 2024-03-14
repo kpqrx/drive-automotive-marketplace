@@ -1,3 +1,4 @@
+'use client'
 import type { SVGProps } from 'react'
 import styles from './Logo.module.css'
 import { m } from 'framer-motion'
@@ -53,8 +54,7 @@ export const Logo = (props: LogoProps) => {
 
   return (
     <svg
-      width="66"
-      height="24"
+      className={styles.container}
       viewBox="0 0 58 21"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

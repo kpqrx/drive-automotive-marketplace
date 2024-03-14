@@ -1,13 +1,13 @@
 .titleWrapper {
-  @apply mt-12 flex flex-col gap-3;
+  @apply mt-12 flex flex-col gap-6;
 }
 
 .title {
-  @apply text-4xl font-semibold;
+  @apply text-6xl font-semibold;
 }
 
 .itemsCount {
-  @apply text-neutral-700;
+  @apply text-2xl text-neutral-700;
 }
 
 .actionsWrapper {

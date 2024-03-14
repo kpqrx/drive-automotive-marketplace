@@ -12,7 +12,7 @@ import {
   HiOutlineFunnel as FilteringIcon,
   HiOutlineBarsArrowDown as SortingIcon,
 } from 'react-icons/hi2'
-import styles from '../../../styles/listing.module.css'
+import styles from '../../../styles/offers.module.css'
 
 export default function Listing() {
   const [isFiltersMenuOpen, setFiltersMenuOpen] = useState(false)

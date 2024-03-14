@@ -1,3 +1,4 @@
+'use client'
 import { Button, CheckIcon } from '@/components'
 import styles from './Dropdown.module.css'
 import type { DropdownProps } from '@/components/molecules/Dropdown/Dropdown.types'
@@ -6,8 +7,6 @@ import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
 import { useState } from 'react'
 import * as Popover from '@radix-ui/react-popover'
-
-// TODO: Adjust styles and add check icon
 
 const itemsVariants: Variants = {
   hidden: {
@@ -108,70 +107,5 @@ export const Dropdown = (props: DropdownProps) => {
         )}
       </AnimatePresence>
     </Popover.Root>
-    // <MenuPrimitive
-    //   className={clsx(className, styles.container)}
-    //   as="div"
-    //   {...restProps}
-    // >
-    //   {({ open }) => (
-    //     <>
-    //       <MenuPrimitive.Button
-    //         as={Button}
-    //         className={clsx(
-    //           buttonClassName,
-    //           open && activeButtonClassName,
-    //           styles.button,
-    //         )}
-    //         {...buttonProps}
-    //       >
-    //         {children}
-    //       </MenuPrimitive.Button>
-    //       <AnimatePresence>
-    //         {open && (
-    //           <>
-    //             <MenuPrimitive.Items
-    //               className={clsx(
-    //                 styles.itemsWrapper,
-    //                 anchorPoint === 'left' && styles.itemsWrapperLeft,
-    //                 anchorPoint === 'right' && styles.itemsWrapperRight,
-    //               )}
-    //               as={m.ul}
-    //               variants={itemsVariants}
-    //               initial="hidden"
-    //               animate="visible"
-    //               exit="hidden"
-    //             >
-    //               {items.map(({ id, label, callback }) => (
-    //                 <MenuPrimitive.Item
-    //                   as="li"
-    //                   key={id}
-    //                 >
-    //                   {({ active }) => (
-    //                     <button
-    //                       className={clsx(
-    //                         styles.item,
-    //                         active && styles.activeItem,
-    //                       )}
-    //                       onClick={() => handleItemCallback(id, callback)}
-    //                     >
-    //                       {label}&nbsp;{id === activeItemId && <CheckIcon />}
-    //                     </button>
-    //                   )}
-    //                 </MenuPrimitive.Item>
-    //               ))}
-    //             </MenuPrimitive.Items>
-    //             <m.div
-    //               variants={backdropVariants}
-    //               animate="visible"
-    //               initial="hidden"
-    //               exit="hidden"
-    //               className={styles.backdrop}
-    //             />
-    //           </>
-    //         )}
-    //       </AnimatePresence>
-    //     </>
-    //   )}
-    // </MenuPrimitive>
   )
 }

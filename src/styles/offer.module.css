@@ -1,0 +1,7 @@
+.offerHeader {
+  @apply mx-auto w-full py-36;
+}
+
+.offerFeatures {
+  @apply py-6;
+}

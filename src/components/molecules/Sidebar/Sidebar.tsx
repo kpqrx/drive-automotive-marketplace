@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/atoms/Button/Button'
 import { Logo } from '@/components/atoms/Logo/Logo'
 import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
