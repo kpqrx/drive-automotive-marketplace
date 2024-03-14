@@ -1,0 +1,32 @@
+.container {
+  @apply relative grid justify-center gap-x-2 gap-y-8;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
+  @screen xl {
+    @apply justify-items-center;
+  }
+
+  &::after {
+    @apply absolute left-1/2 top-0 -z-10 block h-full w-screen -translate-x-1/2 bg-neutral-100 content-[''];
+  }
+}
+
+.item {
+  @apply flex flex-1 space-x-2;
+}
+
+.icon {
+  @apply -mr-12 size-20 stroke-1 text-orange-500 opacity-25;
+}
+
+.contentWrapper {
+  @apply flex flex-col-reverse space-y-4 whitespace-nowrap;
+}
+
+.label {
+  @apply text-base uppercase tracking-wider text-neutral-600;
+}
+
+.value {
+  @apply text-4xl font-medium;
+}
