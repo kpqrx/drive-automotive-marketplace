@@ -122,6 +122,7 @@ export const Combobox = (props: ComboboxProps) => {
             <Popover.Content
               asChild
               forceMount
+              avoidCollisions={false}
             >
               <m.div
                 className={styles.popoverContainer}

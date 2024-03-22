@@ -9,8 +9,8 @@ import {
   HeartIcon,
   PhoneIcon,
   ChatBubbleOvalLeftIcon as CommentsIcon,
+  MapPinIcon,
 } from '@heroicons/react/24/outline'
-import { MapPinIcon } from '@heroicons/react/24/solid'
 import { Chip } from '@/components/atoms/Chip/Chip'
 
 export const OfferTile = (props: OfferTileProps) => {

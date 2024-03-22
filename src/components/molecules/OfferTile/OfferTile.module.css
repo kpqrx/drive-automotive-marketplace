@@ -87,10 +87,10 @@
 }
 
 .iconButton {
-  @apply p-4 text-neutral-500 transition;
+  @apply p-4 transition;
 
   svg {
-    @apply size-6 fill-neutral-200;
+    @apply size-6 text-neutral-600;
   }
 }
 
@@ -103,5 +103,5 @@
 }
 
 .mapPinIcon {
-  @apply inline size-5 fill-neutral-200 stroke-neutral-500 stroke-2;
+  @apply inline size-5 text-neutral-600;
 }
