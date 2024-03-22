@@ -8,45 +8,82 @@ import {
   useScroll,
   useSpring,
   useTransform,
-  useVelocity,
+  useMotionValue,
+  clamp,
+  useMotionTemplate,
+  type MotionStyle,
 } from 'framer-motion'
-import { useBoundingRect } from '@/hooks'
-import type { CSSProperties } from 'react'
+import { useRef, type CSSProperties, useState, useEffect } from 'react'
+import { Button, Container } from '@/components'
 
 export const ScrollGallery = (props: ScrollGalleryProps) => {
   const { items, className = '', ...restProps } = props
 
-  const { ref: galleryRef, rect: galleryRect } =
-    useBoundingRect<HTMLDivElement>()
-  const { scrollYProgress: xAxisProgress } = useScroll({
-    target: galleryRef,
-    offset: ['0 0', '1 0.5'],
-  })
+  const galleryRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress: yAxisProgress } = useScroll({
     target: galleryRef,
-    offset: [`-${galleryRect.y}px 0`, '0 0'] as any, // TODO: fix types
+    offset: ['start end', 'end end'],
   })
-  const velocity = useVelocity(xAxisProgress)
-  const velocitySpring = useSpring(velocity, { mass: 0.1 })
-  const xAxisProgressSpring = useSpring(xAxisProgress, { mass: 0.1 })
+  const { scrollYProgress: panelYAxisProgress } = useScroll({
+    target: galleryRef,
+    offset: ['center end', 'end end'],
+  })
 
-  const x = useTransform(xAxisProgressSpring, [0, 1], ['0%', '-100%'])
-  const y = useTransform(yAxisProgress, [0, 0.75], ['0%', '-50%'])
-  const skew = useTransform(velocitySpring, [0, 0.25, 0], [0, -3, 0], {
-    clamp: false,
-  })
+  const [imageOffsets, setImageOffsets] = useState<number[]>([])
+
+  useEffect(() => {
+    if (!galleryRef.current) {
+      return
+    }
+
+    const handleOffsetsMeasurement = (target: Element) => {
+      const offsets = [...target.querySelectorAll('img')].map(
+        (element, index) => {
+          if (index === 0) return 0
+          const { x, width } = element.getBoundingClientRect()
+          return x - (window.innerWidth - width) / 2
+        },
+      )
+      setImageOffsets(offsets)
+    }
+
+    handleOffsetsMeasurement(galleryRef.current)
+
+    const resize = new ResizeObserver(([entry]) =>
+      handleOffsetsMeasurement(entry.target),
+    )
+    resize.observe(galleryRef.current)
+    return () => resize.disconnect()
+  }, [])
+
+  const currentImageIndex = useMotionValue(0)
+  const mappedOffset = useTransform(
+    currentImageIndex,
+    (index) => (imageOffsets.at(index) ?? 0) * -1,
+  )
+  const x = useSpring(mappedOffset, { mass: 0.12 })
+  const y = useTransform(yAxisProgress, [0, 0.75], ['12.5%', '0%'])
   const scale = useTransform(yAxisProgress, [0, 0.75], [0.85, 1])
 
+  const panelY = useTransform(panelYAxisProgress, [0, 1], ['100%', '0%'])
+
   return (
-    <div
+    <Container
       ref={galleryRef}
       style={{ '--itemsCount': items.length } as CSSProperties}
       className={clsx(className, styles.container)}
       {...restProps}
     >
       <m.ul
-        className={styles.wrapper}
-        style={{ x, skew, y, scale }}
+        className={styles.imagesWrapper}
+        style={
+          {
+            x,
+            y,
+            scale,
+            '--currentOffset': x,
+          } as MotionStyle
+        }
       >
         {items.map(({ width, height, src, alt }, index) => {
           return (
@@ -65,6 +102,29 @@ export const ScrollGallery = (props: ScrollGalleryProps) => {
           )
         })}
       </m.ul>
-    </div>
+      <m.div
+        style={{ y: panelY }}
+        className={styles.panelWrapper}
+      >
+        <Button
+          onClick={() =>
+            currentImageIndex.set(
+              clamp(0, items.length - 1, currentImageIndex.get() - 1),
+            )
+          }
+        >
+          Poprzednie
+        </Button>
+        <Button
+          onClick={() =>
+            currentImageIndex.set(
+              clamp(0, items.length - 1, currentImageIndex.get() + 1),
+            )
+          }
+        >
+          Następne
+        </Button>
+      </m.div>
+    </Container>
   )
 }

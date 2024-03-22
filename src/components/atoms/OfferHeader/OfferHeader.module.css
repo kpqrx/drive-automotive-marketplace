@@ -19,7 +19,7 @@
 }
 
 .labelPrimary {
-  @apply text-6xl leading-9;
+  @apply text-6xl;
 }
 
 .labelSecondary {

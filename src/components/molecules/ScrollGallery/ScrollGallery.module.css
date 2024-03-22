@@ -1,14 +1,10 @@
 .container {
-  @apply relative mx-auto w-screen px-6;
-  height: calc(100vh * var(--itemsCount));
-
-  @screen xl {
-    @apply px-36;
-  }
+  @apply relative flex items-center py-24;
 }
 
-.wrapper {
-  @apply sticky top-1/2 flex w-max origin-left items-center gap-x-6;
+.imagesWrapper {
+  @apply flex w-max items-center gap-x-6;
+  transform-origin: calc(var(--currentOffset) * -1px);
 
   @screen lg {
     @apply gap-x-20;
@@ -20,9 +16,13 @@
 }
 
 .item {
-  @apply aspect-video h-auto w-[75vw] overflow-hidden rounded-md;
+  @apply aspect-video h-auto w-[75vw] max-w-screen-2xl overflow-hidden rounded-md;
 }
 
 .image {
   @apply size-full object-cover;
+}
+
+.panelWrapper {
+  @apply absolute bottom-0 left-0 z-50 mx-12 my-4 flex gap-2 py-12;
 }
