@@ -7,6 +7,7 @@ import {
   FeaturesList,
   ScrollGallery,
   Container,
+  OfferDescription,
 } from '@/components'
 
 export default function Home() {
@@ -45,7 +46,7 @@ export default function Home() {
           src: 'https://images.pexels.com/photos/16511358/pexels-photo-16511358/free-photo-of-a-modern-blue-mercedes-amg-gt-r-parked-in-front-of-the-car-salon.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
         })}
       />
-      {/* Description */}
+      <OfferDescription />
       {/* Discussion board */}
       {/* Contact and address */}
     </main>
