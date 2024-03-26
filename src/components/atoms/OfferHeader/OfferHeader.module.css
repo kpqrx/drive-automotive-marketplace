@@ -7,7 +7,11 @@
 }
 
 .wrapper {
-  @apply flex space-x-8;
+  @apply flex flex-col gap-8;
+
+  @screen md {
+    @apply flex-row;
+  }
 }
 
 .icon {
@@ -15,21 +19,29 @@
 }
 
 .labelWrapper {
-  @apply flex flex-col space-y-8;
+  @apply flex flex-col gap-8;
 }
 
 .labelPrimary {
-  @apply text-6xl;
+  @apply text-5xl;
+
+  @screen md {
+    @apply text-6xl;
+  }
 }
 
 .labelSecondary {
-  @apply text-4xl text-neutral-600;
+  @apply text-3xl text-neutral-600;
+
+  @screen md {
+    @apply text-4xl;
+  }
 }
 
 .price {
-  @apply ml-24 text-4xl font-medium text-orange-400;
+  @apply text-3xl font-medium text-orange-400;
 
-  @screen lg {
-    @apply ml-0;
+  @screen md {
+    @apply ml-24 text-4xl;
   }
 }

@@ -3,7 +3,7 @@ import styles from './Breadcrumbs.module.css'
 import type { BreadcrumbsProps } from '@/components/atoms/Breadcrumbs/Breadcrumbs.types'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { HomeIcon } from '@heroicons/react/24/solid'
+import { HomeIcon } from '@heroicons/react/24/outline'
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => {
   const {

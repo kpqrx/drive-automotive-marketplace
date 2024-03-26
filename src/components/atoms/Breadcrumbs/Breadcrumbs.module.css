@@ -11,7 +11,7 @@
 
   &:after {
     content: '';
-    @apply ml-4 inline-block h-1 w-1.5 rounded bg-neutral-500 align-middle;
+    @apply ml-4 inline-block h-0.5 w-2 rounded bg-neutral-400 align-middle;
   }
 }
 
@@ -24,5 +24,5 @@
 }
 
 .homeIcon {
-  @apply -mt-1 inline size-5 fill-orange-400;
+  @apply -mt-1 inline size-5 text-orange-400;
 }
