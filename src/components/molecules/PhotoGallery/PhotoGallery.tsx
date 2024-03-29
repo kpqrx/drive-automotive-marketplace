@@ -1,7 +1,7 @@
 'use client'
 import clsx from 'clsx'
-import type { ScrollGalleryProps } from './ScrollGallery.types'
-import styles from './ScrollGallery.module.css'
+import type { PhotoGalleryProps } from './PhotoGallery.types'
+import styles from './PhotoGallery.module.css'
 import Image from 'next/image'
 import {
   m,
@@ -10,13 +10,12 @@ import {
   useTransform,
   useMotionValue,
   clamp,
-  useMotionTemplate,
   type MotionStyle,
 } from 'framer-motion'
-import { useRef, type CSSProperties, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Button } from '@/components'
 
-export const ScrollGallery = (props: ScrollGalleryProps) => {
+export const PhotoGallery = (props: PhotoGalleryProps) => {
   const { items, className = '', ...restProps } = props
 
   const galleryRef = useRef<HTMLDivElement>(null)

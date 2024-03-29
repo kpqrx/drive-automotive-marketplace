@@ -6,7 +6,7 @@ import {
   Breadcrumbs,
   OfferHeader,
   FeaturesList,
-  ScrollGallery,
+  PhotoGallery,
   Container,
   OfferDescription,
   CollapsibleFeaturesList,
@@ -39,7 +39,7 @@ export default function Home() {
             { label: 'Rok produkcji', value: '2021', icon: FireIcon },
           ]}
         />
-        <ScrollGallery
+        <PhotoGallery
           items={Array(8).fill({
             width: 1200,
             height: 800,

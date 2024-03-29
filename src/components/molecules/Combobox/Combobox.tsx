@@ -129,7 +129,7 @@ export const Combobox = (props: ComboboxProps) => {
                 initial={{ opacity: 0, y: -24, height: 0 }}
                 animate={{ opacity: 1, y: 0, height: 'auto' }}
                 exit={{ opacity: 0, y: -24, height: 0 }}
-                transition={{ ease: easeInOut }}
+                transition={{ ease: easeInOut, duration: 0.15 }}
               >
                 <label className={styles.searchInputWrapper}>
                   <span className={styles.searchInputLabel}>Search...</span>

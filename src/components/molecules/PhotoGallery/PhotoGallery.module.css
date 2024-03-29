@@ -11,16 +11,26 @@
   transform-origin: calc(var(--currentOffset) * -1px);
 
   @screen lg {
-    @apply gap-x-20;
+    @apply gap-x-12;
   }
 
   @screen xl {
-    @apply gap-x-40;
+    @apply gap-x-24;
   }
 }
 
 .item {
-  @apply aspect-video h-auto w-[75vw] max-w-screen-2xl overflow-hidden rounded-md;
+  @apply aspect-video h-auto w-screen overflow-hidden rounded-md;
+  max-width: calc(100vw - 3 * theme(spacing.6));
+  /* 3 because Container padding (2) and visual feedback (1) */
+
+  @screen lg {
+    @apply max-w-[calc(1024px-3*theme(spacing.6))];
+  }
+
+  @screen xl {
+    @apply max-w-[1024px];
+  }
 }
 
 .image {

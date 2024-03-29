@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { ScrollGallery } from './ScrollGallery'
+import { PhotoGallery } from './PhotoGallery'
 
-const meta: Meta<typeof ScrollGallery> = {
-  title: 'Molecules/ScrollGallery',
-  component: ScrollGallery,
+const meta: Meta<typeof PhotoGallery> = {
+  title: 'Molecules/PhotoGallery',
+  component: PhotoGallery,
   tags: ['autodocs'],
 }
 
 export default meta
-type Story = StoryObj<typeof ScrollGallery>
+type Story = StoryObj<typeof PhotoGallery>
 
 export const Default: Story = {
   args: {

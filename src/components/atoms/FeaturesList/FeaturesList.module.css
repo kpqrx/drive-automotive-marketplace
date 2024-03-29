@@ -1,7 +1,11 @@
 .container {
-  @apply relative flex flex-wrap gap-y-8;
+  @apply relative flex flex-col flex-wrap gap-y-8;
 
-  @screen md {
+  @screen sm {
+    @apply flex-row;
+  }
+
+  @screen lg {
     @apply justify-evenly gap-x-2;
   }
 
@@ -15,13 +19,13 @@
 }
 
 .item {
-  @apply flex basis-full space-x-2;
+  @apply flex space-x-2;
 
   @screen sm {
     @apply basis-1/2;
   }
 
-  @screen md {
+  @screen lg {
     @apply basis-1/4;
   }
 
@@ -39,9 +43,17 @@
 }
 
 .label {
-  @apply text-base uppercase tracking-wider text-neutral-500;
+  @apply text-xs uppercase tracking-wider text-neutral-500;
+
+  @screen lg {
+    @apply text-base;
+  }
 }
 
 .value {
-  @apply text-4xl;
+  @apply text-2xl;
+
+  @screen lg {
+    @apply text-4xl;
+  }
 }
