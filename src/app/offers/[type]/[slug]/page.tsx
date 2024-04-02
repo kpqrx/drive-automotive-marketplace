@@ -1,16 +1,18 @@
 // TODO: Investigate why lack of this directive causes error
-import styles from '@/styles/offer.module.css'
-import { SiMercedes } from 'react-icons/si'
-import { FireIcon } from '@heroicons/react/24/outline'
 import {
   Breadcrumbs,
-  OfferHeader,
-  FeaturesList,
-  PhotoGallery,
-  Container,
-  OfferDescription,
   CollapsibleFeaturesList,
+  Container,
+  DiscussionCallToAction,
+  FeaturesList,
+  OfferDescription,
+  OfferHeader,
+  PhotoGallery,
 } from '@/components'
+import { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
+import styles from '@/styles/offer.module.css'
+import { FireIcon } from '@heroicons/react/24/outline'
+import { SiMercedes } from 'react-icons/si'
 
 export default function Home() {
   return (
@@ -86,8 +88,19 @@ export default function Home() {
             },
           ]}
         />
-        {/* Discussion board */}
-        {/* Contact and address */}
+        <DiscussionCallToAction />
+        <ContactInfo
+          firstName="Rafał"
+          lastName="Kowalski"
+          phoneNumber="123 456 789"
+          address={{
+            street: 'ul. Mostowa 1',
+            city: 'Poznań',
+            postalCode: '61-001',
+            lat: '52.4047088',
+            long: '16.9370952',
+          }}
+        />
       </Container>
     </main>
   )

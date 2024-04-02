@@ -1,8 +1,13 @@
 .container {
+  @apply overflow-x-hidden;
 }
 
 .wrapper {
   @apply space-y-24;
+
+  @screen md {
+    @apply space-y-36;
+  }
 }
 
 .offerHeader {

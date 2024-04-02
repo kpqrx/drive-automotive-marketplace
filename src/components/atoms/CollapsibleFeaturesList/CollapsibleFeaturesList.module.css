@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col divide-y divide-neutral-300 border-y border-neutral-300;
+  @apply flex flex-col divide-y divide-neutral-300;
 }
 
 .wrapper {

@@ -2,7 +2,7 @@
   @apply relative mx-0.5 transition-all;
 
   & svg {
-    @apply stroke-2;
+    @apply size-6 stroke-2;
   }
 }
 

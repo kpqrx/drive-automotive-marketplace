@@ -1,0 +1,38 @@
+.container {
+  @apply flex;
+}
+
+.content {
+  @apply grid flex-1 basis-1/3 gap-x-12;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: min-content;
+}
+
+.avatarWrapper {
+  @apply relative mb-8 mr-1 size-20;
+  grid-row: 1/4;
+
+  &:after {
+    @apply absolute -bottom-1 -right-1 size-8 -skew-x-6 rounded bg-orange-400 content-[''];
+  }
+}
+
+.avatar {
+  @apply size-full rounded-full bg-neutral-200;
+}
+
+.name {
+  @apply mb-8 mt-6 text-4xl;
+}
+
+.entry {
+  @apply mb-4 flex max-w-fit items-baseline text-2xl leading-relaxed text-neutral-600;
+}
+
+.icon {
+  @apply mr-4 size-6 stroke-2 text-orange-500;
+}
+
+.map {
+  @apply aspect-video flex-1 basis-full overflow-hidden rounded;
+}
