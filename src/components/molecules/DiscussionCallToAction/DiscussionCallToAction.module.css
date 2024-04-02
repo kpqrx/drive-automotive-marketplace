@@ -1,0 +1,27 @@
+.container {
+  @apply relative mx-auto flex w-fit flex-col items-center;
+}
+
+.heading {
+  @apply mb-8 text-6xl font-medium leading-snug;
+}
+
+.text {
+  @apply mb-16 text-3xl text-neutral-600;
+}
+
+.avatarsList {
+  @apply mb-8 flex -space-x-4;
+}
+
+.avatar {
+  @apply size-24 rounded-full bg-neutral-200;
+}
+
+.button {
+  @apply text-xl;
+
+  svg {
+    @apply size-8;
+  }
+}
