@@ -1,0 +1,53 @@
+.container {
+  @apply flex h-full flex-col;
+}
+
+.stepsWrapper {
+  @apply sticky top-0 z-10 flex w-full space-x-6 bg-neutral-100 px-8 py-6;
+}
+
+.stepItem {
+  @apply relative flex flex-1;
+
+  &.stepItemActive {
+    .stepNumber {
+      @apply ring-orange-400;
+    }
+  }
+}
+
+.stepNumber {
+  @apply aspect-square size-10 -skew-x-6 rounded ring-4 ring-inset ring-neutral-300 transition;
+}
+
+.stepNumberWrapper {
+  @apply skew-x-6 text-center font-medium leading-10 text-neutral-500;
+}
+
+.stepItemProgressBar {
+  @apply relative mb-3 block h-1 w-full -skew-x-6 overflow-hidden rounded-sm bg-neutral-300;
+
+  &::before {
+    @apply absolute inset-0 size-full w-full origin-left scale-x-[var(--progress)] bg-orange-400 transition-transform content-[''];
+  }
+}
+
+.stepItemWrapper {
+  @apply ml-6 basis-full;
+}
+
+.stepItemLabel {
+  @apply mb-1 text-base;
+}
+
+.stepItemDescription {
+  @apply text-sm text-neutral-500;
+}
+
+.stepContentWrapper {
+  @apply px-16 py-12;
+}
+
+.footer {
+  @apply sticky bottom-0 left-0 z-10 flex w-full justify-between bg-neutral-100 px-8 py-6;
+}

@@ -4,6 +4,15 @@
   & svg {
     @apply size-6 stroke-2;
   }
+
+  &:disabled {
+    @apply opacity-50;
+  }
+
+  &:focus-visible:not(:disabled),
+  &:hover:not(:disabled) {
+    @apply brightness-105;
+  }
 }
 
 .contentWrapper {
@@ -27,9 +36,9 @@
 }
 
 .containerPrimary {
-  @apply bg-orange-400 text-white hover:brightness-[1.05] focus-visible:brightness-[1.05];
+  @apply bg-orange-400 text-white;
 }
 
 .containerSecondary {
-  @apply border-2 border-orange-400 hover:brightness-[1.05] focus-visible:brightness-[1.05];
+  @apply border-2 border-orange-400;
 }
