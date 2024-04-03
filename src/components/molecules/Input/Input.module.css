@@ -1,13 +1,32 @@
 .container {
-  @apply relative flex h-full w-full text-base leading-7;
-}
-
-.label {
-  @apply absolute left-[1.125rem] top-2.5 origin-top-left -translate-x-1 -translate-y-3/4 scale-75 bg-white px-2;
+  @apply relative w-full;
 }
 
 .input {
-  @apply w-full rounded-xl border-2 border-neutral-400 px-4 py-3 outline-none 
-    focus-visible:ring-2 focus-visible:ring-amber-500/50
-    disabled:cursor-not-allowed disabled:border-neutral-300 disabled:bg-neutral-100;
+  @apply max-h-12 w-full rounded bg-neutral-50 p-3 text-left outline-none transition;
+
+  &:hover {
+    @apply bg-neutral-100;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400;
+  }
+
+  &::placeholder {
+    @apply text-sm text-transparent transition-colors delay-100;
+  }
+
+  &.inputPlaceholderShown {
+    @apply placeholder:text-neutral-400;
+  }
+}
+
+.label {
+  @apply absolute top-1/2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
+  transition-delay: 50ms;
+
+  &.labelFloating {
+    @apply -translate-y-8 translate-x-0.5 scale-75;
+  }
 }
