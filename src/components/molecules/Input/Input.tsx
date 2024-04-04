@@ -1,13 +1,8 @@
+'use client'
 import styles from './Input.module.css'
 import type { InputProps } from '@/components/molecules/Input/Input.types'
 import clsx from 'clsx'
-import { on } from 'events'
-import {
-  useCallback,
-  useState,
-  type ReactEventHandler,
-  type FocusEventHandler,
-} from 'react'
+import { useCallback, useState, type FocusEventHandler } from 'react'
 
 type EventHandlerType = FocusEventHandler<HTMLInputElement>
 

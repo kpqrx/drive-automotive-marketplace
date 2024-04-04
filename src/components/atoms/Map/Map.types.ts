@@ -1,6 +1,6 @@
-import type { ComponentPropsWithoutRef } from 'react'
+import type { MapContainerProps } from 'react-leaflet'
 
-export interface MapProps extends ComponentPropsWithoutRef<'div'> {
+export interface MapProps extends MapContainerProps {
   long: string
   lat: string
 }

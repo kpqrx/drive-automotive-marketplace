@@ -1,3 +1,7 @@
 .container {
   @apply min-h-fit w-full max-w-3xl;
 }
+
+.markerIcon {
+  @apply border-0 bg-transparent text-orange-500;
+}
