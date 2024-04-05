@@ -24,7 +24,7 @@ export const Map = (props: MapProps) => {
     <MapContainer
       className={clsx(className, styles.container)}
       center={position}
-      zoom={8}
+      zoom={6}
       attributionControl={false}
       zoomControl={false}
       {...restProps}

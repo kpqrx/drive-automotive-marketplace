@@ -3,7 +3,7 @@
 }
 
 .wrapper {
-  @apply space-y-24;
+  @apply flex flex-col space-y-24;
 
   @screen md {
     @apply space-y-36;

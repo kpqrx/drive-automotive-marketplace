@@ -12,6 +12,6 @@
   }
 
   main {
-    @apply flex flex-col gap-12;
+    @apply flex flex-col;
   }
 }

@@ -3,14 +3,14 @@
 }
 
 .input {
-  @apply max-h-12 w-full rounded bg-neutral-50 p-3 text-left outline-none transition;
+  @apply max-h-12 w-full rounded bg-neutral-100 p-3 text-left outline-none transition;
 
   &:hover {
-    @apply bg-neutral-100;
+    @apply bg-neutral-200/50;
   }
 
   &:disabled {
-    @apply cursor-not-allowed bg-neutral-100 text-neutral-400;
+    @apply cursor-not-allowed bg-neutral-200 text-neutral-400;
   }
 
   &::placeholder {
@@ -20,13 +20,29 @@
   &.inputPlaceholderShown {
     @apply placeholder:text-neutral-400;
   }
+
+  &.inputError {
+    @apply bg-red-50;
+  }
 }
 
 .label {
-  @apply absolute top-1/2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
+  @apply absolute top-6 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
   transition-delay: 50ms;
 
   &.labelFloating {
-    @apply -translate-y-8 translate-x-0.5 scale-75;
+    @apply -translate-y-8;
+  }
+
+  &.labelError {
+    @apply text-red-800;
+  }
+}
+
+.error {
+  @apply mt-2 text-sm text-red-800;
+
+  svg {
+    @apply mr-1 inline-block size-5 align-text-bottom;
   }
 }

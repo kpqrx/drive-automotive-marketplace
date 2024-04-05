@@ -9,6 +9,7 @@ import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
 import { Container } from '@/components/atoms/Container/Container'
 import { Logo } from '@/components/atoms/Logo/Logo'
+import clsx from 'clsx'
 
 const sidebarItems: SidebarItemType[] = [
   { label: 'Obserwowane oferty', href: '#' },
@@ -19,6 +20,12 @@ const sidebarItems: SidebarItemType[] = [
 ]
 
 export const Header = (props: HeaderProps) => {
+  const {
+    label = 'Marketplace',
+    className,
+    withMenu = true,
+    ...restProps
+  } = props
   const [isSidebarVisible, setSidebarVisible] = useState(false)
 
   const handleSidebarToggle = useCallback(
@@ -28,30 +35,33 @@ export const Header = (props: HeaderProps) => {
   return (
     <>
       <header
-        className={styles.container}
-        {...props}
+        className={clsx(styles.container, className)}
+        {...restProps}
       >
         <div className={styles.wrapper}>
           <Logo />
-          <ul className={styles.buttonsWrapper}>
-            <li className={styles.callToActionButton}>
-              <Button size="small">
-                <PlusIcon />
-                Dodaj ogłoszenie
-              </Button>
-            </li>
-            <li>
-              <button
-                className={styles.iconButton}
-                onClick={handleSidebarToggle}
-              >
-                <MenuIcon />
-                <span className={styles.iconButtonLabel}>
-                  Toggle navigation
-                </span>
-              </button>
-            </li>
-          </ul>
+          <p className={styles.label}>{label}</p>
+          {withMenu && (
+            <ul className={styles.buttonsWrapper}>
+              <li className={styles.callToActionButton}>
+                <Button size="small">
+                  <PlusIcon />
+                  Dodaj ogłoszenie
+                </Button>
+              </li>
+              <li>
+                <button
+                  className={styles.iconButton}
+                  onClick={handleSidebarToggle}
+                >
+                  <MenuIcon />
+                  <span className={styles.iconButtonLabel}>
+                    Toggle navigation
+                  </span>
+                </button>
+              </li>
+            </ul>
+          )}
         </div>
       </header>
       <Sidebar

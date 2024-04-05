@@ -7,11 +7,11 @@
 }
 
 .wrapper {
-  @apply relative flex items-center justify-between gap-2 px-6 py-2;
+  @apply relative flex items-center px-6 py-2;
 }
 
 .buttonsWrapper {
-  @apply flex items-center gap-4;
+  @apply ml-auto flex items-center gap-4;
 }
 
 .iconButton {
@@ -28,4 +28,12 @@
 
 .callToActionButton {
   @apply hidden md:flex;
+}
+
+.label {
+  @apply ml-3 mt-1 border-l border-neutral-200 pl-3 text-sm font-medium text-neutral-600;
+
+  @screen md {
+    @apply ml-8 mt-1 py-1 pl-8 text-base;
+  }
 }
