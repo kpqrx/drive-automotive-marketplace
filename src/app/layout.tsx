@@ -1,4 +1,3 @@
-import { Header } from '@/components/organisms/Header/Header'
 import { FramerMotionProvider } from '@/providers'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
@@ -28,8 +27,7 @@ export default function RootLayout({
     >
       <body>
         <FramerMotionProvider>
-          <Header />
-          {children}
+          <main>{children}</main>
         </FramerMotionProvider>
       </body>
     </html>

@@ -1,5 +1,5 @@
 import { VehicleSearchTabs } from '@/components/organisms/VehicleSearchTabs/VehicleSearchTabs'
-import styles from '../styles/home.module.css'
+import styles from '@/styles/home.module.css'
 import { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 import { Container } from '@/components/atoms/Container/Container'
 
