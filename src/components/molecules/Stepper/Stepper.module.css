@@ -3,7 +3,7 @@
 }
 
 .stepsWrapper {
-  @apply sticky top-0 z-10 flex w-full space-x-6 bg-neutral-100 px-8 py-6;
+  @apply flex w-full space-x-6 px-8 py-6;
 }
 
 .stepItem {
@@ -49,5 +49,5 @@
 }
 
 .footer {
-  @apply sticky bottom-0 left-0 z-10 flex w-full justify-between bg-neutral-100 px-8 py-6;
+  @apply flex w-full justify-between px-8 py-6;
 }

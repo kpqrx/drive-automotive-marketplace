@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
-type StepperStep = {
+export type StepperStep = {
   label: string
   description: string
   content: (args: StepperContext) => ReactNode
@@ -14,7 +14,14 @@ export type StepperContext = {
   setStepProgress: (progress: number, index?: number) => void
   currentStep: number
   currentProgress: number
+  nextButtonLabel: string
+  previousButtonLabel: string
+  hasGuardedSteps: boolean
 }
+
+export type StepperStepChangeCallback = (
+  args: Pick<StepperContext, 'currentStep'>,
+) => Promise<boolean>
 
 export interface StepperProps extends ComponentPropsWithoutRef<'div'> {
   /**
@@ -35,9 +42,19 @@ export interface StepperProps extends ComponentPropsWithoutRef<'div'> {
   /**
    * Function to be called when the user navigates to the next step
    */
-  onNextStep?: () => Promise<boolean>
+  onNextStep?: StepperStepChangeCallback
   /**
    * Function to be called when the user navigates to the previous step
    */
-  onPreviousStep?: () => Promise<boolean>
+  onPreviousStep?: StepperStepChangeCallback
+  /**
+   * Label for the next button
+   * @default 'Next'
+   */
+  nextButtonLabel?: string
+  /**
+   * Label for the previous button
+   * @default 'Previous'
+   */
+  previousButtonLabel?: string
 }

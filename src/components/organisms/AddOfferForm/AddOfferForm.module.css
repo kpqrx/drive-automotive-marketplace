@@ -1,0 +1,32 @@
+.container {
+  @apply flex-1;
+}
+
+.wrapper {
+  @apply bg-neutral-100;
+}
+
+.content {
+  @apply mx-auto min-h-screen max-w-screen-lg p-0 py-6;
+}
+
+.timeline,
+.footer {
+  @apply sticky left-0 z-10;
+}
+
+.timeline {
+  @apply top-0;
+
+  @screen md {
+    @apply pt-16;
+  }
+}
+
+.footer {
+  @apply bottom-0;
+
+  @screen md {
+    @apply pb-24;
+  }
+}

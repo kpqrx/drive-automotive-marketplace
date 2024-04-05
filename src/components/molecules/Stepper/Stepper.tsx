@@ -19,8 +19,19 @@ const StepperContext = createContext<StepperContext>({
   setStepProgress: () => {},
   currentStep: 0,
   currentProgress: 0,
+  nextButtonLabel: '',
+  previousButtonLabel: '',
+  hasGuardedSteps: true,
 })
-const useStepperContext = () => useContext(StepperContext)
+const useStepperContext = () => {
+  const context = useContext(StepperContext)
+  if (!context) {
+    throw new Error(
+      'Stepper compound components cannot be rendered outside the Stepper component',
+    )
+  }
+  return context
+}
 
 const StepperContainer = (props: StepperProps) => {
   const {
@@ -31,6 +42,8 @@ const StepperContainer = (props: StepperProps) => {
     children,
     onNextStep = () => Promise.resolve(true),
     onPreviousStep = () => Promise.resolve(true),
+    nextButtonLabel = 'Next',
+    previousButtonLabel = 'Previous',
     ...restProps
   } = props
   const [currentStep, setCurrentStep] = useState(defaultStep)
@@ -48,18 +61,26 @@ const StepperContainer = (props: StepperProps) => {
     [currentStep],
   )
   const setNextStep = useCallback(async () => {
-    const canChangeStep = await onNextStep()
+    const canChangeStep = await onNextStep({ currentStep })
     if (
       !canChangeStep ||
       (hasGuardedSteps && stepsProgress.at(currentStep) !== 1)
     )
       return
+    setStepProgress(1)
     setCurrentStep((prev) => clamp(0, steps.length - 1, prev + 1))
-  }, [currentStep, hasGuardedSteps, onNextStep, steps, stepsProgress])
+  }, [
+    currentStep,
+    hasGuardedSteps,
+    onNextStep,
+    setStepProgress,
+    steps,
+    stepsProgress,
+  ])
 
   const setPreviousStep = async () => {
-    // TODO: Use asynchronously returned boolean to conditionally disallow step change
-    await onPreviousStep()
+    const canChangeStep = await onPreviousStep({ currentStep })
+    if (!canChangeStep) return
     setCurrentStep((prev) => clamp(0, steps.length - 1, prev - 1))
   }
 
@@ -73,6 +94,9 @@ const StepperContainer = (props: StepperProps) => {
         setStepProgress,
         currentStep,
         currentProgress: stepsProgress[currentStep],
+        nextButtonLabel,
+        previousButtonLabel,
+        hasGuardedSteps,
       }}
     >
       <div
@@ -142,7 +166,7 @@ const StepperContent = (props: ComponentPropsWithoutRef<'div'>) => {
           ({ content }, index) =>
             index === stepperContext.currentStep && (
               <m.div
-                layout
+                layoutRoot
                 key={index}
                 initial={{ y: 64, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -159,26 +183,34 @@ const StepperContent = (props: ComponentPropsWithoutRef<'div'>) => {
 
 const StepperFooter = (props: ComponentPropsWithoutRef<'div'>) => {
   const { className = '', ...restProps } = props
-  const { setNextStep, setPreviousStep, currentStep, currentProgress } =
-    useStepperContext()
+  const {
+    setNextStep,
+    setPreviousStep,
+    currentStep,
+    currentProgress,
+    nextButtonLabel,
+    previousButtonLabel,
+    hasGuardedSteps,
+  } = useStepperContext()
 
   return (
     <div
       className={clsx(styles.footer, className)}
       {...restProps}
     >
-      <Button
-        variant="secondary"
-        onClick={setPreviousStep}
-        disabled={currentStep === 0}
-      >
-        Previous
-      </Button>
+      {currentStep > 0 && (
+        <Button
+          variant="secondary"
+          onClick={setPreviousStep}
+        >
+          {previousButtonLabel}
+        </Button>
+      )}
       <Button
         onClick={setNextStep}
-        disabled={currentProgress < 1}
+        disabled={hasGuardedSteps && currentProgress < 1}
       >
-        Next
+        {nextButtonLabel}
       </Button>
     </div>
   )
