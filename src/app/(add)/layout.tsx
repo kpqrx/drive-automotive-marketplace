@@ -7,13 +7,13 @@ export default function AddOfferLayout({
   children: React.ReactNode
 }) {
   return (
-    <>
+    <main className={styles.main}>
       <Header
         className={styles.header}
         label="Dodaj ogłoszenie"
         withMenu={false}
       />
       {children}
-    </>
+    </main>
   )
 }

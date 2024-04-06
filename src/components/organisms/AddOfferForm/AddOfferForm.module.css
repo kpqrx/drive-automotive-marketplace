@@ -7,7 +7,7 @@
 }
 
 .content {
-  @apply mx-auto min-h-screen max-w-screen-lg p-0 py-6;
+  @apply mx-auto max-w-screen-lg flex-1 p-0 py-6;
 }
 
 .timeline,
@@ -17,16 +17,8 @@
 
 .timeline {
   @apply top-0;
-
-  @screen md {
-    @apply pt-16;
-  }
 }
 
 .footer {
   @apply bottom-0;
-
-  @screen md {
-    @apply pb-24;
-  }
 }

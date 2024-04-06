@@ -1,6 +1,7 @@
 'use client'
 import styles from './AddOfferForm.module.css'
 import type {
+  AddOfferFormFieldsetProps,
   AddOfferFormProps,
   CreateAddFormStepsFn,
 } from '@/components/organisms/AddOfferForm/AddOfferForm.types'
@@ -10,6 +11,49 @@ import type { StepperStepChangeCallback } from '@/components/molecules/Stepper/S
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addOfferFormSchema, type AddOfferFormSchemaType } from '@/schemas'
+import { mergeEventHandlers, mergeRefs } from '@/utils'
+
+type FormComponentType = typeof Input
+
+const AddOfferFormFieldset = (
+  props: AddOfferFormFieldsetProps<FormComponentType, AddOfferFormSchemaType>,
+) => {
+  const { label, fields, errors, register } = props
+  return (
+    <fieldset className="flex flex-col space-y-4">
+      <legend>{label}</legend>
+      {fields.map((field, i) => {
+        const { name, props, component, registerOptions } = field
+        const Component = component ?? Input
+        const error = errors[name]?.message
+
+        const {
+          onChange: registerOnChange,
+          onBlur: registerOnBlur,
+          ref: registerRef,
+          ...restRegisterProps
+        } = register(name, registerOptions)
+        const { onChange, onBlur, ref, ...restProps } = props
+
+        const componentProps = {
+          error,
+          onChange: mergeEventHandlers(onChange, registerOnChange),
+          onBlur: mergeEventHandlers(onBlur, registerOnBlur),
+          ref: mergeRefs(ref, registerRef),
+          ...restRegisterProps,
+          ...restProps,
+        }
+
+        return (
+          <Component
+            key={i}
+            {...componentProps}
+          />
+        )
+      })}
+    </fieldset>
+  )
+}
 
 const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
   register,
@@ -19,51 +63,45 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
     label: 'O pojeździe',
     description: 'Podaj informacje o pojeździe',
     content: () => (
-      <fieldset className="flex flex-col space-y-4">
-        <Input
-          label="Marka"
-          {...register('make')}
-          error={errors.make?.message}
-        />
-        <Input
-          label="Model"
-          {...register('model')}
-          error={errors.model?.message}
-        />
-        <Input
-          label="Tytuł"
-          {...register('title')}
-          error={errors.title?.message}
-        />
-        <Input
-          label="Cena"
-          type="number"
-          {...register('price', {
-            setValueAs: (value) => (value ? parseInt(value, 10) : undefined),
-          })}
-          error={errors.price?.message}
-        />
-      </fieldset>
+      <AddOfferFormFieldset
+        label="Informacje podstawowe"
+        register={register}
+        errors={errors}
+        fields={[
+          {
+            name: 'make',
+            props: { label: 'Marka' },
+          },
+          { name: 'model', props: { label: 'Model' } },
+          { name: 'title', props: { label: 'Tytuł' } },
+          {
+            name: 'price',
+            props: { label: 'Cena' },
+            registerOptions: {
+              setValueAs: (value: any) =>
+                value ? parseInt(value, 10) : undefined,
+            },
+          },
+        ]}
+      />
     ),
   },
   {
-    label: 'Zdjęcia i opis',
-    description: 'Załącz zdjęcia i opis',
+    label: 'Opis i zdjęcia',
+    description: 'Załącz opis i zdjęcia',
     content: () => (
-      <fieldset className="flex flex-col space-y-4">
-        <Input // TODO: Implement RichTextEditor component
-          label="Opis ogłoszenia"
-          {...register('description')}
-        />
-        <label>
-          Zdjęcia
-          <input // TODO: Implement FileInput component
-            type="file"
-            multiple
-            {...register('photos')}
-          />
-        </label>
-      </fieldset>
+      <AddOfferFormFieldset
+        label="Opis i zdjęcia"
+        register={register}
+        errors={errors}
+        fields={[
+          { name: 'description', props: { label: 'Opis ogłoszenia' } }, // TODO: Implement RichTextEditor component
+          {
+            name: 'photos',
+            props: { label: 'Zdjęcia', type: 'file', multiple: true },
+          }, // TODO: Implement FileInput component
+        ]}
+      />
     ),
   },
   {
@@ -116,14 +154,12 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
       >
         <Stepper.Timeline />
       </Container>
-      <form>
-        <Container
-          as="main"
-          className={styles.content}
-        >
-          <Stepper.Content />
-        </Container>
-      </form>
+      <Container
+        as="form"
+        className={styles.content}
+      >
+        <Stepper.Content />
+      </Container>
       <Container
         className={clsx(styles.wrapper, styles.footer)}
         as="footer"

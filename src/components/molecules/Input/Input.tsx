@@ -1,6 +1,7 @@
 'use client'
 import styles from './Input.module.css'
 import type { InputProps } from '@/components/molecules/Input/Input.types'
+import { mergeRefs } from '@/utils'
 import { ExclamationCircleIcon as ErrorIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
@@ -77,10 +78,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {label}
         </span>
         <input
-          ref={(ref) => {
-            forwardedRef instanceof Function && forwardedRef(ref)
-            inputRef.current = ref
-          }}
+          ref={mergeRefs(inputRef, forwardedRef)}
           className={clsx(
             styles.input,
             isLabelFloating && styles.inputPlaceholderShown,

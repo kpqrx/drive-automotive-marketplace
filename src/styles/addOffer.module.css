@@ -1,3 +1,7 @@
 .header {
   @apply bg-neutral-100;
 }
+
+.main {
+  @apply min-h-screen;
+}

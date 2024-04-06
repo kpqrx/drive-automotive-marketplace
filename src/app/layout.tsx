@@ -26,9 +26,7 @@ export default function RootLayout({
       className={`${dmSans.variable}`}
     >
       <body>
-        <FramerMotionProvider>
-          <main>{children}</main>
-        </FramerMotionProvider>
+        <FramerMotionProvider>{children}</FramerMotionProvider>
       </body>
     </html>
   )
