@@ -1,5 +1,5 @@
 .container {
-  @apply relative w-full;
+  @apply relative block w-full;
 }
 
 .input {
@@ -27,11 +27,11 @@
 }
 
 .label {
-  @apply absolute top-6 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
+  @apply pointer-events-none absolute top-6 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
   transition-delay: 50ms;
 
   &.labelFloating {
-    @apply -translate-y-8;
+    @apply -translate-y-9;
   }
 
   &.labelError {

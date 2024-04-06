@@ -22,3 +22,16 @@
 .footer {
   @apply bottom-0;
 }
+
+.fieldset {
+  @apply grid grid-cols-2 gap-6;
+
+  *:has(input[type='file']),
+  *:has(textarea) {
+    @apply col-start-1 col-end-3;
+  }
+}
+
+.label {
+  @apply mb-6 text-lg;
+}

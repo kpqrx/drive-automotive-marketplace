@@ -15,11 +15,11 @@
 }
 
 .label {
-  @apply absolute top-1/2 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition;
+  @apply absolute top-6 -mx-2 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-2 text-sm transition;
   transition-delay: 50ms;
 
   &.labelFloating {
-    @apply -translate-y-8 translate-x-0.5 scale-75;
+    @apply -translate-y-9;
   }
 }
 

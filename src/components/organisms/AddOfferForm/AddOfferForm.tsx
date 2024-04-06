@@ -20,8 +20,8 @@ const AddOfferFormFieldset = (
 ) => {
   const { label, fields, errors, register } = props
   return (
-    <fieldset className="flex flex-col space-y-4">
-      <legend>{label}</legend>
+    <fieldset className={styles.fieldset}>
+      <legend className={styles.label}>{label}</legend>
       {fields.map((field, i) => {
         const { name, props, component, registerOptions } = field
         const Component = component ?? Input
