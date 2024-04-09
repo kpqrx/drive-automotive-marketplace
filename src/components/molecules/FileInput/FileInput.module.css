@@ -1,0 +1,68 @@
+.container {
+  @apply flex w-full flex-col rounded bg-neutral-100 p-3 outline-none;
+
+  &:hover,
+  &:focus {
+    @apply bg-neutral-200/50;
+  }
+}
+
+.input {
+  @apply max-h-12 w-full rounded bg-neutral-100 p-3 text-left outline-none transition;
+
+  &:hover {
+    @apply bg-neutral-200/50;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed bg-neutral-200 text-neutral-400;
+  }
+
+  &::placeholder {
+    @apply text-sm text-transparent transition-colors delay-100;
+  }
+
+  &.inputPlaceholderShown {
+    @apply placeholder:text-neutral-400;
+  }
+
+  &.inputError {
+    @apply bg-red-50;
+  }
+}
+
+.label {
+  @apply whitespace-nowrap text-sm transition;
+
+  &.labelError {
+    @apply text-red-800;
+  }
+}
+
+.error {
+  @apply mt-2 text-sm text-red-800;
+
+  svg {
+    @apply mr-1 inline-block size-5 align-text-bottom;
+  }
+}
+
+.wrapper {
+  @apply my-3 flex w-full flex-col items-center;
+}
+
+.placeholder {
+  @apply flex flex-col items-center text-neutral-400;
+}
+
+.placeholderIcon {
+  @apply mb-4 size-8 stroke-2;
+}
+
+.placeholderHeading {
+  @apply mb-1 text-sm;
+}
+
+.placeholderDescription {
+  @apply text-xs;
+}
