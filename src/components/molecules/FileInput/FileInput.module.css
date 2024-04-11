@@ -1,42 +1,17 @@
 .container {
-  @apply flex w-full flex-col rounded bg-neutral-100 p-3 outline-none;
+  @apply flex w-full flex-col overflow-hidden rounded bg-neutral-100 p-3 outline-none  transition-colors;
 
-  &:hover,
-  &:focus {
-    @apply bg-neutral-200/50;
-  }
-}
-
-.input {
-  @apply max-h-12 w-full rounded bg-neutral-100 p-3 text-left outline-none transition;
-
-  &:hover {
-    @apply bg-neutral-200/50;
-  }
-
-  &:disabled {
-    @apply cursor-not-allowed bg-neutral-200 text-neutral-400;
-  }
-
-  &::placeholder {
-    @apply text-sm text-transparent transition-colors delay-100;
-  }
-
-  &.inputPlaceholderShown {
-    @apply placeholder:text-neutral-400;
-  }
-
-  &.inputError {
+  &.containerError {
     @apply bg-red-50;
+  }
+
+  &.containerDragActive {
+    @apply bg-orange-100;
   }
 }
 
 .label {
   @apply whitespace-nowrap text-sm transition;
-
-  &.labelError {
-    @apply text-red-800;
-  }
 }
 
 .error {
@@ -48,15 +23,27 @@
 }
 
 .wrapper {
-  @apply my-3 flex w-full flex-col items-center;
+  @apply mt-6 flex w-full flex-col;
+
+  &.placeholderWrapper {
+    @apply my-3;
+  }
 }
 
 .placeholder {
-  @apply flex flex-col items-center text-neutral-400;
+  @apply flex min-h-24 w-full flex-col items-center text-neutral-400 transition;
+
+  &.placeholderError {
+    @apply text-red-800;
+  }
+
+  &.placeholderDragActive {
+    @apply scale-95 text-orange-500;
+  }
 }
 
 .placeholderIcon {
-  @apply mb-4 size-8 stroke-2;
+  @apply mb-2 size-12 stroke-1;
 }
 
 .placeholderHeading {
@@ -65,4 +52,45 @@
 
 .placeholderDescription {
   @apply text-xs;
+}
+
+.header {
+  @apply flex items-center justify-between;
+
+  &.headerError {
+    @apply text-red-800;
+  }
+}
+
+.headerButtonsWrapper {
+  @apply flex space-x-3;
+}
+
+.headerButton {
+  @apply text-xs;
+
+  svg {
+    @apply size-5;
+  }
+}
+
+.previewWrapper {
+  @apply grid grid-cols-4 gap-4;
+  grid-auto-rows: minmax(theme('space.32'), 1fr);
+}
+
+.previewItem {
+  @apply relative max-h-32 flex-1 bg-neutral-200/50;
+}
+
+.previewImage {
+  @apply h-full max-h-full max-w-full rounded object-cover object-center;
+}
+
+.previewButton {
+  @apply absolute right-0 top-0 -m-1.5 -skew-x-3 rounded-sm bg-orange-500 p-1 text-white;
+
+  svg {
+    @apply size-5 skew-x-3;
+  }
 }
