@@ -21,6 +21,7 @@ export { Tabs } from '@/components/molecules/Tabs/Tabs'
 export { DiscussionCallToAction } from '@/components/molecules/DiscussionCallToAction/DiscussionCallToAction'
 export { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
 export { Stepper } from '@/components/molecules/Stepper/Stepper'
+export { FileInput } from '@/components/molecules/FileInput/FileInput'
 
 export { FiltersMenu } from '@/components/organisms/FiltersMenu/FiltersMenu'
 export { Header } from '@/components/organisms/Header/Header'

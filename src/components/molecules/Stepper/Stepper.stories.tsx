@@ -28,7 +28,7 @@ const StepContent = (
       step={0.2}
       defaultValue={0}
       onChange={(e) => {
-        props.setProgress(+e.target.value)
+        props.setProgress(+(e.target as HTMLInputElement).value)
       }}
     />
   </div>

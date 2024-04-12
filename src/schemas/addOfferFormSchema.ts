@@ -15,7 +15,7 @@ export const addOfferFormSchema = z.object({
     .number({ required_error: 'Cena jest wymagana' })
     .positive('Wartość kwoty jest nieprawidłowa'),
   photos: z
-    .custom<FileList>((value) => value instanceof FileList)
+    .array(z.custom<File>(), { invalid_type_error: 'Zdjęcia są wymagane' })
     .refine((value) => {
       const files = Array.from(value)
       return files.every((file) => file.size <= 5 * 1024 * 1024)
@@ -24,7 +24,10 @@ export const addOfferFormSchema = z.object({
       const files = Array.from(value)
       return files.every((file) => file.name.match(/\.(jpg|jpeg|png)$/i))
     }, 'Plik muszą być w formacie JPG, JPEG lub PNG')
-    .refine((value) => value.length >= 4, 'Minimalna liczba zdjęć to 4')
+    .refine((value) => {
+      console.log(value)
+      return value.length >= 4
+    }, 'Minimalna liczba zdjęć to 4')
     .refine((value) => value.length <= 8, 'Maksymalna liczba zdjęć to 8'),
 })
 

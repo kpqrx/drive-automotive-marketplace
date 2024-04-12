@@ -1,21 +1,21 @@
 'use client'
-import styles from './FileInput.module.css'
 import type { FileInputProps } from '@/components/molecules/FileInput/FileInput.types'
 import { mergeRefs } from '@/utils'
 import {
-  ArrowUpTrayIcon as UploadIcon,
-  TrashIcon,
   ExclamationCircleIcon as ErrorIcon,
   DocumentDuplicateIcon as FileIcon,
+  TrashIcon,
+  ArrowUpTrayIcon as UploadIcon,
 } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { AnimatePresence, m } from 'framer-motion'
 import type { Variants } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import Image from 'next/image'
-import { forwardRef, useCallback, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
+import styles from './FileInput.module.css'
+import { useFormContext } from 'react-hook-form'
 
-// TODO: Resolve animation bugs
 const errorVariants: Variants = {
   hidden: { opacity: 0, y: '-50%', height: 0 },
   visible: { opacity: 1, y: 0, height: 'auto' },
@@ -40,11 +40,31 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       placeholderDescription,
       dragPlaceholderHeading,
       dragPlaceholderDescription,
+      icon: Icon = FileIcon,
       error,
+      name,
       ...restProps
     } = props
 
-    const [files, setFiles] = useState<FileWithPreview[]>([])
+    // TODO: Make it independent from react-hook-form
+    const { setValue, getValues, trigger } = useFormContext()
+    const [files, setFiles] = useState<FileWithPreview[]>(
+      (name && getValues && getValues(name)) ?? [],
+    )
+
+    useEffect(() => {
+      if (name === undefined || files.length === 0) return
+      setValue && setValue(name, files)
+      trigger && trigger(name)
+    }, [files, name, setValue, trigger])
+
+    useEffect(() => {
+      setFiles((prevFiles) =>
+        prevFiles.map((file) =>
+          Object.assign(file, { preview: URL.createObjectURL(file) }),
+        ),
+      )
+    }, [])
 
     const handleOnDrop = useCallback(
       (acceptedFiles: File[]) => {
@@ -69,14 +89,14 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       noClick: files.length > 0,
     })
 
-    const handleDelete = (fileName?: string) => {
-      if (fileName === undefined) {
+    const handleDelete = (index?: number) => {
+      if (index === undefined) {
         setFiles([])
         return
       }
 
       setFiles((prevFiles) =>
-        prevFiles.filter((file) => file.name !== fileName),
+        prevFiles.filter((_, fileIndex) => fileIndex !== index),
       )
     }
 
@@ -104,15 +124,18 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
             >
               {label}
             </span>
-            <div className={styles.headerButtonsWrapper}>
-              <button
-                type="button"
-                className={styles.headerButton}
-                onClick={handleOpen}
-              >
-                <UploadIcon />
-              </button>
+            <m.div
+              layout="position"
+              className={styles.headerButtonsWrapper}
+            >
               <AnimatePresence>
+                <button
+                  type="button"
+                  className={styles.headerButton}
+                  onClick={handleOpen}
+                >
+                  <UploadIcon />
+                </button>
                 {files.length > 0 && (
                   <m.button
                     type="button"
@@ -127,7 +150,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                   </m.button>
                 )}
               </AnimatePresence>
-            </div>
+            </m.div>
           </m.div>
           <m.div
             layout="position"
@@ -140,7 +163,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
               <ul className={styles.previewWrapper}>
                 <AnimatePresence mode="popLayout">
                   {files.map(
-                    (file) =>
+                    (file, index) =>
                       file && (
                         <m.li
                           layout="position"
@@ -148,20 +171,21 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                           initial="hidden"
                           animate="visible"
                           exit="hidden"
-                          key={file.name}
+                          key={file.preview}
                           className={styles.previewItem}
                         >
                           <Image
                             className={styles.previewImage}
                             alt={file.name}
                             width={200}
-                            height={100}
+                            height={128}
                             onLoad={() => URL.revokeObjectURL(file.preview)}
                             src={file.preview}
                           />
                           <button
+                            type="button"
                             className={styles.previewButton}
-                            onClick={() => handleDelete(file.name)}
+                            onClick={() => handleDelete(index)}
                           >
                             <TrashIcon />
                           </button>
@@ -178,13 +202,15 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                   isDragActive && styles.placeholderDragActive,
                 )}
               >
-                <FileIcon className={styles.placeholderIcon} />
+                <Icon className={styles.placeholderIcon} />
                 <p className={styles.placeholderHeading}>
-                  {isDragActive ? dragPlaceholderHeading : placeholderHeading}
+                  {isDragActive
+                    ? dragPlaceholderHeading ?? placeholderHeading
+                    : placeholderHeading}
                 </p>
                 <p className={styles.placeholderDescription}>
                   {isDragActive
-                    ? dragPlaceholderDescription
+                    ? dragPlaceholderDescription ?? placeholderDescription
                     : placeholderDescription}
                 </p>
               </div>
@@ -208,6 +234,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
         <input
           {...getInputProps({
             ref: mergeRefs(inputRef, forwardedRef),
+            name,
             ...restProps,
           })}
         />

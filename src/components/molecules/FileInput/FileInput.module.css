@@ -1,5 +1,10 @@
 .container {
-  @apply flex w-full flex-col overflow-hidden rounded bg-neutral-100 p-3 outline-none  transition-colors;
+  @apply flex w-full flex-col overflow-hidden rounded bg-neutral-100 p-3 outline-none transition-colors;
+
+  &:hover,
+  &:focus {
+    @apply bg-neutral-200/50;
+  }
 
   &.containerError {
     @apply bg-red-50;
@@ -31,7 +36,7 @@
 }
 
 .placeholder {
-  @apply flex min-h-24 w-full flex-col items-center text-neutral-400 transition;
+  @apply flex min-h-24 w-full cursor-pointer flex-col items-center text-neutral-400 transition;
 
   &.placeholderError {
     @apply text-red-800;
@@ -84,7 +89,7 @@
 }
 
 .previewImage {
-  @apply h-full max-h-full max-w-full rounded object-cover object-center;
+  @apply h-full w-full rounded object-cover object-center;
 }
 
 .previewButton {

@@ -5,15 +5,16 @@ import type {
   AddOfferFormProps,
   CreateAddFormStepsFn,
 } from '@/components/organisms/AddOfferForm/AddOfferForm.types'
-import { Container, Input, Stepper } from '@/components'
+import { Container, Input, Stepper, FileInput } from '@/components'
 import clsx from 'clsx'
 import type { StepperStepChangeCallback } from '@/components/molecules/Stepper/Stepper.types'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addOfferFormSchema, type AddOfferFormSchemaType } from '@/schemas'
 import { mergeEventHandlers, mergeRefs } from '@/utils'
+import { PhotoIcon } from '@heroicons/react/24/outline'
 
-type FormComponentType = typeof Input
+type FormComponentType = typeof Input | typeof FileInput
 
 const AddOfferFormFieldset = (
   props: AddOfferFormFieldsetProps<FormComponentType, AddOfferFormSchemaType>,
@@ -24,7 +25,8 @@ const AddOfferFormFieldset = (
       <legend className={styles.label}>{label}</legend>
       {fields.map((field, i) => {
         const { name, props, component, registerOptions } = field
-        const Component = component ?? Input
+        // TODO: Fix type checking
+        const Component = component ?? (Input as any)
         const error = errors[name]?.message
 
         const {
@@ -98,8 +100,15 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
           { name: 'description', props: { label: 'Opis ogłoszenia' } }, // TODO: Implement RichTextEditor component
           {
             name: 'photos',
-            props: { label: 'Zdjęcia', type: 'file', multiple: true },
-          }, // TODO: Implement FileInput component
+            component: FileInput,
+            props: {
+              label: 'Zdjęcia',
+              icon: PhotoIcon,
+              placeholderHeading: 'Dodaj zdjęcia',
+              placeholderDescription: 'Kliknij lub przeciągnij i upuść',
+              dragPlaceholderDescription: 'Upuść zdjęcia',
+            },
+          },
         ]}
       />
     ),
@@ -114,15 +123,16 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
 export const AddOfferForm = (props: AddOfferFormProps) => {
   const { className, ...restProps } = props
 
-  const {
-    trigger,
-    register,
-    formState: { errors },
-  } = useForm<AddOfferFormSchemaType>({
+  const formMethods = useForm<AddOfferFormSchemaType>({
     resolver: zodResolver(addOfferFormSchema),
     mode: 'onTouched',
     reValidateMode: 'onChange',
   })
+  const {
+    trigger,
+    register,
+    formState: { errors },
+  } = formMethods
 
   const handleNextStep: StepperStepChangeCallback = async ({ currentStep }) => {
     switch (currentStep) {
@@ -154,12 +164,14 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
       >
         <Stepper.Timeline />
       </Container>
-      <Container
-        as="form"
-        className={styles.content}
-      >
-        <Stepper.Content />
-      </Container>
+      <FormProvider {...formMethods}>
+        <Container
+          as="form"
+          className={styles.content}
+        >
+          <Stepper.Content />
+        </Container>
+      </FormProvider>
       <Container
         className={clsx(styles.wrapper, styles.footer)}
         as="footer"
