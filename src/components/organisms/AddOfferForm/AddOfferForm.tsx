@@ -5,7 +5,7 @@ import type {
   AddOfferFormProps,
   CreateAddFormStepsFn,
 } from '@/components/organisms/AddOfferForm/AddOfferForm.types'
-import { Container, Input, Stepper, FileInput } from '@/components'
+import { Container, Input, Stepper, FileInput, TextEditor } from '@/components'
 import clsx from 'clsx'
 import type { StepperStepChangeCallback } from '@/components/molecules/Stepper/Stepper.types'
 import { FormProvider, useForm } from 'react-hook-form'
@@ -14,7 +14,7 @@ import { addOfferFormSchema, type AddOfferFormSchemaType } from '@/schemas'
 import { mergeEventHandlers, mergeRefs } from '@/utils'
 import { PhotoIcon } from '@heroicons/react/24/outline'
 
-type FormComponentType = typeof Input | typeof FileInput
+type FormComponentType = typeof Input | typeof FileInput | typeof TextEditor
 
 const AddOfferFormFieldset = (
   props: AddOfferFormFieldsetProps<FormComponentType, AddOfferFormSchemaType>,
@@ -97,7 +97,11 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
         register={register}
         errors={errors}
         fields={[
-          { name: 'description', props: { label: 'Opis ogłoszenia' } }, // TODO: Implement RichTextEditor component
+          {
+            name: 'description',
+            component: TextEditor,
+            props: { label: 'Opis ogłoszenia' },
+          },
           {
             name: 'photos',
             component: FileInput,

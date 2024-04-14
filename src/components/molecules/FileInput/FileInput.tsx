@@ -48,22 +48,32 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
 
     // TODO: Make it independent from react-hook-form
     const { setValue, getValues, trigger } = useFormContext()
-    const [files, setFiles] = useState<FileWithPreview[]>(
-      (name && getValues && getValues(name)) ?? [],
+    const handleFormValueUpdate = useCallback(
+      (value: File[]) => {
+        if (name) {
+          setValue(name, value)
+          trigger(name)
+        }
+      },
+      [name, setValue, trigger],
     )
 
-    useEffect(() => {
-      if (name === undefined || files.length === 0) return
-      setValue && setValue(name, files)
-      trigger && trigger(name)
-    }, [files, name, setValue, trigger])
+    const [files, setFiles] = useState<FileWithPreview[]>([])
 
     useEffect(() => {
-      setFiles((prevFiles) =>
-        prevFiles.map((file) =>
+      // This value needs to be an array of File objects (or empty)
+      const persistedValue = [...(getValues(name ?? '') ?? [])]
+
+      console.log('persistedValue', persistedValue)
+
+      if (persistedValue.length === 0) return setFiles([])
+
+      setFiles(
+        persistedValue.map((file) =>
           Object.assign(file, { preview: URL.createObjectURL(file) }),
         ),
       )
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleOnDrop = useCallback(
@@ -74,8 +84,10 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
             Object.assign(file, { preview: URL.createObjectURL(file) }),
           ),
         ])
+
+        handleFormValueUpdate(acceptedFiles)
       },
-      [setFiles],
+      [handleFormValueUpdate],
     )
 
     const {
@@ -89,16 +101,17 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       noClick: files.length > 0,
     })
 
-    const handleDelete = (index?: number) => {
-      if (index === undefined) {
-        setFiles([])
-        return
-      }
+    const handleDelete = useCallback(
+      (index?: number) => {
+        const updatedFiles = index
+          ? files.filter((_, fileIndex) => fileIndex !== index)
+          : []
 
-      setFiles((prevFiles) =>
-        prevFiles.filter((_, fileIndex) => fileIndex !== index),
-      )
-    }
+        setFiles(updatedFiles)
+        handleFormValueUpdate(updatedFiles)
+      },
+      [files, handleFormValueUpdate],
+    )
 
     return (
       <div
@@ -131,6 +144,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
               <AnimatePresence>
                 <button
                   type="button"
+                  key="upload-button"
                   className={styles.headerButton}
                   onClick={handleOpen}
                 >
@@ -139,6 +153,7 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                 {files.length > 0 && (
                   <m.button
                     type="button"
+                    key="delete-button"
                     className={styles.headerButton}
                     onClick={() => handleDelete()}
                     variants={iconButtonVariants}
@@ -176,11 +191,11 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
                         >
                           <Image
                             className={styles.previewImage}
-                            alt={file.name}
-                            width={200}
-                            height={128}
-                            onLoad={() => URL.revokeObjectURL(file.preview)}
                             src={file.preview}
+                            alt={file.name}
+                            width={0}
+                            height={0}
+                            onLoad={() => URL.revokeObjectURL(file.preview)}
                           />
                           <button
                             type="button"

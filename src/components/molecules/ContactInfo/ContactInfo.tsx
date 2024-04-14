@@ -2,6 +2,7 @@ import { Map } from '@/components'
 import type { ContactInfoProps } from '@/components/molecules/ContactInfo/ContactInfo.types'
 import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
+import Image from 'next/image'
 import styles from './ContactInfo.module.css'
 
 /**
@@ -32,7 +33,7 @@ export const ContactInfo = (props: ContactInfoProps) => {
     >
       <div className={styles.content}>
         <div className={styles.avatarWrapper}>
-          <img
+          <Image
             src={profilePictureUrl}
             alt={`${firstName}'s profile picture`}
             className={styles.avatar}

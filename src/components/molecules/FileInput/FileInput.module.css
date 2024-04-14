@@ -36,7 +36,7 @@
 }
 
 .placeholder {
-  @apply flex min-h-24 w-full cursor-pointer flex-col items-center text-neutral-400 transition;
+  @apply pointer-events-none flex min-h-24 w-full cursor-pointer flex-col items-center text-neutral-400 transition;
 
   &.placeholderError {
     @apply text-red-800;
@@ -89,7 +89,7 @@
 }
 
 .previewImage {
-  @apply h-full w-full rounded object-cover object-center;
+  @apply h-32 w-52 rounded object-cover object-center;
 }
 
 .previewButton {

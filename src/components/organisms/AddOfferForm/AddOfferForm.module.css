@@ -27,7 +27,7 @@
   @apply grid grid-cols-2 gap-6;
 
   *:has(input[type='file']),
-  *:has(textarea) {
+  *:has(:global .tiptap) {
     @apply col-start-1 col-end-3;
   }
 }

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 -s ./public",
     "build-storybook": "storybook build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
@@ -21,6 +21,11 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-tabs": "^1.0.4",
     "@tailwindcss/typography": "^0.5.10",
+    "@tiptap/extension-character-count": "^2.3.0",
+    "@tiptap/extension-highlight": "^2.3.0",
+    "@tiptap/pm": "^2.3.0",
+    "@tiptap/react": "^2.3.0",
+    "@tiptap/starter-kit": "^2.3.0",
     "@types/node": "20.11.20",
     "@types/react": "18.2.58",
     "@types/react-dom": "18.2.19",
@@ -41,6 +46,7 @@
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "tailwindcss": "3.4.1",
+    "tiptap-markdown": "^0.8.10",
     "typescript": "5.3.3",
     "zod": "^3.22.4"
   },

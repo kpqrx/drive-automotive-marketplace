@@ -22,6 +22,7 @@ export { DiscussionCallToAction } from '@/components/molecules/DiscussionCallToA
 export { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
 export { Stepper } from '@/components/molecules/Stepper/Stepper'
 export { FileInput } from '@/components/molecules/FileInput/FileInput'
+export { TextEditor } from '@/components/molecules/TextEditor/TextEditor'
 
 export { FiltersMenu } from '@/components/organisms/FiltersMenu/FiltersMenu'
 export { Header } from '@/components/organisms/Header/Header'
