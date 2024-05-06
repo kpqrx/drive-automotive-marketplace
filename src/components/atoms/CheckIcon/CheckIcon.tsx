@@ -15,7 +15,7 @@ export const CheckIcon = (props: SVGProps<SVGSVGElement>) => {
         d="m4.5 12.75 6 6 9-13.5"
         fill="transparent"
         initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
+        animate={{ pathLength: 1, transition: { delay: 0.075 } }}
         exit={{ pathLength: 0 }}
       />
     </svg>
