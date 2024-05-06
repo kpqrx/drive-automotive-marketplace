@@ -14,7 +14,7 @@ export const Container = forwardRef<HTMLElement, ContainerProps<any>>(
         ref={ref}
         {...restProps}
       >
-        <div className={styles.wrapper}>{children}</div>
+        {children}
       </Tag>
     )
   },

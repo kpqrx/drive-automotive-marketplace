@@ -162,12 +162,14 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
       hasGuardedSteps={false}
       {...restProps}
     >
-      <Container
-        className={clsx(styles.wrapper, styles.timeline)}
-        as="nav"
-      >
-        <Stepper.Timeline />
-      </Container>
+      <div className={styles.wrapper}>
+        <Container
+          className={styles.timeline}
+          as="nav"
+        >
+          <Stepper.Timeline />
+        </Container>
+      </div>
       <FormProvider {...formMethods}>
         <Container
           as="form"
@@ -176,12 +178,14 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
           <Stepper.Content />
         </Container>
       </FormProvider>
-      <Container
-        className={clsx(styles.wrapper, styles.footer)}
-        as="footer"
-      >
-        <Stepper.Footer />
-      </Container>
+      <div className={styles.wrapper}>
+        <Container
+          className={styles.footer}
+          as="footer"
+        >
+          <Stepper.Footer />
+        </Container>
+      </div>
     </Stepper>
   )
 }

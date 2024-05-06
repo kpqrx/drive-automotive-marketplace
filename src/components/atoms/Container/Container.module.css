@@ -1,9 +1,5 @@
 .container {
-  @apply w-full px-6 py-3;
-}
-
-.wrapper {
-  @apply mx-auto w-full;
+  @apply mx-auto mb-12 w-full px-6 py-3 last:mb-0;
 
   @screen xl {
     @apply max-w-screen-2xl;
