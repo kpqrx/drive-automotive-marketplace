@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import styles from './Checkbox.module.css'
 import type { CheckboxProps } from '@/components/molecules/Checkbox/Checkbox.types'

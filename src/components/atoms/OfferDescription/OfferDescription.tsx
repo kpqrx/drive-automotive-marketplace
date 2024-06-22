@@ -5,34 +5,23 @@ import html from 'remark-html'
 
 // TODO: fetch from API, parse on server
 const getContent = async () => {
-  const parsedContent = await remark()
-    .use(html)
-    .process(
-      `
-# Mercedes-Benz AMG GT Coupe
+  const parsedContent = await remark().use(html).process(`
+## BMW Seria 6 Gran Coupe
 
-## Opis
-Mercedes-Benz AMG GT Coupe to flagowy model niemieckiego producenta luksusowych samochodów. Oferuje on niezrównane połączenie elegancji, wyrafinowania i nowoczesnej technologii.
+Samochód wyprodukowany w 2019 roku, z przebiegiem 45,000 km. Auto wyposażone jest w silnik 3.0L R6 Turbo o mocy 315 KM, zasilane benzyną. Posiada automatyczną, 8-biegową skrzynię biegów oraz napęd na tylne koła (RWD). Kolor nadwozia to czarny metalik, a wnętrze wykończone jest skórzaną tapicerką w kolorze brązowym.
 
-## Cechy
-- Silniki wysokowydajne, oferujące doskonałe osiągi
-- Luksusowe wnętrze z najwyższej jakości materiałów
-- Zaawansowane systemy bezpieczeństwa i asystencji kierowcy
-- Innowacyjne rozwiązania technologiczne, takie jak systemy multimedialne i bezprzewodowe połączenie z urządzeniami mobilnymi
-- Wyjątkowy komfort jazdy i doskonała stabilność
+### Wyposażenie
 
-## Specyfikacje
-- Silniki: Benzynowe i diesel
-- Pojemność bagażnika: XX litrów
-- Moc: Od XXX do XXX koni mechanicznych
-- Przyspieszenie 0-100 km/h: X.X sekundy
-- Średnie zużycie paliwa: X.X litrów na 100 km
+Auto posiada Pakiet M Sport, adaptacyjne zawieszenie, system multimedialny iDrive oraz nawigację satelitarną. Dodatkowo, samochód wyposażony jest w kamerę cofania, asystenta parkowania, system nagłośnienia Harman/Kardon, podgrzewane i wentylowane fotele przednie, klimatyzację czterostrefową, system bezkluczykowego dostępu, czujniki parkowania przód i tył, reflektory LED adaptacyjne oraz tempomat aktywny z funkcją Stop&Go.
 
-## Cena
-Cena bazowa: XXX XXX złotych
-(ceny mogą się różnić w zależności od regionu i opcji dodatkowych)
-`,
-    )
+### Stan techniczny
+
+Samochód w idealnym stanie technicznym i wizualnym. Regularnie serwisowany w ASO BMW, ostatni przegląd wykonany przy 40,000 km. Nigdy nie uczestniczył w wypadku, lakier w fabrycznym stanie, bez uszkodzeń.
+
+### Dodatkowe informacje
+
+BMW Seria 6 Gran Coupe to połączenie elegancji, sportowych osiągów oraz luksusu. Auto jest niezwykle komfortowe zarówno na długie trasy, jak i do codziennego użytkowania. Oferuje przestronne wnętrze, bogate wyposażenie oraz dynamiczne osiągi, co czyni je idealnym wyborem dla wymagających kierowców.
+`)
   return parsedContent.toString()
 }
 export const OfferDescription = async (props: OfferDescriptionProps) => {

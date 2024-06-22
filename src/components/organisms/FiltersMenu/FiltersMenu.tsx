@@ -43,14 +43,19 @@ const MOCK_MENU_ITEMS: FiltersMenuItemType[] = [
     content: 'producent pojazdu siema',
     value: 'BMW',
   },
-  { id: 2, title: 'Model', content: 'model pojazdu siema', value: 'M6' },
+  { id: 2, title: 'Model', content: 'model pojazdu siema' },
   { id: 3, title: 'Generacja', content: 'generacja pojazdu siema' },
   { id: 4, title: 'Rok produkcji', content: 'rok produkcji pojazdu siema' },
   {
     id: 5,
     title: 'Cena',
     content: 'cena pojazdu siema',
-    value: '+80k PLN',
+  },
+  {
+    id: 6,
+    title: 'Nadwozie',
+    content: 'nadwozie pojazdu siema',
+    value: 'Coupe',
   },
 ]
 

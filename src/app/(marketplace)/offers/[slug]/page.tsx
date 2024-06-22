@@ -12,7 +12,7 @@ import {
 import { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
 import styles from '@/styles/offer.module.css'
 import { FireIcon } from '@heroicons/react/24/outline'
-import { SiMercedes } from 'react-icons/si'
+import { SiBmw } from 'react-icons/si'
 
 export default function Home() {
   return (
@@ -26,27 +26,27 @@ export default function Home() {
         />
         <OfferHeader
           className={styles.offerHeader}
-          label={['Mercedes-Benz', 'AMG GT Coupe']}
-          icon={SiMercedes}
+          label={['BMW Seria 6', 'Gran Coupe']}
+          icon={SiBmw}
           price="180 000 PLN"
         />
 
         <FeaturesList
           className={styles.offerFeatures}
           items={[
-            { label: 'Silnik', value: '4.0 V8', icon: FireIcon },
-            { label: 'Moc', value: '585 KM', icon: FireIcon },
+            { label: 'Silnik', value: '3.0 V6', icon: FireIcon },
+            { label: 'Moc', value: '315 KM', icon: FireIcon },
             { label: 'Rodzaj paliwa', value: 'Benzyna', icon: FireIcon },
-            { label: 'Przebieg', value: '100 000 km', icon: FireIcon },
-            { label: 'Rok produkcji', value: '2021', icon: FireIcon },
+            { label: 'Przebieg', value: '72 820 km', icon: FireIcon },
+            { label: 'Rok produkcji', value: '2019', icon: FireIcon },
           ]}
         />
         <PhotoGallery
           items={Array(8).fill({
             width: 1200,
             height: 800,
-            alt: 'mercedes',
-            src: 'https://images.pexels.com/photos/16511358/pexels-photo-16511358/free-photo-of-a-modern-blue-mercedes-amg-gt-r-parked-in-front-of-the-car-salon.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+            alt: 'bmw',
+            src: 'https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600',
           })}
         />
 
@@ -67,23 +67,21 @@ export default function Home() {
             {
               label: 'Bezpieczeństwo',
               items: [
-                'Podgrzewane fotele przednie',
-                'Podgrzewane fotele tylne',
-                'Dostęp bezkluczykowy',
-                'Automatyczne domykanie drzwi',
-                'Skórzana tapicerka',
-                'Czterostrefowa klimatyzacja',
+                'System ochrony pieszych',
+                'Systemy wspomagania kierowcy',
+                'Detekcja zmęczenia kierowcy',
+                'Asystent pasa ruchu',
+                'Asystent parkowania',
+                'System monitorowania martwego pola',
               ],
             },
             {
               label: 'Osiągi i wydajność',
               items: [
-                'Podgrzewane fotele przednie',
-                'Podgrzewane fotele tylne',
-                'Dostęp bezkluczykowy',
-                'Automatyczne domykanie drzwi',
-                'Skórzana tapicerka',
-                'Czterostrefowa klimatyzacja',
+                'Sportowy filtr stożkowy',
+                'Ceramiczne hamulce',
+                'Sportowe zawieszenie',
+                'Wyczynowe oprogramowanie silnika',
               ],
             },
           ]}

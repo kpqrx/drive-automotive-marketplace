@@ -15,12 +15,24 @@ const data = [
       {
         label: 'Typ nadwozia',
         placeholder: 'Wybierz typ nadwozia',
-        items: [],
+        items: [
+          { label: 'Sedan', value: 'sedan' },
+          { label: 'Kombi', value: 'kombi' },
+          { label: 'SUV', value: 'suv' },
+          { label: 'Coupe', value: 'coupe' },
+          { label: 'Kabriolet', value: 'kabriolet' },
+        ],
       },
       {
         label: 'Marka pojazdu',
         placeholder: 'Wybierz markę pojazdu',
-        items: [],
+        items: [
+          { label: 'Audi', value: 'audi' },
+          { label: 'BMW', value: 'bmw' },
+          { label: 'Mercedes', value: 'mercedes' },
+          { label: 'Volkswagen', value: 'volkswagen' },
+          { label: 'Toyota', value: 'toyota' },
+        ],
       },
       {
         label: 'Model pojazdu',
@@ -100,7 +112,7 @@ export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
             <div className={styles.formFooter}>
               <h2 className={styles.foundOffersHeading}>
                 Znaleziono
-                <span className={styles.foundOffersCount}>32 900</span>
+                <span className={styles.foundOffersCount}>5</span>
                 ogłoszeń.
               </h2>
               <Button
@@ -110,7 +122,10 @@ export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
               >
                 Zaawansowane wyszukiwanie
               </Button>
-              <SearchForm.SubmitButton className={styles.submitButton} />
+              <SearchForm.SubmitButton
+                className={styles.submitButton}
+                href="/offers"
+              />
             </div>
           </SearchForm>
         ),

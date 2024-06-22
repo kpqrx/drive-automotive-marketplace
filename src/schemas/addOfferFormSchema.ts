@@ -12,8 +12,12 @@ export const addOfferFormSchema = z.object({
     .min(64, 'Minimalna długość opisu to 64 znaki')
     .max(512, 'Maksymalna długość opisu to 512 znaków'),
   price: z
-    .number({ required_error: 'Cena jest wymagana' })
-    .positive('Wartość kwoty jest nieprawidłowa'),
+    .number({
+      required_error: 'Cena jest wymagana',
+      invalid_type_error: 'Kwota musi być wartością liczbową',
+    })
+    .positive('Wartość kwoty jest nieprawidłowa')
+    .finite(),
   photos: z
     .array(z.custom<File>(), { invalid_type_error: 'Zdjęcia są wymagane' })
     .refine((value) => {

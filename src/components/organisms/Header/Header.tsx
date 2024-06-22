@@ -44,7 +44,10 @@ export const Header = (props: HeaderProps) => {
           {withMenu && (
             <ul className={styles.buttonsWrapper}>
               <li className={styles.callToActionButton}>
-                <Button size="small">
+                <Button
+                  size="small"
+                  href="/offers/add"
+                >
                   <PlusIcon />
                   Dodaj ogłoszenie
                 </Button>
