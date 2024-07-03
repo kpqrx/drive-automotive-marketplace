@@ -1,0 +1,7 @@
+.content {
+  @apply rounded border border-neutral-200/75 bg-neutral-50/75 px-4 py-2 text-sm text-black backdrop-blur-sm;
+}
+
+.arrow {
+  @apply relative top-px h-1.5 w-3 fill-neutral-200/50 backdrop-blur-sm;
+}

@@ -1,0 +1,19 @@
+.container {
+  @apply block py-6;
+}
+
+.track {
+  @apply relative block h-0.5 rounded-sm bg-gray-200;
+}
+
+.thumb {
+  @apply relative -top-0.5 block size-5 -translate-y-1/2 -skew-x-6 rounded-sm bg-orange-400 outline-none ring-orange-400/50 transition-shadow focus-visible:ring-4;
+}
+
+.range {
+  @apply absolute h-full bg-orange-500;
+}
+
+.tooltip {
+  @apply transition-transform;
+}

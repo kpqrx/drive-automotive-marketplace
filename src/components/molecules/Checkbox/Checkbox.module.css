@@ -7,7 +7,7 @@
 }
 
 .indicatorWrapper {
-  @apply relative inline-block size-5 basis-5 -skew-x-6 rounded-sm bg-neutral-50 p-0.5 ring-2 ring-inset ring-neutral-200 transition-all;
+  @apply relative inline-block h-5 min-w-5 basis-5 -skew-x-6 rounded-sm bg-neutral-50 p-0.5 ring-1 ring-inset ring-neutral-200 transition-all;
 
   &.indicatorWrapperChecked {
     @apply bg-orange-500 ring-0;
