@@ -1,0 +1,15 @@
+.container {
+  @apply flex flex-col items-stretch;
+}
+
+.heading {
+  @apply mb-4 text-lg;
+}
+
+.fieldsWrapper {
+  @apply space-y-3;
+}
+
+.button {
+  @apply mt-8;
+}

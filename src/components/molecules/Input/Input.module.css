@@ -40,9 +40,13 @@
 }
 
 .error {
-  @apply mt-2 text-sm text-red-800;
+  @apply text-sm text-red-800;
 
   svg {
     @apply mr-1 inline-block size-5 align-text-bottom;
   }
+}
+
+.errorWrapper {
+  @apply pt-2;
 }

@@ -99,8 +99,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               animate="visible"
               exit="hidden"
             >
-              <ErrorIcon />
-              {error}
+              <div className={styles.errorWrapper}>
+                <ErrorIcon />
+                {error}
+              </div>
             </m.p>
           )}
         </AnimatePresence>

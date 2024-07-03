@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react'
+import type { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
-export interface ContainerProps<T extends keyof JSX.IntrinsicElements> {
-  as?: T
-  children: ReactNode
-  className?: string
-}
+export type ContainerProps<C extends ElementType = 'div'> =
+  ComponentPropsWithoutRef<C> & {
+    as?: C
+    children: ReactNode
+    className?: string
+  }

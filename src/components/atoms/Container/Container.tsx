@@ -1,10 +1,14 @@
 import styles from './Container.module.css'
 import clsx from 'clsx'
 import type { ContainerProps } from '@/components/atoms/Container/Container.types'
-import { forwardRef } from 'react'
+import { forwardRef, type ElementType } from 'react'
 
-export const Container = forwardRef<HTMLElement, ContainerProps<any>>(
-  (props, ref) => {
+// TODO: Move to a separate file
+export type PolymorphicRef<C extends React.ElementType> =
+  React.ComponentPropsWithRef<C>['ref']
+
+export const Container = forwardRef(
+  <C extends ElementType>(props: ContainerProps<C>, ref: PolymorphicRef<C>) => {
     const { children, className = '', as: Tag = 'div', ...restProps } = props
 
     return (
