@@ -2,4 +2,5 @@ import type { CheckboxProps as CheckboxPrimitiveProps } from '@radix-ui/react-ch
 
 export interface CheckboxProps extends CheckboxPrimitiveProps {
   children: string
+  error?: string
 }
