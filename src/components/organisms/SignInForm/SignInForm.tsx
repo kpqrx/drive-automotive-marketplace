@@ -3,11 +3,13 @@ import styles from './SignInForm.module.css'
 import type { SignInFormProps } from '@/components/organisms/SignInForm/SignInForm.types'
 import { Input, Button, Container } from '@/components'
 import clsx from 'clsx'
-import { FormProvider, useForm, type SubmitHandler } from 'react-hook-form'
+import { FormProvider, useForm, type SubmitHandler, set } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInFormSchema, type SignInFormSchemaType } from '@/schemas'
 import { signIn } from '@/lib'
 import { useState } from 'react'
+import { useUserStore } from '@/store'
+import { useRouter } from 'next/navigation'
 
 export const SignInForm = (props: SignInFormProps) => {
   const { className, ...restProps } = props
@@ -25,13 +27,17 @@ export const SignInForm = (props: SignInFormProps) => {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
+  const { setUser } = useUserStore()
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<SignInFormSchemaType> = async (data) => {
     setErrorMessage(null)
 
     try {
       const user = await signIn(data)
 
-      // TODO: Store user data in global store (persistent)
+      setUser(user)
+      router.push('/')
     } catch (error) {
       if (!(error instanceof Error)) {
         return
