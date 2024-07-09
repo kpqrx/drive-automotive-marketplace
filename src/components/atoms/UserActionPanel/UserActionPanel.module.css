@@ -1,0 +1,35 @@
+.container {
+  @apply hidden items-center gap-3 text-neutral-400 lg:flex;
+}
+
+.link {
+  @apply text-neutral-800;
+}
+
+.link:hover {
+  @apply text-neutral-800;
+}
+
+.userIcon {
+  @apply size-8 rounded-full bg-neutral-100 p-2;
+}
+
+.welcomeMessage {
+  @apply text-neutral-800;
+}
+
+.dropdown {
+  @apply min-w-64 space-y-1 rounded bg-neutral-100 px-2 py-1;
+}
+
+.dropdownArrow {
+  @apply h-2 w-4 fill-neutral-100;
+}
+
+.dropdownItem {
+  @apply w-full rounded px-4 py-3 text-start text-sm text-neutral-800 transition-colors hover:bg-neutral-200/50 focus-visible:bg-neutral-200/50;
+}
+
+.icon {
+  @apply size-4;
+}

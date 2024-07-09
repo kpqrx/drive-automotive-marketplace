@@ -2,17 +2,13 @@
 import { Button } from '@/components/atoms/Button/Button'
 import { Logo } from '@/components/atoms/Logo/Logo'
 import type { SidebarProps } from '@/components/molecules/Sidebar/Sidebar.types'
-// import { Dialog } from '@headlessui/react'
 import clsx from 'clsx'
 import { AnimatePresence, m } from 'framer-motion'
 import type { Transition, Variants } from 'framer-motion'
-import Link from 'next/link'
-import {
-  HiOutlinePlus as PlusIcon,
-  HiOutlineUser as UserIcon,
-} from 'react-icons/hi2'
+import { HiOutlinePlus as PlusIcon } from 'react-icons/hi2'
 import styles from './Sidebar.module.css'
 import * as Dialog from '@radix-ui/react-dialog'
+import { UserActionPanel } from '@/components/atoms/UserActionPanel/UserActionPanel'
 
 const sidebarVariants: Variants = {
   hidden: {
@@ -83,31 +79,14 @@ export const Sidebar = (props: SidebarProps) => {
                 {...restProps}
               >
                 <Logo initial={false} />
-                <div className={styles.userActions}>
-                  <span className={styles.userActionsIconWrapper}>
-                    <UserIcon className={styles.userActionsIcon} />
-                  </span>
-                  <span className={styles.userActionsLinksWrapper}>
-                    <Link
-                      href="/sign-in"
-                      className={styles.userActionsLink}
-                    >
-                      Zaloguj się
-                    </Link>
-                    &nbsp;lub&nbsp;
-                    <Link
-                      href="/sign-up"
-                      className={styles.userActionsLink}
-                    >
-                      Zarejestuj się
-                    </Link>
-                  </span>
-                </div>
+
+                <UserActionPanel className={styles.userActionPanel} />
+
                 <Button>
                   <PlusIcon />
                   Dodaj ogłoszenie
                 </Button>
-                <m.ul
+                {/* <m.ul
                   className={styles.navigationItems}
                   variants={linksWrapperVariants}
                   initial="initial"
@@ -123,7 +102,7 @@ export const Sidebar = (props: SidebarProps) => {
                       <Link href={href}>{label}</Link>
                     </m.li>
                   ))}
-                </m.ul>
+                </m.ul> */}
               </m.div>
             </Dialog.Content>
             <Dialog.Overlay asChild>

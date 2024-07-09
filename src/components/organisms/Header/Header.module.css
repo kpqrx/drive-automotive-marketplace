@@ -11,7 +11,7 @@
 }
 
 .buttonsWrapper {
-  @apply ml-auto flex items-center gap-4;
+  @apply ml-auto flex items-center gap-8;
 }
 
 .iconButton {
@@ -36,4 +36,8 @@
   @screen md {
     @apply ml-8 mt-1 py-1 pl-8 text-base;
   }
+}
+
+.navigationButtonWrapper {
+  @apply lg:hidden;
 }

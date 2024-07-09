@@ -1,0 +1,74 @@
+import React from 'react'
+import styles from './UserActionPanel.module.css'
+import type { UserActionPanelProps } from '@/components/atoms/UserActionPanel/UserActionPanel.types'
+import clsx from 'clsx'
+import Link from 'next/link'
+import {
+  HiOutlineUser as UserIcon,
+  HiChevronDown as DropdownIcon,
+} from 'react-icons/hi2'
+import { useUserStore } from '@/store'
+import { signOut } from '@/lib'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
+
+export const UserActionPanel = (props: UserActionPanelProps) => {
+  const { children, size = 'lg', className = '', ...restProps } = props
+  const { firstName, userId, removeUser } = useUserStore()
+
+  const isUserLoggedIn = Boolean(userId)
+
+  const handleSignOut = async () => {
+    const isSignedOut = await signOut()
+
+    if (isSignedOut) {
+      removeUser()
+    }
+  }
+
+  if (isUserLoggedIn) {
+    return (
+      <PopoverPrimitive.Root>
+        <PopoverPrimitive.Trigger className={clsx(className, styles.container)}>
+          <UserIcon className={styles.userIcon} />
+          <span className={styles.welcomeMessage}>Cześć, {firstName}</span>
+          <DropdownIcon className={styles.icon} />
+        </PopoverPrimitive.Trigger>
+
+        <PopoverPrimitive.Content align="end">
+          <PopoverPrimitive.Arrow className={styles.dropdownArrow} />
+          <ul className={styles.dropdown}>
+            <li>
+              <button
+                className={styles.dropdownItem}
+                onClick={handleSignOut}
+              >
+                Wyloguj się
+              </button>
+            </li>
+          </ul>
+        </PopoverPrimitive.Content>
+      </PopoverPrimitive.Root>
+    )
+  }
+
+  return (
+    <div
+      className={clsx(className, styles.container)}
+      {...restProps}
+    >
+      <Link
+        href="/sign-in"
+        className={styles.link}
+      >
+        Zaloguj się
+      </Link>
+      &nbsp;lub&nbsp;
+      <Link
+        href="/sign-up"
+        className={styles.link}
+      >
+        Zarejestuj się
+      </Link>
+    </div>
+  )
+}

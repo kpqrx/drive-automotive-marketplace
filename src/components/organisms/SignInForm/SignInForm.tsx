@@ -11,6 +11,23 @@ import { useState } from 'react'
 import { useUserStore } from '@/store'
 import { useRouter } from 'next/navigation'
 
+const LoadingIcon = () => (
+  <svg
+    className="animate-spin"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="m1,12C1,5.92,5.92,1,12,1"
+      fill="none"
+      stroke="currentColor"
+      strokeMiterlimit="10"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+)
+
 export const SignInForm = (props: SignInFormProps) => {
   const { className, ...restProps } = props
 
@@ -21,7 +38,7 @@ export const SignInForm = (props: SignInFormProps) => {
   })
   const {
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = formMethods
 
@@ -73,7 +90,9 @@ export const SignInForm = (props: SignInFormProps) => {
           {errorMessage && <p className={styles.error}>{errorMessage}</p>}
 
           <div className={styles.buttonsWrapper}>
-            <Button type="submit">Zaloguj się</Button>
+            <Button type="submit">
+              {isSubmitting ? <LoadingIcon /> : 'Zaloguj się'}
+            </Button>
             <Button
               href="/sign-up"
               variant="secondary"

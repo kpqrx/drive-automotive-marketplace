@@ -13,30 +13,14 @@
   @apply absolute inset-0 z-10 h-screen w-screen cursor-pointer bg-black/50;
 }
 
-.userActions {
-  @apply flex items-center gap-4;
-}
-
-.userActionsIconWrapper {
-  @apply rounded-full bg-neutral-100 p-4;
-}
-
-.userActionsIcon {
-  @apply h-6 w-6;
-}
-
-.userActionsLinksWrapper {
-  @apply text-sm text-neutral-400;
-}
-
-.userActionsLink {
-  @apply mx-1.5 text-neutral-600;
-}
-
 .navigationItems {
   @apply flex flex-col gap-6;
 }
 
 .navigationItem {
   @apply text-xl font-bold leading-loose text-neutral-800;
+}
+
+.userActionPanel {
+  @apply flex;
 }

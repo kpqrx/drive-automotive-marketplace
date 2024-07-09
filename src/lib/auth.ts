@@ -36,7 +36,7 @@ export const signIn = async (
 
     cookies().set('token', token, {
       httpOnly: true,
-      expires: new Date(Date.now() + expiresIn * 1000),
+      expires: new Date(Date.now() + expiresIn * 60 * 1000),
     })
 
     return {
@@ -56,6 +56,9 @@ export const signIn = async (
 
 export const signOut = async () => {
   cookies().delete('token')
+
+  const isTokenDeleted = !cookies().get('token')?.value
+  return isTokenDeleted
 }
 
 export const signUp = async (data: SignUpFormSchemaType) => {

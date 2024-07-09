@@ -9,6 +9,7 @@ import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
 import { Logo } from '@/components/atoms/Logo/Logo'
 import clsx from 'clsx'
+import { UserActionPanel } from '@/components/atoms/UserActionPanel/UserActionPanel'
 
 const sidebarItems: SidebarItemType[] = [
   { label: 'Obserwowane oferty', href: '#' },
@@ -37,6 +38,9 @@ export const Header = (props: HeaderProps) => {
           {label && <h1 className={styles.label}>{label}</h1>}
           {withMenu && (
             <ul className={styles.buttonsWrapper}>
+              <li>
+                <UserActionPanel />
+              </li>
               <li className={styles.callToActionButton}>
                 <Button
                   size="small"
@@ -46,7 +50,7 @@ export const Header = (props: HeaderProps) => {
                   Dodaj ogłoszenie
                 </Button>
               </li>
-              <li>
+              <li className={styles.navigationButtonWrapper}>
                 <button
                   className={styles.iconButton}
                   onClick={handleSidebarToggle}
