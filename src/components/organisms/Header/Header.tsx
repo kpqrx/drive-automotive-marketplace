@@ -7,7 +7,6 @@ import { HiBars2 as MenuIcon, HiPlus as PlusIcon } from 'react-icons/hi2'
 import { useCallback, useState } from 'react'
 import { Sidebar } from '@/components/molecules/Sidebar/Sidebar'
 import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.types'
-import { Container } from '@/components/atoms/Container/Container'
 import { Logo } from '@/components/atoms/Logo/Logo'
 import clsx from 'clsx'
 
@@ -20,12 +19,7 @@ const sidebarItems: SidebarItemType[] = [
 ]
 
 export const Header = (props: HeaderProps) => {
-  const {
-    label = 'Marketplace',
-    className,
-    withMenu = true,
-    ...restProps
-  } = props
+  const { label, className, withMenu = true, ...restProps } = props
   const [isSidebarVisible, setSidebarVisible] = useState(false)
 
   const handleSidebarToggle = useCallback(
@@ -40,7 +34,7 @@ export const Header = (props: HeaderProps) => {
       >
         <div className={styles.wrapper}>
           <Logo />
-          <p className={styles.label}>{label}</p>
+          {label && <h1 className={styles.label}>{label}</h1>}
           {withMenu && (
             <ul className={styles.buttonsWrapper}>
               <li className={styles.callToActionButton}>

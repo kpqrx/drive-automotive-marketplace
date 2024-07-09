@@ -62,10 +62,10 @@ export const Checkbox = (props: CheckboxProps) => {
               animate="visible"
               exit="hidden"
             >
-              <div className={styles.errorWrapper}>
+              <span className={styles.errorWrapper}>
                 <ErrorIcon />
                 {error}
-              </div>
+              </span>
             </m.p>
           )}
         </AnimatePresence>

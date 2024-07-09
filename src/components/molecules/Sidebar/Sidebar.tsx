@@ -89,14 +89,14 @@ export const Sidebar = (props: SidebarProps) => {
                   </span>
                   <span className={styles.userActionsLinksWrapper}>
                     <Link
-                      href=""
+                      href="/sign-in"
                       className={styles.userActionsLink}
                     >
                       Zaloguj się
                     </Link>
                     &nbsp;lub&nbsp;
                     <Link
-                      href=""
+                      href="/sign-up"
                       className={styles.userActionsLink}
                     >
                       Zarejestuj się

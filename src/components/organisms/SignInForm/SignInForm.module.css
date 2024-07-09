@@ -1,5 +1,9 @@
 .container {
-  @apply flex flex-col items-stretch;
+  @apply mt-12 flex max-w-screen-sm flex-col gap-y-4;
+}
+
+.form {
+  @apply flex max-w-screen-sm flex-col items-stretch;
 }
 
 .heading {
@@ -10,6 +14,10 @@
   @apply space-y-3;
 }
 
-.button {
-  @apply mt-8;
+.buttonsWrapper {
+  @apply mt-8 flex flex-col space-y-4;
+}
+
+.error {
+  @apply text-sm text-red-800;
 }
