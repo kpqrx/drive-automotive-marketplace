@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col overflow-hidden rounded bg-white;
+  @apply flex h-full flex-col overflow-hidden rounded bg-white;
 
   &.containerHorizontal {
     @apply flex-row;
@@ -35,7 +35,7 @@
 }
 
 .contentWrapper {
-  @apply flex items-center justify-between font-medium;
+  @apply mb-auto flex items-center justify-between font-medium;
 
   @screen lg {
     @apply text-2xl;
@@ -43,7 +43,7 @@
 }
 
 .labelWrapper {
-  @apply inline-flex items-center gap-2;
+  @apply inline-flex items-start gap-2;
 
   @screen lg {
     @apply gap-4;
@@ -71,7 +71,7 @@
 }
 
 .price {
-  @apply text-amber-500;
+  @apply self-baseline whitespace-nowrap leading-10 text-amber-500;
 }
 
 .propertiesWrapper {

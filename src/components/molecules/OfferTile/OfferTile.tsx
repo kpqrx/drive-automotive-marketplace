@@ -4,7 +4,6 @@ import type { OfferTileProps } from '@/components/molecules/OfferTile/OfferTile.
 import clsx from 'clsx'
 import Link from 'next/link'
 import Image from 'next/image'
-import { SiBmw } from 'react-icons/si'
 import {
   HeartIcon,
   PhoneIcon,
@@ -20,6 +19,7 @@ export const OfferTile = (props: OfferTileProps) => {
     description,
     location,
     price,
+    icon: Icon,
     thumbnailSrc,
     properties,
     orientation = 'vertical',
@@ -49,7 +49,7 @@ export const OfferTile = (props: OfferTileProps) => {
       <div className={styles.wrapper}>
         <div className={styles.contentWrapper}>
           <div className={styles.labelWrapper}>
-            <SiBmw className={styles.manufacturerIcon} />
+            <Icon className={styles.manufacturerIcon} />
             <h3 className={styles.label}>{label}</h3>
           </div>
           <span className={styles.price}>{price}</span>
