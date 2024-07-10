@@ -15,7 +15,7 @@ const markerIcon = divIcon({
   className: styles.markerIcon,
 })
 
-export const Map = (props: MapProps) => {
+const Map = (props: MapProps) => {
   const { lat, long, className = '', ...restProps } = props
 
   const position: LatLngExpression = [+lat, +long]
@@ -36,3 +36,5 @@ export const Map = (props: MapProps) => {
     </MapContainer>
   )
 }
+
+export default Map

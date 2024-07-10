@@ -9,7 +9,6 @@ export { Logo } from '@/components/atoms/Logo/Logo'
 export { OfferDescription } from '@/components/atoms/OfferDescription/OfferDescription'
 export { OfferHeader } from '@/components/atoms/OfferHeader/OfferHeader'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
-export { Map } from '@/components/atoms/Map/Map'
 
 export { Combobox } from '@/components/molecules/Combobox/Combobox'
 export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'

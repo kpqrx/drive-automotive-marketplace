@@ -1,9 +1,9 @@
-import { Map } from '@/components'
 import type { ContactInfoProps } from '@/components/molecules/ContactInfo/ContactInfo.types'
 import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import Image from 'next/image'
 import styles from './ContactInfo.module.css'
+import dynamic from 'next/dynamic'
 
 /**
  *
@@ -25,6 +25,10 @@ export const ContactInfo = (props: ContactInfoProps) => {
     className = '',
     ...restProps
   } = props
+
+  const Map = dynamic(() => import('@/components/atoms/Map/Map'), {
+    ssr: false,
+  })
 
   return (
     <div
