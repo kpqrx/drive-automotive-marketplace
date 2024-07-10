@@ -2,6 +2,7 @@ import { VehicleSearchTabs } from '@/components/organisms/VehicleSearchTabs/Vehi
 import styles from '@/styles/home.module.css'
 import { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 import { Container } from '@/components/atoms/Container/Container'
+import { getBodyTypes } from '@/lib'
 
 const carouselData = [
   ['y', 'samochód'],
@@ -9,7 +10,8 @@ const carouselData = [
   ['a', 'ciężarówka'],
 ]
 
-export default function Home() {
+export default async function Home() {
+  const bodyTypes = await getBodyTypes()
   return (
     <Container as="main">
       <div className={styles.heroWrapper}>
@@ -29,7 +31,7 @@ export default function Home() {
         <h2 className={styles.heroHeadingSecondary}>Przekonaj się!</h2>
       </div>
       <div className={styles.formWrapper}>
-        <VehicleSearchTabs />
+        <VehicleSearchTabs bodyTypes={bodyTypes} />
       </div>
     </Container>
   )

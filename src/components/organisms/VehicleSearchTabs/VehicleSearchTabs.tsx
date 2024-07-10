@@ -4,10 +4,9 @@ import { Button } from '@/components'
 import { Combobox } from '@/components/molecules/Combobox/Combobox'
 import { Tabs } from '@/components/molecules/Tabs/Tabs'
 import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
-import { type ComponentPropsWithoutRef } from 'react'
 import styles from './VehicleSearchTabs.module.css'
 
-const data = [
+const getData = (bodyTypes: string[]) => [
   {
     label: 'Osobowe',
     heading: 'Wyszukaj samochód osobowy',
@@ -15,13 +14,10 @@ const data = [
       {
         label: 'Typ nadwozia',
         placeholder: 'Wybierz typ nadwozia',
-        items: [
-          { label: 'Sedan', value: 'sedan' },
-          { label: 'Kombi', value: 'kombi' },
-          { label: 'SUV', value: 'suv' },
-          { label: 'Coupe', value: 'coupe' },
-          { label: 'Kabriolet', value: 'kabriolet' },
-        ],
+        items: bodyTypes.map((bodyType) => ({
+          label: bodyType,
+          value: bodyType,
+        })),
       },
       {
         label: 'Marka pojazdu',
@@ -92,7 +88,10 @@ const data = [
   },
 ]
 
-export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
+export const VehicleSearchTabs = (props: { bodyTypes: string[] }) => {
+  const { bodyTypes, ...restProps } = props
+  const data = getData(bodyTypes)
+
   return (
     <Tabs
       items={data.map(({ label, heading, fields, disabled }) => ({
@@ -130,7 +129,7 @@ export const VehicleSearchTabs = (props: ComponentPropsWithoutRef<'div'>) => {
           </SearchForm>
         ),
       }))}
-      {...props}
+      {...restProps}
     />
   )
 }
