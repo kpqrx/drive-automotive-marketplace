@@ -25,3 +25,11 @@
 .submitButton {
   @apply basis-full;
 }
+
+.formHeading {
+  @apply leading-10;
+}
+
+.formFieldset {
+  @apply space-y-4;
+}

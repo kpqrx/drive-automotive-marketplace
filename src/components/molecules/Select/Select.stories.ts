@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Combobox } from './Combobox'
+import { Select } from './Select'
 
-const meta: Meta<typeof Combobox> = {
-  title: 'Molecules/Combobox',
-  component: Combobox,
+const meta: Meta<typeof Select> = {
+  title: 'Molecules/Select',
+  component: Select,
   tags: ['autodocs'],
   parameters: {
     backgrounds: {
@@ -18,7 +18,7 @@ const meta: Meta<typeof Combobox> = {
     },
   },
   args: {
-    label: 'Combobox label',
+    label: 'Select label',
     items: [
       {
         label: 'Tomato 🍅',
@@ -97,7 +97,7 @@ const meta: Meta<typeof Combobox> = {
 }
 
 export default meta
-type Story = StoryObj<typeof Combobox>
+type Story = StoryObj<typeof Select>
 
 export const Default: Story = {}
 export const WithPlaceholder: Story = {
@@ -105,6 +105,13 @@ export const WithPlaceholder: Story = {
     placeholder: 'Placeholder...',
   },
 }
+
+export const AllowMultiple: Story = {
+  args: {
+    allowMultiple: true,
+  },
+}
+
 export const Disabled: Story = {
   args: {
     disabled: true,

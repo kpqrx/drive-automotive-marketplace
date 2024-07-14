@@ -5,15 +5,52 @@ import { parseOffer, toPascalCase } from '@/utils'
 
 const { API_BASE_URL } = process.env
 
-type GetBodyTypesApiResponse = { $values: string[] }
+type GetFilterSuggestionsResponse = { $values: string[] }
 
 export const getBodyTypes = async () => {
   const req = await fetch(`${API_BASE_URL}/api/filters/suggest-bodytype`, {
     method: 'GET',
   })
 
-  const { $values: bodyTypes }: GetBodyTypesApiResponse = await req.json()
+  if (req.status !== 200) {
+    throw new Error(req.statusText)
+  }
+
+  const { $values: bodyTypes }: GetFilterSuggestionsResponse = await req.json()
+
   return bodyTypes
+}
+
+export const getManufacturers = async () => {
+  const req = await fetch(`${API_BASE_URL}/api/filters/suggest-brands`, {
+    method: 'GET',
+  })
+
+  if (req.status !== 200) {
+    throw new Error(req.statusText)
+  }
+
+  const { $values: manufacturers }: GetFilterSuggestionsResponse =
+    await req.json()
+
+  return manufacturers
+}
+
+export const getModels = async (manufacturer: string) => {
+  const searchParams = new URLSearchParams({ brand: manufacturer })
+
+  const req = await fetch(
+    `${API_BASE_URL}/api/filters/suggest-models/?${searchParams.toString()}`,
+    {
+      method: 'GET',
+    },
+  )
+
+  if (req.status === 200) {
+    throw new Error(req.statusText)
+  }
+  const { $values: models }: GetFilterSuggestionsResponse = await req.json()
+  return models
 }
 
 type GetFilteredOffersApiResponse = { $values: Offer[] }

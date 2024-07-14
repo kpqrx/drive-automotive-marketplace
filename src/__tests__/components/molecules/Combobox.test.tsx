@@ -1,7 +1,6 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
-import { Combobox } from '@/components/molecules/Combobox/Combobox'
 import type { ComboboxItemType } from '@/components/molecules/Combobox/Combobox.types'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
 
 afterEach(cleanup)
 
@@ -17,7 +16,8 @@ const items: ComboboxItemType[] = [
 describe('Combobox component', async () => {
   it('should be rendered properly', () => {
     const renderedElement = render(
-      <Combobox
+      <Select
+        allowMultiple
         label={label}
         placeholder={placeholder}
         items={items}
@@ -33,7 +33,8 @@ describe('Combobox component', async () => {
   })
   it('should display items list on trigger', async () => {
     const renderedElement = render(
-      <Combobox
+      <Select
+        allowMultiple
         label={label}
         placeholder={placeholder}
         items={items}
@@ -51,7 +52,8 @@ describe('Combobox component', async () => {
   })
   it('should allow to select item', async () => {
     const renderedElement = render(
-      <Combobox
+      <Select
+        allowMultiple
         label={label}
         placeholder={placeholder}
         items={items}
@@ -74,7 +76,8 @@ describe('Combobox component', async () => {
 
   it('should allow to clear selection', async () => {
     const renderedElement = render(
-      <Combobox
+      <Select
+        allowMultiple
         label={label}
         placeholder={placeholder}
         items={items}

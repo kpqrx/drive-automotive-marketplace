@@ -2,20 +2,20 @@ import { Button } from '@/components/atoms/Button/Button'
 import styles from './SearchForm.module.css'
 import clsx from 'clsx'
 import type { ChildrenWithClassNameProps } from '@/components/organisms/SearchForm/SearchFrom.types'
-import { useContext, forwardRef } from 'react'
-import { SearchFormContext } from '@/components/organisms/SearchForm/SearchForm'
+import { forwardRef, type ReactNode } from 'react'
 import type { BaseButtonProps } from '@/components/atoms/Button/Button.types'
+import { useForm } from 'react-hook-form'
 
 export const Container = forwardRef<
   HTMLFormElement,
   ChildrenWithClassNameProps
 >((props, ref) => {
   const { children, className = '', ...restProps } = props
-  const searchFormContext = useContext(SearchFormContext)
+  const { handleSubmit } = useForm()
   return (
     <form
-      onSubmit={searchFormContext?.handleSubmit}
       className={clsx(styles.container, className)}
+      onSubmit={handleSubmit((x) => console.log(x))}
       ref={ref}
       {...restProps}
     >
@@ -28,16 +28,17 @@ Container.displayName = 'Container'
 
 export const FieldsWrapper = forwardRef<
   HTMLDivElement,
-  ChildrenWithClassNameProps
+  ChildrenWithClassNameProps<(props: ReturnType<typeof useForm>) => ReactNode>
 >((props, ref) => {
   const { children, className = '', ...restProps } = props
+  const formMethods = useForm()
   return (
     <div
       className={clsx(styles.fieldsWrapper, className)}
       ref={ref}
       {...restProps}
     >
-      {children}
+      {children(formMethods)}
     </div>
   )
 })

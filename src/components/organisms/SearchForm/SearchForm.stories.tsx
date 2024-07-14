@@ -1,8 +1,7 @@
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { SearchForm } from './SearchForm'
 import { Input } from '@/components/molecules/Input/Input'
-import { Combobox } from '@/components/molecules/Combobox/Combobox'
+import { SearchForm } from './SearchForm'
 
 const meta: Meta<typeof SearchForm> = {
   title: 'Organisms/SearchForm',
@@ -24,7 +23,8 @@ export const Default: StoryFn<typeof SearchForm> = (props) => {
           label="Example field"
           placeholder="Some value..."
         />
-        <Combobox
+        <Select
+          allowMultiple
           label="Example combobox"
           placeholder="Some value..."
           items={[

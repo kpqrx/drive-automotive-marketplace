@@ -10,7 +10,7 @@ export { OfferDescription } from '@/components/atoms/OfferDescription/OfferDescr
 export { OfferHeader } from '@/components/atoms/OfferHeader/OfferHeader'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 
-export { Combobox } from '@/components/molecules/Combobox/Combobox'
+export { Select } from '@/components/molecules/Select/Select'
 export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'
 export { Input } from '@/components/molecules/Input/Input'
 export { OfferTile } from '@/components/molecules/OfferTile/OfferTile'

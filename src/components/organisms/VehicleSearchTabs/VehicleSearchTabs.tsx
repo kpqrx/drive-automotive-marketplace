@@ -1,135 +1,102 @@
 'use client'
 
-import { Button } from '@/components'
-import { Combobox } from '@/components/molecules/Combobox/Combobox'
+import { Button, Select } from '@/components'
 import { Tabs } from '@/components/molecules/Tabs/Tabs'
 import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
+import { useVehicleSearch } from '@/hooks'
+import { useState } from 'react'
 import styles from './VehicleSearchTabs.module.css'
+import { FormProvider, useForm } from 'react-hook-form'
+import {
+  vehicleSearchFormSchema,
+  type VehicleSearchFormSchemaType,
+} from '@/schemas'
+import { zodResolver } from '@hookform/resolvers/zod'
 
-const getData = (bodyTypes: string[]) => [
-  {
-    label: 'Osobowe',
-    heading: 'Wyszukaj samochód osobowy',
-    fields: [
-      {
-        label: 'Typ nadwozia',
-        placeholder: 'Wybierz typ nadwozia',
-        items: bodyTypes.map((bodyType) => ({
-          label: bodyType,
-          value: bodyType,
-        })),
-      },
-      {
-        label: 'Marka pojazdu',
-        placeholder: 'Wybierz markę pojazdu',
-        items: [
-          { label: 'Audi', value: 'audi' },
-          { label: 'BMW', value: 'bmw' },
-          { label: 'Mercedes', value: 'mercedes' },
-          { label: 'Volkswagen', value: 'volkswagen' },
-          { label: 'Toyota', value: 'toyota' },
-        ],
-      },
-      {
-        label: 'Model pojazdu',
-        placeholder: 'Wybierz model pojazdu',
-        items: [],
-      },
-      {
-        label: 'Generacja',
-        placeholder: 'Wybierz generację',
-        items: [],
-      },
-    ],
-  },
-  {
-    disabled: true,
-    label: 'Motocykle',
-    heading: 'Wyszukaj motocykl',
-    fields: [
-      {
-        label: 'Typ pojazdu',
-        placeholder: 'Wybierz typ pojazdu',
-        items: [],
-      },
-      {
-        label: 'Marka pojazdu',
-        placeholder: 'Wybierz markę pojazdu',
-        items: [],
-      },
-      {
-        label: 'Model pojazdu',
-        placeholder: 'Wybierz model pojazdu',
-        items: [],
-      },
-    ],
-  },
-  {
-    disabled: true,
-    label: 'Użytkowe',
-    heading: 'Wyszukaj pojazd użytkowy',
-    fields: [
-      {
-        label: 'Typ pojazdu',
-        placeholder: 'Wybierz typ pojazdu',
-        items: [],
-      },
-      {
-        label: 'Marka pojazdu',
-        placeholder: 'Wybierz markę pojazdu',
-        items: [],
-      },
-      {
-        label: 'Model pojazdu',
-        placeholder: 'Wybierz model pojazdu',
-        items: [],
-      },
-    ],
-  },
+const parseSelectItems = (items?: string[]) =>
+  items ? items.map((item) => ({ label: item, value: item })) : []
+
+const bodyTypes = [
+  'Sedan',
+  'Kombi',
+  'Hatchback',
+  'Coupe',
+  'Cabrio',
+  'SUV',
+  'Van',
+  'Minivan',
 ]
+const manufacturers = ['Audi', 'BMW', 'Mercedes', 'Volkswagen']
+const models = ['A3', 'A4', 'A6', 'A8', 'Q3', 'Q5', 'Q7', 'Q8']
 
-export const VehicleSearchTabs = (props: { bodyTypes: string[] }) => {
-  const { bodyTypes, ...restProps } = props
-  const data = getData(bodyTypes)
+export const VehicleSearchTabs = () => {
+  const [modelsQuery, setModelsQuery] = useState<string>()
+  // const { bodyTypes, manufacturers, models } = useVehicleSearch({ modelsQuery })
+
+  const formMethods = useForm<VehicleSearchFormSchemaType>({
+    resolver: zodResolver(vehicleSearchFormSchema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  })
+  const { handleSubmit, register, watch } = formMethods
 
   return (
     <Tabs
-      items={data.map(({ label, heading, fields, disabled }) => ({
-        label,
-        disabled,
-        content: (
-          <SearchForm onSubmit={() => console.log('Submitted')}>
-            <SearchForm.Heading>{heading}</SearchForm.Heading>
-            <SearchForm.FieldsWrapper>
-              {fields.map((fieldProps, i) => (
-                <Combobox
-                  key={i}
-                  {...fieldProps}
-                />
-              ))}
-            </SearchForm.FieldsWrapper>
-            <div className={styles.formFooter}>
-              <h2 className={styles.foundOffersHeading}>
-                Znaleziono
-                <span className={styles.foundOffersCount}>5</span>
-                ogłoszeń.
-              </h2>
-              <Button
-                className={styles.advancedSearchButton}
-                variant="secondary"
-                size="small"
+      items={[
+        {
+          label: 'Osobowe',
+          content: (
+            <FormProvider {...formMethods}>
+              <form
+                onSubmit={handleSubmit((data) =>
+                  console.log({ data, modelsQuery }),
+                )}
               >
-                Zaawansowane wyszukiwanie
-              </Button>
-              <SearchForm.SubmitButton
-                className={styles.submitButton}
-                href="/offers"
-              />
-            </div>
-          </SearchForm>
-        ),
-      }))}
-      {...restProps}
+                <fieldset className={styles.formFieldset}>
+                  <legend className={styles.formHeading}>
+                    Wyszukaj samochód osobowy
+                  </legend>
+                  <Select
+                    label={'Rodzaj nadwozia'}
+                    placeholder={'Wybierz rodzaj nadwozia'}
+                    items={parseSelectItems(bodyTypes)}
+                    {...register('bodyType')}
+                  />
+                  <Select
+                    label={'Marka pojazdu'}
+                    placeholder={'Wybierz markę pojazdu'}
+                    items={parseSelectItems(manufacturers)}
+                    {...register('manufacturer')}
+                    onSelect={setModelsQuery}
+                  />
+                  <Select
+                    label={'Model pojazdu'}
+                    placeholder={'Wybierz model pojazdu'}
+                    items={parseSelectItems(models)}
+                    {...register('model')}
+                    disabled={!watch('manufacturer')}
+                  />
+                </fieldset>
+                <div className={styles.formFooter}>
+                  <h2 className={styles.foundOffersHeading}>
+                    Znaleziono
+                    <span className={styles.foundOffersCount}>5</span>
+                    ogłoszeń.
+                  </h2>
+                  <Button
+                    className={styles.advancedSearchButton}
+                    variant="secondary"
+                    size="small"
+                  >
+                    Zaawansowane wyszukiwanie
+                  </Button>
+                  <SearchForm.SubmitButton className={styles.submitButton} />
+                </div>
+              </form>
+            </FormProvider>
+          ),
+        },
+      ]}
     />
   )
 }

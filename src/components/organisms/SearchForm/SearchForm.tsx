@@ -6,35 +6,24 @@ import {
   Heading,
   SubmitButton,
 } from '@/components/organisms/SearchForm/SearchForm.children'
-import type {
-  SearchFormContextType,
-  SearchFormProps,
-} from '@/components/organisms/SearchForm/SearchFrom.types'
-import type { FormEvent } from 'react'
-import { createContext, useCallback } from 'react'
+import type { SearchFormProps } from '@/components/organisms/SearchForm/SearchFrom.types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
+import type { z } from 'zod'
 
-export const SearchFormContext = createContext<SearchFormContextType | null>(
-  null,
-)
 function SearchFormBase(props: SearchFormProps) {
-  const { onSubmit, children, ...restProps } = props
+  const { children, schema, ...restProps } = props
 
-  const handleSubmit = useCallback(
-    (e: FormEvent) => {
-      e.preventDefault()
-      onSubmit()
-    },
-    [onSubmit],
-  )
+  const formMethods = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  })
 
   return (
-    <SearchFormContext.Provider
-      value={{
-        handleSubmit,
-      }}
-    >
+    <FormProvider {...formMethods}>
       <Container {...restProps}>{children}</Container>
-    </SearchFormContext.Provider>
+    </FormProvider>
   )
 }
 
