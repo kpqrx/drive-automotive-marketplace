@@ -106,12 +106,6 @@ export const WithPlaceholder: Story = {
   },
 }
 
-export const AllowMultiple: Story = {
-  args: {
-    allowMultiple: true,
-  },
-}
-
 export const Disabled: Story = {
   args: {
     disabled: true,

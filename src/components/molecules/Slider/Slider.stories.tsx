@@ -13,6 +13,13 @@ type Story = StoryObj<typeof Slider>
 
 export const Default: Story = {}
 
+export const DefaultWithLabel: Story = {
+  args: {
+    label: 'Example label:',
+    name: 'example',
+  },
+}
+
 export const Range: Story = {
   args: {
     defaultValue: [25, 75],

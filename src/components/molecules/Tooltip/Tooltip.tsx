@@ -11,6 +11,7 @@ export const Tooltip = (props: TooltipProps) => {
     content,
     className,
     delayDuration = 50,
+    side,
     ...restProps
   } = props
 
@@ -22,7 +23,10 @@ export const Tooltip = (props: TooltipProps) => {
       >
         <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
 
-        <TooltipPrimitive.Content className={clsx(className, styles.content)}>
+        <TooltipPrimitive.Content
+          className={clsx(className, styles.content)}
+          side={side}
+        >
           {content}
           <TooltipPrimitive.Arrow className={styles.arrow} />
         </TooltipPrimitive.Content>

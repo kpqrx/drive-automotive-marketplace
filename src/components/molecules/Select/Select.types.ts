@@ -16,4 +16,5 @@ export interface SelectProps
   error?: string
   className?: string
   onSelect?: (value: string) => void
+  reset?: boolean
 }

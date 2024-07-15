@@ -2,13 +2,16 @@
 import type { SelectProps } from '@/components/molecules/Select/Select.types'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import styles from './Select.module.css'
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import { AnimatePresence, easeInOut, m } from 'framer-motion'
 import {
+  ChevronUpIcon,
   ChevronDownIcon,
-  MagnifyingGlassIcon,
+  // MagnifyingGlassIcon,
+  XMarkIcon as ClearIcon,
 } from '@heroicons/react/24/outline'
+import { CheckIcon } from '@heroicons/react/24/solid'
 
 const MotionChevronDownIcon = m(ChevronDownIcon)
 
@@ -21,7 +24,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       className = '',
       name,
       disabled,
-      filterInputPlaceholder = 'Szukaj...',
+      // filterInputPlaceholder = 'Szukaj...',
       error,
       onSelect,
       onChange,
@@ -31,7 +34,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       ...restProps
     } = props
 
-    const [filterQuery, setFilterQuery] = useState('')
+    // const [filterQuery, setFilterQuery] = useState('')
     const [isOpen, setIsOpen] = useState(defaultOpen)
     const [value, setValue] = useState(defaultValue)
     const valueLabel = useMemo(
@@ -39,25 +42,38 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       [items, value],
     )
 
-    const filteredItems = useMemo(
-      () =>
-        items.filter((item) =>
-          item.label.toLowerCase().includes(filterQuery.toLowerCase()),
-        ),
-      [items, filterQuery],
+    // const filteredItems = useMemo(
+    //   () =>
+    //     items.filter((item) =>
+    //       item.label.toLowerCase().includes(filterQuery.toLowerCase()),
+    //     ),
+    //   [items, filterQuery],
+    // )
+
+    // const handleFilterInputChange = (
+    //   event: React.ChangeEvent<HTMLInputElement>,
+    // ) => {
+    //   setFilterQuery(event.target.value)
+    // }
+
+    const handleOnValueChange = useCallback(
+      (value: string) => {
+        if (onSelect) onSelect(value)
+        if (onChange) onChange({ target: { name, value } })
+        setValue(value)
+      },
+      [name, onChange, onSelect],
     )
 
-    const handleFilterInputChange = (
-      event: React.ChangeEvent<HTMLInputElement>,
-    ) => {
-      setFilterQuery(event.target.value)
-    }
+    const handleClear = useCallback(() => {
+      handleOnValueChange('')
+    }, [handleOnValueChange])
 
-    const handleOnValueChange = (value: string) => {
-      if (onSelect) onSelect(value)
-      if (onChange) onChange({ target: { name, value } })
-      setValue(value)
-    }
+    useEffect(() => {
+      if (disabled) {
+        handleClear()
+      }
+    }, [disabled, handleClear])
 
     return (
       <div className={clsx(styles.container, className)}>
@@ -75,31 +91,67 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             className={clsx(styles.trigger, isOpen && styles.triggerActive)}
             ref={forwardedRef}
           >
-            <span
-              className={clsx(
-                styles.label,
-                (isOpen || value) && styles.labelFloating,
-              )}
+            <m.span
+              className={styles.label}
+              initial={false}
+              animate={{
+                y: isOpen || value ? -24 : 0,
+                scale: isOpen || value ? 0.9 : 1,
+              }}
             >
               {label}
-            </span>
+            </m.span>
 
-            <span
-              className={clsx(
-                styles.placeholder,
-                isOpen && !value && styles.placeholderShown,
+            <AnimatePresence mode="popLayout">
+              {isOpen && !value && (
+                <m.span
+                  className={styles.placeholder}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {placeholder}
+                </m.span>
               )}
-            >
-              {placeholder}
-            </span>
+            </AnimatePresence>
 
-            <span>{valueLabel}</span>
+            {value && (
+              <div className={styles.valueWrapper}>
+                <AnimatePresence mode="popLayout">
+                  {valueLabel && (
+                    <m.span
+                      className={styles.value}
+                      key={valueLabel}
+                      initial={{ y: 12, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -12, opacity: 0 }}
+                    >
+                      {valueLabel}
+                    </m.span>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
 
             <MotionChevronDownIcon
               className={styles.chevronIcon}
               animate={{ rotate: isOpen ? '180deg' : '0deg' }}
             />
           </SelectPrimitive.Trigger>
+
+          <AnimatePresence>
+            {value && (
+              <m.button
+                onClick={handleClear}
+                className={styles.clearButton}
+                initial={{ x: '100%', opacity: 0 }}
+                animate={{ x: '0%', opacity: 1 }}
+                exit={{ x: '100%', opacity: 0 }}
+              >
+                <ClearIcon className={styles.clearIcon} />
+              </m.button>
+            )}
+          </AnimatePresence>
 
           <AnimatePresence>
             {isOpen && (
@@ -115,27 +167,38 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                   exit={{ opacity: 0, y: -24, height: 0 }}
                   transition={{ ease: easeInOut, duration: 0.15 }}
                 >
-                  <label className={styles.filterInputWrapper}>
+                  {/* TODO: Resolve confict between typeahead functionality and filter input */}
+                  {/* <label className={styles.filterInputWrapper}>
                     <span className={styles.filterInputLabel}>Search...</span>
                     <MagnifyingGlassIcon
                       className={styles.magnifyingGlassIcon}
                     />
                     <input
+                      ref={filterInputRef}
                       className={styles.filterInput}
                       placeholder={filterInputPlaceholder}
                       value={filterQuery}
                       onChange={handleFilterInputChange}
                     />
-                  </label>
+                  </label> */}
+
+                  <SelectPrimitive.ScrollUpButton
+                    className={styles.scrollButton}
+                  >
+                    <ChevronUpIcon className={styles.scrollButtonIcon} />
+                  </SelectPrimitive.ScrollUpButton>
 
                   <SelectPrimitive.Viewport asChild>
                     <ul className={styles.itemsContainer}>
-                      {filteredItems.map((item) => (
+                      {items.map((item) => (
                         <li key={item.value}>
                           <SelectPrimitive.Item
                             value={item.value}
                             className={styles.item}
                           >
+                            <SelectPrimitive.ItemIndicator asChild>
+                              <CheckIcon className={styles.checkIcon} />
+                            </SelectPrimitive.ItemIndicator>
                             <SelectPrimitive.ItemText>
                               {item.label}
                             </SelectPrimitive.ItemText>
@@ -144,6 +207,12 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                       ))}
                     </ul>
                   </SelectPrimitive.Viewport>
+
+                  <SelectPrimitive.ScrollDownButton
+                    className={styles.scrollButton}
+                  >
+                    <ChevronDownIcon className={styles.scrollButtonIcon} />
+                  </SelectPrimitive.ScrollDownButton>
                 </m.div>
               </SelectPrimitive.Content>
             )}

@@ -5,6 +5,6 @@ import type {
 
 export interface TooltipProps
   extends TooltipPrimitiveProps,
-    Pick<TooltipPrimitiveContentProps, 'className'> {
+    Pick<TooltipPrimitiveContentProps, 'className' | 'side'> {
   content: string | number
 }

@@ -10,6 +10,8 @@ export const Slider = (props: SliderProps) => {
     className = '',
     defaultValue = [0],
     minStepsBetweenThumbs = 1,
+    label,
+    name,
     ...restProps
   } = props
 
@@ -24,8 +26,18 @@ export const Slider = (props: SliderProps) => {
       onValueChange={setValue}
       value={value}
       minStepsBetweenThumbs={minStepsBetweenThumbs}
+      name={name}
       {...restProps}
     >
+      {label && name && (
+        <label
+          className={styles.label}
+          htmlFor={name}
+        >
+          {label}
+        </label>
+      )}
+
       <SliderPrimitive.Track className={styles.track}>
         <SliderPrimitive.Range className={styles.range} />
       </SliderPrimitive.Track>
@@ -33,6 +45,7 @@ export const Slider = (props: SliderProps) => {
       <Tooltip
         className={styles.tooltip}
         content={`${value[0]}`}
+        side="bottom"
         open
       >
         <SliderPrimitive.Thumb className={styles.thumb} />
@@ -42,6 +55,7 @@ export const Slider = (props: SliderProps) => {
         <Tooltip
           className={styles.tooltip}
           content={`${value[1]}`}
+          side="bottom"
           open
         >
           <SliderPrimitive.Thumb className={styles.thumb} />

@@ -17,3 +17,7 @@
 .tooltip {
   @apply transition-transform;
 }
+
+.label {
+  @apply mb-3 block leading-10;
+}
