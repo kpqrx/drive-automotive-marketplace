@@ -17,3 +17,11 @@
     @apply flex-none;
   }
 }
+
+.buttonsWrapper {
+  @apply ml-auto flex flex-1 gap-x-4;
+
+  @screen lg {
+    @apply flex-auto;
+  }
+}

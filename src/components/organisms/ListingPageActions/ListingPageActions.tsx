@@ -1,5 +1,12 @@
 'use client'
-import { Button, Container, Dropdown, FiltersMenu } from '@/components'
+import {
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Container,
+  Dropdown,
+  FiltersMenu,
+} from '@/components'
 import styles from './ListingPageActions.module.css'
 import {
   HiOutlineFunnel as FilteringIcon,
@@ -20,30 +27,53 @@ export const ListingPageActions = (props: ListingPageActionsProps) => {
       <FiltersMenu
         isOpen={isFiltersMenuOpen}
         setIsOpen={setFiltersMenuOpen}
-      />
-      <Button
-        className={styles.button}
-        variant="secondary"
-        size="small"
-        onClick={() => setFiltersMenuOpen(true)}
       >
-        <FilteringIcon /> Filtrowanie
-      </Button>
-      <Dropdown
-        className={styles.button}
-        items={[
-          { label: 'Od najnowszego', callback: () => {} },
-          { label: 'Cena od najniższej', callback: () => {} },
-          { label: 'Cena od najwyższej', callback: () => {} },
-          { label: 'Moc silnika od najniższej', callback: () => {} },
-          { label: 'Moc silnika od najwyższej', callback: () => {} },
-        ]}
-        size="small"
-        variant="secondary"
-        align="end"
-      >
-        <SortingIcon /> Sortowanie
-      </Dropdown>
+        <FiltersMenu.Item
+          name="brands"
+          label="Marka"
+        >
+          {({ register }) => (
+            <CheckboxGroup
+              name="brands"
+              label="Wybierz interesujace Cię marki"
+              items={[
+                { label: 'Audi', value: 'audi' },
+                { label: 'BMW', value: 'bmw' },
+                { label: 'Mercedes-Benz', value: 'mercedes-benz' },
+                { label: 'Volkswagen', value: 'volkswagen' },
+              ]}
+              itemProps={{ ...register() }}
+            />
+          )}
+        </FiltersMenu.Item>
+      </FiltersMenu>
+
+      <div className={styles.buttonsWrapper}>
+        <Button
+          className={styles.button}
+          variant="secondary"
+          size="small"
+          onClick={() => setFiltersMenuOpen(true)}
+        >
+          <FilteringIcon /> Filtrowanie
+        </Button>
+
+        <Dropdown
+          className={styles.button}
+          items={[
+            { label: 'Od najnowszego', callback: () => {} },
+            { label: 'Cena od najniższej', callback: () => {} },
+            { label: 'Cena od najwyższej', callback: () => {} },
+            { label: 'Moc silnika od najniższej', callback: () => {} },
+            { label: 'Moc silnika od najwyższej', callback: () => {} },
+          ]}
+          size="small"
+          variant="secondary"
+          align="end"
+        >
+          <SortingIcon /> Sortowanie
+        </Dropdown>
+      </div>
     </Container>
   )
 }

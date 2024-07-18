@@ -4,9 +4,7 @@ import useSWR from 'swr'
 function useVehicleSearch({ modelsQuery = '' }: { modelsQuery?: string }) {
   const bodyTypes = useSWR('bodyTypes', getBodyTypes)
   const manufacturers = useSWR('manufacturers', getManufacturers)
-  const models = useSWR(modelsQuery ? 'models' : null, () =>
-    getModels(modelsQuery),
-  )
+  const models = useSWR(`models/${modelsQuery}`, () => getModels(modelsQuery))
 
   return {
     bodyTypes,

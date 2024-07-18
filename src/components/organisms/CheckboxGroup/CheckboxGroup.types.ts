@@ -7,8 +7,9 @@ export interface CheckboxGroupProps
   label: string
   items: {
     label: string
-    name: string
     value: string
   }[]
   itemProps?: Partial<Omit<CheckboxProps, 'value' | 'name' | 'children'>>
+  defaultValue?: string[]
+  onChange?: (value: string) => void
 }

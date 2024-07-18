@@ -41,3 +41,7 @@
 .wrapper {
   @apply flex space-x-3 align-baseline;
 }
+
+.input {
+  @apply sr-only;
+}

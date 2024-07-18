@@ -73,29 +73,39 @@ export type Offer = {
   }
 }
 
-export type FilterParameters = {
-  brands?: string[]
-  models?: string[]
-  generations?: string[]
-  minYear?: number
-  maxYear?: number
-  minMileage?: number
-  maxMileage?: number
-  minPrice?: number
-  maxPrice?: number
-  maxFuelConsumption?: number
-  bodyTypes?: string[]
-  damaged?: boolean
-  undamaged?: boolean
-  rightHandDrive?: boolean
-  doorCount?: number
-  seatCount?: number
-  isFirstOwner?: boolean
-  minPower?: number
-  maxPower?: number
-  multimediaFeatures?: number[]
-  safetyFeatures?: number[]
-  driverAssistanceSystemsFeatures?: number[]
-  performanceFeatures?: number[]
-  otherFeatures?: number[]
+export type OfferParameterStringValue = string[]
+export type OfferParameterNumberValue = number[]
+export type OfferParameterTruthyValue = true
+export type OfferParameterValue =
+  | OfferParameterStringValue
+  | OfferParameterNumberValue
+  | OfferParameterTruthyValue
+
+export type OfferParameters = {
+  brands?: OfferParameterStringValue
+  models?: OfferParameterStringValue
+  generations?: OfferParameterStringValue
+  minYear?: OfferParameterNumberValue
+  maxYear?: OfferParameterNumberValue
+  minMileage?: OfferParameterNumberValue
+  maxMileage?: OfferParameterNumberValue
+  minPrice?: OfferParameterNumberValue
+  maxPrice?: OfferParameterNumberValue
+  maxFuelConsumption?: OfferParameterNumberValue
+  bodyTypes?: OfferParameterStringValue
+  damaged?: OfferParameterTruthyValue
+  undamaged?: OfferParameterTruthyValue
+  rightHandDrive?: OfferParameterTruthyValue
+  doorCount?: OfferParameterNumberValue
+  seatCount?: OfferParameterNumberValue
+  isFirstOwner?: OfferParameterTruthyValue
+  minPower?: OfferParameterNumberValue
+  maxPower?: OfferParameterNumberValue
+  multimediaFeatures?: OfferParameterNumberValue
+  safetyFeatures?: OfferParameterNumberValue
+  driverAssistanceSystemsFeatures?: OfferParameterNumberValue
+  performanceFeatures?: OfferParameterNumberValue
+  otherFeatures?: OfferParameterNumberValue
 }
+
+export type OfferParameterKey = keyof OfferParameters

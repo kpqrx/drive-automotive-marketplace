@@ -1,40 +1,39 @@
 'use client'
-import React from 'react'
-import styles from './Checkbox.module.css'
-import type { CheckboxProps } from '@/components/molecules/Checkbox/Checkbox.types'
-import clsx from 'clsx'
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@/components'
-import { type Variants, AnimatePresence, m } from 'framer-motion'
+import type { CheckboxProps } from '@/components/molecules/Checkbox/Checkbox.types'
 import { ExclamationCircleIcon as ErrorIcon } from '@heroicons/react/24/outline'
-import { set, useForm } from 'react-hook-form'
+import clsx from 'clsx'
+import { AnimatePresence, m, type Variants } from 'framer-motion'
+import React, { forwardRef, type ChangeEventHandler } from 'react'
+import styles from './Checkbox.module.css'
+import { useFormContext } from 'react-hook-form'
 
 const errorVariants: Variants = {
   hidden: { opacity: 0, y: '-50%', height: 0 },
   visible: { opacity: 1, y: 0, height: 'auto' },
 }
 
-export const Checkbox = (props: CheckboxProps) => {
-  const {
-    children,
-    defaultChecked = false,
-    className = '',
-    error = '',
-    name,
-    ...restProps
-  } = props
-  const [isChecked, setIsChecked] = React.useState(defaultChecked)
-  const { setValue } = useForm()
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+  (props, ref) => {
+    const {
+      children,
+      className = '',
+      error = '',
+      onChange,
+      name,
+      value,
+      defaultChecked = false,
+      ...restProps
+    } = props
 
-  return (
-    <CheckboxPrimitive.Root
-      checked={isChecked}
-      onCheckedChange={setIsChecked}
-      name={name}
-      onChange={() => name && setValue(name, isChecked)}
-      asChild
-      {...restProps}
-    >
+    const [isChecked, setIsChecked] = React.useState(defaultChecked)
+
+    const handleOnChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+      if (onChange) onChange(event)
+      setIsChecked(event.target.checked)
+    }
+
+    return (
       <div className={clsx(className, styles.container)}>
         <label className={styles.wrapper}>
           <span
@@ -44,13 +43,21 @@ export const Checkbox = (props: CheckboxProps) => {
               error && styles.indicatorWrapperError,
             )}
           >
-            <CheckboxPrimitive.Indicator>
-              <CheckIcon className={styles.indicator} />
-            </CheckboxPrimitive.Indicator>
+            {isChecked && <CheckIcon className={styles.indicator} />}
           </span>
           <span className={clsx(styles.label, error && styles.labelError)}>
             {children}
           </span>
+
+          <input
+            className={styles.input}
+            ref={ref}
+            type="checkbox"
+            name={name}
+            value={value}
+            onChange={handleOnChange}
+            {...restProps}
+          />
         </label>
 
         <AnimatePresence>
@@ -70,6 +77,8 @@ export const Checkbox = (props: CheckboxProps) => {
           )}
         </AnimatePresence>
       </div>
-    </CheckboxPrimitive.Root>
-  )
-}
+    )
+  },
+)
+
+Checkbox.displayName = 'Checkbox'

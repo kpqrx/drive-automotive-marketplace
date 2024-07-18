@@ -56,16 +56,16 @@ export const Modal = (props: ModalProps) => {
 
   const isDesktop = useBreakpoint(1024)
 
-  const handlePanelDrag = useCallback(
-    (event: TouchEvent, { offset }: PanInfo) => {
-      const { x, y } = offset
+  // const handlePanelDrag = useCallback(
+  //   (event: TouchEvent, { offset }: PanInfo) => {
+  //     const { x, y } = offset
 
-      if ((isDesktop ? x : y) > 200) {
-        setIsOpen(false)
-      }
-    },
-    [isDesktop, setIsOpen],
-  )
+  //     if ((isDesktop ? x : y) > 200) {
+  //       setIsOpen(false)
+  //     }
+  //   },
+  //   [isDesktop, setIsOpen],
+  // )
 
   return (
     <Dialog.Root
@@ -98,20 +98,20 @@ export const Modal = (props: ModalProps) => {
                 initial="hidden"
                 exit="hidden"
                 transition={panelTransition}
-                drag={isDesktop ? 'x' : 'y'}
-                dragConstraints={{
-                  [isDesktop ? 'left' : 'top']: 0,
-                  [isDesktop ? 'right' : 'bottom']: 0,
-                }}
-                dragElastic={{
-                  [isDesktop ? 'right' : 'bottom']: 1,
-                  [isDesktop ? 'left' : 'top']: 0.125,
-                }}
-                dragTransition={{
-                  bounceStiffness: 800,
-                  bounceDamping: 25,
-                }}
-                onDragEnd={handlePanelDrag}
+                // drag={isDesktop ? 'x' : 'y'}
+                // dragConstraints={{
+                //   [isDesktop ? 'left' : 'top']: 0,
+                //   [isDesktop ? 'right' : 'bottom']: 0,
+                // }}
+                // dragElastic={{
+                //   [isDesktop ? 'right' : 'bottom']: 1,
+                //   [isDesktop ? 'left' : 'top']: 0.125,
+                // }}
+                // dragTransition={{
+                //   bounceStiffness: 800,
+                //   bounceDamping: 25,
+                // }}
+                // onDragEnd={handlePanelDrag}
               >
                 <div className={styles.headerWrapper}>
                   <button

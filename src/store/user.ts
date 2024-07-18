@@ -27,3 +27,7 @@ export const createUserStore: StateCreator<
   removeUser: () => set(() => defaultValue),
   setUser: (value: UserStoreValue) => set(() => value),
 })
+
+export const userStoreOptions = {
+  name: 'user-store',
+}

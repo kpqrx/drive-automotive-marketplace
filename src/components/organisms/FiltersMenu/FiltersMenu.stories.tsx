@@ -2,7 +2,6 @@ import type { Meta, StoryFn } from '@storybook/react'
 
 import { FiltersMenu } from './FiltersMenu'
 import { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import type { FiltersMenuProps } from './FiltersMenu.types'
 
 const meta: Meta<typeof FiltersMenu> = {

@@ -1,6 +1,6 @@
 'use server'
 
-import type { FilterParameters, Offer } from '@/types'
+import type { OfferParameters, Offer } from '@/types'
 import { parseOffer, toPascalCase } from '@/utils'
 
 const { API_BASE_URL } = process.env
@@ -46,17 +46,18 @@ export const getModels = async (manufacturer: string) => {
     },
   )
 
-  if (req.status === 200) {
+  if (req.status !== 200) {
     throw new Error(req.statusText)
   }
   const { $values: models }: GetFilterSuggestionsResponse = await req.json()
+
   return models
 }
 
-type GetFilteredOffersApiResponse = { $values: Offer[] }
+type GetOffersApiResponse = { $values: Offer[] }
 
-export const getFilteredOffers = async (filterParameters: FilterParameters) => {
-  const pascalCasedFilterParameters = Object.entries(filterParameters).reduce(
+export const getOffers = async (offerParameters: OfferParameters = {}) => {
+  const pascalCasedOfferParameters = Object.entries(offerParameters).reduce(
     (acc, [key, value]) => {
       const isEmptyValue =
         Array.isArray(value) && value.filter(Boolean).length === 0
@@ -70,7 +71,7 @@ export const getFilteredOffers = async (filterParameters: FilterParameters) => {
     {},
   )
 
-  const searchParams = new URLSearchParams(pascalCasedFilterParameters)
+  const searchParams = new URLSearchParams(pascalCasedOfferParameters)
 
   const req = await fetch(
     `${API_BASE_URL}/api/filters/filterAnn/?${searchParams.toString()}`,
@@ -79,7 +80,7 @@ export const getFilteredOffers = async (filterParameters: FilterParameters) => {
     },
   )
 
-  const { $values: offers }: GetFilteredOffersApiResponse = await req.json()
+  const { $values: offers }: GetOffersApiResponse = await req.json()
   const parsedOffers = offers.map(parseOffer)
 
   return parsedOffers

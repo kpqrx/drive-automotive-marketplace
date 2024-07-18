@@ -12,26 +12,16 @@ import {
   type VehicleSearchFormSchemaType,
 } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { getSerializedOfferParameter } from '@/utils'
+import type { OfferParameterKey } from '@/types'
 
 const parseSelectItems = (items?: string[]) =>
   items ? items.map((item) => ({ label: item, value: item })) : []
 
-const bodyTypes = [
-  'Sedan',
-  'Kombi',
-  'Hatchback',
-  'Coupe',
-  'Cabrio',
-  'SUV',
-  'Van',
-  'Minivan',
-]
-const manufacturers = ['Audi', 'BMW', 'Mercedes', 'Volkswagen']
-const models = ['A3', 'A4', 'A6', 'A8', 'Q3', 'Q5', 'Q7', 'Q8']
-
 export const VehicleSearchTabs = () => {
   const [modelsQuery, setModelsQuery] = useState<string>()
-  // const { bodyTypes, manufacturers, models } = useVehicleSearch({ modelsQuery })
+  const { bodyTypes, manufacturers, models } = useVehicleSearch({ modelsQuery })
 
   const formMethods = useForm<VehicleSearchFormSchemaType>({
     resolver: zodResolver(vehicleSearchFormSchema),
@@ -39,6 +29,25 @@ export const VehicleSearchTabs = () => {
     reValidateMode: 'onChange',
   })
   const { handleSubmit, register, watch } = formMethods
+  const router = useRouter()
+
+  const handleSearchVehicles = (data: VehicleSearchFormSchemaType) => {
+    const { manufacturer: brands, model: models, bodyType: bodyTypes } = data
+
+    const serializedParameters = Object.entries({
+      brands,
+      models,
+      bodyTypes,
+    })
+      .map(([key, value]) =>
+        value
+          ? getSerializedOfferParameter(key as OfferParameterKey, [value])
+          : null,
+      )
+      .filter(Boolean) as string[]
+
+    router.push(`/offers/${serializedParameters.join('/')}`)
+  }
 
   return (
     <Tabs
@@ -47,11 +56,7 @@ export const VehicleSearchTabs = () => {
           label: 'Osobowe',
           content: (
             <FormProvider {...formMethods}>
-              <form
-                onSubmit={handleSubmit((data) =>
-                  console.log({ data, modelsQuery }),
-                )}
-              >
+              <form onSubmit={handleSubmit(handleSearchVehicles)}>
                 <fieldset className={styles.formFieldset}>
                   <legend className={styles.formHeading}>
                     Wyszukaj samochód osobowy
@@ -59,20 +64,21 @@ export const VehicleSearchTabs = () => {
                   <Select
                     label={'Rodzaj nadwozia'}
                     placeholder={'Wybierz rodzaj nadwozia'}
-                    items={parseSelectItems(bodyTypes)}
+                    items={parseSelectItems(bodyTypes.data)}
                     {...register('bodyType')}
                   />
                   <Select
                     label={'Marka pojazdu'}
                     placeholder={'Wybierz markę pojazdu'}
-                    items={parseSelectItems(manufacturers)}
+                    items={parseSelectItems(manufacturers.data)}
                     {...register('manufacturer')}
                     onSelect={setModelsQuery}
                   />
                   <Select
                     label={'Model pojazdu'}
                     placeholder={'Wybierz model pojazdu'}
-                    items={parseSelectItems(models)}
+                    items={parseSelectItems(models.data)}
+                    isLoading={models.isLoading}
                     {...register('model')}
                     disabled={!watch('manufacturer')}
                   />

@@ -1,6 +1,8 @@
-import type { CheckboxProps as CheckboxPrimitiveProps } from '@radix-ui/react-checkbox'
+import type { HTMLAttributes } from 'react'
 
-export interface CheckboxProps extends CheckboxPrimitiveProps {
+export interface CheckboxProps extends HTMLAttributes<HTMLInputElement> {
   children: string
   error?: string
+  name?: string
+  value?: string
 }

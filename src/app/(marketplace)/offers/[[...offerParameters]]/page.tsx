@@ -5,37 +5,35 @@ import {
   OfferTile,
 } from '@/components'
 import styles from '@/styles/offers.module.css'
-import type { FilterParameters } from '@/types'
-import { getFilteredOffers } from '@/lib'
+import { getOffers } from '@/lib'
 import {
+  getDeserializedOfferParameters,
   getIconByManufacturer,
   getOffersCount,
   getOffersPageTitle,
 } from '@/utils'
-import type { ComponentProps } from 'react'
 
 type ListingPageProps = {
   params: {
-    offerParams: string[]
+    offerParameters: string[]
   }
-  searchParams: Omit<FilterParameters, 'brands' | 'models' | 'bodyTypes'>
 }
 
 export default async function ListingPage(props: ListingPageProps) {
   const {
-    params: { offerParams = [] },
-    searchParams = [],
+    params: { offerParameters: serializedOfferParameter = [] },
   } = props
-  const [manufacturer, model, bodyType] = offerParams
 
-  const filterParameters: FilterParameters = {
-    brands: [manufacturer],
-    models: [model],
-    bodyTypes: [bodyType],
-    ...searchParams,
-  }
+  const offerParameters = getDeserializedOfferParameters(
+    serializedOfferParameter,
+  )
+  const {
+    brands: [manufacturer] = [],
+    models: [model] = [],
+    bodyTypes: [bodyType] = [],
+  } = offerParameters
 
-  const offers = await getFilteredOffers(filterParameters)
+  const offers = await getOffers(offerParameters)
   const title = getOffersPageTitle({ manufacturer, model })
   const [offersCount, offersCountTerm] = getOffersCount(offers)
   const breadcrumbsItems = ['Osobowe', bodyType]

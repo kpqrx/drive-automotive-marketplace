@@ -31,6 +31,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       required,
       defaultOpen = false,
       defaultValue = '',
+      isLoading,
       ...restProps
     } = props
 
@@ -189,23 +190,27 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                   </SelectPrimitive.ScrollUpButton>
 
                   <SelectPrimitive.Viewport asChild>
-                    <ul className={styles.itemsContainer}>
-                      {items.map((item) => (
-                        <li key={item.value}>
-                          <SelectPrimitive.Item
-                            value={item.value}
-                            className={styles.item}
-                          >
-                            <SelectPrimitive.ItemIndicator asChild>
-                              <CheckIcon className={styles.checkIcon} />
-                            </SelectPrimitive.ItemIndicator>
-                            <SelectPrimitive.ItemText>
-                              {item.label}
-                            </SelectPrimitive.ItemText>
-                          </SelectPrimitive.Item>
-                        </li>
-                      ))}
-                    </ul>
+                    {isLoading ? (
+                      <p>Ładowanie...</p>
+                    ) : (
+                      <ul className={styles.itemsContainer}>
+                        {items.map((item) => (
+                          <li key={item.value}>
+                            <SelectPrimitive.Item
+                              value={item.value}
+                              className={styles.item}
+                            >
+                              <SelectPrimitive.ItemIndicator asChild>
+                                <CheckIcon className={styles.checkIcon} />
+                              </SelectPrimitive.ItemIndicator>
+                              <SelectPrimitive.ItemText>
+                                {item.label}
+                              </SelectPrimitive.ItemText>
+                            </SelectPrimitive.Item>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </SelectPrimitive.Viewport>
 
                   <SelectPrimitive.ScrollDownButton
