@@ -68,7 +68,7 @@ export default async function ListingPage(props: ListingPageProps) {
               description={offer.description}
               location={offer.location}
               price={offer.price}
-              thumbnailSrc="https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              thumbnailSrc={offer.thumbnailUrl}
               properties={offer.properties}
             />
           </li>

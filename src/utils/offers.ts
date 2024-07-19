@@ -17,6 +17,7 @@ export function parseOffer(offer: Offer) {
     fuelType,
     mileage,
     productionYear,
+    images: { $values: images },
   } = offer
 
   const label = `${brand} ${model}`
@@ -29,6 +30,7 @@ export function parseOffer(offer: Offer) {
     `${fuelType}`,
     `${mileage} km`,
   ]
+  const thumbnailUrl = images[0].imageUrl
   return {
     slug,
     manufacturer: brand,
@@ -38,6 +40,7 @@ export function parseOffer(offer: Offer) {
     location,
     price,
     properties,
+    thumbnailUrl,
   }
 }
 

@@ -143,6 +143,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           <AnimatePresence>
             {value && (
               <m.button
+                type="button"
                 onClick={handleClear}
                 className={styles.clearButton}
                 initial={{ x: '100%', opacity: 0 }}

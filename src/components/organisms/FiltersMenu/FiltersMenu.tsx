@@ -54,7 +54,7 @@ export const FiltersMenuItem = forwardRef<HTMLDivElement, FiltersMenuItemProps>(
   (props, ref) => {
     const { children, name, label, ...restProps } = props
 
-    const { register } = useFormContext<OfferFilteringFormSchema>()
+    const formContext = useFormContext<OfferFilteringFormSchema>()
 
     return (
       <m.div
@@ -68,10 +68,7 @@ export const FiltersMenuItem = forwardRef<HTMLDivElement, FiltersMenuItemProps>(
         exit={'inRight'}
         {...restProps}
       >
-        {children({
-          // @ts-ignore
-          register: () => register(name),
-        })}
+        {children(formContext)}
       </m.div>
     )
   },

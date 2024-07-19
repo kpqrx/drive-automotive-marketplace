@@ -3,7 +3,7 @@ import { z } from 'zod'
 export const offerFilteringFormSchema = z.object({
   brands: z.string().array(),
   models: z.string().array(),
-  generations: z.string().array(),
+  fuelTypes: z.string().array(),
   minYear: z.number().array(),
   maxYear: z.number().array(),
   minMileage: z.number().array(),
@@ -22,7 +22,7 @@ export const offerFilteringFormSchema = z.object({
   maxPower: z.number().array(),
   multimediaFeatures: z.number().array(),
   safetyFeatures: z.number().array(),
-  driverAssistanceSystemsFeatures: z.number().array(),
+  driverAssistanceFeatures: z.number().array(),
   performanceFeatures: z.number().array(),
   otherFeatures: z.number().array(),
 })

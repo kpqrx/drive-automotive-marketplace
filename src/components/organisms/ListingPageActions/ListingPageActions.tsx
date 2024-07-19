@@ -14,10 +14,15 @@ import {
 } from 'react-icons/hi2'
 import type { ListingPageActionsProps } from './ListingPageActions.types'
 import { useState } from 'react'
+import { useOfferParametersSuggestions } from '@/hooks'
+import { getLabelTitleByKey, getLabelValuesByStrings } from '@/utils'
+import type { OfferFilteringFormSchemaKey } from '@/schemas'
 
 export const ListingPageActions = (props: ListingPageActionsProps) => {
   const { className, ...restProps } = props
   const [isFiltersMenuOpen, setFiltersMenuOpen] = useState(false)
+  const [modelsQuery, setModelsQuery] = useState<string>()
+  const suggestions = useOfferParametersSuggestions({ modelsQuery })
 
   return (
     <Container
@@ -28,24 +33,32 @@ export const ListingPageActions = (props: ListingPageActionsProps) => {
         isOpen={isFiltersMenuOpen}
         setIsOpen={setFiltersMenuOpen}
       >
-        <FiltersMenu.Item
-          name="brands"
-          label="Marka"
-        >
-          {({ register }) => (
-            <CheckboxGroup
-              name="brands"
-              label="Wybierz interesujace Cię marki"
-              items={[
-                { label: 'Audi', value: 'audi' },
-                { label: 'BMW', value: 'bmw' },
-                { label: 'Mercedes-Benz', value: 'mercedes-benz' },
-                { label: 'Volkswagen', value: 'volkswagen' },
-              ]}
-              itemProps={{ ...register() }}
-            />
-          )}
-        </FiltersMenu.Item>
+        {Object.entries(suggestions).map(([name, { data }]) => {
+          const { label, title } = getLabelTitleByKey(
+            name as OfferFilteringFormSchemaKey,
+          )
+
+          return (
+            <FiltersMenu.Item
+              key={name}
+              name={name as OfferFilteringFormSchemaKey}
+              label={label}
+            >
+              {({ register }) => (
+                <CheckboxGroup
+                  key={name}
+                  name={name}
+                  label={title}
+                  items={getLabelValuesByStrings(data)}
+                  itemProps={{
+                    ...register(name as OfferFilteringFormSchemaKey),
+                  }}
+                  onChange={name === 'brands' ? setModelsQuery : undefined}
+                />
+              )}
+            </FiltersMenu.Item>
+          )
+        })}
       </FiltersMenu>
 
       <div className={styles.buttonsWrapper}>

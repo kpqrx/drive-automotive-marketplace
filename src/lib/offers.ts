@@ -7,8 +7,18 @@ const { API_BASE_URL } = process.env
 
 type GetFilterSuggestionsResponse = { $values: string[] }
 
-export const getBodyTypes = async () => {
-  const req = await fetch(`${API_BASE_URL}/api/filters/suggest-bodytype`, {
+export const getSuggestions = async (
+  dataType:
+    | 'brands'
+    | 'bodytype'
+    | 'fueltype'
+    | 'multimedia-features'
+    | 'safety-features'
+    | 'driver-assistance-features'
+    | 'performance-features'
+    | 'other-features',
+) => {
+  const req = await fetch(`${API_BASE_URL}/api/filters/suggest-${dataType}`, {
     method: 'GET',
   })
 
@@ -16,31 +26,20 @@ export const getBodyTypes = async () => {
     throw new Error(req.statusText)
   }
 
-  const { $values: bodyTypes }: GetFilterSuggestionsResponse = await req.json()
-
-  return bodyTypes
-}
-
-export const getManufacturers = async () => {
-  const req = await fetch(`${API_BASE_URL}/api/filters/suggest-brands`, {
-    method: 'GET',
-  })
-
-  if (req.status !== 200) {
-    throw new Error(req.statusText)
-  }
-
-  const { $values: manufacturers }: GetFilterSuggestionsResponse =
+  const { $values: suggestions }: GetFilterSuggestionsResponse =
     await req.json()
 
-  return manufacturers
+  return suggestions
 }
 
-export const getModels = async (manufacturer: string) => {
-  const searchParams = new URLSearchParams({ brand: manufacturer })
+export const getQueriedSuggestions = async (
+  dataType: 'models',
+  query: Record<string, string>,
+) => {
+  const searchParams = new URLSearchParams(query)
 
   const req = await fetch(
-    `${API_BASE_URL}/api/filters/suggest-models/?${searchParams.toString()}`,
+    `${API_BASE_URL}/api/filters/suggest-${dataType}/?${searchParams.toString()}`,
     {
       method: 'GET',
     },
@@ -49,10 +48,27 @@ export const getModels = async (manufacturer: string) => {
   if (req.status !== 200) {
     throw new Error(req.statusText)
   }
-  const { $values: models }: GetFilterSuggestionsResponse = await req.json()
+  const { $values: suggestions }: GetFilterSuggestionsResponse =
+    await req.json()
 
-  return models
+  return suggestions
 }
+
+export const getBodyTypes = async () => await getSuggestions('bodytype')
+export const getBrands = async () => await getSuggestions('brands')
+export const getModels = async (brand: string) =>
+  await getQueriedSuggestions('models', { brand })
+export const getFuelTypes = async () => await getSuggestions('fueltype')
+export const getMultimediaFeatures = async () =>
+  await getSuggestions('multimedia-features')
+export const getSafetyFeatures = async () =>
+  await getSuggestions('safety-features')
+export const getDriverAssistanceFeatures = async () =>
+  await getSuggestions('driver-assistance-features')
+export const getPerformanceFeatures = async () =>
+  await getSuggestions('performance-features')
+export const getOtherFeatures = async () =>
+  await getSuggestions('other-features')
 
 type GetOffersApiResponse = { $values: Offer[] }
 
