@@ -13,10 +13,10 @@ const meta: Meta<typeof CheckboxGroup> = {
   args: {
     label: 'Checkbox group:',
     items: [
-      { label: 'Option 1', name: 'option', value: '1' },
-      { label: 'Option 2', name: 'option', value: '2' },
-      { label: 'Option 3', name: 'option', value: '3' },
-      { label: 'Option 4', name: 'option', value: '4' },
+      { label: 'Option 1', value: '1' },
+      { label: 'Option 2', value: '2' },
+      { label: 'Option 3', value: '3' },
+      { label: 'Option 4', value: '4' },
     ],
   },
 }

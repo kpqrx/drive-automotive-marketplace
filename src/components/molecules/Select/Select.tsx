@@ -91,6 +91,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           <SelectPrimitive.Trigger
             className={clsx(styles.trigger, isOpen && styles.triggerActive)}
             ref={forwardedRef}
+            data-testid="select-trigger"
           >
             <m.span
               className={styles.label}
@@ -200,6 +201,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                             <SelectPrimitive.Item
                               value={item.value}
                               className={styles.item}
+                              data-testid="select-item"
                             >
                               <SelectPrimitive.ItemIndicator asChild>
                                 <CheckIcon className={styles.checkIcon} />

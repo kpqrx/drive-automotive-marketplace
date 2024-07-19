@@ -2,7 +2,7 @@ import type { CheckboxProps } from '@/components/molecules/Checkbox/Checkbox.typ
 import type { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
 
 export interface CheckboxGroupProps
-  extends ComponentPropsWithoutRef<'fieldset'>,
+  extends Omit<ComponentPropsWithoutRef<'fieldset'>, 'onChange'>,
     PropsWithChildren {
   label: string
   items: {
