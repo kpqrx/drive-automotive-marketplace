@@ -20,7 +20,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const {
       label,
       placeholder = '',
-      items,
+      items = [],
       className = '',
       name,
       disabled,
@@ -192,14 +192,14 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                   </SelectPrimitive.ScrollUpButton>
 
                   <SelectPrimitive.Viewport asChild>
-                    {isLoading ? (
+                    {items.length === 0 || isLoading ? (
                       <p>Ładowanie...</p>
                     ) : (
                       <ul className={styles.itemsContainer}>
                         {items.map((item) => (
-                          <li key={item.value}>
+                          <li key={item.id}>
                             <SelectPrimitive.Item
-                              value={item.value}
+                              value={item.value ?? item.id}
                               className={styles.item}
                               data-testid="select-item"
                             >

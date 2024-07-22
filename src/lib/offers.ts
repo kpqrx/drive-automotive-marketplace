@@ -5,7 +5,13 @@ import { parseOffer, toPascalCase } from '@/utils'
 
 const { API_BASE_URL } = process.env
 
-type GetFilterSuggestionsResponse = { $values: string[] }
+type GetFilterSuggestionsResponse = {
+  $values: {
+    id: number
+    label: string
+    value?: string
+  }[]
+}
 
 export const getSuggestions = async (
   dataType:
@@ -34,9 +40,11 @@ export const getSuggestions = async (
 
 export const getQueriedSuggestions = async (
   dataType: 'models',
-  query: Record<string, string>,
+  query: Partial<Record<string, string>>,
 ) => {
-  const searchParams = new URLSearchParams(query)
+  if (Object.values(query).some((value) => !value)) return []
+
+  const searchParams = new URLSearchParams(query as Record<string, string>)
 
   const req = await fetch(
     `${API_BASE_URL}/api/filters/suggest-${dataType}/?${searchParams.toString()}`,
@@ -48,6 +56,7 @@ export const getQueriedSuggestions = async (
   if (req.status !== 200) {
     throw new Error(req.statusText)
   }
+
   const { $values: suggestions }: GetFilterSuggestionsResponse =
     await req.json()
 
@@ -56,7 +65,7 @@ export const getQueriedSuggestions = async (
 
 export const getBodyTypes = async () => await getSuggestions('bodytype')
 export const getBrands = async () => await getSuggestions('brands')
-export const getModels = async (brand: string) =>
+export const getModels = async (brand?: string) =>
   await getQueriedSuggestions('models', { brand })
 export const getFuelTypes = async () => await getSuggestions('fueltype')
 export const getMultimediaFeatures = async () =>
@@ -73,28 +82,13 @@ export const getOtherFeatures = async () =>
 type GetOffersApiResponse = { $values: Offer[] }
 
 export const getOffers = async (offerParameters: OfferParameters = {}) => {
-  const pascalCasedOfferParameters = Object.entries(offerParameters).reduce(
-    (acc, [key, value]) => {
-      const isEmptyValue =
-        Array.isArray(value) && value.filter(Boolean).length === 0
-      if (isEmptyValue) return acc
-
-      return {
-        ...acc,
-        [toPascalCase(key)]: value,
-      }
+  const req = await fetch(`${API_BASE_URL}/api/filters/filterAnn`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-    {},
-  )
-
-  const searchParams = new URLSearchParams(pascalCasedOfferParameters)
-
-  const req = await fetch(
-    `${API_BASE_URL}/api/filters/filterAnn/?${searchParams.toString()}`,
-    {
-      method: 'GET',
-    },
-  )
+    body: JSON.stringify(offerParameters),
+  })
 
   const { $values: offers }: GetOffersApiResponse = await req.json()
   const parsedOffers = offers.map(parseOffer)

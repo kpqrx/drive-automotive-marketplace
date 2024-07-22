@@ -12,7 +12,7 @@ import {
 import useSWR from 'swr'
 
 function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
-  const { modelsQuery = '' } = parameters
+  const { modelsQuery } = parameters
 
   const bodyTypes = useSWR('bodyTypes', getBodyTypes)
   const brands = useSWR('brands', getBrands)
@@ -35,11 +35,11 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
     brands,
     models,
     fuelTypes,
-    // multimediaFeatures,
-    // safetyFeatures,
-    // driverAssistanceFeatures,
-    // performanceFeatures,
-    // otherFeatures,
+    multimediaFeatures,
+    safetyFeatures,
+    driverAssistanceFeatures,
+    performanceFeatures,
+    otherFeatures,
   }
 }
 

@@ -9,15 +9,3 @@
 .itemsCount {
   @apply text-2xl text-neutral-700;
 }
-
-.itemsList {
-  @apply grid gap-6;
-
-  @screen lg {
-    @apply grid-flow-row grid-cols-2;
-  }
-
-  @screen xl {
-    @apply grid-cols-3 gap-x-12;
-  }
-}

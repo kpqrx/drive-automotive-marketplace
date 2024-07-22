@@ -1,8 +1,10 @@
 import type { SelectProps as SelectPrimitiveProps } from '@radix-ui/react-select'
 import type { UseFormRegisterReturn } from 'react-hook-form'
+
 export type SelectItemType = {
+  id: number
   label: string
-  value: string
+  value?: string
 }
 
 export interface SelectProps
@@ -11,7 +13,7 @@ export interface SelectProps
   name?: string
   label: string
   placeholder?: string
-  items: SelectItemType[]
+  items?: SelectItemType[]
   filterInputPlaceholder?: string
   error?: string
   className?: string

@@ -1,14 +1,7 @@
-import {
-  Breadcrumbs,
-  Container,
-  ListingPageActions,
-  OfferTile,
-} from '@/components'
+import { Breadcrumbs, Container, OffersListing } from '@/components'
 import styles from '@/styles/offers.module.css'
-import { getOffers } from '@/lib'
 import {
   getDeserializedOfferParameters,
-  getIconByManufacturer,
   getOffersCount,
   getOffersPageTitle,
 } from '@/utils'
@@ -33,9 +26,8 @@ export default async function ListingPage(props: ListingPageProps) {
     bodyTypes: [bodyType] = [],
   } = offerParameters
 
-  const offers = await getOffers(offerParameters)
   const title = getOffersPageTitle({ manufacturer, model })
-  const [offersCount, offersCountTerm] = getOffersCount(offers)
+  const [offersCount, offersCountTerm] = getOffersCount([]) // TOOD: fetch count
   const breadcrumbsItems = ['Osobowe', bodyType]
     .filter(Boolean)
     .map((label) => ({
@@ -54,26 +46,8 @@ export default async function ListingPage(props: ListingPageProps) {
           </p>
         </section>
       </Container>
-      <ListingPageActions />
-      <Container
-        as="ul"
-        className={styles.itemsList}
-      >
-        {offers.map((offer) => (
-          <li key={offer.slug}>
-            <OfferTile
-              href={`/offer/${offer.slug}`}
-              label={offer.label}
-              icon={getIconByManufacturer(offer.manufacturer)}
-              description={offer.description}
-              location={offer.location}
-              price={offer.price}
-              thumbnailSrc={offer.thumbnailUrl}
-              properties={offer.properties}
-            />
-          </li>
-        ))}
-      </Container>
+
+      <OffersListing />
     </main>
   )
 }

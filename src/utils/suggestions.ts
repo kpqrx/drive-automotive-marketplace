@@ -1,10 +1,8 @@
-import type { OfferFilteringFormSchemaKey } from '@/schemas'
-
 export const getLabelValuesByStrings = (items?: string[]) =>
   items ? items.map((item) => ({ label: item, value: item })) : []
 
-export const getLabelTitleByKey = (key: OfferFilteringFormSchemaKey) => {
-  const keyToLabelMap: Partial<Record<OfferFilteringFormSchemaKey, string>> = {
+export const getLabelTitleByKey = (key: string) => {
+  const keyToLabelMap: Partial<Record<string, string>> = {
     brands: 'Marka',
     models: 'Model',
     bodyTypes: 'Rodzaj nadwozia',
@@ -16,7 +14,7 @@ export const getLabelTitleByKey = (key: OfferFilteringFormSchemaKey) => {
     otherFeatures: 'Inne wyposażenie',
   }
 
-  const keyToTitleMap: Partial<Record<OfferFilteringFormSchemaKey, string>> = {
+  const keyToTitleMap: Partial<Record<string, string>> = {
     brands: 'Wybierz interesujące Cię marki',
     models: 'Wybierz interesujący Cię model',
     bodyTypes: 'Wybierz interesujący Cię rodzaj nadwozia',

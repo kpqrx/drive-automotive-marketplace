@@ -115,6 +115,7 @@ export const Modal = (props: ModalProps) => {
               >
                 <div className={styles.headerWrapper}>
                   <button
+                    type="button"
                     onClick={contextButtonCallback}
                     className={styles.contextButton}
                   >

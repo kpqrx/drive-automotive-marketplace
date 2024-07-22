@@ -13,8 +13,9 @@ import {
 } from '@/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import { getSerializedOfferParameter, getLabelValuesByStrings } from '@/utils'
+import { getSerializedOfferParameter } from '@/utils'
 import type { OfferParameterKey } from '@/types'
+import type { SelectItemType } from '@/components/molecules/Select/Select.types'
 
 export const VehicleSearchTabs = () => {
   const [modelsQuery, setModelsQuery] = useState<string>()
@@ -63,20 +64,20 @@ export const VehicleSearchTabs = () => {
                   <Select
                     label={'Rodzaj nadwozia'}
                     placeholder={'Wybierz rodzaj nadwozia'}
-                    items={getLabelValuesByStrings(bodyTypes.data)}
+                    items={bodyTypes.data as SelectItemType[]}
                     {...register('bodyType')}
                   />
                   <Select
                     label={'Marka pojazdu'}
                     placeholder={'Wybierz markę pojazdu'}
-                    items={getLabelValuesByStrings(brands.data)}
+                    items={brands.data as SelectItemType[]}
                     {...register('manufacturer')}
                     onSelect={setModelsQuery}
                   />
                   <Select
                     label={'Model pojazdu'}
                     placeholder={'Wybierz model pojazdu'}
-                    items={getLabelValuesByStrings(models.data)}
+                    items={models.data as SelectItemType[]}
                     isLoading={models.isLoading}
                     {...register('model')}
                     disabled={!watch('manufacturer')}

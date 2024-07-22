@@ -1,19 +1,14 @@
-import type {
-  OfferFilteringFormSchema,
-  OfferFilteringFormSchemaKey,
-} from '@/schemas'
+import type { OfferParameterKey, OfferParameters } from '@/types'
 import type { Dispatch, SetStateAction } from 'react'
-import type { UseFormRegister, UseFormReturn } from 'react-hook-form'
 export interface FiltersMenuProps {
   isOpen: boolean
   setIsOpen: Dispatch<SetStateAction<boolean>>
   children: React.ReactNode
+  onSubmit: (data: OfferParameters) => void
 }
 
 export interface FiltersMenuItemProps {
-  children: (
-    renderProps: UseFormReturn<OfferFilteringFormSchema>,
-  ) => React.ReactNode
-  name: OfferFilteringFormSchemaKey
+  children: React.ReactNode
+  name: OfferParameterKey
   label: string
 }

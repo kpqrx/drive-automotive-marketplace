@@ -1,47 +1,19 @@
 .container {
-  @apply flex flex-col;
+  @apply flex space-x-3 align-baseline;
 }
 
 .label {
   @apply text-sm leading-normal text-neutral-800;
-
-  &.labelError {
-    @apply text-red-800;
-  }
 }
 
 .indicatorWrapper {
-  @apply relative inline-block h-5 min-w-5 basis-5 -skew-x-6 rounded-sm bg-neutral-50 p-0.5 ring-1 ring-inset ring-neutral-200 transition-all;
+  @apply relative inline-block size-5 basis-5 -skew-x-6 rounded-sm bg-neutral-50 p-0.5 ring-2 ring-inset ring-neutral-200 transition-all;
 
   &.indicatorWrapperChecked {
     @apply bg-orange-500 ring-0;
-  }
-
-  &.indicatorWrapperError {
-    @apply bg-red-50 ring-red-800;
   }
 }
 
 .indicator {
   @apply skew-x-6 stroke-[2.5] text-neutral-50;
-}
-
-.error {
-  @apply text-sm text-red-800;
-
-  svg {
-    @apply mr-1 inline-block size-5 align-text-bottom;
-  }
-}
-
-.errorWrapper {
-  @apply pt-4;
-}
-
-.wrapper {
-  @apply flex space-x-3 align-baseline;
-}
-
-.input {
-  @apply sr-only;
 }

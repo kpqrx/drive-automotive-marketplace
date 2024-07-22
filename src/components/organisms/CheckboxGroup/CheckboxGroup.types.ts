@@ -5,9 +5,11 @@ export interface CheckboxGroupProps
   extends Omit<ComponentPropsWithoutRef<'fieldset'>, 'onChange'>,
     PropsWithChildren {
   label: string
-  items: {
+  name: string
+  items?: {
+    id: number
     label: string
-    value: string
+    value?: string
   }[]
   itemProps?: Partial<Omit<CheckboxProps, 'value' | 'name' | 'children'>>
   defaultValue?: string[]

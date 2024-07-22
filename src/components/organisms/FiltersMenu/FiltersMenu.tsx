@@ -7,15 +7,7 @@ import type {
 import clsx from 'clsx'
 import type { Transition, Variants } from 'framer-motion'
 import { m, AnimatePresence } from 'framer-motion'
-import {
-  Children,
-  forwardRef,
-  isValidElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import { Children, forwardRef, isValidElement, useMemo, useState } from 'react'
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -23,13 +15,8 @@ import {
   TrashIcon,
 } from '@heroicons/react/24/outline'
 import styles from './FiltersMenu.module.css'
-import { FormProvider, useForm, useFormContext } from 'react-hook-form'
-import {
-  offerFilteringFormSchema,
-  type OfferFilteringFormSchema,
-  type OfferFilteringFormSchemaKey,
-} from '@/schemas'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { useOfferParameters } from '@/hooks'
+import type { OfferParameterKey } from '@/types'
 
 const menuTransition: Transition = {
   type: 'spring',
@@ -52,9 +39,7 @@ const menuVariants: Variants = {
 
 export const FiltersMenuItem = forwardRef<HTMLDivElement, FiltersMenuItemProps>(
   (props, ref) => {
-    const { children, name, label, ...restProps } = props
-
-    const formContext = useFormContext<OfferFilteringFormSchema>()
+    const { name, label, ...restProps } = props
 
     return (
       <m.div
@@ -67,33 +52,15 @@ export const FiltersMenuItem = forwardRef<HTMLDivElement, FiltersMenuItemProps>(
         initial={'inRight'}
         exit={'inRight'}
         {...restProps}
-      >
-        {children(formContext)}
-      </m.div>
+      />
     )
   },
 )
 FiltersMenuItem.displayName = 'FiltersMenuItem'
 
 const FiltersMenuContainer = (props: FiltersMenuProps) => {
-  const { isOpen, setIsOpen, children, ...restProps } = props
-
-  const formMethods = useForm({
-    resolver: zodResolver(offerFilteringFormSchema),
-  })
-
-  const {
-    handleSubmit,
-    watch: watchForm,
-    reset: resetForm,
-    resetField,
-    getValues,
-  } = formMethods
-
-  useEffect(() => {
-    const formWatcher = watchForm((data) => console.log(data))
-    return formWatcher.unsubscribe
-  }, [])
+  const { isOpen, setIsOpen, children, onSubmit, ...restProps } = props
+  const { parameters } = useOfferParameters()
 
   const hasValidChildren = Children.toArray(children).every(
     (childElement) =>
@@ -107,29 +74,29 @@ const FiltersMenuContainer = (props: FiltersMenuProps) => {
   }
 
   const [selectedMenuItemName, setSelectedMenuItemName] = useState<
-    OfferFilteringFormSchemaKey | ''
+    OfferParameterKey | ''
   >('')
 
-  const handleMenuSelection = (name: OfferFilteringFormSchemaKey) => {
+  const handleMenuSelection = (name: OfferParameterKey) => {
     setSelectedMenuItemName(name)
   }
 
-  const handleMenuReset = () => {
+  const handleCloseFilterMenu = () => {
     setSelectedMenuItemName('')
   }
 
   const handleSetIsOpen = (isOpen: boolean) => {
-    handleMenuReset()
+    handleCloseFilterMenu()
     setIsOpen(isOpen)
   }
 
-  const handleClearButtonClick = useCallback(() => {
-    if (selectedMenuItemName) {
-      resetField(selectedMenuItemName)
-      return
-    }
-    resetForm()
-  }, [resetField, resetForm, selectedMenuItemName])
+  // const handleClearButtonClick = useCallback(() => {
+  //   if (selectedMenuItemName) {
+  //     resetField(selectedMenuItemName)
+  //     return
+  //   }
+  //   resetForm()
+  // }, [resetField, resetForm, selectedMenuItemName])
 
   const selectedMenuItem = useMemo(
     () =>
@@ -171,59 +138,55 @@ const FiltersMenuContainer = (props: FiltersMenuProps) => {
         selectedMenuItem ? <ChevronLeftIcon /> : <CloseIcon />
       }
       contextButtonCallback={() =>
-        selectedMenuItem ? handleMenuReset() : setIsOpen(false)
+        selectedMenuItem ? handleCloseFilterMenu() : setIsOpen(false)
       }
-      headerSlot={
-        <button
-          onClick={handleClearButtonClick}
-          className={styles.clearButton}
-        >
-          <TrashIcon /> Wyczyść
-        </button>
-      }
+      // headerSlot={
+      //   <button
+      //     type="button"
+      //     onClick={handleClearButtonClick}
+      //     className={styles.clearButton}
+      //   >
+      //     <TrashIcon /> Wyczyść
+      //   </button>
+      // }
       {...restProps}
     >
-      <FormProvider {...formMethods}>
-        <form
-          onSubmit={handleSubmit((data) => console.log('submit', { data }))}
-        >
-          <AnimatePresence
-            mode="popLayout"
-            initial={false}
+      <AnimatePresence
+        mode="popLayout"
+        initial={false}
+      >
+        {selectedMenuItem ? (
+          selectedMenuItem
+        ) : (
+          <m.ul
+            className={clsx(styles.contentWrapper, styles.itemsList)}
+            key="menus-list"
+            variants={menuVariants}
+            transition={menuTransition}
+            animate="out"
+            initial={selectedMenuItem ? 'inRight' : 'inLeft'}
+            exit={selectedMenuItem ? 'inRight' : 'inLeft'}
           >
-            {selectedMenuItem ? (
-              selectedMenuItem
-            ) : (
-              <m.ul
-                className={clsx(styles.contentWrapper, styles.itemsList)}
-                key="menus-list"
-                variants={menuVariants}
-                transition={menuTransition}
-                animate="out"
-                initial={selectedMenuItem ? 'inRight' : 'inLeft'}
-                exit={selectedMenuItem ? 'inRight' : 'inLeft'}
-              >
-                {menuItemMetadata.map(({ name, label }) => (
-                  <li key={name}>
-                    <button
-                      className={styles.item}
-                      onClick={() => handleMenuSelection(name)}
-                    >
-                      <span className={styles.itemTitle}>
-                        {label}&nbsp;
-                        {getValues(name) && (
-                          <span className={styles.changesIndicator} />
-                        )}
-                      </span>
-                      <ChevronRightIcon />
-                    </button>
-                  </li>
-                ))}
-              </m.ul>
-            )}
-          </AnimatePresence>
-        </form>
-      </FormProvider>
+            {menuItemMetadata.map(({ name, label }) => (
+              <li key={name}>
+                <button
+                  type="button"
+                  className={styles.item}
+                  onClick={() => handleMenuSelection(name)}
+                >
+                  <span className={styles.itemTitle}>
+                    {label}&nbsp;
+                    {parameters[name] && (
+                      <span className={styles.changesIndicator} />
+                    )}
+                  </span>
+                  <ChevronRightIcon />
+                </button>
+              </li>
+            ))}
+          </m.ul>
+        )}
+      </AnimatePresence>
     </Modal>
   )
 }
