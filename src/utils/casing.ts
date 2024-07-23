@@ -48,3 +48,10 @@ export function camelToKebabCase(str: string) {
     .replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
     .toLowerCase()
 }
+
+export function kebabToNormalCase(str: string) {
+  return str
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}

@@ -2,7 +2,7 @@
   @apply mt-4 flex flex-col flex-wrap justify-stretch gap-3;
 
   @screen md {
-    @apply flex-row items-baseline gap-4;
+    @apply mt-6 flex-row items-baseline;
   }
 }
 
@@ -11,11 +11,7 @@
 }
 
 .advancedSearchButton {
-  @apply order-last;
-
-  @screen md {
-    @apply order-none;
-  }
+  @apply w-full;
 }
 
 .foundOffersCount {

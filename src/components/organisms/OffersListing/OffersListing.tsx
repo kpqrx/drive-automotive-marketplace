@@ -1,10 +1,12 @@
 'use client'
 import {
   Button,
+  Chip,
   Container,
   Dropdown,
   FiltersMenu,
   OfferTile,
+  Skeleton,
 } from '@/components'
 import styles from './OffersListing.module.css'
 import {
@@ -12,21 +14,26 @@ import {
   HiOutlineBarsArrowDown as SortingIcon,
 } from 'react-icons/hi2'
 import type { OffersListingProps } from './OffersListing.types'
-import { useMemo, useState } from 'react'
-import { useOfferParameters } from '@/hooks'
-import { getIconByManufacturer } from '@/utils'
-import useSWR from 'swr'
-import { getOffers } from '@/lib'
+import { useState } from 'react'
+import {
+  getIconByManufacturer,
+  isEmptyOfferParameterValue,
+  mapKeyToLabel,
+} from '@/utils'
+import { LiaCarCrashSolid as ErrorIcon } from 'react-icons/lia'
+import { useOfferParameters, useOffers } from '@/hooks'
 
 export const OffersListing = (props: OffersListingProps) => {
   const { className, ...restProps } = props
 
   const [isFiltersMenuOpen, setFiltersMenuOpen] = useState(false)
+
+  const { offers } = useOffers()
   const { parameters } = useOfferParameters()
 
-  const offers = useSWR(parameters, () => getOffers(parameters))
-
-  const memoizedOffersData = useMemo(() => offers.data, [offers.data])
+  const activeFilters = Object.entries(parameters)
+    .filter(([, value]) => !isEmptyOfferParameterValue(value))
+    .map(([key]) => mapKeyToLabel(key))
 
   return (
     <>
@@ -39,6 +46,25 @@ export const OffersListing = (props: OffersListingProps) => {
           setIsOpen={setFiltersMenuOpen}
         />
 
+        {activeFilters.length > 0 && (
+          <div className={styles.filterItemsListWrapper}>
+            {offers.isLoading ? (
+              <Skeleton className={styles.activeFiltersSkeleton} />
+            ) : (
+              <>
+                Aktywne filtry:
+                <ul className={styles.filterItemsList}>
+                  {activeFilters.map((filter) => (
+                    <li key={filter}>
+                      <Chip className={styles.filterItem}>{filter}</Chip>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
+
         <div className={styles.buttonsWrapper}>
           <Button
             className={styles.button}
@@ -49,7 +75,8 @@ export const OffersListing = (props: OffersListingProps) => {
             <FilteringIcon /> Filtrowanie
           </Button>
 
-          <Dropdown
+          {/* TODO: To implement */}
+          {/* <Dropdown
             className={styles.button}
             items={[
               { label: 'Od najnowszego', callback: () => {} },
@@ -63,17 +90,24 @@ export const OffersListing = (props: OffersListingProps) => {
             align="end"
           >
             <SortingIcon /> Sortowanie
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </Container>
-      <Container
-        as="ul"
-        className={styles.itemsList}
-      >
-        {offers.isLoading ? (
-          <p>Ładowanie...</p>
-        ) : (
-          memoizedOffersData?.map((offer) => (
+      {offers.isLoading && (
+        <Container>
+          <Skeleton
+            count={3}
+            className={styles.skeleton}
+          />
+        </Container>
+      )}
+
+      {offers.data && offers.data.length > 0 && (
+        <Container
+          as="ul"
+          className={styles.itemsList}
+        >
+          {offers.data.map((offer) => (
             <li key={offer.slug}>
               <OfferTile
                 href={`/offer/${offer.slug}`}
@@ -86,9 +120,23 @@ export const OffersListing = (props: OffersListingProps) => {
                 properties={offer.properties}
               />
             </li>
-          ))
-        )}
-      </Container>
+          ))}
+        </Container>
+      )}
+
+      {offers.data?.length === 0 && (
+        <Container className={styles.errorWrapper}>
+          <ErrorIcon className={styles.errorIcon} />
+          <p>Nie znaleziono ofert. Dopasuj parametry wyszukiwania</p>
+        </Container>
+      )}
+
+      {offers.error && (
+        <Container className={styles.errorWrapper}>
+          <ErrorIcon className={styles.errorIcon} />
+          <p>Wystąpił błąd podczas ładowania ofert</p>
+        </Container>
+      )}
     </>
   )
 }

@@ -1,6 +1,7 @@
 export { Breadcrumbs } from '@/components/atoms/Breadcrumbs/Breadcrumbs'
 export { Button } from '@/components/atoms/Button/Button'
 export { CheckIcon } from '@/components/atoms/CheckIcon/CheckIcon'
+export { Skeleton } from '@/components/atoms/Skeleton/Skeleton'
 export { Chip } from '@/components/atoms/Chip/Chip'
 export { CollapsibleFeaturesList } from '@/components/atoms/CollapsibleFeaturesList/CollapsibleFeaturesList'
 export { Container } from '@/components/atoms/Container/Container'

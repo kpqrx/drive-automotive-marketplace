@@ -19,11 +19,7 @@
 }
 
 .buttonsWrapper {
-  @apply ml-auto flex flex-1 gap-x-4;
-
-  @screen lg {
-    @apply flex-auto;
-  }
+  @apply ml-auto flex gap-x-4;
 }
 
 .itemsList {
@@ -36,4 +32,32 @@
   @screen xl {
     @apply grid-cols-3 gap-x-12;
   }
+}
+
+.skeleton {
+  @apply h-96;
+}
+
+.errorWrapper {
+  @apply flex flex-col items-center justify-center gap-4 text-lg text-neutral-400;
+}
+
+.errorIcon {
+  @apply size-20;
+}
+
+.filterItemsListWrapper {
+  @apply flex items-center gap-4;
+}
+
+.filterItemsList {
+  @apply flex gap-2;
+}
+
+.filterItem {
+  @apply bg-neutral-200;
+}
+
+.activeFiltersSkeleton {
+  @apply h-6 w-36;
 }

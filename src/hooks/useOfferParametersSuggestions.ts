@@ -71,6 +71,17 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
     })),
   }
 
+  const power = {
+    data: getNumbersRange({
+      start: 50,
+      end: 800,
+      step: 50,
+    }).map((power) => ({
+      label: `${power} KM`,
+      value: power,
+    })),
+  }
+
   return {
     bodyTypes,
     brands,
@@ -84,6 +95,7 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
     prodYears,
     mileage,
     priceRange,
+    power,
   }
 }
 

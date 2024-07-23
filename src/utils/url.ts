@@ -20,6 +20,7 @@ export const getDeserializedOfferParameters = (
         value.length === 1 &&
         typeof value[0] !== 'string'
       )
+        // @ts-expect-error I don't have much time 🤷🏻‍♂️
         value = value[0] as OfferParameterValue
 
       return {

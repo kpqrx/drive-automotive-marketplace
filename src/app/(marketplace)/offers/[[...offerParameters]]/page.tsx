@@ -1,50 +1,10 @@
-import { Breadcrumbs, Container, OffersListing } from '@/components'
-import styles from '@/styles/offers.module.css'
-import {
-  getDeserializedOfferParameters,
-  getOffersCount,
-  getOffersPageTitle,
-} from '@/utils'
+import { OffersListing } from '@/components'
+import { OffersTitleBlock } from '@/components/organisms/OffersTitleBlock/OffersTitleBlock'
 
-type ListingPageProps = {
-  params: {
-    offerParameters: string[]
-  }
-}
-
-export default async function ListingPage(props: ListingPageProps) {
-  const {
-    params: { offerParameters: serializedOfferParameter = [] },
-  } = props
-
-  const offerParameters = getDeserializedOfferParameters(
-    serializedOfferParameter,
-  )
-  const {
-    brands: [manufacturer] = [],
-    models: [model] = [],
-    bodyTypes: [bodyType] = [],
-  } = offerParameters
-
-  const title = getOffersPageTitle({ manufacturer, model })
-  const [offersCount, offersCountTerm] = getOffersCount([]) // TOOD: fetch count
-  const breadcrumbsItems = ['Osobowe'].filter(Boolean).map((label) => ({
-    label,
-    path: '/',
-  }))
-
+export default async function ListingPage() {
   return (
     <main>
-      <Container>
-        <Breadcrumbs items={breadcrumbsItems} />
-        <section className={styles.titleWrapper}>
-          <h1 className={styles.title}>{title}</h1>
-          <p className={styles.itemsCount}>
-            {offersCount} {offersCountTerm}
-          </p>
-        </section>
-      </Container>
-
+      <OffersTitleBlock />
       <OffersListing />
     </main>
   )

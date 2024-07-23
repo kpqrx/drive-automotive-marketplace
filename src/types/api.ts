@@ -74,8 +74,8 @@ export type Offer = {
 }
 
 export type OfferParameters = {
-  brands: string[]
   models: string[]
+  brands: string[]
   bodyTypes: number[]
   fuelTypes: number[]
   minYear: number | null

@@ -4,9 +4,9 @@ import { Button, Select } from '@/components'
 import { Tabs } from '@/components/molecules/Tabs/Tabs'
 import { SearchForm } from '@/components/organisms/SearchForm/SearchForm'
 import { useOfferParametersSuggestions } from '@/hooks'
-import { useState } from 'react'
+import { useState, type ComponentProps } from 'react'
 import styles from './VehicleSearchTabs.module.css'
-import { FormProvider, useForm } from 'react-hook-form'
+import { Controller, FormProvider, useForm } from 'react-hook-form'
 import {
   vehicleSearchFormSchema,
   type VehicleSearchFormSchemaType,
@@ -16,6 +16,31 @@ import { useRouter } from 'next/navigation'
 import { getSerializedOfferParameter } from '@/utils'
 import type { OfferParameterKey } from '@/types'
 import type { SelectItemType } from '@/components/molecules/Select/Select.types'
+
+type FormSelectProps = ComponentProps<typeof Select> & {
+  control: any
+  name: string
+}
+const FormSelect = (props: FormSelectProps) => (
+  <Controller
+    control={props.control}
+    name={props.name}
+    render={({ field }) => (
+      <Select
+        {...props}
+        onValueChange={(value) => {
+          field.onChange({
+            target: {
+              value,
+            },
+          })
+          if (props.onValueChange) props.onValueChange(value)
+        }}
+        defaultValue={field.value}
+      />
+    )}
+  />
+)
 
 export const VehicleSearchTabs = () => {
   const [modelsQuery, setModelsQuery] = useState<string>()
@@ -28,7 +53,7 @@ export const VehicleSearchTabs = () => {
     mode: 'onSubmit',
     reValidateMode: 'onChange',
   })
-  const { handleSubmit, register, watch } = formMethods
+  const { handleSubmit, control, watch } = formMethods
   const router = useRouter()
 
   const handleSearchVehicles = (data: VehicleSearchFormSchemaType) => {
@@ -61,41 +86,32 @@ export const VehicleSearchTabs = () => {
                   <legend className={styles.formHeading}>
                     Wyszukaj samochód osobowy
                   </legend>
-                  <Select
+                  <FormSelect
+                    control={control}
                     label={'Rodzaj nadwozia'}
                     placeholder={'Wybierz rodzaj nadwozia'}
                     items={bodyTypes.data as SelectItemType[]}
-                    {...register('bodyType')}
+                    name="bodyType"
                   />
-                  <Select
+                  <FormSelect
+                    control={control}
                     label={'Marka pojazdu'}
                     placeholder={'Wybierz markę pojazdu'}
                     items={brands.data as SelectItemType[]}
-                    {...register('manufacturer')}
-                    onSelect={setModelsQuery}
+                    name="manufacturer"
+                    onValueChange={setModelsQuery}
                   />
-                  <Select
+                  <FormSelect
+                    control={control}
                     label={'Model pojazdu'}
                     placeholder={'Wybierz model pojazdu'}
                     items={models.data as SelectItemType[]}
                     isLoading={models.isLoading}
-                    {...register('model')}
+                    name="model"
                     disabled={!watch('manufacturer')}
                   />
                 </fieldset>
                 <div className={styles.formFooter}>
-                  <h2 className={styles.foundOffersHeading}>
-                    Znaleziono
-                    <span className={styles.foundOffersCount}>5</span>
-                    ogłoszeń.
-                  </h2>
-                  <Button
-                    className={styles.advancedSearchButton}
-                    variant="secondary"
-                    size="small"
-                  >
-                    Zaawansowane wyszukiwanie
-                  </Button>
                   <SearchForm.SubmitButton className={styles.submitButton} />
                 </div>
               </form>

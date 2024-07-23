@@ -1,5 +1,5 @@
-import type { Offer, OfferParameterValue } from '@/types'
-import { toCapitalCase } from './casing'
+import type { Offer, OfferParameterKey, OfferParameterValue } from '@/types'
+import { kebabToNormalCase, toCapitalCase } from './casing'
 import dynamic from 'next/dynamic'
 import type { IconType } from 'react-icons'
 import { BiCircle as defaultIcon } from 'react-icons/bi'
@@ -45,23 +45,28 @@ export function parseOffer(offer: Offer) {
 }
 
 export function getOffersPageTitle({
-  manufacturer,
-  model,
-  category = 'Samochody osobowe', // TODO: Should be parametrized more categories will be added
+  brands,
+  models,
+  category = 'Samochody osobowe', // TODO: Should be parametrized when more categories will be added
 }: {
-  manufacturer?: string
-  model?: string
+  brands?: string[]
+  models?: string[]
   category?: string
 }) {
-  if (manufacturer && model) return toCapitalCase(`${manufacturer} ${model}`)
-  if (manufacturer) return toCapitalCase(manufacturer)
+  const formattedBrands = brands?.map(kebabToNormalCase)
+  const formattedModels = models?.map(kebabToNormalCase)
+
+  if (formattedBrands && formattedBrands.length >= 2)
+    return `${formattedBrands[0]}, ${formattedBrands[1]} i inne`
+  if (formattedBrands && formattedBrands[0] && formattedModels?.length === 1)
+    return `${formattedBrands[0]} ${formattedModels[0]}`
+  if (formattedBrands && formattedBrands.length === 1)
+    return `Samochody ${formattedBrands[0]}`
   return category
 }
 
-export function getOffersCount(offers: unknown[]): [number, string] {
-  const count = offers.length
-  const term = count === 1 ? 'ogłoszenie' : 'ogłoszeń'
-  return [count, term]
+export function getOffersCountTerm(count: number) {
+  return count === 1 ? 'ogłoszenie' : 'ogłoszeń'
 }
 
 export function getIconByManufacturer(manufacturer: string): IconType {
@@ -80,4 +85,27 @@ export function getIconByManufacturer(manufacturer: string): IconType {
 
 export function isEmptyOfferParameterValue(value: OfferParameterValue) {
   return value === null || (Array.isArray(value) && value.length === 0)
+}
+
+export function mapKeyToLabel(key: string) {
+  const keyToLabelMap: Record<OfferParameterKey, string> = {
+    brands: 'Marka',
+    models: 'Model',
+    bodyTypes: 'Typ nadwozia',
+    fuelTypes: 'Rodzaj paliwa',
+    minYear: 'Rok produkcji',
+    maxYear: 'Rok produkcji',
+    minMileage: 'Przebieg',
+    maxMileage: 'Przebieg',
+    minPrice: 'Cena',
+    maxPrice: 'Cena',
+    minPower: 'Moc silnika',
+    maxPower: 'Moc silnika',
+    multimediaFeatures: 'Wyp. multimedialne',
+    safetyFeatures: 'Wyp. bezpieczeństwa',
+    driverAssistanceFeatures: 'Wyp. wspomagające kierowcę',
+    performanceFeatures: 'Wyp. sportowe',
+    otherFeatures: 'Wyp. dodatkowe',
+  }
+  return keyToLabelMap[key as OfferParameterKey] as string
 }

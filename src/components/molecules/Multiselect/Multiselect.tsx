@@ -57,10 +57,11 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
     const handleRemoveItem = (itemValue: string | number) =>
       handleSetValues(values.filter((id) => id !== itemValue))
 
-    const handleItemClick = (itemValue: string | number) =>
-      values.includes(itemValue)
-        ? handleRemoveItem(itemValue)
-        : handleAddItem(itemValue)
+    const handleItemClick = (itemValue: string | number) => {
+      setSearchQuery('')
+      if (values.includes(itemValue)) handleRemoveItem(itemValue)
+      else handleAddItem(itemValue)
+    }
 
     useEffect(() => {
       if (disabled) handleSetValues([])

@@ -1,0 +1,7 @@
+.container {
+  @apply flex gap-6;
+}
+
+.item {
+  @apply block size-full animate-pulse rounded bg-neutral-200;
+}

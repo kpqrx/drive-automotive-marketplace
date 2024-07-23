@@ -84,6 +84,7 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
     prodYears,
     priceRange,
     mileage,
+    power,
     ...equipment
   } = useOfferParametersSuggestions({
     modelsQuery,
@@ -200,6 +201,25 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
             placeholder="Podaj maksymalny rok produkcji"
             items={prodYears.data}
             name="maxYear"
+          />
+        </div>
+
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>Moc silnika</span>
+
+          <FormSelect
+            control={control}
+            label="Moc silnika od"
+            placeholder="Podaj minimalną moc silnika"
+            items={power.data}
+            name="minPower"
+          />
+          <FormSelect
+            control={control}
+            label="Moc silnika do"
+            placeholder="Podaj maksymalną moc silnika"
+            items={power.data}
+            name="maxPower"
           />
         </div>
 

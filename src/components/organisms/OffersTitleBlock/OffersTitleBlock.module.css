@@ -9,3 +9,11 @@
 .itemsCount {
   @apply text-2xl text-neutral-700;
 }
+
+.skeleton {
+  @apply mt-12 h-[3.75rem] w-80;
+
+  &:last-child {
+    @apply mt-6 h-8 w-48;
+  }
+}
