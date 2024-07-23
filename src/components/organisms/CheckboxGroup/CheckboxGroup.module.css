@@ -1,19 +1,15 @@
-.container {
-  @apply flex flex-col space-y-2;
-}
-
-.label {
-  @apply leading-10;
-}
-
-.items {
-  @apply grid gap-x-3 gap-y-1;
-
-  @screen md {
-    @apply grid-cols-2;
-  }
+.wrapper {
+  @apply max-h-72;
 }
 
 .item {
-  @apply py-3;
+  @apply mb-2 last:mb-0;
+}
+
+.scrollbar {
+  @apply w-0.5 bg-neutral-100;
+}
+
+.thumb {
+  @apply size-full bg-neutral-300;
 }

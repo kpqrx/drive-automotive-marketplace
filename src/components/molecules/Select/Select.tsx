@@ -39,7 +39,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const [isOpen, setIsOpen] = useState(defaultOpen)
     const [value, setValue] = useState(defaultValue)
     const valueLabel = useMemo(
-      () => items.find((item) => item.value === value)?.label,
+      () => items.find((item) => item.value == value)?.label,
       [items, value],
     )
 
@@ -60,7 +60,8 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
     const handleOnValueChange = useCallback(
       (value: string) => {
         if (onSelect) onSelect(value)
-        if (onChange) onChange({ target: { name, value } })
+        if (onChange)
+          onChange({ target: { name, value: Number(value) || value } })
         setValue(value)
       },
       [name, onChange, onSelect],
@@ -199,7 +200,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                         {items.map((item) => (
                           <li key={item.id}>
                             <SelectPrimitive.Item
-                              value={item.value ?? item.id}
+                              value={(item.value ?? item.id).toString()}
                               className={styles.item}
                               data-testid="select-item"
                             >

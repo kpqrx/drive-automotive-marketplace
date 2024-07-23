@@ -1,17 +1,14 @@
-import type { CheckboxProps } from '@/components/molecules/Checkbox/Checkbox.types'
-import type { ComponentPropsWithoutRef, PropsWithChildren } from 'react'
+import type { PropsWithChildren } from 'react'
+import type { Control, FieldValues } from 'react-hook-form'
 
-export interface CheckboxGroupProps
-  extends Omit<ComponentPropsWithoutRef<'fieldset'>, 'onChange'>,
-    PropsWithChildren {
-  label: string
+export interface CheckboxGroupProps<T extends FieldValues>
+  extends PropsWithChildren {
+  className?: string
   name: string
   items?: {
     id: number
     label: string
     value?: string
   }[]
-  itemProps?: Partial<Omit<CheckboxProps, 'value' | 'name' | 'children'>>
-  defaultValue?: string[]
-  onChange?: (value: string) => void
+  control: Control<T>
 }

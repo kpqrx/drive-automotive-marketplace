@@ -1,95 +1,19 @@
-.container {
-  @apply fixed bottom-0 z-10 flex min-h-[80vh] w-full flex-col rounded-t bg-neutral-100;
-
-  box-shadow: 0 50vh 0 25vh theme('colors.neutral.100');
-
-  &::before {
-    @apply absolute -top-1 left-1/2 -my-2 block h-1 w-32 -translate-x-1/2 cursor-grab bg-white/25 content-[''];
-  }
+.filtersGroup {
+  @apply grid grid-cols-2 gap-x-6 gap-y-5 px-6 py-4;
 }
 
-.titleWrapper {
-  @apply flex items-center gap-2 rounded-t bg-white px-4;
+.filtersGroupLabel {
+  @apply col-span-full block leading-8;
 }
 
-.closeButton {
-  @apply -ml-4 p-6 transition;
-
-  &:hover,
-  &:focus-visible {
-    @apply bg-neutral-200;
-  }
-
-  svg {
-    @apply h-6 w-6;
-  }
+.nestedFiltersGroupLabel {
+  @apply mb-3 block text-sm leading-6;
 }
 
-.title {
-  @apply text-lg;
+.submitButtonWrapper {
+  @apply fixed bottom-0 flex w-full bg-white px-6 pb-4;
 }
 
-.clearButton {
-  @apply ml-auto flex items-center gap-2 rounded-sm bg-neutral-100 px-4 py-1.5 text-sm transition;
-
-  svg {
-    @apply size-4;
-  }
-
-  &:hover,
-  &:focus-visible {
-    @apply bg-neutral-200;
-  }
-}
-
-.contentWrapper {
-  @apply px-6 py-1;
-}
-
-.itemsList {
-  @apply divide-y divide-neutral-200;
-}
-
-.item {
-  @apply flex w-full items-center justify-between gap-4 px-3 py-6;
-
-  svg {
-    @apply h-6 w-6;
-  }
-}
-
-.itemTitle {
-  @apply flex flex-1 items-center justify-between;
-}
-
-.changesIndicator {
-  @apply inline-block h-2 w-2 rounded-full bg-amber-500;
-}
-
-.backdrop {
-  @apply absolute inset-0 h-full w-full bg-black/50;
-}
-
-.activeFiltersWrapper {
-  @apply relative -my-4 flex basis-full items-baseline gap-3 py-4;
-
-  @screen md {
-    @apply overflow-scroll;
-  }
-}
-
-.activeFiltersTitle {
-  @apply whitespace-nowrap;
-}
-
-.activeFiltersItemsList {
-  @apply flex max-w-md flex-wrap gap-2;
-
-  @screen md {
-    @apply flex-nowrap;
-  }
-}
-
-.activeFilterItem {
-  @apply bg-white;
+.submitButton {
+  @apply flex-1;
 }

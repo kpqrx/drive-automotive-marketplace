@@ -73,39 +73,24 @@ export type Offer = {
   }
 }
 
-export type OfferParameterStringValue = string[]
-export type OfferParameterNumberValue = number[]
-export type OfferParameterTruthyValue = true
-export type OfferParameterValue =
-  | OfferParameterStringValue
-  | OfferParameterNumberValue
-  | OfferParameterTruthyValue
-
 export type OfferParameters = {
-  brands?: OfferParameterStringValue
-  models?: OfferParameterStringValue
-  generations?: OfferParameterStringValue
-  minYear?: OfferParameterNumberValue
-  maxYear?: OfferParameterNumberValue
-  minMileage?: OfferParameterNumberValue
-  maxMileage?: OfferParameterNumberValue
-  minPrice?: OfferParameterNumberValue
-  maxPrice?: OfferParameterNumberValue
-  maxFuelConsumption?: OfferParameterNumberValue
-  bodyTypes?: OfferParameterStringValue
-  damaged?: OfferParameterTruthyValue
-  undamaged?: OfferParameterTruthyValue
-  rightHandDrive?: OfferParameterTruthyValue
-  doorCount?: OfferParameterNumberValue
-  seatCount?: OfferParameterNumberValue
-  isFirstOwner?: OfferParameterTruthyValue
-  minPower?: OfferParameterNumberValue
-  maxPower?: OfferParameterNumberValue
-  multimediaFeatures?: OfferParameterNumberValue
-  safetyFeatures?: OfferParameterNumberValue
-  driverAssistanceSystemsFeatures?: OfferParameterNumberValue
-  performanceFeatures?: OfferParameterNumberValue
-  otherFeatures?: OfferParameterNumberValue
+  brands: string[]
+  models: string[]
+  bodyTypes: number[]
+  minYear: number
+  maxYear: number
+  minMileage: number
+  maxMileage: number
+  minPrice: number
+  maxPrice: number
+  minPower: number
+  maxPower: number
+  multimediaFeatures: number[]
+  safetyFeatures: number[]
+  driverAssistanceSystemsFeatures: number[]
+  performanceFeatures: number[]
+  otherFeatures: number[]
 }
 
 export type OfferParameterKey = keyof OfferParameters
+export type OfferParameterValue = string[] | number | number[]

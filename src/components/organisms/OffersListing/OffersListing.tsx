@@ -1,7 +1,6 @@
 'use client'
 import {
   Button,
-  Checkbox,
   Container,
   Dropdown,
   FiltersMenu,
@@ -14,29 +13,20 @@ import {
 } from 'react-icons/hi2'
 import type { OffersListingProps } from './OffersListing.types'
 import { useMemo, useState } from 'react'
-import { useOfferParameters, useOfferParametersSuggestions } from '@/hooks'
-import { getIconByManufacturer, getLabelTitleByKey } from '@/utils'
+import { useOfferParameters } from '@/hooks'
+import { getIconByManufacturer } from '@/utils'
 import useSWR from 'swr'
 import { getOffers } from '@/lib'
-import type { OfferParameterKey, OfferParameters } from '@/types'
 
 export const OffersListing = (props: OffersListingProps) => {
   const { className, ...restProps } = props
 
   const [isFiltersMenuOpen, setFiltersMenuOpen] = useState(false)
-  const { parameters, setAllParameters, setParameter } = useOfferParameters()
+  const { parameters } = useOfferParameters()
 
-  const modelsQuery = parameters?.brands?.[0]
-  const suggestions = useOfferParametersSuggestions({
-    modelsQuery,
-  })
   const offers = useSWR(parameters, () => getOffers(parameters))
 
   const memoizedOffersData = useMemo(() => offers.data, [offers.data])
-
-  const handleSubmit = (data: OfferParameters) => {
-    setAllParameters(data)
-  }
 
   return (
     <>
@@ -47,48 +37,7 @@ export const OffersListing = (props: OffersListingProps) => {
         <FiltersMenu
           isOpen={isFiltersMenuOpen}
           setIsOpen={setFiltersMenuOpen}
-          onSubmit={handleSubmit}
-        >
-          {Object.entries(suggestions).map(([name, { data }]) => {
-            const { label } = getLabelTitleByKey(name)
-
-            return (
-              <FiltersMenu.Item
-                key={name}
-                name={name as OfferParameterKey}
-                label={label}
-              >
-                {data?.map((item) => (
-                  <Checkbox
-                    key={item.value ?? item.id}
-                    value={item.value ?? item.id}
-                    defaultChecked={
-                      Array.isArray(parameters[name as OfferParameterKey])
-                        ? // @ts-ignore
-                          parameters[name].includes(item.value || item.id)
-                        : false
-                    }
-                    onCheckedChange={(checked) => {
-                      const fieldValue =
-                        parameters[name as OfferParameterKey] ?? []
-                      const newFieldValue = checked
-                        ? [...fieldValue, item.value ?? item.id]
-                        : fieldValue.filter(
-                            (value: any) => value !== (item.value ?? item.id),
-                          )
-
-                      setParameter(name as OfferParameterKey, newFieldValue)
-
-                      return checked
-                    }}
-                  >
-                    {item.label}
-                  </Checkbox>
-                ))}
-              </FiltersMenu.Item>
-            )
-          })}
-        </FiltersMenu>
+        />
 
         <div className={styles.buttonsWrapper}>
           <Button

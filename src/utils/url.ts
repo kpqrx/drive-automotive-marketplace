@@ -8,14 +8,26 @@ import { kebabToCamelCase, camelToKebabCase } from './casing'
 export const getDeserializedOfferParameters = (
   serializedOfferParameters: string[],
 ): OfferParameters => {
-  const offerParameters = Object.fromEntries(
-    serializedOfferParameters.map((parameter) => {
-      const [kebabCaseKey, dotSeparatedValue] = parameter.split('_')
+  const offerParameters = serializedOfferParameters.reduce(
+    (acc, serializedParameter) => {
+      const [kebabCaseKey, serializedValue] = serializedParameter.split('_')
 
       const key = kebabToCamelCase(kebabCaseKey) as OfferParameterKey
-      const value = dotSeparatedValue.split('.') as OfferParameterValue
-      return [key, value]
-    }),
+
+      let value = serializedValue.split('.').map((v) => Number(v) || v)
+      if (
+        Array.isArray(value) &&
+        value.length === 1 &&
+        typeof value[0] !== 'string'
+      )
+        value = value[0] as OfferParameterValue
+
+      return {
+        ...acc,
+        [key]: value,
+      }
+    },
+    {} as OfferParameters,
   )
 
   return offerParameters
@@ -33,10 +45,12 @@ export const getSerializedOfferParameter = (
   camelCaseKey: OfferParameterKey,
   deserializedValue: OfferParameterValue,
 ) => {
+  if (!deserializedValue) return ''
+
   const kebabCaseKey = camelToKebabCase(camelCaseKey)
   const dotSeparatedValue = Array.isArray(deserializedValue)
     ? deserializedValue.join('.')
-    : deserializedValue.toString()
+    : deserializedValue
 
   return `${kebabCaseKey}_${dotSeparatedValue}`
 }

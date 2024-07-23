@@ -4,7 +4,7 @@ import type { UseFormRegisterReturn } from 'react-hook-form'
 export type SelectItemType = {
   id: number
   label: string
-  value?: string
+  value?: string | number
 }
 
 export interface SelectProps

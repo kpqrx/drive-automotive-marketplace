@@ -9,6 +9,7 @@ import {
   getPerformanceFeatures,
   getSafetyFeatures,
 } from '@/lib'
+import { getNumbersRange } from '@/utils'
 import useSWR from 'swr'
 
 function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
@@ -30,6 +31,49 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
   )
   const otherFeatures = useSWR('otherFeatures', getOtherFeatures)
 
+  const prodYears = {
+    data: getNumbersRange({
+      start: 1980,
+      end: new Date().getFullYear(),
+    }).map((year, index) => ({
+      id: index,
+      label: year.toString(),
+      value: year,
+    })),
+  }
+
+  const mileage = {
+    data: getNumbersRange({
+      start: 0,
+      end: 300000,
+      step: 10000,
+    }).map((mileage, index) => ({
+      id: index,
+      label: mileage.toLocaleString('pl-PL', {
+        style: 'unit',
+        unit: 'kilometer',
+        unitDisplay: 'short',
+      }),
+      value: mileage,
+    })),
+  }
+
+  const priceRange = {
+    data: getNumbersRange({
+      start: 0,
+      end: 200000,
+      step: 10000,
+    }).map((price, index) => ({
+      id: index,
+      label: price.toLocaleString('pl-PL', {
+        style: 'currency',
+        currency: 'PLN',
+        maximumFractionDigits: 0,
+      }),
+      value: price,
+    })),
+  }
+
   return {
     bodyTypes,
     brands,
@@ -40,6 +84,9 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
     driverAssistanceFeatures,
     performanceFeatures,
     otherFeatures,
+    prodYears,
+    mileage,
+    priceRange,
   }
 }
 

@@ -2,8 +2,8 @@
   --box-shadow-position: 0 50vh;
 
   @apply fixed bottom-0 z-10 flex h-screen
-    w-full flex-col rounded-t bg-neutral-100;
-  box-shadow: var(--box-shadow-position) 0 25vh theme('colors.neutral.100');
+    w-full flex-col rounded-t bg-white;
+  box-shadow: var(--box-shadow-position) 0 25vh theme('colors.white');
 
   &::before {
     @apply absolute -top-1 left-1/2 -my-2 block h-1 w-32 -translate-x-1/2 rounded-sm bg-white/50 content-[''];
@@ -25,7 +25,7 @@
 }
 
 .headerWrapper {
-  @apply flex h-16 items-center gap-2 bg-white px-4;
+  @apply flex h-16 items-center gap-2 px-4;
   box-shadow: 50vw 0 0 0 theme('colors.white');
 }
 
@@ -46,10 +46,18 @@
 
   &:hover,
   &:focus-visible {
-    @apply bg-neutral-200;
+    @apply bg-neutral-50;
   }
 
   svg {
     @apply h-6 w-6;
   }
+}
+
+.scrollbar {
+  @apply w-0.5 bg-neutral-100;
+}
+
+.thumb {
+  @apply size-full bg-neutral-300;
 }

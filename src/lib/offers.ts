@@ -1,7 +1,7 @@
 'use server'
 
 import type { OfferParameters, Offer } from '@/types'
-import { parseOffer, toPascalCase } from '@/utils'
+import { parseOffer } from '@/utils'
 
 const { API_BASE_URL } = process.env
 
@@ -29,7 +29,9 @@ export const getSuggestions = async (
   })
 
   if (req.status !== 200) {
-    throw new Error(req.statusText)
+    throw new Error(
+      `Failed to fetch ${dataType} suggestions: ${req.statusText}`,
+    )
   }
 
   const { $values: suggestions }: GetFilterSuggestionsResponse =
@@ -81,7 +83,21 @@ export const getOtherFeatures = async () =>
 
 type GetOffersApiResponse = { $values: Offer[] }
 
-export const getOffers = async (offerParameters: OfferParameters = {}) => {
+export const getOffers = async (rawOfferParameters: OfferParameters) => {
+  const offerParameters = Object.entries(rawOfferParameters).reduce(
+    (acc, [key, rawValue]) => {
+      if (!rawValue || rawValue.length <= 0) return acc
+
+      let value: string[] | number[] | number | string = rawValue
+      if (Number(rawValue)) value = Number(rawValue)
+      if (Array.isArray(rawValue) && rawValue.some(Number))
+        value = rawValue.map(Number)
+
+      return { ...acc, [key]: value }
+    },
+    {},
+  )
+
   const req = await fetch(`${API_BASE_URL}/api/filters/filterAnn`, {
     method: 'POST',
     headers: {

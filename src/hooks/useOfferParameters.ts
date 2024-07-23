@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import type {
   OfferParameterKey,
   OfferParameterValue,
@@ -34,7 +34,6 @@ function useOfferParameters(): UseOfferParametersReturnType {
 
   useEffect(() => {
     const offerParameters = getOfferParametersFromPathname(pathname)
-    console.log('aaa')
     setAllParameters(offerParameters)
   }, [])
 
@@ -49,7 +48,6 @@ function useOfferParameters(): UseOfferParametersReturnType {
     )
 
     setParameter(key, value)
-    console.log(newPathname)
     replaceHistoryState(newPathname)
   }
 
@@ -62,13 +60,10 @@ function useOfferParameters(): UseOfferParametersReturnType {
   }
 
   const handleSetAllParameters = (parameters: OfferParameters) => {
-    const serializedParameters = Object.entries(parameters)
-      .map(([key, value]) =>
-        value
-          ? getSerializedOfferParameter(key as OfferParameterKey, value)
-          : null,
-      )
-      .filter(Boolean) as string[]
+    const serializedParameters = Object.entries(parameters).map(
+      ([key, value]) =>
+        getSerializedOfferParameter(key as OfferParameterKey, value),
+    )
 
     const newPathname = `/offers/${serializedParameters.join('/')}`
 

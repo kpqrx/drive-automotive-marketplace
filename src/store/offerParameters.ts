@@ -1,12 +1,11 @@
 import { type StateCreator } from 'zustand'
 import type {
   OfferParameterKey,
-  OfferParameterValue,
   OfferParameters as OfferParametersValue,
 } from '@/types'
 
 type OfferParametersMutators = {
-  setParameter: (key: OfferParameterKey, value: OfferParameterValue) => void
+  setParameter: (key: OfferParameterKey, value: string | string[]) => void
   removeParameter: (key: OfferParameterKey) => void
   setAllParameters: (filters: OfferParametersValue) => void
   removeAllParameters: () => void
@@ -15,30 +14,22 @@ type OfferParametersMutators = {
 export type OfferParameters = OfferParametersValue & OfferParametersMutators
 
 const defaultValue: OfferParametersValue = {
-  brands: undefined,
-  models: undefined,
-  generations: undefined,
-  minYear: undefined,
-  maxYear: undefined,
-  minMileage: undefined,
-  maxMileage: undefined,
-  minPrice: undefined,
-  maxPrice: undefined,
-  maxFuelConsumption: undefined,
-  bodyTypes: undefined,
-  damaged: undefined,
-  undamaged: undefined,
-  rightHandDrive: undefined,
-  doorCount: undefined,
-  seatCount: undefined,
-  isFirstOwner: undefined,
-  minPower: undefined,
-  maxPower: undefined,
-  multimediaFeatures: undefined,
-  safetyFeatures: undefined,
-  driverAssistanceSystemsFeatures: undefined,
-  performanceFeatures: undefined,
-  otherFeatures: undefined,
+  brands: [],
+  models: [],
+  minYear: NaN,
+  maxYear: NaN,
+  minMileage: NaN,
+  maxMileage: NaN,
+  minPrice: NaN,
+  maxPrice: NaN,
+  bodyTypes: [],
+  minPower: NaN,
+  maxPower: NaN,
+  multimediaFeatures: [],
+  safetyFeatures: [],
+  driverAssistanceSystemsFeatures: [],
+  performanceFeatures: [],
+  otherFeatures: [],
 }
 
 export const createOfferParametersStore: StateCreator<
@@ -48,7 +39,8 @@ export const createOfferParametersStore: StateCreator<
 > = (set) => ({
   ...defaultValue,
   setParameter: (key, value) => set((state) => ({ ...state, [key]: value })),
-  removeParameter: (key) => set((state) => ({ ...state, [key]: undefined })),
+  removeParameter: (key) =>
+    set((state) => ({ ...state, [key]: defaultValue[key] })),
   setAllParameters: (filters) => set(() => filters),
   removeAllParameters: () => set(() => defaultValue),
 })

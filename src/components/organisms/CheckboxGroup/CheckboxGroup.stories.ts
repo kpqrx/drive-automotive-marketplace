@@ -11,7 +11,6 @@ const meta: Meta<typeof CheckboxGroup> = {
     layout: 'fullscreen',
   },
   args: {
-    label: 'Checkbox group:',
     items: [
       { id: 1, label: 'Option 1', value: '1' },
       { id: 2, label: 'Option 2', value: '2' },

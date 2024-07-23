@@ -1,196 +1,198 @@
 'use client'
 import { Modal } from '@/components/molecules/Modal/Modal'
-import type {
-  FiltersMenuItemProps,
-  FiltersMenuProps,
-} from '@/components/organisms/FiltersMenu/FiltersMenu.types'
-import clsx from 'clsx'
-import type { Transition, Variants } from 'framer-motion'
-import { m, AnimatePresence } from 'framer-motion'
-import { Children, forwardRef, isValidElement, useMemo, useState } from 'react'
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  XMarkIcon as CloseIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline'
+import type { FiltersMenuProps } from '@/components/organisms/FiltersMenu/FiltersMenu.types'
+import { XMarkIcon as CloseIcon } from '@heroicons/react/24/outline'
+import { useOfferParameters, useOfferParametersSuggestions } from '@/hooks'
+import type { OfferParameters } from '@/types'
+import { Controller, useForm } from 'react-hook-form'
+import { Select } from '@/components/molecules/Select/Select'
+import { Button, CheckboxGroup } from '@/components'
+import { getLabelTitleByKey } from '@/utils'
 import styles from './FiltersMenu.module.css'
-import { useOfferParameters } from '@/hooks'
-import type { OfferParameterKey } from '@/types'
+import { useEffect, useState, type ComponentProps } from 'react'
 
-const menuTransition: Transition = {
-  type: 'spring',
-  damping: 30,
-  stiffness: 250,
-  mass: 1.25,
-}
-
-const menuVariants: Variants = {
-  inLeft: {
-    x: '-100%',
-  },
-  inRight: {
-    x: '100%',
-  },
-  out: {
-    x: 0,
-  },
-}
-
-export const FiltersMenuItem = forwardRef<HTMLDivElement, FiltersMenuItemProps>(
-  (props, ref) => {
-    const { name, label, ...restProps } = props
-
-    return (
-      <m.div
-        ref={ref}
-        className={styles.contentWrapper}
-        key={`filters-menu-${name}`}
-        variants={menuVariants}
-        transition={menuTransition}
-        animate="out"
-        initial={'inRight'}
-        exit={'inRight'}
-        {...restProps}
+const StringSelect = (props: ComponentProps<typeof Select>) => (
+  <Controller
+    control={props.control}
+    name={props.name}
+    render={({ field }) => (
+      <Select
+        {...props}
+        onValueChange={(value) =>
+          field.onChange({
+            target: {
+              value: value
+                ? [...(field.value || []), value]
+                : (field.value || []).filter((v) => v !== value),
+            },
+          })
+        }
+        defaultValue={field.value}
       />
-    )
-  },
+    )}
+  />
 )
-FiltersMenuItem.displayName = 'FiltersMenuItem'
 
-const FiltersMenuContainer = (props: FiltersMenuProps) => {
-  const { isOpen, setIsOpen, children, onSubmit, ...restProps } = props
-  const { parameters } = useOfferParameters()
+export const FiltersMenu = (props: FiltersMenuProps) => {
+  const { isOpen, setIsOpen, ...restProps } = props
+  const { setAllParameters } = useOfferParameters()
 
-  const hasValidChildren = Children.toArray(children).every(
-    (childElement) =>
-      isValidElement(childElement) && childElement.type === FiltersMenuItem,
-  )
+  const [modelsQuery, setModelsQuery] = useState('')
+  const {
+    brands,
+    models,
+    bodyTypes,
+    fuelTypes,
+    prodYears,
+    priceRange,
+    mileage,
+    ...equipment
+  } = useOfferParametersSuggestions({
+    modelsQuery,
+  })
 
-  if (!hasValidChildren) {
-    throw new Error(
-      '`FiltersMenu` component accepts only `FiltersMenuItem` components as children.',
-    )
-  }
+  const { register, control, watch, handleSubmit } = useForm<OfferParameters>({
+    mode: 'onSubmit',
+  })
 
-  const [selectedMenuItemName, setSelectedMenuItemName] = useState<
-    OfferParameterKey | ''
-  >('')
+  const [hasMadeChanges, setHasMadeChanges] = useState(false)
 
-  const handleMenuSelection = (name: OfferParameterKey) => {
-    setSelectedMenuItemName(name)
-  }
+  useEffect(() => {
+    const watcher = watch((data) => {
+      console.log(data)
+      setHasMadeChanges(true)
+    })
 
-  const handleCloseFilterMenu = () => {
-    setSelectedMenuItemName('')
-  }
+    return () => watcher.unsubscribe()
+  }, [watch])
 
-  const handleSetIsOpen = (isOpen: boolean) => {
-    handleCloseFilterMenu()
-    setIsOpen(isOpen)
-  }
-
-  // const handleClearButtonClick = useCallback(() => {
-  //   if (selectedMenuItemName) {
-  //     resetField(selectedMenuItemName)
-  //     return
-  //   }
-  //   resetForm()
-  // }, [resetField, resetForm, selectedMenuItemName])
-
-  const selectedMenuItem = useMemo(
-    () =>
-      Children.toArray(children).find((childElement) => {
-        if (!isValidElement(childElement)) return null
-
-        const { name } = childElement.props
-        return name === selectedMenuItemName
-      }),
-    [children, selectedMenuItemName],
-  )
-
-  const menuItemMetadata = useMemo(
-    () =>
-      Children.toArray(children)
-        .map((childElement) => {
-          if (!isValidElement(childElement)) return null
-
-          const { name, label } = childElement.props
-          return { name, label }
-        })
-        .filter(Boolean) as Pick<FiltersMenuItemProps, 'name' | 'label'>[],
-    [children],
-  )
-
-  const currentMenuLabel = useMemo(
-    () =>
-      menuItemMetadata.find(({ name }) => name === selectedMenuItemName)
-        ?.label ?? 'Filtrowanie wyników',
-    [menuItemMetadata, selectedMenuItemName],
-  )
+  const handleFormSubmit = handleSubmit((data) => {
+    setAllParameters(data)
+    setIsOpen(false)
+  })
 
   return (
     <Modal
       isOpen={isOpen}
-      setIsOpen={handleSetIsOpen}
-      label={currentMenuLabel}
-      contextButtonLabel={
-        selectedMenuItem ? <ChevronLeftIcon /> : <CloseIcon />
-      }
-      contextButtonCallback={() =>
-        selectedMenuItem ? handleCloseFilterMenu() : setIsOpen(false)
-      }
-      // headerSlot={
-      //   <button
-      //     type="button"
-      //     onClick={handleClearButtonClick}
-      //     className={styles.clearButton}
-      //   >
-      //     <TrashIcon /> Wyczyść
-      //   </button>
-      // }
+      setIsOpen={setIsOpen}
+      label="Filtrowanie wyników"
+      contextButtonLabel={<CloseIcon />}
+      contextButtonCallback={() => setIsOpen(false)}
       {...restProps}
     >
-      <AnimatePresence
-        mode="popLayout"
-        initial={false}
-      >
-        {selectedMenuItem ? (
-          selectedMenuItem
-        ) : (
-          <m.ul
-            className={clsx(styles.contentWrapper, styles.itemsList)}
-            key="menus-list"
-            variants={menuVariants}
-            transition={menuTransition}
-            animate="out"
-            initial={selectedMenuItem ? 'inRight' : 'inLeft'}
-            exit={selectedMenuItem ? 'inRight' : 'inLeft'}
-          >
-            {menuItemMetadata.map(({ name, label }) => (
-              <li key={name}>
-                <button
-                  type="button"
-                  className={styles.item}
-                  onClick={() => handleMenuSelection(name)}
-                >
-                  <span className={styles.itemTitle}>
-                    {label}&nbsp;
-                    {parameters[name] && (
-                      <span className={styles.changesIndicator} />
-                    )}
-                  </span>
-                  <ChevronRightIcon />
-                </button>
-              </li>
-            ))}
-          </m.ul>
+      <form onSubmit={handleFormSubmit}>
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>
+            Podstawowe informacje
+          </span>
+
+          <StringSelect
+            label="Marka pojazdu"
+            items={brands.data}
+            control={control}
+            name="brands"
+            onSelect={setModelsQuery}
+          />
+          <Select
+            label="Model pojazdu"
+            items={models.data}
+            {...register('models')}
+            disabled={!modelsQuery}
+          />
+          <Select
+            label="Rodzaj nadwozia"
+            items={bodyTypes.data}
+            {...register('bodyTypes')}
+          />
+          <Select
+            label="Typ paliwa"
+            items={fuelTypes.data}
+            // @ts-ignore TODO: Fix this
+            {...register('fuelTypes', { valueAsNumber: true })}
+          />
+        </div>
+
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>Cena</span>
+
+          <Select
+            label="Cena od"
+            placeholder="Podaj cenę minimalną"
+            items={priceRange.data}
+            {...register('minPrice', { valueAsNumber: true })}
+          />
+          <Select
+            label="Cena do"
+            placeholder="Podaj cenę maksymalną"
+            items={priceRange.data}
+            {...register('maxPrice', { valueAsNumber: true })}
+          />
+        </div>
+
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>Przebieg</span>
+
+          <Select
+            label="Przebieg od"
+            placeholder="Podaj przebieg minimalny"
+            items={mileage.data}
+            {...register('minMileage', { valueAsNumber: true })}
+          />
+          <Select
+            label="Przebieg do"
+            placeholder="Podaj przebieg maksymalny"
+            items={mileage.data}
+            {...register('maxMileage', { valueAsNumber: true })}
+          />
+        </div>
+
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>Rok produkcji</span>
+
+          <Select
+            label="Rok produkcji od"
+            placeholder="Podaj minimalny rok produkcji"
+            items={prodYears.data}
+            {...register('minYear', { valueAsNumber: true })}
+          />
+          <Select
+            label="Rok produkcji do"
+            placeholder="Podaj maksymalny rok produkcji"
+            items={prodYears.data}
+            {...register('maxYear', { valueAsNumber: true })}
+          />
+        </div>
+
+        <div className={styles.filtersGroup}>
+          <span className={styles.filtersGroupLabel}>Wyposażenie</span>
+
+          {Object.entries(equipment).map(([name, { data }]) => {
+            const { label } = getLabelTitleByKey(name)
+
+            return (
+              <CheckboxGroup
+                key={name}
+                control={control}
+                name={name}
+                items={data}
+              >
+                <span className={styles.nestedFiltersGroupLabel}>{label}</span>
+              </CheckboxGroup>
+            )
+          })}
+        </div>
+
+        {hasMadeChanges && (
+          <div className={styles.submitButtonWrapper}>
+            <Button
+              className={styles.submitButton}
+              type="submit"
+            >
+              Zastosuj filtry
+            </Button>
+          </div>
         )}
-      </AnimatePresence>
+      </form>
     </Modal>
   )
 }
-
-export const FiltersMenu = Object.assign(FiltersMenuContainer, {
-  Item: FiltersMenuItem,
-})
