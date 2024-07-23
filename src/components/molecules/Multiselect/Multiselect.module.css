@@ -1,0 +1,133 @@
+.container {
+  @apply relative max-w-lg;
+}
+
+.trigger {
+  @apply relative z-10 flex h-11 w-full items-center rounded bg-neutral-50 p-3 text-left outline-none transition;
+
+  &:hover:not(.triggerActive) {
+    @apply bg-neutral-100;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400;
+  }
+}
+
+.label {
+  @apply absolute -mx-2 block max-w-min origin-top-left whitespace-nowrap px-2 text-sm;
+}
+
+.placeholder {
+  @apply text-sm text-neutral-400;
+}
+
+.valueWrapper {
+  @apply flex overflow-hidden whitespace-nowrap;
+}
+
+.valueLabel {
+  @apply block text-sm;
+}
+
+.valuesCountBadge {
+  @apply ml-2 rounded-xl bg-orange-400 px-2 py-0.5 text-xs font-bold text-neutral-50;
+}
+
+.chevronIcon {
+  @apply relative ml-auto size-4;
+}
+
+.contentWrapper {
+  @apply z-20 mt-2 flex w-[var(--radix-popover-trigger-width)] flex-col overflow-hidden rounded bg-neutral-50 p-2 pb-0 shadow-sm ring-1 ring-inset ring-neutral-100;
+  /* 6.5 items */
+  max-height: calc(6.5 * (theme(spacing.11) + theme(spacing.1)));
+}
+
+.itemsContainer {
+  @apply flex flex-col space-y-1 pb-2;
+}
+
+.item {
+  @apply relative flex h-auto min-h-11 w-full cursor-pointer items-center rounded pl-10 pr-2 text-start text-sm leading-5 transition-colors;
+
+  &[data-state='checked'],
+  &:hover,
+  &:focus-visible {
+    @apply bg-orange-100 text-orange-500;
+  }
+
+  &:active {
+    @apply bg-orange-200 text-orange-600;
+  }
+
+  &:focus-visible {
+    @apply outline-none;
+  }
+}
+
+.checkIcon {
+  @apply absolute inset-0 mx-3 my-3.5 size-4 stroke-2;
+}
+
+.filterInputWrapper {
+  @apply relative;
+}
+
+.filterInputLabel {
+  @apply sr-only;
+}
+
+.magnifyingGlassIcon {
+  @apply absolute top-0 ml-3 mr-2 h-full w-4 text-neutral-600;
+}
+
+.filterInput {
+  @apply size-full min-h-10 rounded bg-neutral-200/50 pl-10 pr-3 text-sm text-neutral-600 placeholder:text-current;
+
+  &:focus-visible {
+    @apply outline-none;
+  }
+}
+
+.error {
+  @apply mx-auto flex w-1/2 flex-col items-center space-y-2 py-6 text-center text-sm text-neutral-400;
+}
+
+.errorIcon {
+  @apply size-8;
+}
+
+.scrollButton {
+  @apply flex w-full justify-center py-2;
+
+  &:hover,
+  &:focus-visible {
+    @apply text-orange-500;
+  }
+}
+
+.scrollButtonIcon {
+  @apply size-4 stroke-2;
+}
+
+.clearButton {
+  @apply absolute right-10 top-0 z-10 mx-2 my-1.5 size-8 rounded transition-colors;
+
+  &:hover,
+  &:focus-visible {
+    @apply bg-neutral-200;
+  }
+}
+
+.clearIcon {
+  @apply mx-auto size-4;
+}
+
+.scrollbar {
+  @apply w-0.5 bg-neutral-100;
+}
+
+.thumb {
+  @apply size-full bg-neutral-300;
+}
