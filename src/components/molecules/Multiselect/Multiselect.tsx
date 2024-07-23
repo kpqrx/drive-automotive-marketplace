@@ -30,10 +30,20 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
     } = props
 
     const [isOpen, setIsOpen] = useState(defaultOpen)
+    const [searchQuery, setSearchQuery] = useState('')
     const [values, setValues] = useState<(string | number)[]>(defaultValue)
+
     const firstValueLabel = useMemo(
       () => items.find((item) => item.value === values[0])?.label,
       [items, values],
+    )
+
+    const filteredItems = useMemo(
+      () =>
+        items.filter((item) =>
+          item.label.toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+      [items, searchQuery],
     )
 
     const handleSetValues = (values: (string | number)[]) => {
@@ -79,21 +89,6 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
               {label}
             </m.span>
 
-            {placeholder && (
-              <AnimatePresence mode="popLayout">
-                {isOpen && values.length === 0 && (
-                  <m.span
-                    className={styles.placeholder}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                  >
-                    {placeholder}
-                  </m.span>
-                )}
-              </AnimatePresence>
-            )}
-
             {firstValueLabel && (
               <div className={styles.valueWrapper}>
                 <span className={styles.valueLabel}>{firstValueLabel}</span>
@@ -105,26 +100,46 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
               </div>
             )}
 
-            <MotionChevronDownIcon
-              className={styles.chevronIcon}
-              animate={{ rotate: isOpen ? '180deg' : '0deg' }}
-            />
-          </PopoverPrimitive.Trigger>
+            <AnimatePresence mode="popLayout">
+              {isOpen && (
+                <m.input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
+                  placeholder={placeholder}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+              )}
+            </AnimatePresence>
 
-          <AnimatePresence>
-            {values.length > 0 && (
-              <m.button
-                type="button"
-                onClick={() => handleSetValues([])}
-                className={styles.clearButton}
-                initial={{ x: '100%', opacity: 0 }}
-                animate={{ x: '0%', opacity: 1 }}
-                exit={{ x: '100%', opacity: 0 }}
-              >
-                <ClearIcon className={styles.clearIcon} />
-              </m.button>
-            )}
-          </AnimatePresence>
+            <div className={styles.iconsWrapper}>
+              <AnimatePresence>
+                {values.length > 0 && (
+                  <m.button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSetValues([])
+                    }}
+                    className={styles.clearButton}
+                    initial={{ x: '100%', opacity: 0 }}
+                    animate={{ x: '0%', opacity: 1 }}
+                    exit={{ x: '100%', opacity: 0 }}
+                  >
+                    <ClearIcon className={styles.clearIcon} />
+                  </m.button>
+                )}
+              </AnimatePresence>
+
+              <MotionChevronDownIcon
+                className={styles.chevronIcon}
+                animate={{ rotate: isOpen ? '180deg' : '0deg' }}
+              />
+            </div>
+          </PopoverPrimitive.Trigger>
 
           <AnimatePresence>
             {isOpen && (
@@ -148,7 +163,7 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
                         <p>Ładowanie...</p>
                       ) : (
                         <ul className={styles.itemsContainer}>
-                          {items.map((item) => (
+                          {filteredItems.map((item) => (
                             <li key={item.value}>
                               <button
                                 type="button"

@@ -29,7 +29,7 @@ function useOfferParameters(): UseOfferParametersReturnType {
   useEffect(() => {
     const offerParameters = getOfferParametersFromPathname(pathname)
     setAllParameters(offerParameters)
-  }, [])
+  }, [pathname, setAllParameters])
 
   const handleSetParameter = (
     key: OfferParameterKey,
@@ -51,8 +51,6 @@ function useOfferParameters(): UseOfferParametersReturnType {
       .map(([key, value]) =>
         getSerializedOfferParameter(key as OfferParameterKey, value),
       )
-
-    console.log({ parameters, serializedParameters })
 
     const newPathname = `/offers/${serializedParameters.join('/')}`
 
