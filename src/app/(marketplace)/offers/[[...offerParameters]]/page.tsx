@@ -28,12 +28,10 @@ export default async function ListingPage(props: ListingPageProps) {
 
   const title = getOffersPageTitle({ manufacturer, model })
   const [offersCount, offersCountTerm] = getOffersCount([]) // TOOD: fetch count
-  const breadcrumbsItems = ['Osobowe', bodyType]
-    .filter(Boolean)
-    .map((label) => ({
-      label,
-      path: '/',
-    }))
+  const breadcrumbsItems = ['Osobowe'].filter(Boolean).map((label) => ({
+    label,
+    path: '/',
+  }))
 
   return (
     <main>

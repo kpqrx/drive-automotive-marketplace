@@ -8,7 +8,6 @@ import { AnimatePresence, easeInOut, m } from 'framer-motion'
 import {
   ChevronUpIcon,
   ChevronDownIcon,
-  // MagnifyingGlassIcon,
   XMarkIcon as ClearIcon,
 } from '@heroicons/react/24/outline'
 import { CheckIcon } from '@heroicons/react/24/solid'
@@ -24,52 +23,32 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       className = '',
       name,
       disabled,
-      // filterInputPlaceholder = 'Szukaj...',
       error,
-      onSelect,
-      onChange,
-      required,
+      onValueChange,
       defaultOpen = false,
       defaultValue = '',
       isLoading,
       ...restProps
     } = props
 
-    // const [filterQuery, setFilterQuery] = useState('')
     const [isOpen, setIsOpen] = useState(defaultOpen)
-    const [value, setValue] = useState(defaultValue)
+    const [value, setValue] = useState<string | number>(defaultValue)
     const valueLabel = useMemo(
       () => items.find((item) => item.value == value)?.label,
       [items, value],
     )
 
-    // const filteredItems = useMemo(
-    //   () =>
-    //     items.filter((item) =>
-    //       item.label.toLowerCase().includes(filterQuery.toLowerCase()),
-    //     ),
-    //   [items, filterQuery],
-    // )
-
-    // const handleFilterInputChange = (
-    //   event: React.ChangeEvent<HTMLInputElement>,
-    // ) => {
-    //   setFilterQuery(event.target.value)
-    // }
-
-    const handleOnValueChange = useCallback(
-      (value: string) => {
-        if (onSelect) onSelect(value)
-        if (onChange)
-          onChange({ target: { name, value: Number(value) || value } })
+    const handleSetValue = useCallback(
+      (value: string | number) => {
+        if (onValueChange) onValueChange(value?.toString())
         setValue(value)
       },
-      [name, onChange, onSelect],
+      [onValueChange],
     )
 
     const handleClear = useCallback(() => {
-      handleOnValueChange('')
-    }, [handleOnValueChange])
+      handleSetValue('')
+    }, [handleSetValue])
 
     useEffect(() => {
       if (disabled) {
@@ -82,10 +61,9 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
         <SelectPrimitive.Root
           open={isOpen}
           onOpenChange={setIsOpen}
-          value={value}
-          onValueChange={handleOnValueChange}
+          value={value?.toString()}
+          onValueChange={handleSetValue}
           disabled={disabled}
-          required={required}
           name={name}
           {...restProps}
         >
@@ -198,9 +176,9 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
                     ) : (
                       <ul className={styles.itemsContainer}>
                         {items.map((item) => (
-                          <li key={item.id}>
+                          <li key={item.value}>
                             <SelectPrimitive.Item
-                              value={(item.value ?? item.id).toString()}
+                              value={item.value.toString()}
                               className={styles.item}
                               data-testid="select-item"
                             >

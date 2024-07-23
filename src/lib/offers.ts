@@ -34,8 +34,12 @@ export const getSuggestions = async (
     )
   }
 
-  const { $values: suggestions }: GetFilterSuggestionsResponse =
-    await req.json()
+  const { $values }: GetFilterSuggestionsResponse = await req.json()
+
+  const suggestions = $values.map(({ label, value, id }) => ({
+    label,
+    value: value || id,
+  }))
 
   return suggestions
 }
@@ -59,8 +63,12 @@ export const getQueriedSuggestions = async (
     throw new Error(req.statusText)
   }
 
-  const { $values: suggestions }: GetFilterSuggestionsResponse =
-    await req.json()
+  const { $values }: GetFilterSuggestionsResponse = await req.json()
+
+  const suggestions = $values.map(({ label, value, id }) => ({
+    label,
+    value: value || id,
+  }))
 
   return suggestions
 }
@@ -86,7 +94,8 @@ type GetOffersApiResponse = { $values: Offer[] }
 export const getOffers = async (rawOfferParameters: OfferParameters) => {
   const offerParameters = Object.entries(rawOfferParameters).reduce(
     (acc, [key, rawValue]) => {
-      if (!rawValue || rawValue.length <= 0) return acc
+      if (!rawValue || (Array.isArray(rawValue) && rawValue.length <= 0))
+        return acc
 
       let value: string[] | number[] | number | string = rawValue
       if (Number(rawValue)) value = Number(rawValue)

@@ -1,4 +1,4 @@
-import type { Offer } from '@/types'
+import type { Offer, OfferParameterValue } from '@/types'
 import { toCapitalCase } from './casing'
 import dynamic from 'next/dynamic'
 import type { IconType } from 'react-icons'
@@ -76,4 +76,8 @@ export function getIconByManufacturer(manufacturer: string): IconType {
   ) as IconType
 
   return icon
+}
+
+export function isEmptyOfferParameterValue(value: OfferParameterValue) {
+  return value === null || (Array.isArray(value) && value.length === 0)
 }

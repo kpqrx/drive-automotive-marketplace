@@ -1,33 +1,37 @@
 import { type StateCreator } from 'zustand'
 import type {
   OfferParameterKey,
+  OfferParameterValue,
   OfferParameters as OfferParametersValue,
 } from '@/types'
 
 type OfferParametersMutators = {
-  setParameter: (key: OfferParameterKey, value: string | string[]) => void
+  setParameter: (key: OfferParameterKey, value: OfferParameterValue) => void
   removeParameter: (key: OfferParameterKey) => void
   setAllParameters: (filters: OfferParametersValue) => void
   removeAllParameters: () => void
 }
 
-export type OfferParameters = OfferParametersValue & OfferParametersMutators
+export type OfferParameters = {
+  parameters: OfferParametersValue
+} & OfferParametersMutators
 
 const defaultValue: OfferParametersValue = {
   brands: [],
   models: [],
-  minYear: NaN,
-  maxYear: NaN,
-  minMileage: NaN,
-  maxMileage: NaN,
-  minPrice: NaN,
-  maxPrice: NaN,
+  minYear: null,
+  maxYear: null,
+  minMileage: null,
+  maxMileage: null,
+  minPrice: null,
+  maxPrice: null,
+  fuelTypes: [],
   bodyTypes: [],
-  minPower: NaN,
-  maxPower: NaN,
+  minPower: null,
+  maxPower: null,
   multimediaFeatures: [],
   safetyFeatures: [],
-  driverAssistanceSystemsFeatures: [],
+  driverAssistanceFeatures: [],
   performanceFeatures: [],
   otherFeatures: [],
 }
@@ -37,12 +41,16 @@ export const createOfferParametersStore: StateCreator<
   [['zustand/devtools', never]],
   []
 > = (set) => ({
-  ...defaultValue,
+  parameters: defaultValue,
   setParameter: (key, value) => set((state) => ({ ...state, [key]: value })),
   removeParameter: (key) =>
     set((state) => ({ ...state, [key]: defaultValue[key] })),
-  setAllParameters: (filters) => set(() => filters),
-  removeAllParameters: () => set(() => defaultValue),
+  setAllParameters: (parameters) =>
+    set(() => ({ parameters: { ...defaultValue, ...parameters } })),
+  removeAllParameters: () =>
+    set(() => ({
+      parameters: defaultValue,
+    })),
 })
 
 export const offerParametersStoreOptions = {

@@ -6,9 +6,8 @@ export interface CheckboxGroupProps<T extends FieldValues>
   className?: string
   name: string
   items?: {
-    id: number
     label: string
-    value?: string
+    value: string | number
   }[]
   control: Control<T>
 }

@@ -77,20 +77,21 @@ export type OfferParameters = {
   brands: string[]
   models: string[]
   bodyTypes: number[]
-  minYear: number
-  maxYear: number
-  minMileage: number
-  maxMileage: number
-  minPrice: number
-  maxPrice: number
-  minPower: number
-  maxPower: number
+  fuelTypes: number[]
+  minYear: number | null
+  maxYear: number | null
+  minMileage: number | null
+  maxMileage: number | null
+  minPrice: number | null
+  maxPrice: number | null
+  minPower: number | null
+  maxPower: number | null
   multimediaFeatures: number[]
   safetyFeatures: number[]
-  driverAssistanceSystemsFeatures: number[]
+  driverAssistanceFeatures: number[]
   performanceFeatures: number[]
   otherFeatures: number[]
 }
 
 export type OfferParameterKey = keyof OfferParameters
-export type OfferParameterValue = string[] | number | number[]
+export type OfferParameterValue = string[] | number | number[] | null

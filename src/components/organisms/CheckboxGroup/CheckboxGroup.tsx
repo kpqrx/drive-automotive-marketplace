@@ -18,13 +18,12 @@ export const CheckboxGroup = <T extends FieldValues>(
         <ScrollAreaPrimitive.Viewport className={styles.wrapper}>
           {items?.map((item) => (
             <Controller<T>
-              key={item.id}
+              key={item.value}
               name={name as Path<T>}
               control={control}
               render={({ field }) => {
-                const value = 'value' in item ? item.value : item.id
                 const defaultChecked = Array.isArray(field.value)
-                  ? field.value.includes(value)
+                  ? field.value.includes(item.value)
                   : false
 
                 return (
@@ -37,11 +36,10 @@ export const CheckboxGroup = <T extends FieldValues>(
                         ? field.value
                         : []
                       const newFieldValue = checked
-                        ? [...fieldValue, value]
-                        : fieldValue.filter((v) => v !== value)
+                        ? [...fieldValue, item.value]
+                        : fieldValue.filter((v) => v !== item.value)
 
                       field.onChange({ target: { value: newFieldValue } })
-                      // field.onChange(newFieldValue)
                     }}
                   >
                     {item.label}

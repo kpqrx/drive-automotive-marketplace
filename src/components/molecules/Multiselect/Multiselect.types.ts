@@ -11,6 +11,7 @@ export interface MultiselectProps extends PopoverProps {
   placeholder?: string
   items?: MultiselectItemType[]
   className?: string
-  onSelect?: (value: string) => void
+  onValueChange?: (value: (string | number)[]) => void
   defaultValue?: (string | number)[]
+  disabled?: boolean
 }

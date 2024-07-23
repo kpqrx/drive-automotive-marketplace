@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { forwardRef, useMemo, useState } from 'react'
+import { forwardRef, useEffect, useMemo, useState } from 'react'
 import type { MultiselectProps } from '@/components/molecules/Multiselect/Multiselect.types'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
 import styles from './Multiselect.module.css'
@@ -22,26 +23,38 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
       placeholder,
       items = [],
       defaultValue = [],
+      onValueChange,
+      defaultOpen = false,
+      disabled,
       ...restProps
     } = props
 
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(defaultOpen)
     const [values, setValues] = useState<(string | number)[]>(defaultValue)
     const firstValueLabel = useMemo(
       () => items.find((item) => item.value === values[0])?.label,
       [items, values],
     )
 
+    const handleSetValues = (values: (string | number)[]) => {
+      if (onValueChange) onValueChange(values)
+      setValues(values)
+    }
+
     const handleAddItem = (itemValue: string | number) =>
-      setValues((prevValue) => [...prevValue, itemValue])
+      handleSetValues([...values, itemValue])
 
     const handleRemoveItem = (itemValue: string | number) =>
-      setValues(values.filter((id) => id !== itemValue))
+      handleSetValues(values.filter((id) => id !== itemValue))
 
     const handleItemClick = (itemValue: string | number) =>
       values.includes(itemValue)
         ? handleRemoveItem(itemValue)
         : handleAddItem(itemValue)
+
+    useEffect(() => {
+      if (disabled) handleSetValues([])
+    }, [disabled])
 
     return (
       <div className={clsx(styles.container, className)}>
@@ -52,6 +65,7 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
         >
           <PopoverPrimitive.Trigger
             className={clsx(styles.trigger, isOpen && styles.triggerActive)}
+            disabled={disabled}
             ref={forwardedRef}
           >
             <m.span
@@ -101,7 +115,7 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
             {values.length > 0 && (
               <m.button
                 type="button"
-                onClick={() => setValues([])}
+                onClick={() => handleSetValues([])}
                 className={styles.clearButton}
                 initial={{ x: '100%', opacity: 0 }}
                 animate={{ x: '0%', opacity: 1 }}
@@ -120,6 +134,7 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
                 forceMount
               >
                 <m.div
+                  className={styles.content}
                   initial={{ opacity: 0, y: -24, height: 0 }}
                   animate={{ opacity: 1, y: 0, height: 'auto' }}
                   exit={{ opacity: 0, y: -24, height: 0 }}
@@ -136,6 +151,7 @@ export const Multiselect = forwardRef<HTMLButtonElement, MultiselectProps>(
                           {items.map((item) => (
                             <li key={item.value}>
                               <button
+                                type="button"
                                 className={styles.item}
                                 onClick={() => handleItemClick(item.value)}
                               >

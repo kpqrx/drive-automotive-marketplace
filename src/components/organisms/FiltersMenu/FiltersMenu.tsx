@@ -9,24 +9,53 @@ import { Select } from '@/components/molecules/Select/Select'
 import { Button, CheckboxGroup } from '@/components'
 import { getLabelTitleByKey } from '@/utils'
 import styles from './FiltersMenu.module.css'
-import { useEffect, useState, type ComponentProps } from 'react'
+import { useState, type ComponentProps } from 'react'
+import { Multiselect } from '@/components'
 
-const StringSelect = (props: ComponentProps<typeof Select>) => (
+type FormMultiselectProps = ComponentProps<typeof Multiselect> & {
+  control: any
+  name: string
+}
+const FormMultiselect = (props: FormMultiselectProps) => (
+  <Controller
+    control={props.control}
+    name={props.name}
+    render={({ field }) => (
+      <Multiselect
+        {...props}
+        onValueChange={(value) => {
+          field.onChange({
+            target: {
+              value,
+            },
+          })
+          if (props.onValueChange) props.onValueChange(value)
+        }}
+        defaultValue={field.value}
+      />
+    )}
+  />
+)
+
+type FormSelectProps = ComponentProps<typeof Select> & {
+  control: any
+  name: string
+}
+const FormSelect = (props: FormSelectProps) => (
   <Controller
     control={props.control}
     name={props.name}
     render={({ field }) => (
       <Select
         {...props}
-        onValueChange={(value) =>
+        onValueChange={(value) => {
           field.onChange({
             target: {
-              value: value
-                ? [...(field.value || []), value]
-                : (field.value || []).filter((v) => v !== value),
+              value,
             },
           })
-        }
+          if (props.onValueChange) props.onValueChange(value)
+        }}
         defaultValue={field.value}
       />
     )}
@@ -35,9 +64,18 @@ const StringSelect = (props: ComponentProps<typeof Select>) => (
 
 export const FiltersMenu = (props: FiltersMenuProps) => {
   const { isOpen, setIsOpen, ...restProps } = props
-  const { setAllParameters } = useOfferParameters()
+  const { setAllParameters, parameters } = useOfferParameters()
 
-  const [modelsQuery, setModelsQuery] = useState('')
+  const [modelsQuery, setModelsQuery] = useState<string>()
+
+  const handleSetModelsQuery = (values: (string | number)[]) => {
+    if (values.length > 1) {
+      setModelsQuery(undefined)
+      return
+    }
+    setModelsQuery(values[0] as string)
+  }
+
   const {
     brands,
     models,
@@ -51,20 +89,10 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
     modelsQuery,
   })
 
-  const { register, control, watch, handleSubmit } = useForm<OfferParameters>({
+  const { control, handleSubmit } = useForm<OfferParameters>({
     mode: 'onSubmit',
+    values: parameters,
   })
-
-  const [hasMadeChanges, setHasMadeChanges] = useState(false)
-
-  useEffect(() => {
-    const watcher = watch((data) => {
-      console.log(data)
-      setHasMadeChanges(true)
-    })
-
-    return () => watcher.unsubscribe()
-  }, [watch])
 
   const handleFormSubmit = handleSubmit((data) => {
     setAllParameters(data)
@@ -86,80 +114,92 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
             Podstawowe informacje
           </span>
 
-          <StringSelect
+          <FormMultiselect
             label="Marka pojazdu"
+            placeholder="Wybierz interesujące Cię marki"
             items={brands.data}
             control={control}
             name="brands"
-            onSelect={setModelsQuery}
+            onValueChange={handleSetModelsQuery}
           />
-          <Select
+          <FormMultiselect
             label="Model pojazdu"
+            placeholder="Wybierz interesujące Cię modele"
             items={models.data}
-            {...register('models')}
+            control={control}
+            name="models"
             disabled={!modelsQuery}
           />
-          <Select
+          <FormMultiselect
             label="Rodzaj nadwozia"
+            placeholder="Wybierz rodzaje nadwozia"
             items={bodyTypes.data}
-            {...register('bodyTypes')}
+            name="bodyTypes"
+            control={control}
           />
-          <Select
-            label="Typ paliwa"
+          <FormMultiselect
+            label="Rodzaj paliwa"
+            placeholder="Wybierz rodzaje paliwa"
             items={fuelTypes.data}
-            // @ts-ignore TODO: Fix this
-            {...register('fuelTypes', { valueAsNumber: true })}
+            control={control}
+            name="fuelTypes"
           />
         </div>
 
         <div className={styles.filtersGroup}>
           <span className={styles.filtersGroupLabel}>Cena</span>
 
-          <Select
+          <FormSelect
+            control={control}
             label="Cena od"
             placeholder="Podaj cenę minimalną"
             items={priceRange.data}
-            {...register('minPrice', { valueAsNumber: true })}
+            name="minPrice"
           />
-          <Select
+          <FormSelect
+            control={control}
             label="Cena do"
             placeholder="Podaj cenę maksymalną"
             items={priceRange.data}
-            {...register('maxPrice', { valueAsNumber: true })}
+            name="maxPrice"
           />
         </div>
 
         <div className={styles.filtersGroup}>
           <span className={styles.filtersGroupLabel}>Przebieg</span>
 
-          <Select
+          <FormSelect
+            control={control}
             label="Przebieg od"
             placeholder="Podaj przebieg minimalny"
             items={mileage.data}
-            {...register('minMileage', { valueAsNumber: true })}
+            name="minMileage"
           />
-          <Select
+          <FormSelect
+            control={control}
             label="Przebieg do"
             placeholder="Podaj przebieg maksymalny"
             items={mileage.data}
-            {...register('maxMileage', { valueAsNumber: true })}
+            name="maxMileage"
           />
         </div>
 
         <div className={styles.filtersGroup}>
           <span className={styles.filtersGroupLabel}>Rok produkcji</span>
 
-          <Select
+          <FormSelect
+            control={control}
             label="Rok produkcji od"
             placeholder="Podaj minimalny rok produkcji"
             items={prodYears.data}
-            {...register('minYear', { valueAsNumber: true })}
+            name="minYear"
           />
-          <Select
+          <FormSelect
+            control={control}
             label="Rok produkcji do"
             placeholder="Podaj maksymalny rok produkcji"
             items={prodYears.data}
-            {...register('maxYear', { valueAsNumber: true })}
+            name="maxYear"
           />
         </div>
 
@@ -182,16 +222,14 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
           })}
         </div>
 
-        {hasMadeChanges && (
-          <div className={styles.submitButtonWrapper}>
-            <Button
-              className={styles.submitButton}
-              type="submit"
-            >
-              Zastosuj filtry
-            </Button>
-          </div>
-        )}
+        <div className={styles.submitButtonWrapper}>
+          <Button
+            className={styles.submitButton}
+            type="submit"
+          >
+            Zastosuj filtry
+          </Button>
+        </div>
       </form>
     </Modal>
   )

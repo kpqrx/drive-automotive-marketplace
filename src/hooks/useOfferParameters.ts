@@ -8,14 +8,13 @@ import {
   getOfferParametersFromPathname,
   getSerializedOfferParameter,
   getUpdatedOfferParametersPathname,
+  isEmptyOfferParameterValue,
   replaceHistoryState,
 } from '@/utils'
 import { usePathname } from 'next/navigation'
 import { useOfferParametersStore } from '@/store'
 
 type UseOfferParametersReturnType = {
-  removeParameter: (key: OfferParameterKey) => void
-  removeAllParameters: () => void
   setParameter: (key: OfferParameterKey, value: OfferParameterValue) => void
   setAllParameters: (parameters: OfferParameters) => void
   parameters: OfferParameters
@@ -24,13 +23,8 @@ type UseOfferParametersReturnType = {
 function useOfferParameters(): UseOfferParametersReturnType {
   const pathname = usePathname()
 
-  const {
-    setParameter,
-    setAllParameters,
-    removeParameter,
-    removeAllParameters,
-    ...offerParametersStore
-  } = useOfferParametersStore()
+  const { setParameter, setAllParameters, parameters } =
+    useOfferParametersStore()
 
   useEffect(() => {
     const offerParameters = getOfferParametersFromPathname(pathname)
@@ -51,19 +45,14 @@ function useOfferParameters(): UseOfferParametersReturnType {
     replaceHistoryState(newPathname)
   }
 
-  const handleRemoveParameter = (key: OfferParameterKey) => {
-    // TODO: Implement removing filter
-  }
-
-  const handleRemoveAllParameters = () => {
-    // TODO: Implement removing all parameters
-  }
-
   const handleSetAllParameters = (parameters: OfferParameters) => {
-    const serializedParameters = Object.entries(parameters).map(
-      ([key, value]) =>
+    const serializedParameters = Object.entries(parameters)
+      .filter(([, value]) => !isEmptyOfferParameterValue(value))
+      .map(([key, value]) =>
         getSerializedOfferParameter(key as OfferParameterKey, value),
-    )
+      )
+
+    console.log({ parameters, serializedParameters })
 
     const newPathname = `/offers/${serializedParameters.join('/')}`
 
@@ -73,11 +62,9 @@ function useOfferParameters(): UseOfferParametersReturnType {
   }
 
   return {
-    removeParameter: handleRemoveParameter,
-    removeAllParameters: handleRemoveAllParameters,
     setParameter: handleSetParameter,
     setAllParameters: handleSetAllParameters,
-    parameters: offerParametersStore,
+    parameters,
   }
 }
 

@@ -35,8 +35,7 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
     data: getNumbersRange({
       start: 1980,
       end: new Date().getFullYear(),
-    }).map((year, index) => ({
-      id: index,
+    }).map((year) => ({
       label: year.toString(),
       value: year,
     })),
@@ -47,8 +46,7 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
       start: 0,
       end: 300000,
       step: 10000,
-    }).map((mileage, index) => ({
-      id: index,
+    }).map((mileage) => ({
       label: mileage.toLocaleString('pl-PL', {
         style: 'unit',
         unit: 'kilometer',
@@ -63,8 +61,7 @@ function useOfferParametersSuggestions(parameters: { modelsQuery?: string }) {
       start: 0,
       end: 200000,
       step: 10000,
-    }).map((price, index) => ({
-      id: index,
+    }).map((price) => ({
       label: price.toLocaleString('pl-PL', {
         style: 'currency',
         currency: 'PLN',

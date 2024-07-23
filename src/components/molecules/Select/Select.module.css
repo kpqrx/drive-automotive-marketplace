@@ -19,7 +19,7 @@
 }
 
 .placeholder {
-  @apply text-sm text-neutral-400;
+  @apply whitespace-nowrap text-sm text-neutral-400;
 }
 
 .valueWrapper {

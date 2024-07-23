@@ -11,6 +11,7 @@ export { OfferHeader } from '@/components/atoms/OfferHeader/OfferHeader'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 
 export { Select } from '@/components/molecules/Select/Select'
+export { Multiselect } from '@/components/molecules/Multiselect/Multiselect'
 export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'
 export { Input } from '@/components/molecules/Input/Input'
 export { OfferTile } from '@/components/molecules/OfferTile/OfferTile'
