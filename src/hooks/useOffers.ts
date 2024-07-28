@@ -5,7 +5,9 @@ import { getOffers } from '@/lib'
 function useOffers() {
   const { parameters } = useOfferParameters()
 
-  const offers = useSWR(parameters, () => getOffers(parameters))
+  const offers = useSWR(parameters, () => getOffers(parameters), {
+    refreshWhenOffline: false,
+  })
 
   return {
     offers,

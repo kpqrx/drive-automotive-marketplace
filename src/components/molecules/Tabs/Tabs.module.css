@@ -3,11 +3,11 @@
 }
 
 .buttonsWrapper {
-  @apply flex w-full bg-neutral-100 px-6;
+  @apply flex w-full bg-neutral-100 px-6 dark:bg-neutral-950;
 }
 
 .button {
-  @apply flex max-w-[33.33%] flex-1 -skew-x-6 flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 py-3 text-sm outline-none ring-inset ring-amber-500/50
+  @apply flex max-w-[33.33%] flex-1 -skew-x-6 flex-wrap items-center justify-center gap-x-3 gap-y-2 px-2 py-3 text-sm outline-none ring-inset ring-orange-500/50
   transition focus-visible:ring-2;
 
   &:not(.buttonActive):hover,
@@ -25,17 +25,17 @@
 }
 
 .buttonActive {
-  @apply bg-white text-amber-500;
+  @apply bg-white text-orange-400 dark:bg-neutral-800;
   -webkit-text-stroke: 0.045rem currentColor;
   text-stroke: 0.045rem currentColor;
 }
 
 .contentWrapper {
-  @apply grid bg-white py-3;
+  @apply grid bg-white py-3 dark:bg-neutral-800;
 }
 
 .content {
-  @apply px-6 outline-none ring-amber-500/50 focus-visible:ring-2;
+  @apply px-6 outline-none ring-orange-500/50 focus-visible:ring-2;
 
   grid-area: 1 / 1 / 1 / 1;
 }

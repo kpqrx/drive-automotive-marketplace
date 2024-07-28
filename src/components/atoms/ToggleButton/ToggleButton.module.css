@@ -1,0 +1,26 @@
+.container {
+  @apply box-content flex max-w-fit items-center justify-start rounded-full bg-neutral-200 p-1 transition dark:bg-neutral-800;
+  min-width: calc(2 * theme('spacing.6'));
+
+  &:focus-visible,
+  &:hover {
+    @apply bg-neutral-300 dark:bg-neutral-700;
+  }
+}
+
+.containerIsToggled {
+  @apply justify-end;
+}
+
+.containerVertical {
+  @apply w-auto flex-col;
+  height: calc(2 * theme('spacing.6'));
+}
+
+.iconWrapper {
+  @apply rounded-full bg-white p-1 dark:bg-black;
+
+  & svg {
+    @apply h-4 w-4;
+  }
+}

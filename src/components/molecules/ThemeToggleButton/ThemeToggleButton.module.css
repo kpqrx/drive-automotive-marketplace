@@ -1,0 +1,24 @@
+.container {
+  @apply flex items-center gap-2;
+}
+
+.systemModeCheckbox {
+  @apply relative rounded-full bg-neutral-200 p-2 dark:bg-neutral-800;
+
+  & svg {
+    @apply h-4 w-4;
+  }
+
+  &:focus-within,
+  &:hover {
+    @apply bg-neutral-300 dark:bg-neutral-700;
+  }
+}
+
+.systemModeCheckboxChecked {
+  @apply ring-2 ring-neutral-200 dark:ring-orange-400;
+}
+
+.systemModeCheckboxInput {
+  @apply absolute inset-0 h-full w-full opacity-0;
+}

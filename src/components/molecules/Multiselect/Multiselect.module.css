@@ -3,14 +3,14 @@
 }
 
 .trigger {
-  @apply relative z-10 flex h-11 w-full items-center gap-2 rounded bg-neutral-50 p-3 text-left outline-none transition;
+  @apply relative z-10 flex h-11 w-full items-center gap-2 rounded bg-neutral-50 p-3 text-left outline-none transition dark:bg-neutral-900;
 
-  &:hover:not(.triggerActive) {
-    @apply bg-neutral-100;
+  &:hover:not(.triggerActive):not(:disabled) {
+    @apply bg-neutral-100 dark:bg-neutral-950;
   }
 
   &:disabled {
-    @apply cursor-not-allowed bg-neutral-100 text-neutral-400;
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
   }
 }
 
@@ -43,7 +43,7 @@
 }
 
 .content {
-  @apply z-20 mt-2 w-[var(--radix-popover-trigger-width)] overflow-hidden rounded bg-neutral-50 shadow-sm ring-1 ring-inset ring-neutral-100;
+  @apply z-20 mt-2 w-[var(--radix-popover-trigger-width)] overflow-hidden rounded bg-neutral-50 shadow-sm ring-1 ring-inset ring-neutral-100 dark:bg-neutral-900 dark:ring-neutral-950;
 }
 
 .contentWrapper {
@@ -62,11 +62,11 @@
   &[data-state='checked'],
   &:hover,
   &:focus-visible {
-    @apply bg-orange-100 text-orange-500;
+    @apply bg-orange-100 text-orange-500 dark:bg-orange-600/25;
   }
 
   &:active {
-    @apply bg-orange-200 text-orange-600;
+    @apply bg-orange-200 text-orange-600 dark:bg-orange-600/50;
   }
 
   &:focus-visible {

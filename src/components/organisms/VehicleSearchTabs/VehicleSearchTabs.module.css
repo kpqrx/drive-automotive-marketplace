@@ -15,7 +15,7 @@
 }
 
 .foundOffersCount {
-  @apply mx-2 font-medium text-amber-500;
+  @apply mx-2 font-medium text-orange-500;
 }
 
 .submitButton {

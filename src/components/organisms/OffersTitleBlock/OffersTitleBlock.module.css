@@ -7,7 +7,7 @@
 }
 
 .itemsCount {
-  @apply text-2xl text-neutral-700;
+  @apply text-2xl text-neutral-700 dark:text-neutral-500;
 }
 
 .skeleton {

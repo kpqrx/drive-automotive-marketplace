@@ -10,6 +10,7 @@ import type { SidebarItemType } from '@/components/molecules/Sidebar/Sidebar.typ
 import { Logo } from '@/components/atoms/Logo/Logo'
 import clsx from 'clsx'
 import { UserActionPanel } from '@/components/atoms/UserActionPanel/UserActionPanel'
+import { ThemeToggleButton } from '@/components/molecules/ThemeToggleButton/ThemeToggleButton'
 
 const sidebarItems: SidebarItemType[] = [
   { label: 'Obserwowane oferty', href: '#' },
@@ -40,6 +41,9 @@ export const Header = (props: HeaderProps) => {
             <ul className={styles.buttonsWrapper}>
               <li>
                 <UserActionPanel />
+              </li>
+              <li>
+                <ThemeToggleButton />
               </li>
               <li className={styles.callToActionButton}>
                 <Button

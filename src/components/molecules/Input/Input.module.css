@@ -3,14 +3,14 @@
 }
 
 .input {
-  @apply max-h-12 w-full rounded bg-neutral-100 p-3 text-left outline-none transition;
+  @apply max-h-11 w-full rounded bg-neutral-100 p-3 text-left outline-none transition dark:bg-neutral-800;
 
   &:hover {
-    @apply bg-neutral-200/50;
+    @apply bg-neutral-200/50 dark:bg-neutral-700/50;
   }
 
   &:disabled {
-    @apply cursor-not-allowed bg-neutral-200 text-neutral-400;
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
   }
 
   &::placeholder {
@@ -28,19 +28,18 @@
 
 .label {
   @apply pointer-events-none absolute top-6 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
-  transition-delay: 50ms;
 
   &.labelFloating {
     @apply -translate-y-9;
   }
 
   &.labelError {
-    @apply text-red-800;
+    @apply text-red-800 dark:text-red-600;
   }
 }
 
 .error {
-  @apply text-sm text-red-800;
+  @apply text-sm text-red-800 dark:text-red-600;
 
   svg {
     @apply mr-1 inline-block size-5 align-text-bottom;

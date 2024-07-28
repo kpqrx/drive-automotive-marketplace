@@ -2,21 +2,21 @@
   --box-shadow-position: 0 50vh;
 
   @apply fixed bottom-0 z-10 flex h-screen
-    w-full flex-col rounded-t bg-white;
-  box-shadow: var(--box-shadow-position) 0 25vh theme('colors.white');
+    w-full flex-col rounded-t bg-white dark:bg-neutral-800;
+  /* box-shadow: var(--box-shadow-position) 0 25vh theme('colors.white'); */
 
-  &::before {
+  /* &::before {
     @apply absolute -top-1 left-1/2 -my-2 block h-1 w-32 -translate-x-1/2 rounded-sm bg-white/50 content-[''];
-  }
+  } */
 
   @screen lg {
-    --box-shadow-position: 50vw 0;
+    /* --box-shadow-position: 50vw 0; */
 
     @apply right-0 min-h-screen max-w-xl;
 
-    &::before {
+    /* &::before {
       @apply -left-1 top-1/2 -mx-2 my-0 rotate-90;
-    }
+    } */
   }
 
   @screen xl {
@@ -26,7 +26,7 @@
 
 .headerWrapper {
   @apply flex h-16 items-center gap-2 px-4;
-  box-shadow: 50vw 0 0 0 theme('colors.white');
+  /* box-shadow: 50vw 0 0 0 theme('colors.white'); */
 }
 
 .title {
@@ -46,7 +46,7 @@
 
   &:hover,
   &:focus-visible {
-    @apply bg-neutral-50;
+    @apply bg-neutral-50 dark:bg-neutral-800;
   }
 
   svg {
@@ -55,9 +55,9 @@
 }
 
 .scrollbar {
-  @apply w-0.5 bg-neutral-100;
+  @apply w-0.5 bg-neutral-100 dark:bg-neutral-800;
 }
 
 .thumb {
-  @apply size-full bg-neutral-300;
+  @apply size-full bg-neutral-300 dark:bg-neutral-600;
 }

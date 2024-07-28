@@ -1,4 +1,3 @@
-// TODO: Investigate why lack of this directive causes error
 import {
   Breadcrumbs,
   CollapsibleFeaturesList,

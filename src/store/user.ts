@@ -20,8 +20,9 @@ type UserStoreValue = typeof defaultValue
 
 export const createUserStore: StateCreator<
   UserStore,
-  [['zustand/devtools', never]],
-  []
+  [['zustand/devtools', never], ['zustand/persist', unknown]],
+  [],
+  UserStore
 > = (set) => ({
   ...defaultValue,
   removeUser: () => set(() => defaultValue),

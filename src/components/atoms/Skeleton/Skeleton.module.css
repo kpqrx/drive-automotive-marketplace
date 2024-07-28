@@ -3,5 +3,5 @@
 }
 
 .item {
-  @apply block size-full animate-pulse rounded bg-neutral-200;
+  @apply block size-full animate-pulse rounded bg-neutral-200 dark:bg-neutral-700;
 }

@@ -7,9 +7,9 @@
 }
 
 .sign {
-  @apply fill-amber-500;
+  @apply fill-orange-400;
 }
 
 .typography {
-  @apply fill-neutral-900;
+  @apply fill-neutral-900 dark:fill-neutral-50;
 }

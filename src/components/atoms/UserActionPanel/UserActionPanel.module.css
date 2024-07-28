@@ -1,13 +1,9 @@
 .container {
-  @apply hidden items-center gap-3 text-neutral-400 lg:flex;
+  @apply hidden items-center gap-3 text-neutral-400 lg:flex dark:text-neutral-500;
 }
 
 .link {
-  @apply text-neutral-800;
-}
-
-.link:hover {
-  @apply text-neutral-800;
+  @apply text-neutral-800 dark:text-neutral-50;
 }
 
 .userIcon {
