@@ -3,19 +3,19 @@
 }
 
 .wrapper {
-  @apply flex h-80 flex-col rounded bg-neutral-100 transition;
+  @apply flex h-80 flex-col rounded bg-neutral-100 transition dark:bg-neutral-800;
 
   &:focus-within,
   &:hover {
-    @apply bg-neutral-200/50;
+    @apply bg-neutral-200/50 dark:bg-neutral-700/50;
   }
 
   &:disabled {
-    @apply cursor-not-allowed bg-neutral-200 text-neutral-400;
+    @apply cursor-not-allowed bg-neutral-200 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
   }
 
   &.wrapperError {
-    @apply bg-red-50;
+    @apply bg-red-400/15;
   }
 }
 
@@ -24,7 +24,7 @@
 }
 
 .editorContent {
-  @apply prose prose-neutral h-full min-w-full p-3 outline-none;
+  @apply prose prose-neutral h-full min-w-full p-3 outline-none dark:prose-invert;
 
   *:first-child {
     @apply mt-0;
@@ -35,16 +35,16 @@
   @apply flex w-full items-center space-x-2 px-3 py-2;
 
   &.toolbarError .toolbarControl {
-    @apply bg-red-100;
+    @apply bg-red-100 dark:bg-red-400/15;
 
     &.toolbarControlActive {
-      @apply bg-red-200 text-red-800;
+      @apply bg-red-100 text-red-800 dark:bg-red-400/45 dark:text-red-600;
     }
   }
 }
 
 .toolbarControl {
-  @apply rounded bg-neutral-200 px-3 py-1;
+  @apply rounded bg-neutral-200 px-3 py-1 dark:bg-neutral-900;
 
   &.toolbarControlActive {
     @apply bg-orange-400 text-white;
@@ -60,12 +60,12 @@
   }
 
   &.labelError {
-    @apply text-red-800;
+    @apply text-red-800 dark:text-red-600;
   }
 }
 
 .error {
-  @apply mt-2 text-sm text-red-800;
+  @apply mt-2 text-sm text-red-800 dark:text-red-600;
 
   svg {
     @apply mr-1 inline-block size-5 align-text-bottom;

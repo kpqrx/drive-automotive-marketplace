@@ -17,15 +17,15 @@
 }
 
 .stepNumber {
-  @apply aspect-square size-10 -skew-x-6 rounded ring-4 ring-inset ring-neutral-300 transition;
+  @apply aspect-square size-10 -skew-x-6 rounded ring-4 ring-inset ring-neutral-300 transition dark:ring-neutral-600;
 }
 
 .stepNumberWrapper {
-  @apply skew-x-6 text-center font-medium leading-10 text-neutral-500;
+  @apply skew-x-6 text-center font-medium leading-10 text-neutral-500 dark:text-neutral-300;
 }
 
 .stepItemProgressBar {
-  @apply relative mb-3 block h-1 w-full -skew-x-6 overflow-hidden rounded-sm bg-neutral-300;
+  @apply relative mb-3 block h-1 w-full -skew-x-6 overflow-hidden rounded-sm bg-neutral-300 dark:bg-neutral-600;
 
   &::before {
     @apply absolute inset-0 size-full w-full origin-left scale-x-[var(--progress)] bg-orange-400 transition-transform content-[''];

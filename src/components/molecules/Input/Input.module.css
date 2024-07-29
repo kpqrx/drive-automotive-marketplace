@@ -22,7 +22,7 @@
   }
 
   &.inputError {
-    @apply bg-red-50;
+    @apply bg-red-400/15;
   }
 }
 
@@ -39,7 +39,7 @@
 }
 
 .error {
-  @apply text-sm text-red-800 dark:text-red-600;
+  @apply h-10 text-sm text-red-800 dark:text-red-600;
 
   svg {
     @apply mr-1 inline-block size-5 align-text-bottom;

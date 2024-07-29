@@ -1,13 +1,13 @@
 .container {
-  @apply flex w-full flex-col overflow-hidden rounded bg-neutral-100 p-3 outline-none transition-colors;
+  @apply flex w-full flex-col overflow-hidden rounded bg-neutral-100 p-3 outline-none transition-colors dark:bg-neutral-800;
 
   &:hover,
   &:focus {
-    @apply bg-neutral-200/50;
+    @apply bg-neutral-200/50 dark:bg-neutral-700/50;
   }
 
   &.containerError {
-    @apply bg-red-50;
+    @apply bg-red-400/15;
   }
 
   &.containerDragActive {
@@ -20,7 +20,7 @@
 }
 
 .error {
-  @apply mt-2 text-sm text-red-800;
+  @apply mt-2 text-sm text-red-800 dark:text-red-600;
 
   svg {
     @apply mr-1 inline-block size-5 align-text-bottom;
@@ -39,7 +39,7 @@
   @apply pointer-events-none flex min-h-24 w-full cursor-pointer flex-col items-center text-neutral-400 transition;
 
   &.placeholderError {
-    @apply text-red-800;
+    @apply text-red-800 dark:text-red-600;
   }
 
   &.placeholderDragActive {
@@ -63,7 +63,7 @@
   @apply flex items-center justify-between;
 
   &.headerError {
-    @apply text-red-800;
+    @apply text-red-800 dark:text-red-600;
   }
 }
 

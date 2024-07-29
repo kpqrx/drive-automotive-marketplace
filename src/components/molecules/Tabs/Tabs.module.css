@@ -3,7 +3,7 @@
 }
 
 .buttonsWrapper {
-  @apply flex w-full bg-neutral-100 px-6 dark:bg-neutral-950;
+  @apply flex w-full bg-neutral-100 px-6 dark:bg-neutral-900;
 }
 
 .button {
