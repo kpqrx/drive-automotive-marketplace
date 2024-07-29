@@ -17,3 +17,7 @@
 .submitButton {
   @apply flex-1;
 }
+
+.form {
+  @apply overflow-hidden pb-20;
+}

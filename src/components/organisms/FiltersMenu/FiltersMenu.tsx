@@ -109,7 +109,10 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
       contextButtonCallback={() => setIsOpen(false)}
       {...restProps}
     >
-      <form onSubmit={handleFormSubmit}>
+      <form
+        className={styles.form}
+        onSubmit={handleFormSubmit}
+      >
         <div className={styles.filtersGroup}>
           <span className={styles.filtersGroupLabel}>
             Podstawowe informacje

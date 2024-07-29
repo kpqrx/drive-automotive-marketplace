@@ -16,7 +16,7 @@ export type OfferParameters = {
   parameters: OfferParametersValue
 } & OfferParametersMutators
 
-const defaultValue: OfferParametersValue = {
+export const defaultValue: OfferParametersValue = {
   brands: [],
   models: [],
   minYear: null,

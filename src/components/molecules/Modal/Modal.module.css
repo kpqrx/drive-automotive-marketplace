@@ -25,7 +25,7 @@
 }
 
 .headerWrapper {
-  @apply flex h-16 items-center gap-2 px-4;
+  @apply flex h-16 items-center gap-4 px-4;
   /* box-shadow: 50vw 0 0 0 theme('colors.white'); */
 }
 
@@ -42,7 +42,7 @@
 }
 
 .contextButton {
-  @apply -ml-4 flex size-16 items-center justify-center transition;
+  @apply flex size-12 items-center justify-center rounded-lg transition;
 
   &:hover,
   &:focus-visible {

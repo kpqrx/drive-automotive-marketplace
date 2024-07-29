@@ -18,13 +18,20 @@ type UseOfferParametersReturnType = {
   setParameter: (key: OfferParameterKey, value: OfferParameterValue) => void
   setAllParameters: (parameters: OfferParameters) => void
   parameters: OfferParameters
+  removeAllParameters: () => void
+  removeParameter: (key: OfferParameterKey) => void
 }
 
 function useOfferParameters(): UseOfferParametersReturnType {
   const pathname = usePathname()
 
-  const { setParameter, setAllParameters, parameters } =
-    useOfferParametersStore()
+  const {
+    setParameter,
+    setAllParameters,
+    removeAllParameters,
+    removeParameter,
+    parameters,
+  } = useOfferParametersStore()
 
   useEffect(() => {
     const offerParameters = getOfferParametersFromPathname(pathname)
@@ -59,9 +66,25 @@ function useOfferParameters(): UseOfferParametersReturnType {
     replaceHistoryState(newPathname)
   }
 
+  const handleRemoveAllParameters = () => {
+    removeAllParameters()
+
+    replaceHistoryState('/offers')
+  }
+
+  const handleRemoveParameter = (key: OfferParameterKey) => {
+    const newPathname = getUpdatedOfferParametersPathname(pathname, null)
+
+    removeParameter(key)
+
+    replaceHistoryState(newPathname)
+  }
+
   return {
     setParameter: handleSetParameter,
     setAllParameters: handleSetAllParameters,
+    removeAllParameters: handleRemoveAllParameters,
+    removeParameter: handleRemoveParameter,
     parameters,
   }
 }
