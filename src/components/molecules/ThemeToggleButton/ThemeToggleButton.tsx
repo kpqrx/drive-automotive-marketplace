@@ -32,8 +32,8 @@ export const ThemeToggleButton = (props: ThemeToggleButtonProps) => {
             ? !isSystemDarkModeEnabled
             : currentTheme === 'light'
         }
-        icons={[LightModeIcon, DarkModeIcon]}
-        labels={['Light mode', 'Dark mode']}
+        icons={[DarkModeIcon, LightModeIcon]}
+        labels={['Dark mode', 'Light mode']}
         position="horizontal"
       />
       <label
