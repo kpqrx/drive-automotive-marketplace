@@ -91,8 +91,8 @@ export const getOtherFeatures = async () =>
 
 type GetOffersApiResponse = { $values: Offer[] }
 
-export const getOffers = async (rawOfferParameters: OfferParameters) => {
-  const offerParameters = Object.entries(rawOfferParameters).reduce(
+export const getOffers = async (rawOfferParameters?: OfferParameters) => {
+  const offerParameters = Object.entries(rawOfferParameters ?? {}).reduce(
     (acc, [key, rawValue]) => {
       if (!rawValue || (Array.isArray(rawValue) && rawValue.length <= 0))
         return acc
@@ -119,4 +119,19 @@ export const getOffers = async (rawOfferParameters: OfferParameters) => {
   const parsedOffers = offers.map(parseOffer)
 
   return parsedOffers
+}
+
+export const getOfferBySlug = async (slug: string) => {
+  const req = await fetch(`${API_BASE_URL}/api/platform/getAnnBySlug/${slug}`, {
+    method: 'GET',
+  })
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to fetch offer by slug: ${req.statusText}`)
+  }
+
+  const offer: Offer = await req.json()
+  const parsedOffer = parseOffer(offer)
+
+  return parsedOffer
 }

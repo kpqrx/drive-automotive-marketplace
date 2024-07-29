@@ -9,11 +9,29 @@ import {
   PhotoGallery,
 } from '@/components'
 import { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
+import { getOfferBySlug, getOffers } from '@/lib'
 import styles from '@/styles/offer.module.css'
+import { getIconByManufacturer } from '@/utils'
 import { FireIcon } from '@heroicons/react/24/outline'
-import { SiBmw } from 'react-icons/si'
 
-export default function Home() {
+export async function generateStaticParams() {
+  const offers = await getOffers()
+  const params = offers.map(({ slug }) => {
+    slug
+  })
+
+  return params
+}
+
+type OfferPageProps = {
+  params: { slug: string }
+}
+
+export default async function OfferPage(props: OfferPageProps) {
+  const { params } = props
+
+  const data = await getOfferBySlug(params.slug)
+
   return (
     <main className={styles.container}>
       <Container className={styles.wrapper}>
@@ -25,13 +43,14 @@ export default function Home() {
         />
         <OfferHeader
           className={styles.offerHeader}
-          label={['BMW Seria 6', 'Gran Coupe']}
-          icon={SiBmw}
-          price="180 000 PLN"
+          label={[data.manufacturer, data.model]}
+          icon={getIconByManufacturer(data.manufacturer)}
+          price={data.price}
         />
 
         <FeaturesList
           className={styles.offerFeatures}
+          // TODO: get from data
           items={[
             { label: 'Silnik', value: '3.0 V6', icon: FireIcon },
             { label: 'Moc', value: '315 KM', icon: FireIcon },
@@ -41,16 +60,17 @@ export default function Home() {
           ]}
         />
         <PhotoGallery
-          items={Array(8).fill({
+          items={data.images.map((src) => ({
+            src,
             width: 1200,
             height: 800,
-            alt: 'bmw',
-            src: 'https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600',
-          })}
+            alt: `${data.manufacturer} ${data.model}`,
+          }))}
         />
 
-        <OfferDescription />
+        <OfferDescription data={data.description} />
         <CollapsibleFeaturesList
+          // TODO: get from data
           items={[
             {
               label: 'Komfort',
@@ -87,15 +107,15 @@ export default function Home() {
         />
         <DiscussionCallToAction />
         <ContactInfo
-          firstName="Rafał"
-          lastName="Kowalski"
-          phoneNumber="123 456 789"
+          firstName={data.user.name}
+          lastName={data.user.surname}
+          phoneNumber={data.user.phone}
           address={{
-            street: 'ul. Mostowa 1',
-            city: 'Poznań',
-            postalCode: '61-001',
-            lat: '52.4047088',
-            long: '16.9370952',
+            city: data.user.city,
+            voivodeship: data.user.voivodeship,
+            // 🤔 💩
+            lat: data.long.toString(),
+            long: data.lat.toString(),
           }}
         />
       </Container>

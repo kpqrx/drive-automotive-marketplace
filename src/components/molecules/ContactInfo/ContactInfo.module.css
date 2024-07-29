@@ -26,7 +26,7 @@
 }
 
 .entry {
-  @apply mb-4 flex max-w-fit items-baseline text-2xl leading-relaxed text-neutral-600;
+  @apply mb-4 flex max-w-fit items-baseline text-2xl leading-relaxed text-neutral-600 dark:text-neutral-400;
 }
 
 .icon {
@@ -35,4 +35,8 @@
 
 .map {
   @apply aspect-video flex-1 basis-full overflow-hidden rounded;
+}
+
+.address {
+  @apply whitespace-pre-line;
 }

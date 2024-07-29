@@ -1,9 +1,10 @@
 import type { ComponentPropsWithoutRef } from 'react'
 
 export type AddressData = {
-  street: string
+  street?: string
   city: string
-  postalCode: string
+  voivodeship: string
+  postalCode?: string
   long: string
   lat: string
 }

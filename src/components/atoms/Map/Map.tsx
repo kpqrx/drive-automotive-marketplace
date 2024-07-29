@@ -26,9 +26,13 @@ const Map = (props: MapProps) => {
       center={position}
       zoom={6}
       zoomControl={false}
+      attributionControl={false}
       {...restProps}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        zIndex={0}
+      />
       <Marker
         position={position}
         icon={markerIcon}

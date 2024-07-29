@@ -10,18 +10,19 @@ export function parseOffer(offer: Offer) {
     brand,
     model,
     description,
-    user: { city, voivodeship },
+    user,
     price: priceValue,
     power,
     engine,
     fuelType,
     mileage,
     productionYear,
-    images: { $values: images },
+    images: { $values: imageValues },
+    lan,
+    lng,
   } = offer
 
   const label = `${brand} ${model}`
-  const location = `${city}, ${voivodeship}`
   const price = `${priceValue} PLN`
   const properties = [
     `${productionYear}`,
@@ -30,17 +31,21 @@ export function parseOffer(offer: Offer) {
     `${fuelType}`,
     `${mileage} km`,
   ]
-  const thumbnailUrl = images[0].imageUrl
+  const thumbnailUrl = imageValues[0].imageUrl
+  const images = imageValues.map(({ imageUrl }) => imageUrl)
   return {
     slug,
     manufacturer: brand,
     model,
     label,
     description,
-    location,
+    user,
     price,
     properties,
     thumbnailUrl,
+    images,
+    lat: lan,
+    long: lng,
   }
 }
 

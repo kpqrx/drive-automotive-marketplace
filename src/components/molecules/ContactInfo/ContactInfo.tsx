@@ -30,6 +30,12 @@ export const ContactInfo = (props: ContactInfoProps) => {
     ssr: false,
   })
 
+  const formattedAddress = `
+    ${address.street ? address.street : ''}
+    ${address.postalCode ? address.postalCode : ''} ${address.city},
+    ${address.voivodeship ? address.voivodeship : ''}
+  `.trim()
+
   return (
     <div
       className={clsx(className, styles.container)}
@@ -58,10 +64,7 @@ export const ContactInfo = (props: ContactInfoProps) => {
           href={getMapsUrl(address.lat, address.long)}
         >
           <MapPinIcon className={styles.icon} />
-          <p>
-            {address.street}, <br />
-            {address.postalCode} {address.city}
-          </p>
+          <p className={styles.address}>{formattedAddress}</p>
         </a>
       </div>
       <Map

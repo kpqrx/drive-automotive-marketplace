@@ -14,7 +14,7 @@
   }
 
   &::after {
-    @apply absolute left-1/2 top-0 -z-10 block h-full w-screen -translate-x-1/2 bg-neutral-100 content-[''];
+    @apply absolute left-1/2 top-0 -z-10 block h-full w-screen -translate-x-1/2 bg-neutral-100 content-[''] dark:bg-neutral-900;
   }
 }
 
@@ -35,7 +35,7 @@
 }
 
 .icon {
-  @apply -mr-12 size-20 stroke-1 text-orange-500 opacity-25;
+  @apply -mr-12 size-20 stroke-1 text-orange-500/25 dark:text-orange-500/50;
 }
 
 .contentWrapper {

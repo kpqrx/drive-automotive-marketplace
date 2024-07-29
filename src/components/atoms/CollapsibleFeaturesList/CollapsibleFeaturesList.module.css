@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col divide-y divide-neutral-300;
+  @apply flex flex-col divide-y divide-neutral-300 dark:divide-neutral-800;
 }
 
 .wrapper {
@@ -11,7 +11,7 @@
 }
 
 .trigger {
-  @apply -my-8 flex items-end justify-between whitespace-nowrap py-8 text-start text-4xl text-neutral-600;
+  @apply -my-8 flex items-end justify-between whitespace-nowrap py-8 text-start text-4xl text-neutral-600 dark:text-neutral-100;
 
   @screen md {
     @apply ml-4 basis-1/2 justify-start;
@@ -51,5 +51,5 @@
 }
 
 .item {
-  @apply leading-loose;
+  @apply leading-loose text-neutral-600 dark:text-neutral-400;
 }

@@ -114,7 +114,7 @@ export const OffersListing = (props: OffersListingProps) => {
                 label={offer.label}
                 icon={getIconByManufacturer(offer.manufacturer)}
                 description={offer.description}
-                location={offer.location}
+                location={`${offer.user.city}, ${offer.user.voivodeship}`}
                 price={offer.price}
                 thumbnailSrc={offer.thumbnailUrl}
                 properties={offer.properties}

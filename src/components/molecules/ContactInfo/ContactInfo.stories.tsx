@@ -12,6 +12,7 @@ const meta: Meta<typeof ContactInfo> = {
     address: {
       street: '1234 Elm St',
       city: 'Springfield',
+      voivodeship: 'IL',
       postalCode: '62701',
       long: '-89.650148',
       lat: '39.781721',

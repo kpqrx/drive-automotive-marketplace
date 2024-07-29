@@ -1,5 +1,10 @@
 .container {
   @apply min-h-fit w-full max-w-3xl;
+
+  /* This is workaround */
+  > * {
+    z-index: 0 !important;
+  }
 }
 
 .markerIcon {
