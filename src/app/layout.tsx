@@ -1,4 +1,4 @@
-import { FramerMotionProvider } from '@/providers'
+import { FramerMotionProvider, ThemeProvider } from '@/providers'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import { DM_Sans } from 'next/font/google'
@@ -24,9 +24,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${dmSans.variable}`}
+      suppressHydrationWarning
     >
       <body>
-        <FramerMotionProvider>{children}</FramerMotionProvider>
+        <FramerMotionProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </FramerMotionProvider>
       </body>
     </html>
   )

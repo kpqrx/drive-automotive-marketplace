@@ -7,17 +7,15 @@ import {
   FiSun as LightModeIcon,
   FiMonitor as SystemModeIcon,
 } from 'react-icons/fi'
-import { useThemeHandler } from '@/hooks'
 import type { ThemeToggleButtonProps } from './ThemeToggleButton.types'
+import { useTheme } from 'next-themes'
 
 export const ThemeToggleButton = (props: ThemeToggleButtonProps) => {
   const { className, ...restProps } = props
-  const {
-    currentTheme,
-    isSystemDarkModeEnabled,
-    toggleTheme,
-    toggleSystemMode,
-  } = useThemeHandler()
+  const { setTheme, systemTheme, theme } = useTheme()
+
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
+  const setSystemTheme = () => systemTheme && setTheme(systemTheme)
 
   // TODO: Update visuals
   return (
@@ -27,11 +25,7 @@ export const ThemeToggleButton = (props: ThemeToggleButtonProps) => {
     >
       <ToggleButton
         onToggle={toggleTheme}
-        isToggled={
-          currentTheme === 'system'
-            ? !isSystemDarkModeEnabled
-            : currentTheme === 'light'
-        }
+        isToggled={theme === 'dark'}
         icons={[DarkModeIcon, LightModeIcon]}
         labels={['Dark mode', 'Light mode']}
         position="horizontal"
@@ -39,14 +33,14 @@ export const ThemeToggleButton = (props: ThemeToggleButtonProps) => {
       <label
         className={clsx(
           styles.systemModeCheckbox,
-          currentTheme === 'system' && styles.systemModeCheckboxChecked,
+          theme === systemTheme && styles.systemModeCheckboxChecked,
         )}
       >
         <input
           type="checkbox"
           className={styles.systemModeCheckboxInput}
-          defaultChecked={currentTheme === 'system'}
-          onChange={toggleSystemMode}
+          defaultChecked={theme === systemTheme}
+          onChange={setSystemTheme}
         />
         <SystemModeIcon />
       </label>
