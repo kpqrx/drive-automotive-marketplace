@@ -4,5 +4,5 @@ export interface OfferHeaderProps
   extends Omit<ComponentPropsWithoutRef<'div'>, 'title'> {
   label: [string, string]
   icon: (args: HTMLAttributes<SVGSVGElement>) => JSX.Element
-  price: string
+  price: number
 }

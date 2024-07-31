@@ -17,7 +17,6 @@ import { IoSpeedometerOutline as PowerIcon } from 'react-icons/io5'
 import { BsFuelPump as FuelIcon } from 'react-icons/bs'
 import { BiTachometer as MileageIcon } from 'react-icons/bi'
 import { MdOutlineDateRange as ProductionYearIcon } from 'react-icons/md'
-import { useOfferParametersSuggestions } from '@/hooks'
 
 export async function generateStaticParams() {
   const offers = await getOffers()

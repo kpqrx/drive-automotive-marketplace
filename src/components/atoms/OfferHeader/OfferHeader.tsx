@@ -12,6 +12,13 @@ export const OfferHeader = (props: OfferHeaderProps) => {
     ...restProps
   } = props
 
+  const formattedPrice = price.toLocaleString('pl-PL', {
+    style: 'currency',
+    currency: 'PLN',
+    currencyDisplay: 'code',
+    maximumFractionDigits: 0,
+  })
+
   return (
     <div
       className={clsx(className, styles.container)}
@@ -24,7 +31,7 @@ export const OfferHeader = (props: OfferHeaderProps) => {
           <p className={styles.labelSecondary}>{labelSecondary}</p>
         </div>
       </div>
-      <p className={styles.price}>{price}</p>
+      <p className={styles.price}>{formattedPrice}</p>
     </div>
   )
 }

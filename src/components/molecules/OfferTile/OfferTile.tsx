@@ -27,6 +27,13 @@ export const OfferTile = (props: OfferTileProps) => {
     ...restProps
   } = props
 
+  const formattedPrice = price.toLocaleString('pl-PL', {
+    style: 'currency',
+    currency: 'PLN',
+    currencyDisplay: 'code',
+    maximumFractionDigits: 0,
+  })
+
   return (
     <Link
       href={href}
@@ -52,7 +59,7 @@ export const OfferTile = (props: OfferTileProps) => {
             <Icon className={styles.manufacturerIcon} />
             <h3 className={styles.label}>{label}</h3>
           </div>
-          <span className={styles.price}>{price}</span>
+          <span className={styles.price}>{formattedPrice}</span>
         </div>
         <p className={styles.description}>{description}</p>
         <div className={styles.propertiesWrapper}>

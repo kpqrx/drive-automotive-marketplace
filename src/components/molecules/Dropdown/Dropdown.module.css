@@ -7,7 +7,7 @@
 }
 
 .itemsWrapper {
-  @apply z-20 mx-[auto] flex w-full max-w-xs flex-col rounded bg-neutral-100 p-1;
+  @apply z-20 mx-[auto] flex w-full max-w-xs flex-col rounded bg-neutral-100 p-1 dark:bg-neutral-800;
 
   @screen md {
     @apply min-w-[320px];
@@ -15,7 +15,7 @@
 }
 
 .itemsWrapperArrow {
-  @apply mb-2 h-2 w-4 fill-neutral-100;
+  @apply mb-2 h-2 w-4 fill-neutral-100 dark:fill-neutral-800;
 }
 
 .itemsWrapperLeft {
@@ -40,11 +40,11 @@
   &.activeItem,
   &:hover,
   &:focus-visible {
-    @apply bg-orange-100 text-orange-500;
+    @apply bg-orange-100 dark:bg-orange-600/25;
   }
 
   &:active {
-    @apply bg-orange-200 text-orange-600;
+    @apply bg-orange-200 text-orange-500 dark:bg-orange-600/50;
   }
 
   &:focus-visible {

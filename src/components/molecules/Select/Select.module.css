@@ -50,11 +50,11 @@
   &[data-state='checked'],
   &:hover,
   &:focus-visible {
-    @apply bg-orange-100 text-orange-500 dark:bg-orange-600/25;
+    @apply bg-orange-100 dark:bg-orange-600/25;
   }
 
   &:active {
-    @apply bg-orange-200 text-orange-600 dark:bg-orange-600/50;
+    @apply bg-orange-200 text-orange-500 dark:bg-orange-600/50;
   }
 
   &:focus-visible {

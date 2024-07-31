@@ -14,7 +14,7 @@ import {
   HiOutlineBarsArrowDown as SortingIcon,
 } from 'react-icons/hi2'
 import type { OffersListingProps } from './OffersListing.types'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   getIconByManufacturer,
   isEmptyOfferParameterValue,
@@ -34,6 +34,24 @@ export const OffersListing = (props: OffersListingProps) => {
   const activeFilters = Object.entries(parameters)
     .filter(([, value]) => !isEmptyOfferParameterValue(value))
     .map(([key]) => mapKeyToLabel(key))
+
+  // TODO: Extract sorting logic to a separate hook
+  const [sortingKey, setSortingKey] = useState<
+    'price-asc' | 'price-desc' | 'created-asc' | 'created-desc'
+  >()
+  const sortedOffers = useMemo(() => {
+    switch (sortingKey) {
+      case 'price-asc':
+        return offers.data?.sort((a, b) => a.price - b.price)
+      case 'price-desc':
+        return offers.data?.sort((a, b) => b.price - a.price)
+      case 'created-desc':
+        return offers.data?.reverse()
+      case 'created-asc':
+      default:
+        return offers.data
+    }
+  }, [sortingKey, offers.data])
 
   return (
     <>
@@ -75,22 +93,32 @@ export const OffersListing = (props: OffersListingProps) => {
             <FilteringIcon /> Filtrowanie
           </Button>
 
-          {/* TODO: To implement */}
-          {/* <Dropdown
+          <Dropdown
             className={styles.button}
             items={[
-              { label: 'Od najnowszego', callback: () => {} },
-              { label: 'Cena od najniższej', callback: () => {} },
-              { label: 'Cena od najwyższej', callback: () => {} },
-              { label: 'Moc silnika od najniższej', callback: () => {} },
-              { label: 'Moc silnika od najwyższej', callback: () => {} },
+              {
+                label: 'Od najnowszego',
+                callback: () => setSortingKey('created-desc'),
+              },
+              {
+                label: 'Od najstarszego',
+                callback: () => setSortingKey('created-asc'),
+              },
+              {
+                label: 'Cena od najniższej',
+                callback: () => setSortingKey('price-asc'),
+              },
+              {
+                label: 'Cena od najwyższej',
+                callback: () => setSortingKey('price-desc'),
+              },
             ]}
             size="small"
             variant="secondary"
             align="end"
           >
             <SortingIcon /> Sortowanie
-          </Dropdown> */}
+          </Dropdown>
         </div>
       </Container>
       {offers.isLoading && (
@@ -102,12 +130,12 @@ export const OffersListing = (props: OffersListingProps) => {
         </Container>
       )}
 
-      {offers.data && offers.data.length > 0 && (
+      {sortedOffers && sortedOffers.length > 0 && (
         <Container
           as="ul"
           className={styles.itemsList}
         >
-          {offers.data.map((offer) => (
+          {sortedOffers.map((offer) => (
             <li key={offer.slug}>
               <OfferTile
                 href={`/offer/${offer.slug}`}

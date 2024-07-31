@@ -16,7 +16,7 @@ export function parseOffer(offer: Offer) {
     model,
     description,
     user,
-    price: priceValue,
+    price,
     power,
     engine,
     fuelType,
@@ -33,11 +33,6 @@ export function parseOffer(offer: Offer) {
   } = offer
 
   const label = `${brand} ${model}`
-  const price = priceValue.toLocaleString('pl-PL', {
-    style: 'currency',
-    currency: 'PLN',
-    maximumFractionDigits: 0,
-  })
   const properties = {
     productionYear: productionYear.toString(),
     engine: engine.toString(),

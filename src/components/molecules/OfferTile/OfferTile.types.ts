@@ -7,7 +7,7 @@ export interface OfferTileProps extends ComponentPropsWithoutRef<'a'> {
   label: string
   description: string
   location: string
-  price: string
+  price: number
   thumbnailSrc: string
   properties: string[]
   orientation?: 'horizontal' | 'vertical'
