@@ -66,11 +66,11 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
   const { isOpen, setIsOpen, ...restProps } = props
   const { setAllParameters, parameters } = useOfferParameters()
 
-  const [modelsQuery, setModelsQuery] = useState<string>()
+  const [modelsQuery, setModelsQuery] = useState<string>(parameters.brands[0])
 
   const handleSetModelsQuery = (values: (string | number)[]) => {
     if (values.length > 1) {
-      setModelsQuery(undefined)
+      setModelsQuery('')
       return
     }
     setModelsQuery(values[0] as string)
