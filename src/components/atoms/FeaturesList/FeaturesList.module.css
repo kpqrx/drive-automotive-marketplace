@@ -35,7 +35,7 @@
 }
 
 .icon {
-  @apply -mr-12 size-20 stroke-1 text-orange-500/25 dark:text-orange-500/50;
+  @apply -mr-10 size-20 text-orange-500/25;
 }
 
 .contentWrapper {

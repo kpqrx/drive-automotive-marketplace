@@ -60,11 +60,11 @@ export type Offer = {
   city: string
   lan: number
   lng: number
-  multimedia: null
-  driverAssistanceSystems: null
-  safety: null
-  performance: null
-  other: null
+  multimedia: { $values: { label: string }[] }
+  driverAssistanceSystems: { $values: { label: string }[] }
+  safety: { $values: { label: string }[] }
+  performance: { $values: { label: string }[] }
+  other: { $values: { label: string }[] }
   user: User
   comments: null
   images: {

@@ -131,6 +131,7 @@ export const getOfferBySlug = async (slug: string) => {
   }
 
   const offer: Offer = await req.json()
+
   const parsedOffer = parseOffer(offer)
 
   return parsedOffer

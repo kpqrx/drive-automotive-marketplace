@@ -21,6 +21,9 @@ export const CollapsibleFeaturesList = (
     >
       {items.map((item, index) => {
         const { label, items: itemsList } = item
+
+        if (itemsList.length === 0) return null
+
         return (
           <li
             key={index}
@@ -41,6 +44,7 @@ export const CollapsibleFeaturesList = (
             <m.ul
               layout
               className={styles.itemsList}
+              initial={false}
               animate={{
                 height: currentItemIndex === index ? 'auto' : 0,
                 transformOrigin: 'bottom',

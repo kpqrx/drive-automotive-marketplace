@@ -1,5 +1,5 @@
 .container {
-  @apply overflow-x-hidden;
+  @apply overflow-x-hidden pb-24;
 }
 
 .wrapper {

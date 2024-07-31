@@ -117,7 +117,7 @@ export const OffersListing = (props: OffersListingProps) => {
                 location={`${offer.user.city}, ${offer.user.voivodeship}`}
                 price={offer.price}
                 thumbnailSrc={offer.thumbnailUrl}
-                properties={offer.properties}
+                properties={Object.values(offer.properties)}
               />
             </li>
           ))}

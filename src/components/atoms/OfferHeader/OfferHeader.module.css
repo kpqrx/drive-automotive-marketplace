@@ -31,7 +31,7 @@
 }
 
 .labelSecondary {
-  @apply text-3xl text-neutral-600;
+  @apply text-3xl text-neutral-600 dark:text-neutral-500;
 
   @screen md {
     @apply text-4xl;

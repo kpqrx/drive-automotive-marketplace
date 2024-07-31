@@ -30,11 +30,11 @@
 }
 
 .icon {
-  @apply mr-4 size-6 stroke-2 text-orange-500;
+  @apply mr-4 size-6 stroke-2 text-orange-400;
 }
 
 .map {
-  @apply aspect-video flex-1 basis-full overflow-hidden rounded;
+  @apply min-h-96 max-w-3xl flex-1 basis-full overflow-hidden rounded;
 }
 
 .address {

@@ -12,7 +12,12 @@ import { ContactInfo } from '@/components/molecules/ContactInfo/ContactInfo'
 import { getOfferBySlug, getOffers } from '@/lib'
 import styles from '@/styles/offer.module.css'
 import { getIconByManufacturer } from '@/utils'
-import { FireIcon } from '@heroicons/react/24/outline'
+import { PiEngine as EngineIcon } from 'react-icons/pi'
+import { IoSpeedometerOutline as PowerIcon } from 'react-icons/io5'
+import { BsFuelPump as FuelIcon } from 'react-icons/bs'
+import { BiTachometer as MileageIcon } from 'react-icons/bi'
+import { MdOutlineDateRange as ProductionYearIcon } from 'react-icons/md'
+import { useOfferParametersSuggestions } from '@/hooks'
 
 export async function generateStaticParams() {
   const offers = await getOffers()
@@ -50,13 +55,28 @@ export default async function OfferPage(props: OfferPageProps) {
 
         <FeaturesList
           className={styles.offerFeatures}
-          // TODO: get from data
           items={[
-            { label: 'Silnik', value: '3.0 V6', icon: FireIcon },
-            { label: 'Moc', value: '315 KM', icon: FireIcon },
-            { label: 'Rodzaj paliwa', value: 'Benzyna', icon: FireIcon },
-            { label: 'Przebieg', value: '72 820 km', icon: FireIcon },
-            { label: 'Rok produkcji', value: '2019', icon: FireIcon },
+            {
+              label: 'Silnik',
+              value: data.properties.engine,
+              icon: EngineIcon,
+            },
+            { label: 'Moc', value: data.properties.power, icon: PowerIcon },
+            {
+              label: 'Rodzaj paliwa',
+              value: data.properties.fuelType,
+              icon: FuelIcon,
+            },
+            {
+              label: 'Przebieg',
+              value: data.properties.mileage,
+              icon: MileageIcon,
+            },
+            {
+              label: 'Rok produkcji',
+              value: data.properties.productionYear,
+              icon: ProductionYearIcon,
+            },
           ]}
         />
         <PhotoGallery
@@ -69,39 +89,28 @@ export default async function OfferPage(props: OfferPageProps) {
         />
 
         <OfferDescription data={data.description} />
+
         <CollapsibleFeaturesList
-          // TODO: get from data
           items={[
             {
-              label: 'Komfort',
-              items: [
-                'Podgrzewane fotele przednie',
-                'Podgrzewane fotele tylne',
-                'Dostęp bezkluczykowy',
-                'Automatyczne domykanie drzwi',
-                'Skórzana tapicerka',
-                'Czterostrefowa klimatyzacja',
-              ],
+              label: 'Wspomaganie kierowcy',
+              items: data.features.driverAssistance,
             },
             {
               label: 'Bezpieczeństwo',
-              items: [
-                'System ochrony pieszych',
-                'Systemy wspomagania kierowcy',
-                'Detekcja zmęczenia kierowcy',
-                'Asystent pasa ruchu',
-                'Asystent parkowania',
-                'System monitorowania martwego pola',
-              ],
+              items: data.features.safety,
+            },
+            {
+              label: 'Multimedia',
+              items: data.features.multimedia,
             },
             {
               label: 'Osiągi i wydajność',
-              items: [
-                'Sportowy filtr stożkowy',
-                'Ceramiczne hamulce',
-                'Sportowe zawieszenie',
-                'Wyczynowe oprogramowanie silnika',
-              ],
+              items: data.features.performance,
+            },
+            {
+              label: 'Inne wyposażenie',
+              items: data.features.other,
             },
           ]}
         />

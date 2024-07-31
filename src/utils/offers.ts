@@ -4,6 +4,11 @@ import dynamic from 'next/dynamic'
 import type { IconType } from 'react-icons'
 import { BiCircle as defaultIcon } from 'react-icons/bi'
 
+const _mapFeaturesToLabels = (features: { label: string }[] = []) => [
+  // Extract labels and remove duplicates
+  ...new Set(features.map(({ label }) => label)),
+]
+
 export function parseOffer(offer: Offer) {
   const {
     slug,
@@ -20,17 +25,29 @@ export function parseOffer(offer: Offer) {
     images: { $values: imageValues },
     lan,
     lng,
+    multimedia = { $values: [] },
+    driverAssistanceSystems = { $values: [] },
+    safety = { $values: [] },
+    performance = { $values: [] },
+    other = { $values: [] },
   } = offer
 
   const label = `${brand} ${model}`
-  const price = `${priceValue} PLN`
-  const properties = [
-    `${productionYear}`,
-    `${engine}`,
-    `${power} KM`,
-    `${fuelType}`,
-    `${mileage} km`,
-  ]
+  const price = priceValue.toLocaleString('pl-PL', {
+    style: 'currency',
+    currency: 'PLN',
+    maximumFractionDigits: 0,
+  })
+  const properties = {
+    productionYear: productionYear.toString(),
+    engine: engine.toString(),
+    power: `${power} KM`,
+    fuelType: `${fuelType}`,
+    mileage: mileage.toLocaleString('pl-PL', {
+      style: 'unit',
+      unit: 'kilometer',
+    }),
+  }
   const thumbnailUrl = imageValues[0].imageUrl
   const images = imageValues.map(({ imageUrl }) => imageUrl)
   return {
@@ -46,6 +63,13 @@ export function parseOffer(offer: Offer) {
     images,
     lat: lan,
     long: lng,
+    features: {
+      multimedia: _mapFeaturesToLabels(multimedia.$values),
+      driverAssistance: _mapFeaturesToLabels(driverAssistanceSystems.$values),
+      safety: _mapFeaturesToLabels(safety.$values),
+      performance: _mapFeaturesToLabels(performance.$values),
+      other: _mapFeaturesToLabels(other.$values),
+    },
   }
 }
 

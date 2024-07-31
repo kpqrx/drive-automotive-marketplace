@@ -23,7 +23,7 @@
 }
 
 .itemsList {
-  @apply grid gap-6;
+  @apply grid gap-6 pb-24;
 
   @screen lg {
     @apply grid-flow-row grid-cols-2;
@@ -55,7 +55,7 @@
 }
 
 .filterItem {
-  @apply bg-neutral-200;
+  @apply bg-neutral-200 dark:bg-neutral-800;
 }
 
 .activeFiltersSkeleton {

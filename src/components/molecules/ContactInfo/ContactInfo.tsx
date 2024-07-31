@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import styles from './ContactInfo.module.css'
 import dynamic from 'next/dynamic'
+import { Skeleton } from '@/components/atoms/Skeleton/Skeleton'
 
 /**
  *
@@ -28,6 +29,7 @@ export const ContactInfo = (props: ContactInfoProps) => {
 
   const Map = dynamic(() => import('@/components/atoms/Map/Map'), {
     ssr: false,
+    loading: () => <Skeleton className={styles.map} />,
   })
 
   const formattedAddress = `
