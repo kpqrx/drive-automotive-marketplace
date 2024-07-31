@@ -10,7 +10,7 @@ const meta: Meta<typeof OfferTile> = {
     href: '#',
     label: 'BMW M6',
     description: 'Shadowline, Akrapovic, komforty, polski salon',
-    price: '180 000 PLN',
+    price: 180_000,
     thumbnailSrc:
       'https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600',
     properties: ['2019', '72 820 km', '4.4 L V8', 'Benzyna', '560 KM'],

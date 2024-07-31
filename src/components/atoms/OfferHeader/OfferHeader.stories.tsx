@@ -9,7 +9,7 @@ const meta: Meta<typeof OfferHeader> = {
   args: {
     label: ['Mercedes-Benz', 'CLA 63 AMG'],
     icon: SiMercedes,
-    price: '180 000 PLN',
+    price: 180_000,
   },
 }
 
