@@ -22,3 +22,11 @@
 .systemModeCheckboxInput {
   @apply absolute inset-0 h-full w-full opacity-0;
 }
+
+.skeletonToggle {
+  @apply h-8 w-14;
+}
+
+.skeletonCheckbox {
+  @apply size-8;
+}
