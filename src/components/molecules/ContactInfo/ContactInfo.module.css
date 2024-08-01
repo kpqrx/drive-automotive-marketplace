@@ -11,10 +11,6 @@
 .avatarWrapper {
   @apply relative mb-8 mr-1 size-20;
   grid-row: 1/4;
-
-  &:after {
-    @apply absolute -bottom-5 -right-5 size-8 -skew-x-6 rounded bg-orange-400 content-[''];
-  }
 }
 
 .avatar {

@@ -10,10 +10,12 @@ import {
 import { useUserStore } from '@/store'
 import { signOut } from '@/lib'
 import * as PopoverPrimitive from '@radix-ui/react-popover'
+import { useRouter } from 'next/navigation'
 
 export const UserActionPanel = (props: UserActionPanelProps) => {
   const { children, size = 'lg', className = '', ...restProps } = props
   const { firstName, userId, removeUser } = useUserStore()
+  const { replace } = useRouter()
 
   const isUserLoggedIn = Boolean(userId)
 
@@ -22,6 +24,7 @@ export const UserActionPanel = (props: UserActionPanelProps) => {
 
     if (isSignedOut) {
       removeUser()
+      replace('/')
     }
   }
 
@@ -37,6 +40,14 @@ export const UserActionPanel = (props: UserActionPanelProps) => {
         <PopoverPrimitive.Content align="end">
           <PopoverPrimitive.Arrow className={styles.dropdownArrow} />
           <ul className={styles.dropdown}>
+            <li>
+              <Link
+                href="/user-profile"
+                className={styles.dropdownItem}
+              >
+                Profil użytkownika
+              </Link>
+            </li>
             <li>
               <button
                 className={styles.dropdownItem}

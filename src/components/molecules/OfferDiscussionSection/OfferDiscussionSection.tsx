@@ -98,7 +98,7 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
           <form className={styles.commentForm}>
             <textarea
               className={styles.commentInput}
-              placeholder="Napisz komentarz..."
+              placeholder="Zadaj pytanie..."
             />
             <Button
               className={styles.commentButton}
