@@ -54,7 +54,7 @@ export const SignInForm = (props: SignInFormProps) => {
       const user = await signIn(data)
 
       setUser(user)
-      router.push('/')
+      router.back()
     } catch (error) {
       if (!(error instanceof Error)) {
         return

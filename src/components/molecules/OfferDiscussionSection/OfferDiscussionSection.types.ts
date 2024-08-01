@@ -1,4 +1,4 @@
 import type { ComponentPropsWithoutRef } from 'react'
 
-export interface DiscussionCallToActionProps
+export interface OfferDiscussionSectionProps
   extends ComponentPropsWithoutRef<'section'> {}

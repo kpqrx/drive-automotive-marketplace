@@ -5,6 +5,7 @@ import Image from 'next/image'
 import styles from './ContactInfo.module.css'
 import dynamic from 'next/dynamic'
 import { Skeleton } from '@/components/atoms/Skeleton/Skeleton'
+import { Avatar } from '@/components/atoms/Avatar/Avatar'
 
 /**
  *
@@ -45,11 +46,7 @@ export const ContactInfo = (props: ContactInfoProps) => {
     >
       <div className={styles.content}>
         <div className={styles.avatarWrapper}>
-          <Image
-            src={profilePictureUrl}
-            alt={`${firstName}'s profile picture`}
-            className={styles.avatar}
-          />
+          <Avatar fullName={[firstName, lastName]} />
         </div>
         <p className={styles.name}>
           {firstName} {lastName}

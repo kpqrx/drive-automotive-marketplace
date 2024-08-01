@@ -1,0 +1,7 @@
+.container {
+  @apply flex size-24 items-center justify-center rounded-full;
+}
+
+.fallback {
+  @apply text-3xl font-medium text-black/25;
+}

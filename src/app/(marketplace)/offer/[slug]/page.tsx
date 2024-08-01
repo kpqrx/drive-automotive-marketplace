@@ -2,7 +2,7 @@ import {
   Breadcrumbs,
   CollapsibleFeaturesList,
   Container,
-  DiscussionCallToAction,
+  OfferDiscussionSection,
   FeaturesList,
   OfferDescription,
   OfferHeader,
@@ -113,7 +113,7 @@ export default async function OfferPage(props: OfferPageProps) {
             },
           ]}
         />
-        <DiscussionCallToAction />
+        <OfferDiscussionSection />
         <ContactInfo
           firstName={data.user.name}
           lastName={data.user.surname}
