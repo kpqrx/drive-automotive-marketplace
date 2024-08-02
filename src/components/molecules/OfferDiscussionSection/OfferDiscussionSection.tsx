@@ -7,7 +7,7 @@ import {
   ChevronRightIcon as ChevronIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline'
-import { Avatar, Button } from '@/components'
+import { Avatar, Button, Skeleton } from '@/components'
 import { Modal } from '../Modal/Modal'
 import { useUserStore } from '@/store'
 import { HiOutlineUser as UserIcon } from 'react-icons/hi2'
@@ -37,6 +37,15 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const { userId, firstName, lastName } = useUserStore()
 
+  const latestAuthorsInitials = [
+    ...new Set(
+      (data ?? []).map(({ author }) => {
+        const [firstName, lastName] = author.split(' ')
+        return [firstName[0], lastName[0]].join('')
+      }),
+    ),
+  ].slice(-3)
+
   useEffect(() => {
     if (window.location.hash === '#discussion') {
       setIsOpen(true)
@@ -64,7 +73,7 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
       }
 
       // @ts-ignore
-      mutate(postComment(offerId, newCommentContent), {
+      await mutate(postComment(offerId, newCommentContent), {
         optimisticData: (cachedComments = []) => {
           return [...cachedComments, newComment]
         },
@@ -81,7 +90,7 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
   const handleDeleteComment = async (commentId: number) => {
     try {
       // @ts-ignore
-      mutate(deleteComment(commentId), {
+      await mutate(deleteComment(commentId), {
         optimisticData: (cachedComments = []) => {
           return cachedComments.filter((comment) => comment.id !== commentId)
         },
@@ -99,9 +108,16 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
       {...restProps}
     >
       <div className={styles.avatarsList}>
-        <Avatar fullName={['A', 'B']} />
-        <Avatar fullName={['C', 'D']} />
-        <Avatar fullName={['E', 'F']} />
+        {latestAuthorsInitials.length > 0 ? (
+          latestAuthorsInitials.map((initials) => (
+            <Avatar
+              key={initials}
+              fullName={initials.split('') as [string, string]}
+            />
+          ))
+        ) : (
+          <Skeleton className={styles.avatarsListSkeleton} />
+        )}
       </div>
       <p className={styles.heading}>Masz pytanie do właściciela?</p>
       <p className={styles.text}>Dołącz do dyskusji i zobacz pytania innych.</p>

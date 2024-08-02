@@ -101,3 +101,7 @@
 .mapPinIcon {
   @apply inline size-5 text-neutral-600 dark:text-neutral-500;
 }
+
+.link {
+  @apply flex flex-1 flex-col;
+}

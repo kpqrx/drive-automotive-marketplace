@@ -199,3 +199,24 @@ export const deleteComment = async (commentId: number) => {
     })
   }
 }
+
+export const addOfferToLiked = async (slug: string) => {
+  const token = cookies().get('token')?.value
+
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/AddAnnToFavorites/${slug}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to add offer to liked: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
+}

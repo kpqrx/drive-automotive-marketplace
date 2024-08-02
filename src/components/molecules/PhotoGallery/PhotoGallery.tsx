@@ -61,9 +61,6 @@ export const PhotoGallery = (props: PhotoGalleryProps) => {
     (index) => (imageOffsets.at(index) ?? 0) * -1,
   )
   const x = useSpring(mappedOffset, { mass: 0.12 })
-  const y = useTransform(yAxisProgress, [0, 0.75], ['12.5%', '0%'])
-  const scale = useTransform(yAxisProgress, [0, 0.75], [0.85, 1])
-
   const panelY = useTransform(panelYAxisProgress, [0, 1], ['100%', '0%'])
 
   return (
@@ -74,11 +71,10 @@ export const PhotoGallery = (props: PhotoGalleryProps) => {
     >
       <m.ul
         className={styles.imagesWrapper}
+        initial={false}
         style={
           {
             x,
-            y,
-            scale,
             '--currentOffset': x,
           } as MotionStyle
         }

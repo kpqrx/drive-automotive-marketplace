@@ -6,7 +6,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   HeartIcon,
-  PhoneIcon,
   ChatBubbleOvalLeftIcon as CommentsIcon,
   MapPinIcon,
 } from '@heroicons/react/24/outline'
@@ -24,6 +23,7 @@ export const OfferTile = (props: OfferTileProps) => {
     properties,
     orientation = 'vertical',
     className = '',
+    onLikeButtonClick,
     ...restProps
   } = props
 
@@ -35,8 +35,7 @@ export const OfferTile = (props: OfferTileProps) => {
   })
 
   return (
-    <Link
-      href={href}
+    <div
       className={clsx(
         className,
         styles.container,
@@ -54,29 +53,38 @@ export const OfferTile = (props: OfferTileProps) => {
         alt={label}
       />
       <div className={styles.wrapper}>
-        <div className={styles.contentWrapper}>
-          <div className={styles.labelWrapper}>
-            <Icon className={styles.manufacturerIcon} />
-            <h3 className={styles.label}>{label}</h3>
+        <Link
+          href={href}
+          className={styles.link}
+        >
+          <div className={styles.contentWrapper}>
+            <div className={styles.labelWrapper}>
+              <Icon className={styles.manufacturerIcon} />
+              <h3 className={styles.label}>{label}</h3>
+            </div>
+            <span className={styles.price}>{formattedPrice}</span>
           </div>
-          <span className={styles.price}>{formattedPrice}</span>
-        </div>
-        <p className={styles.description}>{description}</p>
-        <div className={styles.propertiesWrapper}>
-          {properties.map((property, i) => (
-            <Chip key={i}>{property}</Chip>
-          ))}
-        </div>
-        <span className={styles.location}>
-          <MapPinIcon className={styles.mapPinIcon} />
-          {location}
-        </span>
+          <p className={styles.description}>{description}</p>
+          <div className={styles.propertiesWrapper}>
+            {properties.map((property, i) => (
+              <Chip key={i}>{property}</Chip>
+            ))}
+          </div>
+          <span className={styles.location}>
+            <MapPinIcon className={styles.mapPinIcon} />
+            {location}
+          </span>
+        </Link>
         <ul className={styles.iconButtonsContainer}>
-          <li>
-            <button className={styles.iconButton}>
+          {/* <li> // TODO: Investigate why the button is not working
+            <button
+              className={styles.iconButton}
+              onClick={onLikeButtonClick}
+              // TODO: Style to indicate that the offer is liked
+            >
               <HeartIcon />
             </button>
-          </li>
+          </li> */}
           <li>
             <Link
               href={`${href}#discussion`}
@@ -87,6 +95,6 @@ export const OfferTile = (props: OfferTileProps) => {
           </li>
         </ul>
       </div>
-    </Link>
+    </div>
   )
 }

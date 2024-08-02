@@ -17,6 +17,7 @@ const _mapFeaturesToLabels = (features: { label: string }[] = []) => [
 export function parseOffer(offer: Offer) {
   const {
     id,
+    // @ts-expect-error - Workaround for awful API and it's inconsistency
     anId,
     slug,
     brand,

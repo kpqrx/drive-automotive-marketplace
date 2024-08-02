@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef } from 'react'
 import type { IconType } from 'react-icons'
 
-export interface OfferTileProps extends ComponentPropsWithoutRef<'a'> {
+export interface OfferTileProps extends ComponentPropsWithoutRef<'div'> {
   href: string
   icon: IconType
   label: string
@@ -11,4 +11,5 @@ export interface OfferTileProps extends ComponentPropsWithoutRef<'a'> {
   thumbnailSrc: string
   properties: string[]
   orientation?: 'horizontal' | 'vertical'
+  onLikeButtonClick: () => void
 }

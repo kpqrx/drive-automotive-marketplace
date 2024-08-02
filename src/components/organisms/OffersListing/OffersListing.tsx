@@ -22,6 +22,9 @@ import {
 } from '@/utils'
 import { LiaCarCrashSolid as ErrorIcon } from 'react-icons/lia'
 import { useOfferParameters, useOffers } from '@/hooks'
+import { addOfferToLiked } from '@/lib'
+import { useUserStore } from '@/store'
+import { useRouter } from 'next/navigation'
 
 export const OffersListing = (props: OffersListingProps) => {
   const { className, ...restProps } = props
@@ -30,6 +33,8 @@ export const OffersListing = (props: OffersListingProps) => {
 
   const { offers } = useOffers()
   const { parameters } = useOfferParameters()
+  const { userId } = useUserStore()
+  const { replace } = useRouter()
 
   const activeFilters = Object.entries(parameters)
     .filter(([, value]) => !isEmptyOfferParameterValue(value))
@@ -52,6 +57,30 @@ export const OffersListing = (props: OffersListingProps) => {
         return offers.data
     }
   }, [sortingKey, offers.data])
+
+  const handleAddToLiked = (offerSlug: string) => {
+    try {
+      // @ts-ignore
+      offers.mutate(addOfferToLiked(offerSlug), {
+        optimisticData: (cachedOffers = []) => {
+          const offer = offers.data?.find((offer) => offer.slug === offerSlug)
+          if (!offer) return cachedOffers
+
+          return [
+            ...cachedOffers,
+            {
+              ...offer,
+              // @ts-ignore
+              likedBy: [...(offer.likedBy ?? []), userId],
+            },
+          ]
+        },
+        populateCache: false,
+      })
+    } catch (error) {
+      replace('/sign-in')
+    }
+  }
 
   return (
     <>
@@ -146,6 +175,7 @@ export const OffersListing = (props: OffersListingProps) => {
                 price={offer.price}
                 thumbnailSrc={offer.thumbnailUrl}
                 properties={Object.values(offer.properties)}
+                onLikeButtonClick={() => handleAddToLiked(offer.slug)}
               />
             </li>
           ))}
