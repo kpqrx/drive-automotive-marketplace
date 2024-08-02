@@ -1,7 +1,8 @@
 'use server'
 
-import type { OfferParameters, Offer } from '@/types'
-import { parseOffer } from '@/utils'
+import type { OfferParameters, Offer, Comment } from '@/types'
+import { parseComment, parseOffer } from '@/utils'
+import { cookies } from 'next/headers'
 
 const { API_BASE_URL } = process.env
 
@@ -135,4 +136,66 @@ export const getOfferBySlug = async (slug: string) => {
   const parsedOffer = parseOffer(offer)
 
   return parsedOffer
+}
+
+type GetCommentsByOfferIdApiResponse = { $values: Comment[] }
+
+export const getCommentsByOfferId = async (offerId: string) => {
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/getCommentsByAnnId/${offerId}`,
+    {
+      method: 'GET',
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to fetch comments by offer id: ${req.statusText}`)
+  }
+
+  const { $values: comments }: GetCommentsByOfferIdApiResponse =
+    await req.json()
+
+  const parsedComments = comments.map(parseComment)
+
+  return parsedComments
+}
+
+export const postComment = async (offerId: string, content: string) => {
+  const token = cookies().get('token')?.value
+
+  const req = await fetch(`${API_BASE_URL}/api/platform/AddComment`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ anId: offerId, commentText: content }),
+  })
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to post comment: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
+}
+
+export const deleteComment = async (commentId: number) => {
+  const token = cookies().get('token')?.value
+
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/DeleteComment/${commentId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to delete comment: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
 }

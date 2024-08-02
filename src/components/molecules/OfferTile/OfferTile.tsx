@@ -72,20 +72,18 @@ export const OfferTile = (props: OfferTileProps) => {
           {location}
         </span>
         <ul className={styles.iconButtonsContainer}>
-          <li className={styles.iconButtonWrapper}>
+          <li>
             <button className={styles.iconButton}>
               <HeartIcon />
             </button>
           </li>
-          <li className={styles.iconButtonWrapper}>
-            <button className={styles.iconButton}>
+          <li>
+            <Link
+              href={`${href}#discussion`}
+              className={styles.iconButton}
+            >
               <CommentsIcon />
-            </button>
-          </li>
-          <li className={styles.iconButtonWrapper}>
-            <button className={styles.iconButton}>
-              <PhoneIcon />
-            </button>
+            </Link>
           </li>
         </ul>
       </div>

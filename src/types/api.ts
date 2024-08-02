@@ -35,7 +35,7 @@ export type User = {
 
 export type Offer = {
   $id: string
-  anId: number
+  id: number
   slug: string
   userId: number
   brand: string
@@ -95,3 +95,14 @@ export type OfferParameters = {
 
 export type OfferParameterKey = keyof OfferParameters
 export type OfferParameterValue = string[] | number | number[] | null
+
+export type Comment = {
+  $id: string
+  commentId: number
+  userId: number
+  anId: number
+  commentText: string
+  datePosted: string
+  announcement: OfferReference
+  user: User
+}

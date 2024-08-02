@@ -55,7 +55,7 @@
 }
 
 .commentForm {
-  @apply fixed bottom-0 flex w-full items-baseline gap-8 bg-white px-10 py-6 dark:bg-neutral-800;
+  @apply fixed bottom-0 flex w-full items-baseline gap-8 bg-white px-10 pb-6 dark:bg-neutral-800;
 }
 
 .commentInput {
@@ -81,4 +81,8 @@
 
 .userIcon {
   @apply mr-4 inline-block size-12 rounded-full bg-neutral-100 p-3 dark:bg-neutral-700;
+}
+
+.commentDeleteButton {
+  @apply ml-auto size-8 rounded bg-neutral-200 p-2 dark:bg-neutral-600;
 }

@@ -1,4 +1,9 @@
-import type { Offer, OfferParameterKey, OfferParameterValue } from '@/types'
+import type {
+  Offer,
+  OfferParameterKey,
+  OfferParameterValue,
+  Comment,
+} from '@/types'
 import { kebabToNormalCase, toCapitalCase } from './casing'
 import dynamic from 'next/dynamic'
 import type { IconType } from 'react-icons'
@@ -11,6 +16,8 @@ const _mapFeaturesToLabels = (features: { label: string }[] = []) => [
 
 export function parseOffer(offer: Offer) {
   const {
+    id,
+    anId,
     slug,
     brand,
     model,
@@ -46,6 +53,7 @@ export function parseOffer(offer: Offer) {
   const thumbnailUrl = imageValues[0].imageUrl
   const images = imageValues.map(({ imageUrl }) => imageUrl)
   return {
+    id: id ?? anId,
     slug,
     manufacturer: brand,
     model,
@@ -133,3 +141,11 @@ export function mapKeyToLabel(key: string) {
   }
   return keyToLabelMap[key as OfferParameterKey] as string
 }
+
+export const parseComment = (comment: Comment) => ({
+  id: comment.commentId,
+  author: `${comment.user.name} ${comment.user.surname}`,
+  authorId: comment.user.userId.toString(),
+  content: comment.commentText,
+  date: comment.datePosted,
+})

@@ -16,6 +16,7 @@ export const Avatar = (props: AvatarProps) => {
 
   return (
     <AvatarPrimitive.Root
+      suppressHydrationWarning // TO resolve SSR hydration mismatch
       className={clsx(className, styles.container)}
       style={{ backgroundColor }}
       data-testid="Avatar"

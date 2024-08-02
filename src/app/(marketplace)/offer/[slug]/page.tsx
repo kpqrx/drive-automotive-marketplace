@@ -113,7 +113,7 @@ export default async function OfferPage(props: OfferPageProps) {
             },
           ]}
         />
-        <OfferDiscussionSection />
+        <OfferDiscussionSection offerId={data.id.toString()} />
         <ContactInfo
           firstName={data.user.name}
           lastName={data.user.surname}
