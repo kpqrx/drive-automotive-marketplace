@@ -12,10 +12,22 @@
   &:disabled {
     @apply cursor-not-allowed bg-neutral-100 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
   }
+
+  &.triggerElevated {
+    @apply bg-neutral-100 hover:!bg-neutral-200/50 dark:bg-neutral-800 dark:hover:!bg-neutral-700/50;
+  }
+
+  &.triggerError {
+    @apply !bg-red-400/15;
+  }
 }
 
 .label {
   @apply absolute -mx-2 block max-w-min origin-top-left whitespace-nowrap px-2 text-sm;
+
+  &.labelError {
+    @apply !text-red-800 dark:!text-red-600;
+  }
 }
 
 .placeholder {
@@ -87,11 +99,15 @@
 }
 
 .error {
-  @apply mx-auto flex w-1/2 flex-col items-center space-y-2 py-6 text-center text-sm text-neutral-400;
+  @apply h-10 text-sm text-red-800 dark:text-red-600;
+
+  svg {
+    @apply mr-1 inline-block size-5 align-text-bottom;
+  }
 }
 
-.errorIcon {
-  @apply size-8;
+.errorWrapper {
+  @apply block pt-2;
 }
 
 .scrollButton {
@@ -112,7 +128,7 @@
 
   &:hover,
   &:focus-visible {
-    @apply bg-neutral-200;
+    @apply bg-neutral-200 dark:bg-neutral-900;
   }
 }
 

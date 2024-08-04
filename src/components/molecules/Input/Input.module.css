@@ -47,5 +47,5 @@
 }
 
 .errorWrapper {
-  @apply pt-2;
+  @apply block pt-2;
 }

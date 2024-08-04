@@ -17,11 +17,13 @@ const StepperContext = createContext<StepperContext>({
   setNextStep: () => {},
   setPreviousStep: () => {},
   setStepProgress: () => {},
+  onFinal: () => {},
   currentStep: 0,
   currentProgress: 0,
   nextButtonLabel: '',
   previousButtonLabel: '',
   hasGuardedSteps: true,
+  finalButtonLabel: '',
 })
 const useStepperContext = () => {
   const context = useContext(StepperContext)
@@ -44,6 +46,8 @@ const StepperContainer = (props: StepperProps) => {
     onPreviousStep = () => Promise.resolve(true),
     nextButtonLabel = 'Next',
     previousButtonLabel = 'Previous',
+    finalButtonLabel = 'Finish',
+    onFinal = () => {},
     ...restProps
   } = props
   const [currentStep, setCurrentStep] = useState(defaultStep)
@@ -97,6 +101,8 @@ const StepperContainer = (props: StepperProps) => {
         nextButtonLabel,
         previousButtonLabel,
         hasGuardedSteps,
+        finalButtonLabel,
+        onFinal,
       }}
     >
       <div
@@ -158,25 +164,10 @@ const StepperContent = (props: ComponentPropsWithoutRef<'div'>) => {
       className={clsx(styles.stepContentWrapper, className)}
       {...restProps}
     >
-      <AnimatePresence
-        initial={false}
-        mode="popLayout"
-      >
-        {stepperContext.steps.map(
-          ({ content }, index) =>
-            index === stepperContext.currentStep && (
-              <m.div
-                layoutRoot
-                key={index}
-                initial={{ y: 64, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: -64, opacity: 0 }}
-              >
-                {content(stepperContext)}
-              </m.div>
-            ),
-        )}
-      </AnimatePresence>
+      {stepperContext.steps.map(
+        ({ content }, index) =>
+          index === stepperContext.currentStep && content(stepperContext),
+      )}
     </div>
   )
 }
@@ -191,7 +182,12 @@ const StepperFooter = (props: ComponentPropsWithoutRef<'div'>) => {
     nextButtonLabel,
     previousButtonLabel,
     hasGuardedSteps,
+    finalButtonLabel,
+    steps,
+    onFinal,
   } = useStepperContext()
+
+  const isLastStep = steps.length - 1 === currentStep
 
   return (
     <div
@@ -207,10 +203,10 @@ const StepperFooter = (props: ComponentPropsWithoutRef<'div'>) => {
         </Button>
       )}
       <Button
-        onClick={setNextStep}
+        onClick={isLastStep ? onFinal : setNextStep}
         disabled={hasGuardedSteps && currentProgress < 1}
       >
-        {nextButtonLabel}
+        {finalButtonLabel && isLastStep ? finalButtonLabel : nextButtonLabel}
       </Button>
     </div>
   )

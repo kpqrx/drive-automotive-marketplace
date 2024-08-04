@@ -18,7 +18,6 @@ import {
   LuHeading as HeadingIcon,
   LuHighlighter as HighlightIcon,
 } from 'react-icons/lu'
-import { useFormContext } from 'react-hook-form'
 import { forwardRef } from 'react'
 
 const errorVariants: Variants = {
@@ -34,13 +33,13 @@ export const TextEditor = forwardRef<HTMLInputElement, TextEditorProps>(
       error,
       name,
       maxCharacters = Infinity,
+      onValueChange,
+      defaultValue,
       ...restProps
     } = props
 
-    const { setValue, getValues } = useFormContext()
-
     const editor = useEditor({
-      content: name && getValues ? getValues(name) : '',
+      content: defaultValue ?? '',
       extensions: [
         StarterKit,
         Highlight,
@@ -53,10 +52,10 @@ export const TextEditor = forwardRef<HTMLInputElement, TextEditorProps>(
         },
       },
       onUpdate: ({ editor }) => {
-        if (!name || !setValue) return
+        if (!onValueChange) return
 
         const markdown = editor.storage.markdown.getMarkdown()
-        setValue(name, markdown)
+        onValueChange(markdown)
       },
     })
 

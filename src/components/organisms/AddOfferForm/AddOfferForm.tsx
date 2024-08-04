@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import styles from './AddOfferForm.module.css'
 import type {
@@ -5,51 +6,73 @@ import type {
   AddOfferFormProps,
   CreateAddFormStepsFn,
 } from '@/components/organisms/AddOfferForm/AddOfferForm.types'
-import { Container, Input, Stepper, FileInput, TextEditor } from '@/components'
+import {
+  Container,
+  Input,
+  Stepper,
+  FileInput,
+  TextEditor,
+  Select,
+  CheckboxGroup,
+} from '@/components'
 import clsx from 'clsx'
 import type { StepperStepChangeCallback } from '@/components/molecules/Stepper/Stepper.types'
-import { FormProvider, useForm } from 'react-hook-form'
+import {
+  Controller,
+  FormProvider,
+  useForm,
+  useFormContext,
+} from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addOfferFormSchema, type AddOfferFormSchemaType } from '@/schemas'
-import { mergeEventHandlers, mergeRefs } from '@/utils'
 import { PhotoIcon } from '@heroicons/react/24/outline'
+import { useOfferParametersSuggestions } from '@/hooks'
+import { addOffer } from '@/lib'
+import { getOfferFormData } from '@/utils'
 
 type FormComponentType = typeof Input | typeof FileInput | typeof TextEditor
 
 const AddOfferFormFieldset = (
   props: AddOfferFormFieldsetProps<FormComponentType, AddOfferFormSchemaType>,
 ) => {
-  const { label, fields, errors, register } = props
+  const { label, fields, errors, control } = props
+  const { watch } = useFormContext()
   return (
     <fieldset className={styles.fieldset}>
       <legend className={styles.label}>{label}</legend>
-      {fields.map((field, i) => {
-        const { name, props, component, registerOptions } = field
-        // TODO: Fix type checking
+      {fields.map((field) => {
+        const { name, props, component, options } = field
         const Component = component ?? (Input as any)
         const error = errors[name]?.message
 
-        const {
-          onChange: registerOnChange,
-          onBlur: registerOnBlur,
-          ref: registerRef,
-          ...restRegisterProps
-        } = register(name, registerOptions)
         const { onChange, onBlur, ref, ...restProps } = props
 
-        const componentProps = {
-          error,
-          onChange: mergeEventHandlers(onChange, registerOnChange),
-          onBlur: mergeEventHandlers(onBlur, registerOnBlur),
-          ref: mergeRefs(ref, registerRef),
-          ...restRegisterProps,
-          ...restProps,
-        }
-
         return (
-          <Component
-            key={i}
-            {...componentProps}
+          <Controller
+            key={name}
+            control={control}
+            name={name}
+            render={({ field }) => (
+              <Component
+                name={name}
+                onValueChange={(fieldValue) => {
+                  console.log(name, fieldValue)
+                  const value = options?.isNumber
+                    ? parseInt(fieldValue, 10)
+                    : fieldValue
+                  field.onChange({
+                    target: {
+                      value,
+                    },
+                  })
+                  if (props.onValueChange) props.onValueChange(value)
+                }}
+                defaultValue={field.value}
+                error={error}
+                disabled={!watch(options?.disabledName && options.disabledName)}
+                {...restProps}
+              />
+            )}
           />
         )
       })}
@@ -58,34 +81,159 @@ const AddOfferFormFieldset = (
 }
 
 const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
-  register,
+  control,
   errors,
+  suggestions,
 ) => [
   {
     label: 'O pojeździe',
     description: 'Podaj informacje o pojeździe',
     content: () => (
-      <AddOfferFormFieldset
-        label="Informacje podstawowe"
-        register={register}
-        errors={errors}
-        fields={[
-          {
-            name: 'make',
-            props: { label: 'Marka' },
-          },
-          { name: 'model', props: { label: 'Model' } },
-          { name: 'title', props: { label: 'Tytuł' } },
-          {
-            name: 'price',
-            props: { label: 'Cena' },
-            registerOptions: {
-              setValueAs: (value: any) =>
-                value ? parseInt(value, 10) : undefined,
+      <>
+        <AddOfferFormFieldset
+          label="Informacje podstawowe"
+          control={control}
+          errors={errors}
+          fields={[
+            {
+              name: 'brand',
+              component: Select,
+              props: {
+                label: 'Marka',
+                placeholder: 'Wybierz markę',
+                items: suggestions?.brands.data ?? [],
+                variant: 'elevated',
+              },
             },
-          },
-        ]}
-      />
+            {
+              name: 'model',
+              component: Select,
+              props: {
+                label: 'Model',
+                placeholder: 'Wybierz model',
+                items: suggestions?.models.data ?? [],
+                variant: 'elevated',
+              },
+              options: {
+                disabledName: 'brand',
+              },
+            },
+            {
+              name: 'price',
+              props: { label: 'Cena', placeholder: 'Podaj cenę' },
+              options: {
+                isNumber: true,
+              },
+            },
+            {
+              name: 'prodYear',
+              component: Select,
+              props: {
+                label: 'Rok produkcji',
+                placeholder: 'Podaj rok produkcji',
+                items: suggestions?.prodYears.data ?? [],
+                variant: 'elevated',
+              },
+              options: {
+                isNumber: true,
+              },
+            },
+            {
+              name: 'title',
+              props: {
+                label: 'Tytuł',
+                placeholder: 'Krótko opisz Twoją ofertę (opcjonalne)',
+              },
+            },
+          ]}
+        />
+        <AddOfferFormFieldset
+          label="Dane techniczne"
+          control={control}
+          errors={errors}
+          fields={[
+            {
+              name: 'power',
+              props: { label: 'Moc silnika', placeholder: 'Podaj moc silnika' },
+              options: {
+                isNumber: true,
+              },
+            },
+            {
+              name: 'mileage',
+              props: { label: 'Przebieg', placeholder: 'Podaj przebieg' },
+              options: {
+                isNumber: true,
+              },
+            },
+            {
+              name: 'fuelType',
+              component: Select,
+              props: {
+                label: 'Rodzaj paliwa',
+                placeholder: 'Wybierz rodzaj paliwa',
+                items: suggestions?.fuelTypes.data ?? [],
+                variant: 'elevated',
+              },
+            },
+            {
+              name: 'bodyType',
+              component: Select,
+              props: {
+                label: 'Rodzaj nadwozia',
+                placeholder: 'Wybierz rodzaj nadwozia',
+                items: suggestions?.bodyTypes.data ?? [],
+                variant: 'elevated',
+              },
+            },
+          ]}
+        />
+        <fieldset className={clsx(styles.fieldset, 'overflow-hidden')}>
+          <legend className={styles.label}>Wyposażenie</legend>
+          <CheckboxGroup
+            name="multimediaFeatures"
+            items={suggestions?.multimediaFeatures.data ?? []}
+            control={control}
+            error={errors.multimediaFeatures}
+          >
+            <span className="mb-2 block">Wyposażenie multimedialne</span>
+          </CheckboxGroup>
+          <CheckboxGroup
+            name="safetyFeatures"
+            items={suggestions?.safetyFeatures.data ?? []}
+            control={control}
+            error={errors.safetyFeatures}
+          >
+            <span className="mb-2 block">Wyposażenie bezpieczeństwa</span>
+          </CheckboxGroup>
+          <CheckboxGroup
+            name="driverAssistanceFeatures"
+            items={suggestions?.driverAssistanceFeatures.data ?? []}
+            control={control}
+            error={errors.driverAssistanceFeatures}
+          >
+            <span className="mb-2 block">
+              Wyposażenie wspomagające kierowcę
+            </span>
+          </CheckboxGroup>
+          <CheckboxGroup
+            name="performanceFeatures"
+            items={suggestions?.performanceFeatures.data ?? []}
+            control={control}
+            error={errors.performanceFeatures}
+          >
+            <span className="mb-2 block">Wyposażenie sportowe</span>
+          </CheckboxGroup>
+          <CheckboxGroup
+            name="otherFeatures"
+            items={suggestions?.otherFeatures.data ?? []}
+            control={control}
+            error={errors.otherFeatures}
+          >
+            <span className="mb-2 block">Wyposażenie niestandardowe</span>
+          </CheckboxGroup>
+        </fieldset>
+      </>
     ),
   },
   {
@@ -94,13 +242,16 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
     content: () => (
       <AddOfferFormFieldset
         label="Opis i zdjęcia"
-        register={register}
+        control={control}
         errors={errors}
         fields={[
           {
             name: 'description',
             component: TextEditor,
-            props: { label: 'Opis ogłoszenia' },
+            props: {
+              label: 'Opis ogłoszenia',
+              placeholder: 'Opisz swój pojazd',
+            },
           },
           {
             name: 'photos',
@@ -117,11 +268,11 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
       />
     ),
   },
-  {
-    label: 'Płatność',
-    description: 'Dokonaj płatności za ogłoszenie',
-    content: () => <div>Płatności here</div>,
-  },
+  // {
+  //   label: 'Płatność',
+  //   description: 'Dokonaj płatności za ogłoszenie',
+  //   content: () => <div>Płatności here</div>,
+  // },
 ]
 
 export const AddOfferForm = (props: AddOfferFormProps) => {
@@ -134,14 +285,31 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
   })
   const {
     trigger,
-    register,
+    control,
     formState: { errors },
+    watch,
+    handleSubmit,
   } = formMethods
 
   const handleNextStep: StepperStepChangeCallback = async ({ currentStep }) => {
     switch (currentStep) {
       case 0:
-        return trigger(['make', 'model', 'title', 'price'])
+        return trigger([
+          'brand',
+          'model',
+          'title',
+          'price',
+          'bodyType',
+          'fuelType',
+          'prodYear',
+          'mileage',
+          'power',
+          'multimediaFeatures',
+          'safetyFeatures',
+          'otherFeatures',
+          'driverAssistanceFeatures',
+          'performanceFeatures',
+        ])
       case 1:
         return trigger(['description', 'photos'])
       case 2:
@@ -152,13 +320,22 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
     return Promise.resolve(true)
   }
 
+  const suggestions = useOfferParametersSuggestions({
+    modelsQuery: watch('brand'),
+  })
+
   return (
     <Stepper
       className={clsx(styles.container, className)}
       nextButtonLabel="Następny krok"
       previousButtonLabel="Poprzedni krok"
-      steps={createSteps(register, errors)}
+      finalButtonLabel="Dodaj ogłoszenie"
+      steps={createSteps(control, errors, suggestions)}
       onNextStep={handleNextStep}
+      onFinal={handleSubmit((data) => {
+        const formData = getOfferFormData(data)
+        addOffer(formData)
+      })}
       hasGuardedSteps={false}
       {...restProps}
     >
@@ -178,7 +355,7 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
           <Stepper.Content />
         </Container>
       </FormProvider>
-      <div className={styles.wrapper}>
+      <div className={clsx(styles.wrapper, '!bg-transparent')}>
         <Container
           className={styles.footer}
           as="footer"

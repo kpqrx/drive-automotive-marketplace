@@ -4,15 +4,21 @@ import * as SelectPrimitive from '@radix-ui/react-select'
 import styles from './Select.module.css'
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
-import { AnimatePresence, easeInOut, m } from 'framer-motion'
+import { AnimatePresence, easeInOut, m, type Variants } from 'framer-motion'
 import {
   ChevronUpIcon,
   ChevronDownIcon,
   XMarkIcon as ClearIcon,
+  ExclamationCircleIcon as ErrorIcon,
 } from '@heroicons/react/24/outline'
 import { CheckIcon } from '@heroicons/react/24/solid'
 
 const MotionChevronDownIcon = m(ChevronDownIcon)
+
+const errorVariants: Variants = {
+  hidden: { opacity: 0, y: '-50%', height: 0 },
+  visible: { opacity: 1, y: 0, height: 'auto' },
+}
 
 export const Select = forwardRef<HTMLButtonElement, SelectProps>(
   (props, forwardedRef) => {
@@ -28,6 +34,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       defaultOpen = false,
       defaultValue = '',
       isLoading,
+      variant = 'default',
       ...restProps
     } = props
 
@@ -40,7 +47,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
 
     const handleSetValue = useCallback(
       (value: string | number) => {
-        if (onValueChange) onValueChange(value?.toString())
+        if (onValueChange) onValueChange(value.toString())
         setValue(value)
       },
       [onValueChange],
@@ -54,7 +61,7 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       if (disabled) {
         handleClear()
       }
-    }, [disabled, handleClear])
+    }, [disabled])
 
     return (
       <div className={clsx(styles.container, className)}>
@@ -68,12 +75,17 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
           {...restProps}
         >
           <SelectPrimitive.Trigger
-            className={clsx(styles.trigger, isOpen && styles.triggerActive)}
+            className={clsx(
+              variant === 'elevated' && styles.triggerElevated,
+              error && styles.triggerError,
+              styles.trigger,
+              isOpen && styles.triggerActive,
+            )}
             ref={forwardedRef}
             data-testid="select-trigger"
           >
             <m.span
-              className={styles.label}
+              className={clsx(styles.label, error && styles.labelError)}
               initial={false}
               animate={{
                 y: isOpen || value ? -24 : 0,
@@ -205,6 +217,22 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
             )}
           </AnimatePresence>
         </SelectPrimitive.Root>
+        <AnimatePresence>
+          {error && (
+            <m.p
+              className={styles.error}
+              variants={errorVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+            >
+              <span className={styles.errorWrapper}>
+                <ErrorIcon />
+                {error}
+              </span>
+            </m.p>
+          )}
+        </AnimatePresence>
       </div>
     )
   },

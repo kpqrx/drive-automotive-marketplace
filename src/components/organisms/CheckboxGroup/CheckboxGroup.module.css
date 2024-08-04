@@ -13,3 +13,15 @@
 .thumb {
   @apply size-full bg-neutral-300 dark:bg-neutral-600;
 }
+
+.error {
+  @apply h-10 text-sm text-red-800 dark:text-red-600;
+
+  svg {
+    @apply mr-1 inline-block size-5 align-text-bottom;
+  }
+}
+
+.errorWrapper {
+  @apply block pt-2;
+}

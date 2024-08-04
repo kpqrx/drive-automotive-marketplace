@@ -7,7 +7,7 @@
 }
 
 .content {
-  @apply mx-auto max-w-screen-lg flex-1 p-0 py-6;
+  @apply mx-auto max-w-screen-lg p-0 py-6;
 }
 
 .timeline,
@@ -24,7 +24,7 @@
 }
 
 .fieldset {
-  @apply grid grid-cols-2 gap-6;
+  @apply mb-8 grid grid-cols-2 gap-6 last:mb-0;
 
   *:has(input[type='file']),
   *:has(:global .tiptap) {

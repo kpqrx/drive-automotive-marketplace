@@ -8,6 +8,7 @@ import { kebabToNormalCase, toCapitalCase } from './casing'
 import dynamic from 'next/dynamic'
 import type { IconType } from 'react-icons'
 import { BiCircle as defaultIcon } from 'react-icons/bi'
+import type { AddOfferFormSchemaType } from '@/schemas'
 
 const _mapFeaturesToLabels = (features: { label: string }[] = []) => [
   // Extract labels and remove duplicates
@@ -150,3 +151,39 @@ export const parseComment = (comment: Comment) => ({
   content: comment.commentText,
   date: comment.datePosted,
 })
+
+export const getOfferFormData = (data: AddOfferFormSchemaType) => {
+  const formData = new FormData()
+
+  formData.append('Brand', data.brand)
+  formData.append('Model', data.model)
+  formData.append('Power', data.power.toString())
+  formData.append('Mileage', data.mileage.toString())
+  formData.append('ProductionYear', data.prodYear.toString())
+  formData.append('FuelType', data.fuelType)
+  formData.append('BodyType', data.bodyType)
+  formData.append('Description', data.description)
+  formData.append('Price', data.price.toString())
+
+  if (data.title) formData.append('summary', data.title)
+
+  data.multimediaFeatures?.forEach((feature) =>
+    formData.append('MultimediaFeatures', feature.toString()),
+  )
+  data.safetyFeatures?.forEach((feature) =>
+    formData.append('SafetyFeatures', feature.toString()),
+  )
+  data.driverAssistanceFeatures?.forEach((feature) =>
+    formData.append('DriverAssistanceFeatures', feature.toString()),
+  )
+  data.performanceFeatures?.forEach((feature) =>
+    formData.append('PerformanceFeatures', feature.toString()),
+  )
+  data.otherFeatures?.forEach((feature) =>
+    formData.append('OtherFeatures', feature.toString()),
+  )
+
+  data.photos.forEach((photo) => formData.append('Photos', photo))
+
+  return formData
+}

@@ -9,4 +9,6 @@ export interface FileInputProps extends HTMLProps<HTMLInputElement> {
   dragPlaceholderDescription?: string
   icon?: IconType
   error?: string
+  onValueChange?: (value: File[]) => void
+  defaultValue?: File[]
 }

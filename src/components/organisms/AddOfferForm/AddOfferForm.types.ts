@@ -2,19 +2,20 @@ import type {
   StepperProps,
   StepperStep,
 } from '@/components/molecules/Stepper/Stepper.types'
-import type { ComponentProps, FC, JSXElementConstructor } from 'react'
+import type { ComponentProps, JSXElementConstructor } from 'react'
 import type {
   FieldValues,
   FieldErrors,
-  RegisterOptions,
-  UseFormRegister,
+  Control,
+  FormState,
 } from 'react-hook-form'
 
 export interface AddOfferFormProps extends Omit<StepperProps, 'steps'> {}
 
 export type CreateAddFormStepsFn<T extends FieldValues> = (
-  register: UseFormRegister<T>,
+  control: Control<T>,
   errors: FieldErrors<T>,
+  suggestions?: Record<string, { label: string; value: string }[]>,
 ) => StepperStep[]
 
 export type AddOfferFormFieldType<
@@ -24,7 +25,10 @@ export type AddOfferFormFieldType<
   name: keyof V
   props: ComponentProps<C>
   component?: C
-  registerOptions?: RegisterOptions
+  options?: {
+    isNumber?: boolean
+    disabledName?: string
+  }
 }
 export interface AddOfferFormFieldsetProps<
   C extends JSXElementConstructor<any>,
@@ -32,6 +36,6 @@ export interface AddOfferFormFieldsetProps<
 > {
   label: string
   errors: FieldErrors<V>
-  register: UseFormRegister<V>
+  control: Control<V>
   fields: AddOfferFormFieldType<C, V>[]
 }

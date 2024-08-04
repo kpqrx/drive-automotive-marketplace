@@ -1,5 +1,6 @@
 'use server'
 
+import type { AddOfferFormSchemaType } from '@/schemas'
 import type { OfferParameters, Offer, Comment } from '@/types'
 import { parseComment, parseOffer } from '@/utils'
 import { cookies } from 'next/headers'
@@ -216,6 +217,28 @@ export const addOfferToLiked = async (slug: string) => {
 
   if (req.status !== 200) {
     throw new Error(`Failed to add offer to liked: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
+}
+
+export const addOffer = async (data: FormData) => {
+  const token = cookies().get('token')?.value
+
+  console.log(data)
+
+  const req = await fetch(`${API_BASE_URL}/api/platform/CreateAnnouncement`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+    body: data,
+  })
+
+  if (req.status !== 200) {
+    console.error(req)
+    throw new Error(`Failed to add offer: ${req.statusText}`, {
       cause: req.status,
     })
   }

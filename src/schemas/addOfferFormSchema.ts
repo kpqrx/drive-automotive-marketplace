@@ -1,8 +1,18 @@
 import { z } from 'zod'
 
 export const addOfferFormSchema = z.object({
-  make: z.string({ required_error: 'Marka jest wymagana' }),
+  brand: z.string({ required_error: 'Marka jest wymagana' }),
   model: z.string({ required_error: 'Model jest wymagany' }),
+  power: z.number({ required_error: 'Moc silnika jest wymagana' }),
+  mileage: z.number({ required_error: 'Przebieg jest wymagany' }),
+  prodYear: z.number({ required_error: 'Rok produkcji jest wymagany' }),
+  fuelType: z.string({ required_error: 'Rodzaj paliwa jest wymagany' }),
+  bodyType: z.string({ required_error: 'Rodzaj nadwozia jest wymagany' }),
+  multimediaFeatures: z.array(z.number()).optional(),
+  safetyFeatures: z.array(z.number()).optional(),
+  driverAssistanceFeatures: z.array(z.number()).optional(),
+  performanceFeatures: z.array(z.number()).optional(),
+  otherFeatures: z.array(z.number()).optional(),
   title: z
     .string()
     .max(48, 'Maksymalna długość tytułu to 48 znaków')

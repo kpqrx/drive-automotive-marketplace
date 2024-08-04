@@ -15,4 +15,5 @@ export interface SelectProps
   error?: string
   className?: string
   isLoading?: boolean
+  variant?: 'default' | 'elevated'
 }

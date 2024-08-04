@@ -5,9 +5,10 @@ export interface CheckboxGroupProps<T extends FieldValues>
   extends PropsWithChildren {
   className?: string
   name: string
-  items?: {
+  items: {
     label: string
     value: string | number
   }[]
   control: Control<T>
+  error?: string
 }

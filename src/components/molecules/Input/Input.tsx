@@ -31,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onBlur,
       defaultValue,
       error,
+      onValueChange,
       ...restProps
     } = props
     const [isLabelFloating, setIsLabelFloating] = useState(
@@ -88,6 +89,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           onBlur={handleBlur}
           onFocus={handleFocus}
           defaultValue={defaultValue}
+          onChange={(event) => onValueChange?.(event.target.value)}
           {...restProps}
         />
         <AnimatePresence>

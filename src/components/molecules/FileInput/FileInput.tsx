@@ -43,33 +43,30 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
       icon: Icon = FileIcon,
       error,
       name,
+      onValueChange,
+      defaultValue = [],
       ...restProps
     } = props
 
-    // TODO: Make it independent from react-hook-form
-    const { setValue, getValues, trigger } = useFormContext()
+    const { trigger } = useFormContext()
+
     const handleFormValueUpdate = useCallback(
       (value: File[]) => {
-        if (name) {
-          setValue(name, value)
+        if (onValueChange && name) {
+          onValueChange(value)
           trigger(name)
         }
       },
-      [name, setValue, trigger],
+      [name, onValueChange, trigger],
     )
 
     const [files, setFiles] = useState<FileWithPreview[]>([])
 
     useEffect(() => {
-      // This value needs to be an array of File objects (or empty)
-      const persistedValue = [...(getValues(name ?? '') ?? [])]
-
-      console.log('persistedValue', persistedValue)
-
-      if (persistedValue.length === 0) return setFiles([])
+      if (defaultValue.length === 0) return setFiles([])
 
       setFiles(
-        persistedValue.map((file) =>
+        defaultValue.map((file) =>
           Object.assign(file, { preview: URL.createObjectURL(file) }),
         ),
       )
@@ -78,16 +75,17 @@ export const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
 
     const handleOnDrop = useCallback(
       (acceptedFiles: File[]) => {
-        setFiles((prevFiles) => [
-          ...prevFiles,
+        const newFiles = [
+          ...files,
           ...acceptedFiles.map((file) =>
             Object.assign(file, { preview: URL.createObjectURL(file) }),
           ),
-        ])
+        ]
+        setFiles(newFiles)
 
-        handleFormValueUpdate(acceptedFiles)
+        handleFormValueUpdate(newFiles)
       },
-      [handleFormValueUpdate],
+      [files, handleFormValueUpdate],
     )
 
     const {
