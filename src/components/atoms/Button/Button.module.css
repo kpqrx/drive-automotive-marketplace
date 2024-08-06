@@ -36,7 +36,7 @@
 }
 
 .containerPrimary {
-  @apply bg-orange-400 text-white;
+  @apply !bg-orange-400 text-white;
 }
 
 .containerSecondary {
