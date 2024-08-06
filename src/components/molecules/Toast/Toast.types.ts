@@ -5,6 +5,7 @@ export interface ToastProps extends ToastPrimitiveProps {
   description?: string
   withCancelButton?: boolean
   status: 'success' | 'error'
+  className?: string
 }
 
 export type ToastActionElement = {
