@@ -27,7 +27,7 @@
 }
 
 .thumbnail {
-  @apply aspect-video object-cover;
+  @apply aspect-video min-w-[22.5rem] object-cover;
 }
 
 .wrapper {
@@ -104,4 +104,8 @@
 
 .link {
   @apply flex flex-1 flex-col;
+}
+
+.iconFilled {
+  @apply !text-orange-400;
 }

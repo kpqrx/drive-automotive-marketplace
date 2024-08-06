@@ -21,6 +21,7 @@ import {
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import type { parseComment } from '@/utils'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/hooks'
 
 const getRandomId = () => Math.floor(Math.random() * 1000)
 
@@ -60,6 +61,8 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
     },
   })
 
+  const { toast } = useToast()
+
   const handleAddComment: SubmitHandler<AddCommentFormType> = async ({
     comment: newCommentContent,
   }) => {
@@ -82,8 +85,11 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
 
       resetField('comment')
     } catch (error) {
-      signOut()
-      replace('/sign-in')
+      toast({
+        title: 'Wystąpił błąd podczas dodawania komentarza',
+        description: 'Zaloguj się ponownie lub spróbuj ponownie później',
+        status: 'error',
+      })
     }
   }
 

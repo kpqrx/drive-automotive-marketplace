@@ -1,0 +1,51 @@
+.container {
+  @apply relative block w-full;
+}
+
+.input {
+  @apply max-h-11 w-full rounded bg-neutral-100 p-3 text-left outline-none transition dark:bg-neutral-800;
+
+  &:hover {
+    @apply bg-neutral-200/50 dark:bg-neutral-700/50;
+  }
+
+  &:disabled {
+    @apply cursor-not-allowed bg-neutral-100 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
+  }
+
+  &::placeholder {
+    @apply text-sm text-transparent transition-colors delay-100;
+  }
+
+  &.inputPlaceholderShown {
+    @apply placeholder:text-neutral-400;
+  }
+
+  &.inputError {
+    @apply bg-red-400/15;
+  }
+}
+
+.label {
+  @apply pointer-events-none absolute top-6 block max-w-min origin-top-left -translate-y-1/2 whitespace-nowrap px-3 text-sm transition;
+
+  &.labelFloating {
+    @apply -translate-y-9;
+  }
+
+  &.labelError {
+    @apply text-red-800 dark:text-red-600;
+  }
+}
+
+.error {
+  @apply h-10 text-sm text-red-800 dark:text-red-600;
+
+  svg {
+    @apply mr-1 inline-block size-5 align-text-bottom;
+  }
+}
+
+.errorWrapper {
+  @apply block pt-2;
+}

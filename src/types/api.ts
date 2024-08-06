@@ -71,6 +71,8 @@ export type Offer = {
     $id: string
     $values: OfferImage[]
   }
+  likedBy: { $values: number[] }
+  summary?: string
 }
 
 export type OfferParameters = {

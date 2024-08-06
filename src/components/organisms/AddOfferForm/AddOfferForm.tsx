@@ -26,9 +26,10 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addOfferFormSchema, type AddOfferFormSchemaType } from '@/schemas'
 import { PhotoIcon } from '@heroicons/react/24/outline'
-import { useOfferParametersSuggestions } from '@/hooks'
+import { useOfferParametersSuggestions, useToast } from '@/hooks'
 import { addOffer } from '@/lib'
 import { getOfferFormData } from '@/utils'
+import { useRouter } from 'next/navigation'
 
 type FormComponentType = typeof Input | typeof FileInput | typeof TextEditor
 
@@ -56,7 +57,6 @@ const AddOfferFormFieldset = (
               <Component
                 name={name}
                 onValueChange={(fieldValue) => {
-                  console.log(name, fieldValue)
                   const value = options?.isNumber
                     ? parseInt(fieldValue, 10)
                     : fieldValue
@@ -152,6 +152,16 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
           control={control}
           errors={errors}
           fields={[
+            {
+              name: 'engine',
+              props: {
+                label: 'Pojemność silnika',
+                placeholder: 'Podaj pojemność silnika',
+              },
+              options: {
+                isNumber: true,
+              },
+            },
             {
               name: 'power',
               props: { label: 'Moc silnika', placeholder: 'Podaj moc silnika' },
@@ -291,6 +301,9 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
     handleSubmit,
   } = formMethods
 
+  const { toast } = useToast()
+  const { replace } = useRouter()
+
   const handleNextStep: StepperStepChangeCallback = async ({ currentStep }) => {
     switch (currentStep) {
       case 0:
@@ -304,6 +317,7 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
           'prodYear',
           'mileage',
           'power',
+          'engine',
           'multimediaFeatures',
           'safetyFeatures',
           'otherFeatures',
@@ -332,9 +346,19 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
       finalButtonLabel="Dodaj ogłoszenie"
       steps={createSteps(control, errors, suggestions)}
       onNextStep={handleNextStep}
-      onFinal={handleSubmit((data) => {
+      onFinal={handleSubmit(async (data) => {
         const formData = getOfferFormData(data)
-        addOffer(formData)
+
+        try {
+          await addOffer(formData)
+          replace('/user-profile/my-offers#new-offer')
+        } catch (error) {
+          toast({
+            title: 'Nie udało się dodać oferty',
+            description: 'Spróbuj ponownie później',
+            status: 'error',
+          })
+        }
       })}
       hasGuardedSteps={false}
       {...restProps}

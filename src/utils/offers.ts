@@ -39,14 +39,16 @@ export function parseOffer(offer: Offer) {
     safety = { $values: [] },
     performance = { $values: [] },
     other = { $values: [] },
+    likedBy: { $values: likedBy },
+    summary,
   } = offer
 
   const label = `${brand} ${model}`
   const properties = {
     productionYear: productionYear.toString(),
-    engine: engine.toString(),
+    engine: `${parseFloat(engine).toFixed(1)} L`,
     power: `${power} KM`,
-    fuelType: `${fuelType}`,
+    fuelType: toCapitalCase(fuelType),
     mileage: mileage.toLocaleString('pl-PL', {
       style: 'unit',
       unit: 'kilometer',
@@ -75,6 +77,8 @@ export function parseOffer(offer: Offer) {
       performance: _mapFeaturesToLabels(performance.$values),
       other: _mapFeaturesToLabels(other.$values),
     },
+    likedBy,
+    summary,
   }
 }
 
@@ -157,13 +161,14 @@ export const getOfferFormData = (data: AddOfferFormSchemaType) => {
 
   formData.append('Brand', data.brand)
   formData.append('Model', data.model)
-  formData.append('Power', data.power.toString())
-  formData.append('Mileage', data.mileage.toString())
   formData.append('ProductionYear', data.prodYear.toString())
   formData.append('FuelType', data.fuelType)
+  formData.append('Mileage', data.mileage.toString())
+  formData.append('Power', data.power.toString())
   formData.append('BodyType', data.bodyType)
   formData.append('Description', data.description)
   formData.append('Price', data.price.toString())
+  formData.append('Engine', data.engine.toString())
 
   if (data.title) formData.append('summary', data.title)
 
@@ -174,7 +179,7 @@ export const getOfferFormData = (data: AddOfferFormSchemaType) => {
     formData.append('SafetyFeatures', feature.toString()),
   )
   data.driverAssistanceFeatures?.forEach((feature) =>
-    formData.append('DriverAssistanceFeatures', feature.toString()),
+    formData.append('DriverAssistanceSystemsFeatures', feature.toString()),
   )
   data.performanceFeatures?.forEach((feature) =>
     formData.append('PerformanceFeatures', feature.toString()),
@@ -183,7 +188,7 @@ export const getOfferFormData = (data: AddOfferFormSchemaType) => {
     formData.append('OtherFeatures', feature.toString()),
   )
 
-  data.photos.forEach((photo) => formData.append('Photos', photo))
+  data.photos.forEach((photo) => formData.append('Images', photo))
 
   return formData
 }

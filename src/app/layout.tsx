@@ -1,3 +1,4 @@
+import { Toaster } from '@/components'
 import { FramerMotionProvider, ThemeProvider } from '@/providers'
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
@@ -31,6 +32,7 @@ export default function RootLayout({
         <FramerMotionProvider>
           <ThemeProvider>{children}</ThemeProvider>
         </FramerMotionProvider>
+        <Toaster />
       </body>
     </html>
   )

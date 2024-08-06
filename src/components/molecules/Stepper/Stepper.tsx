@@ -8,7 +8,6 @@ import { useCallback, useState, createContext, useContext } from 'react'
 import type { CSSProperties, ComponentPropsWithoutRef } from 'react'
 import styles from './Stepper.module.css'
 import { clamp } from '@/utils'
-import { AnimatePresence, m } from 'framer-motion'
 import { Button } from '@/components'
 
 const StepperContext = createContext<StepperContext>({

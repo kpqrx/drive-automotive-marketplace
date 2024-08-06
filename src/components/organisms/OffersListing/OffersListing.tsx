@@ -21,10 +21,9 @@ import {
   mapKeyToLabel,
 } from '@/utils'
 import { LiaCarCrashSolid as ErrorIcon } from 'react-icons/lia'
-import { useOfferParameters, useOffers } from '@/hooks'
+import { useOfferParameters, useOffers, useToast } from '@/hooks'
 import { addOfferToLiked } from '@/lib'
 import { useUserStore } from '@/store'
-import { useRouter } from 'next/navigation'
 
 export const OffersListing = (props: OffersListingProps) => {
   const { className, ...restProps } = props
@@ -34,7 +33,6 @@ export const OffersListing = (props: OffersListingProps) => {
   const { offers } = useOffers()
   const { parameters } = useOfferParameters()
   const { userId } = useUserStore()
-  const { replace } = useRouter()
 
   const activeFilters = Object.entries(parameters)
     .filter(([, value]) => !isEmptyOfferParameterValue(value))
@@ -58,12 +56,14 @@ export const OffersListing = (props: OffersListingProps) => {
     }
   }, [sortingKey, offers.data])
 
-  const handleAddToLiked = (offerSlug: string) => {
+  const { toast } = useToast()
+
+  const handleAddToLiked = async (offerId: number) => {
     try {
       // @ts-ignore
-      offers.mutate(addOfferToLiked(offerSlug), {
+      await offers.mutate(addOfferToLiked(offerId), {
         optimisticData: (cachedOffers = []) => {
-          const offer = offers.data?.find((offer) => offer.slug === offerSlug)
+          const offer = offers.data?.find((offer) => offer.id === offerId)
           if (!offer) return cachedOffers
 
           return [
@@ -77,8 +77,17 @@ export const OffersListing = (props: OffersListingProps) => {
         },
         populateCache: false,
       })
+      toast({
+        title: 'Oferta dodana do ulubionych',
+        description: 'Możesz teraz szybko do niej wrócić',
+        status: 'success',
+      })
     } catch (error) {
-      replace('/sign-in')
+      toast({
+        title: 'Nie udało się dodać oferty do ulubionych',
+        description: 'Sesja użytkownika wygasła, zaloguj się ponownie',
+        status: 'error',
+      })
     }
   }
 
@@ -170,12 +179,15 @@ export const OffersListing = (props: OffersListingProps) => {
                 href={`/offer/${offer.slug}`}
                 label={offer.label}
                 icon={getIconByManufacturer(offer.manufacturer)}
-                description={offer.description}
-                location={`${offer.user.city}, ${offer.user.voivodeship}`}
+                title={offer.summary}
+                location={[offer.user.city, offer.user.voivodeship]
+                  .filter(Boolean)
+                  .join(', ')}
                 price={offer.price}
                 thumbnailSrc={offer.thumbnailUrl}
                 properties={Object.values(offer.properties)}
-                onLikeButtonClick={() => handleAddToLiked(offer.slug)}
+                onLikeButtonClick={() => handleAddToLiked(offer.id)}
+                isLiked={offer.likedBy?.includes(+userId)}
               />
             </li>
           ))}

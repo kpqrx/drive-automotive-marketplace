@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, type MouseEventHandler } from 'react'
 import styles from './OfferTile.module.css'
 import type { OfferTileProps } from '@/components/molecules/OfferTile/OfferTile.types'
 import clsx from 'clsx'
@@ -8,24 +8,33 @@ import {
   HeartIcon,
   ChatBubbleOvalLeftIcon as CommentsIcon,
   MapPinIcon,
+  TrashIcon as DeleteIcon,
 } from '@heroicons/react/24/outline'
+import { HeartIcon as HeartIconFilled } from '@heroicons/react/24/solid'
 import { Chip } from '@/components/atoms/Chip/Chip'
+import { useRouter } from 'next/navigation'
 
 export const OfferTile = (props: OfferTileProps) => {
   const {
     href,
     label,
-    description,
+    title,
     location,
     price,
-    icon: Icon,
+    icon,
     thumbnailSrc,
     properties,
     orientation = 'vertical',
     className = '',
     onLikeButtonClick,
+    onDeleteButtonClick,
+    withLikeButton = true,
+    withDeleteButton = false,
+    isLiked = false,
     ...restProps
   } = props
+
+  const { replace } = useRouter()
 
   const formattedPrice = price.toLocaleString('pl-PL', {
     style: 'currency',
@@ -34,8 +43,26 @@ export const OfferTile = (props: OfferTileProps) => {
     maximumFractionDigits: 0,
   })
 
+  const Icon = useMemo(() => icon, [href])
+
+  const handleCommentButtonClick: MouseEventHandler = (event) => {
+    event.preventDefault()
+    replace(`${href}#discussion`)
+  }
+
+  const handleLikeButtonClick: MouseEventHandler = (event) => {
+    event.preventDefault()
+    onLikeButtonClick?.()
+  }
+
+  const handleDeleteButtonClick: MouseEventHandler = (event) => {
+    event.preventDefault()
+    onDeleteButtonClick?.()
+  }
+
   return (
-    <div
+    <Link
+      href={href}
       className={clsx(
         className,
         styles.container,
@@ -53,48 +80,59 @@ export const OfferTile = (props: OfferTileProps) => {
         alt={label}
       />
       <div className={styles.wrapper}>
-        <Link
-          href={href}
-          className={styles.link}
-        >
-          <div className={styles.contentWrapper}>
-            <div className={styles.labelWrapper}>
-              <Icon className={styles.manufacturerIcon} />
-              <h3 className={styles.label}>{label}</h3>
-            </div>
-            <span className={styles.price}>{formattedPrice}</span>
+        <div className={styles.contentWrapper}>
+          <div className={styles.labelWrapper}>
+            <Icon className={styles.manufacturerIcon} />
+            <h3 className={styles.label}>{label}</h3>
           </div>
-          <p className={styles.description}>{description}</p>
-          <div className={styles.propertiesWrapper}>
-            {properties.map((property, i) => (
-              <Chip key={i}>{property}</Chip>
-            ))}
-          </div>
-          <span className={styles.location}>
-            <MapPinIcon className={styles.mapPinIcon} />
-            {location}
-          </span>
-        </Link>
+          <span className={styles.price}>{formattedPrice}</span>
+        </div>
+        {title && <p className={styles.description}>{title}</p>}
+        <div className={styles.propertiesWrapper}>
+          {properties.map((property, i) => (
+            <Chip key={i}>{property}</Chip>
+          ))}
+        </div>
+        <span className={styles.location}>
+          <MapPinIcon className={styles.mapPinIcon} />
+          {location}
+        </span>
         <ul className={styles.iconButtonsContainer}>
-          {/* <li> // TODO: Investigate why the button is not working
+          {withLikeButton && (
+            <li>
+              <button
+                className={styles.iconButton}
+                onClick={handleLikeButtonClick}
+              >
+                {isLiked ? (
+                  <HeartIconFilled className={styles.iconFilled} />
+                ) : (
+                  <HeartIcon />
+                )}
+              </button>
+            </li>
+          )}
+          <li>
             <button
               className={styles.iconButton}
-              onClick={onLikeButtonClick}
-              // TODO: Style to indicate that the offer is liked
-            >
-              <HeartIcon />
-            </button>
-          </li> */}
-          <li>
-            <Link
-              href={`${href}#discussion`}
-              className={styles.iconButton}
+              onClick={handleCommentButtonClick}
             >
               <CommentsIcon />
-            </Link>
+            </button>
           </li>
+
+          {withDeleteButton && (
+            <li>
+              <button
+                className={styles.iconButton}
+                onClick={handleDeleteButtonClick}
+              >
+                <DeleteIcon />
+              </button>
+            </li>
+          )}
         </ul>
       </div>
-    </div>
+    </Link>
   )
 }

@@ -1,0 +1,39 @@
+.container {
+  @apply mb-3 flex items-start gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-5 py-3 last:mb-0;
+}
+
+.content {
+  @apply flex flex-1 flex-col space-y-3;
+}
+
+.title {
+  @apply font-medium;
+}
+
+.description {
+  @apply text-sm text-neutral-300;
+}
+
+.cancelButton {
+  @apply rounded-lg bg-neutral-800 p-1;
+}
+
+.cancelButtonIcon {
+  @apply size-4;
+}
+
+.viewport {
+  @apply fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-8 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-md;
+}
+
+.icon {
+  @apply size-6;
+
+  &.iconSuccess {
+    @apply text-green-500;
+  }
+
+  &.iconError {
+    @apply text-red-500;
+  }
+}

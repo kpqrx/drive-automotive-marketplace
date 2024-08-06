@@ -21,7 +21,7 @@ export const CheckboxGroup = <T extends FieldValues>(
     <div {...restProps}>
       {children}
 
-      {items.length === 0 ? (
+      {!items ? (
         <Skeleton className="h-72 w-full" />
       ) : (
         <ScrollAreaPrimitive.Root type="auto">

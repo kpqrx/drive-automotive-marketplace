@@ -8,6 +8,7 @@ export const addOfferFormSchema = z.object({
   prodYear: z.number({ required_error: 'Rok produkcji jest wymagany' }),
   fuelType: z.string({ required_error: 'Rodzaj paliwa jest wymagany' }),
   bodyType: z.string({ required_error: 'Rodzaj nadwozia jest wymagany' }),
+  engine: z.number({ required_error: 'Pojemność silnika jest wymagana' }),
   multimediaFeatures: z.array(z.number()).optional(),
   safetyFeatures: z.array(z.number()).optional(),
   driverAssistanceFeatures: z.array(z.number()).optional(),
@@ -20,7 +21,7 @@ export const addOfferFormSchema = z.object({
   description: z
     .string({ required_error: 'Opis ogłoszenia jest wymagany' })
     .min(64, 'Minimalna długość opisu to 64 znaki')
-    .max(512, 'Maksymalna długość opisu to 512 znaków'),
+    .max(2048, 'Maksymalna długość opisu to 2048 znaków'),
   price: z
     .number({
       required_error: 'Cena jest wymagana',
@@ -39,7 +40,6 @@ export const addOfferFormSchema = z.object({
       return files.every((file) => file.name.match(/\.(jpg|jpeg|png)$/i))
     }, 'Plik muszą być w formacie JPG, JPEG lub PNG')
     .refine((value) => {
-      console.log(value)
       return value.length >= 4
     }, 'Minimalna liczba zdjęć to 4')
     .refine((value) => value.length <= 8, 'Maksymalna liczba zdjęć to 8'),

@@ -14,6 +14,7 @@ export { ToggleButton } from '@/components/atoms/ToggleButton/ToggleButton'
 export { TimedCarousel } from '@/components/atoms/TimedCarousel/TimedCarousel'
 
 export { Select } from '@/components/molecules/Select/Select'
+export { Toast, Toaster } from '@/components/molecules/Toast/Toast'
 export { Multiselect } from '@/components/molecules/Multiselect/Multiselect'
 export { Dropdown } from '@/components/molecules/Dropdown/Dropdown'
 export { Input } from '@/components/molecules/Input/Input'

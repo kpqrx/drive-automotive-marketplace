@@ -1,5 +1,5 @@
-import { Container } from '@/components/atoms/Container/Container'
+import UserProfileOwnerOffers from '@/components/UserProfileOwnerOffers'
 
-export default async function UserProfileMyOffers() {
-  return <Container>moje ofertyyyyyy</Container>
+export default function UserProfileOwnerOffersPage() {
+  return <UserProfileOwnerOffers />
 }

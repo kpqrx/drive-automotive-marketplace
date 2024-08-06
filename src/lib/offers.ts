@@ -201,11 +201,11 @@ export const deleteComment = async (commentId: number) => {
   }
 }
 
-export const addOfferToLiked = async (slug: string) => {
+export const addOfferToLiked = async (id: string) => {
   const token = cookies().get('token')?.value
 
   const req = await fetch(
-    `${API_BASE_URL}/api/platform/AddAnnToFavorites/${slug}`,
+    `${API_BASE_URL}/api/platform/AddAnnToFavorites?id=${id}`,
     {
       method: 'POST',
       headers: {
@@ -225,12 +225,9 @@ export const addOfferToLiked = async (slug: string) => {
 export const addOffer = async (data: FormData) => {
   const token = cookies().get('token')?.value
 
-  console.log(data)
-
   const req = await fetch(`${API_BASE_URL}/api/platform/CreateAnnouncement`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,
     },
     body: data,
@@ -239,6 +236,90 @@ export const addOffer = async (data: FormData) => {
   if (req.status !== 200) {
     console.error(req)
     throw new Error(`Failed to add offer: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
+}
+
+export const getLikedOffersByUserId = async (userId: string) => {
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/GetFvAnnsByUsrId/${userId}`,
+    {
+      method: 'GET',
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(
+      `Failed to fetch liked offers by user id: ${req.statusText}`,
+    )
+  }
+
+  const { $values: offers }: GetOffersApiResponse = await req.json()
+
+  const offerIds = offers.map(({ announcementId }: any) => announcementId)
+
+  return offerIds
+}
+
+export const getOwnerOffers = async (ownerId: string) => {
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/getAnnByUsrId/${ownerId}`,
+    {
+      method: 'GET',
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(
+      `Failed to fetch owned offers by user id: ${req.statusText}`,
+    )
+  }
+
+  const { $values: offers }: GetOffersApiResponse = await req.json()
+
+  const parsedOffers = offers.map(parseOffer)
+
+  return parsedOffers
+}
+
+export const deleteOffer = async (offerId: number) => {
+  const token = cookies().get('token')?.value
+
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/DeleteAnnouncement/${offerId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to delete offer: ${req.statusText}`, {
+      cause: req.status,
+    })
+  }
+}
+
+export const removeOfferFromLiked = async (offerId: number) => {
+  const token = cookies().get('token')?.value
+
+  const req = await fetch(
+    `${API_BASE_URL}/api/platform/DeleteAnnFromFavorites/${offerId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  )
+
+  if (req.status !== 200) {
+    throw new Error(`Failed to delete offer from liked: ${req.statusText}`, {
       cause: req.status,
     })
   }

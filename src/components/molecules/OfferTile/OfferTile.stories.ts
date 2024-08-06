@@ -9,7 +9,7 @@ const meta: Meta<typeof OfferTile> = {
   args: {
     href: '#',
     label: 'BMW M6',
-    description: 'Shadowline, Akrapovic, komforty, polski salon',
+    title: 'Shadowline, Akrapovic, komforty, polski salon',
     price: 180_000,
     thumbnailSrc:
       'https://images.pexels.com/photos/951318/pexels-photo-951318.jpeg?auto=compress&cs=tinysrgb&w=1600',

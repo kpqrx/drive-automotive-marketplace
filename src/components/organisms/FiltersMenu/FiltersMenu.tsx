@@ -237,7 +237,7 @@ export const FiltersMenu = (props: FiltersMenuProps) => {
                 key={name}
                 control={control}
                 name={name}
-                items={data}
+                items={data!}
               >
                 <span className={styles.nestedFiltersGroupLabel}>{label}</span>
               </CheckboxGroup>
