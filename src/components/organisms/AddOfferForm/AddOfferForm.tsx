@@ -102,7 +102,6 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
                 label: 'Marka',
                 placeholder: 'Wybierz markę',
                 items: suggestions?.brands.data ?? [],
-                variant: 'elevated',
               },
             },
             {
@@ -112,7 +111,6 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
                 label: 'Model',
                 placeholder: 'Wybierz model',
                 items: suggestions?.models.data ?? [],
-                variant: 'elevated',
               },
               options: {
                 disabledName: 'brand',
@@ -132,7 +130,6 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
                 label: 'Rok produkcji',
                 placeholder: 'Podaj rok produkcji',
                 items: suggestions?.prodYears.data ?? [],
-                variant: 'elevated',
               },
               options: {
                 isNumber: true,
@@ -183,7 +180,6 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
                 label: 'Rodzaj paliwa',
                 placeholder: 'Wybierz rodzaj paliwa',
                 items: suggestions?.fuelTypes.data ?? [],
-                variant: 'elevated',
               },
             },
             {
@@ -193,7 +189,6 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
                 label: 'Rodzaj nadwozia',
                 placeholder: 'Wybierz rodzaj nadwozia',
                 items: suggestions?.bodyTypes.data ?? [],
-                variant: 'elevated',
               },
             },
           ]}

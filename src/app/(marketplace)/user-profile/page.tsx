@@ -10,7 +10,7 @@ export default function UserProfile() {
     <div>
       <div className="mb-24 flex items-center gap-8">
         <Avatar
-          className="size-12"
+          className="!size-12"
           fullName={[firstName, lastName]}
         />
         <h1 className="text-5xl">Cześć, {firstName}</h1>

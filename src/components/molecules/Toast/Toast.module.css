@@ -1,9 +1,9 @@
 .container {
-  @apply mb-3 flex items-start gap-3 rounded-xl border border-neutral-800 bg-neutral-900 px-5 py-3 last:mb-0;
+  @apply mb-3 flex items-start gap-3 rounded-xl border border-neutral-200 bg-neutral-100 px-5 py-3 last:mb-0 dark:border-neutral-800 dark:bg-neutral-900;
 }
 
 .content {
-  @apply flex flex-1 flex-col space-y-3;
+  @apply flex flex-1 flex-col space-y-2;
 }
 
 .title {
@@ -11,7 +11,7 @@
 }
 
 .description {
-  @apply text-sm text-neutral-300;
+  @apply text-sm text-neutral-500 dark:text-neutral-300;
 }
 
 .cancelButton {

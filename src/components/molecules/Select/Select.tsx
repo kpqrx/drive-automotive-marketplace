@@ -34,7 +34,6 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
       defaultOpen = false,
       defaultValue = '',
       isLoading,
-      variant = 'default',
       ...restProps
     } = props
 
@@ -76,7 +75,6 @@ export const Select = forwardRef<HTMLButtonElement, SelectProps>(
         >
           <SelectPrimitive.Trigger
             className={clsx(
-              variant === 'elevated' && styles.triggerElevated,
               error && styles.triggerError,
               styles.trigger,
               isOpen && styles.triggerActive,

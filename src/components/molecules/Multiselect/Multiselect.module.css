@@ -3,10 +3,10 @@
 }
 
 .trigger {
-  @apply relative z-10 flex h-11 w-full items-center gap-2 rounded bg-neutral-50 p-3 text-left outline-none transition dark:bg-neutral-900;
+  @apply relative z-10 flex h-11 w-full items-center gap-2 rounded !bg-neutral-100 p-3 text-left outline-none transition dark:!bg-neutral-900;
 
   &:hover:not(.triggerActive):not(:disabled) {
-    @apply bg-neutral-100 dark:bg-neutral-950;
+    @apply bg-neutral-100 dark:bg-neutral-700/50;
   }
 
   &:disabled {

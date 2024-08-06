@@ -12,7 +12,7 @@
 
   &:not(.buttonActive):hover,
   &:not(.buttonActive):focus-visible {
-    @apply bg-neutral-100/50;
+    @apply !bg-neutral-100/50;
   }
 
   &:disabled {
@@ -25,13 +25,13 @@
 }
 
 .buttonActive {
-  @apply bg-white text-orange-400 dark:bg-neutral-800;
+  @apply !bg-white text-orange-400 dark:!bg-neutral-800;
   -webkit-text-stroke: 0.045rem currentColor;
   text-stroke: 0.045rem currentColor;
 }
 
 .contentWrapper {
-  @apply grid bg-white py-3 dark:bg-neutral-800;
+  @apply grid bg-white pb-6 pt-3 dark:bg-neutral-800;
 }
 
 .content {

@@ -122,8 +122,8 @@ export default async function OfferPage(props: OfferPageProps) {
             city: data.user.city,
             voivodeship: data.user.voivodeship,
             // 🤔 💩
-            lat: data.long.toString(),
-            long: data.lat.toString(),
+            lat: data.lat.toString(),
+            long: data.long.toString(),
           }}
         />
       </Container>

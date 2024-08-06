@@ -1,22 +1,5 @@
 .container {
-  @apply absolute inset-0 z-20 flex h-screen w-full max-w-sm flex-col items-start gap-10 bg-white px-6 py-8 lg:max-w-md dark:bg-neutral-900;
-
-  /* TODO */
-  &:is(.dark) {
-    background-image: linear-gradient(
-        -75deg,
-        theme('colors.neutral.800') 50%,
-        transparent 50%
-      ),
-      linear-gradient(0deg, theme('colors.neutral.800') 5%, transparent);
-  }
-
-  background-image: linear-gradient(
-      -75deg,
-      theme('colors.neutral.100') 50%,
-      transparent 50%
-    ),
-    linear-gradient(0deg, theme('colors.neutral.100') 5%, transparent);
+  @apply absolute inset-0 z-20 flex h-screen w-full max-w-sm flex-col items-start gap-10 bg-white px-6 py-8 lg:max-w-md dark:bg-[#202020];
 }
 
 .backdrop {

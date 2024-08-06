@@ -2,7 +2,7 @@
   --box-shadow-position: 0 50vh;
 
   @apply fixed bottom-0 z-10 flex h-screen
-    w-full flex-col rounded-t bg-white dark:bg-neutral-800;
+    w-full flex-col rounded-t bg-white dark:bg-[#202020];
   /* box-shadow: var(--box-shadow-position) 0 25vh theme('colors.white'); */
 
   /* &::before {

@@ -22,7 +22,7 @@ import {
 } from '@/utils'
 import { LiaCarCrashSolid as ErrorIcon } from 'react-icons/lia'
 import { useOfferParameters, useOffers, useToast } from '@/hooks'
-import { addOfferToLiked } from '@/lib'
+import { addOfferToLiked, removeOfferFromLiked } from '@/lib'
 import { useUserStore } from '@/store'
 
 export const OffersListing = (props: OffersListingProps) => {
@@ -80,6 +80,38 @@ export const OffersListing = (props: OffersListingProps) => {
       toast({
         title: 'Oferta dodana do ulubionych',
         description: 'Możesz teraz szybko do niej wrócić',
+        status: 'success',
+      })
+    } catch (error) {
+      toast({
+        title: 'Nie udało się dodać oferty do ulubionych',
+        description: 'Sesja użytkownika wygasła, zaloguj się ponownie',
+        status: 'error',
+      })
+    }
+  }
+
+  const handleRemoveFromLiked = async (offerId: number) => {
+    try {
+      // @ts-ignore
+      await offers.mutate(removeOfferFromLiked(offerId), {
+        optimisticData: (cachedOffers = []) => {
+          const offer = offers.data?.find((offer) => offer.id === offerId)
+          if (!offer) return cachedOffers
+
+          return [
+            ...cachedOffers,
+            {
+              ...offer,
+              // @ts-ignore
+              likedBy: [...(offer.likedBy ?? []), userId],
+            },
+          ]
+        },
+        populateCache: false,
+      })
+      toast({
+        title: 'Oferta usunięta z ulubionych',
         status: 'success',
       })
     } catch (error) {
@@ -186,7 +218,11 @@ export const OffersListing = (props: OffersListingProps) => {
                 price={offer.price}
                 thumbnailSrc={offer.thumbnailUrl}
                 properties={Object.values(offer.properties)}
-                onLikeButtonClick={() => handleAddToLiked(offer.id)}
+                onLikeButtonClick={() =>
+                  offer.likedBy?.includes(+userId)
+                    ? handleRemoveFromLiked(offer.id)
+                    : handleAddToLiked(offer.id)
+                }
                 isLiked={offer.likedBy?.includes(+userId)}
               />
             </li>

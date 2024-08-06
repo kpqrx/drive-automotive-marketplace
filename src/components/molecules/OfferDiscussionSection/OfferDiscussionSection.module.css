@@ -84,7 +84,7 @@
 }
 
 .commentDeleteButton {
-  @apply ml-auto size-8 rounded bg-neutral-200 p-2 dark:bg-neutral-600;
+  @apply ml-auto size-8 rounded !bg-neutral-200 p-2 dark:!bg-neutral-600;
 }
 
 .avatarsListSkeleton {

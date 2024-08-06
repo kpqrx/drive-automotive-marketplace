@@ -102,6 +102,10 @@ export const OfferDiscussionSection = (props: OfferDiscussionSectionProps) => {
         },
         populateCache: false,
       })
+      toast({
+        title: 'Komentarz został usunięty',
+        status: 'success',
+      })
     } catch (error) {
       signOut()
       replace('/sign-in')

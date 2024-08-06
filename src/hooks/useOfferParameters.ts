@@ -35,6 +35,8 @@ function useOfferParameters(): UseOfferParametersReturnType {
   } = useOfferParametersStore()
 
   useEffect(() => {
+    if (!pathname.includes('/offers')) return
+
     const offerParameters = getOfferParametersFromPathname(pathname)
     setAllParameters(offerParameters)
   }, [pathname, setAllParameters])

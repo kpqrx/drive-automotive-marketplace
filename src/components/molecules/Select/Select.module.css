@@ -3,18 +3,14 @@
 }
 
 .trigger {
-  @apply relative z-10 flex h-11 w-full items-center rounded bg-neutral-50 p-3 text-left outline-none transition dark:bg-neutral-900;
+  @apply relative z-10 flex h-11 w-full items-center rounded !bg-neutral-100 p-3 text-left outline-none transition dark:!bg-neutral-900;
 
   &:hover:not(.triggerActive):not(:disabled) {
-    @apply bg-neutral-100 dark:bg-neutral-950;
+    @apply bg-neutral-100 dark:bg-neutral-700/50;
   }
 
   &:disabled {
     @apply cursor-not-allowed bg-neutral-100 text-neutral-400 dark:bg-neutral-900/50 dark:text-neutral-600;
-  }
-
-  &.triggerElevated {
-    @apply bg-neutral-100 hover:!bg-neutral-200/50 dark:bg-neutral-800 dark:hover:!bg-neutral-700/50;
   }
 
   &.triggerError {

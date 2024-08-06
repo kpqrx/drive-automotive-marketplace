@@ -39,9 +39,6 @@ export const getOfferParametersFromPathname = (
 ): OfferParameters => {
   const serializedOfferParameters = pathname.split('/').slice(2)
 
-  if (!serializedOfferParameters.includes('offers'))
-    return {} as OfferParameters
-
   return getDeserializedOfferParameters(serializedOfferParameters)
 }
 

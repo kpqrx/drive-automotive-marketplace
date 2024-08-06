@@ -9,7 +9,7 @@ import useSWR from 'swr'
 
 export default function UserProfileLikedOffers() {
   const { userId } = useUserStore()
-  const { data, isLoading, error } = useSWR(
+  const { data, isLoading, error, mutate } = useSWR(
     `/liked-offers/${userId}`,
     () => getLikedOffersByUserId(userId),
     { refreshInterval: 0 },
@@ -23,7 +23,7 @@ export default function UserProfileLikedOffers() {
   const handleOnLikeButtonClick = async (offerId: number) => {
     try {
       // @ts-ignore
-      await offers.mutate(removeOfferFromLiked(offerId), {
+      await mutate(removeOfferFromLiked(offerId), {
         optimisticData: (cachedOffers = []) => {
           return cachedOffers.filter((offer) => offer.id !== offerId)
         },

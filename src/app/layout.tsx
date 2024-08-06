@@ -12,7 +12,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Drive - platforma ogłoszeń motoryzacyjnych',
+  title: 'DRIVE - platforma ogłoszeń motoryzacyjnych',
   description:
     'Luksusowa limuzyna, nowy SUV, sportowe coupe, przestronne kombi? Mamy to! Przekonaj się!',
 }
