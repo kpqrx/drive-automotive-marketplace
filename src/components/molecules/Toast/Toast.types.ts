@@ -1,4 +1,4 @@
-import type { ToastProps as ToastPrimitiveProps } from '@radix-ui/react-Toast'
+import type { ToastProps as ToastPrimitiveProps } from '@radix-ui/react-toast'
 
 export interface ToastProps extends ToastPrimitiveProps {
   title: string
