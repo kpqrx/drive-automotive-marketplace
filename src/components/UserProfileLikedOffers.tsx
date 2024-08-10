@@ -2,7 +2,7 @@
 import { OfferTile, Skeleton } from '@/components'
 import { useOffers, useToast } from '@/hooks'
 import { getLikedOffersByUserId, removeOfferFromLiked } from '@/lib'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import { getIconByManufacturer } from '@/utils'
 import { LiaCarSideSolid } from 'react-icons/lia'
 import useSWR from 'swr'

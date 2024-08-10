@@ -13,7 +13,7 @@ import {
   replaceHistoryState,
 } from '@/utils'
 import { usePathname } from 'next/navigation'
-import { useOfferParametersStore } from '@/store'
+import { useOfferParametersStore } from '@/stores'
 
 type UseOfferParametersReturnType = {
   setParameter: (key: OfferParameterKey, value: OfferParameterValue) => void

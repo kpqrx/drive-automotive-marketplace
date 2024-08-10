@@ -1,6 +1,6 @@
 'use client'
 import { Avatar } from '@/components'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import { LiaCarSideSolid } from 'react-icons/lia'
 
 export default function UserProfile() {

@@ -8,22 +8,22 @@ import {
   OfferTile,
   Skeleton,
 } from '@/components'
-import styles from './OffersListing.module.css'
-import {
-  HiOutlineFunnel as FilteringIcon,
-  HiOutlineBarsArrowDown as SortingIcon,
-} from 'react-icons/hi2'
-import type { OffersListingProps } from './OffersListing.types'
-import { useMemo, useState } from 'react'
+import { useOfferParameters, useOffers, useToast } from '@/hooks'
+import { addOfferToLiked, removeOfferFromLiked } from '@/lib'
+import { useUserStore } from '@/stores'
 import {
   getIconByManufacturer,
   isEmptyOfferParameterValue,
   mapKeyToLabel,
 } from '@/utils'
+import { useMemo, useState } from 'react'
+import {
+  HiOutlineFunnel as FilteringIcon,
+  HiOutlineBarsArrowDown as SortingIcon,
+} from 'react-icons/hi2'
 import { LiaCarCrashSolid as ErrorIcon } from 'react-icons/lia'
-import { useOfferParameters, useOffers, useToast } from '@/hooks'
-import { addOfferToLiked, removeOfferFromLiked } from '@/lib'
-import { useUserStore } from '@/store'
+import styles from './OffersListing.module.css'
+import type { OffersListingProps } from './OffersListing.types'
 
 export const OffersListing = (props: OffersListingProps) => {
   const { className, ...restProps } = props

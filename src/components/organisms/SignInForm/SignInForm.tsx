@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signInFormSchema, type SignInFormSchemaType } from '@/schemas'
 import { signIn } from '@/lib'
 import { useState } from 'react'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import { useRouter } from 'next/navigation'
 
 const LoadingIcon = () => (

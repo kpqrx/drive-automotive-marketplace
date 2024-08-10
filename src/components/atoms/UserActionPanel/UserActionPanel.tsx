@@ -1,16 +1,15 @@
-import React from 'react'
-import styles from './UserActionPanel.module.css'
 import type { UserActionPanelProps } from '@/components/atoms/UserActionPanel/UserActionPanel.types'
+import { signOut } from '@/lib'
+import { useUserStore } from '@/stores'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import Link from 'next/link'
-import {
-  HiOutlineUser as UserIcon,
-  HiChevronDown as DropdownIcon,
-} from 'react-icons/hi2'
-import { useUserStore } from '@/store'
-import { signOut } from '@/lib'
-import * as PopoverPrimitive from '@radix-ui/react-popover'
 import { useRouter } from 'next/navigation'
+import {
+  HiChevronDown as DropdownIcon,
+  HiOutlineUser as UserIcon,
+} from 'react-icons/hi2'
+import styles from './UserActionPanel.module.css'
 
 export const UserActionPanel = (props: UserActionPanelProps) => {
   const { children, size = 'lg', className = '', ...restProps } = props

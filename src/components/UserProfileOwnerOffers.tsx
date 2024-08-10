@@ -2,7 +2,7 @@
 import { OfferTile, Skeleton } from '@/components'
 import { useToast } from '@/hooks'
 import { getOwnerOffers } from '@/lib'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/stores'
 import { getIconByManufacturer } from '@/utils'
 import { useEffect } from 'react'
 import { LiaCarSideSolid } from 'react-icons/lia'

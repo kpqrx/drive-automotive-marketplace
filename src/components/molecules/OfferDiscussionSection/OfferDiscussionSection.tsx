@@ -1,27 +1,27 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import styles from './OfferDiscussionSection.module.css'
-import type { OfferDiscussionSectionProps } from './OfferDiscussionSection.types'
-import clsx from 'clsx'
-import {
-  ChevronRightIcon as ChevronIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline'
 import { Avatar, Button, Skeleton } from '@/components'
-import { Modal } from '../Modal/Modal'
-import { useUserStore } from '@/store'
-import { HiOutlineUser as UserIcon } from 'react-icons/hi2'
-import useSWR from 'swr'
+import { useToast } from '@/hooks'
 import {
   deleteComment,
   getCommentsByOfferId,
   postComment,
   signOut,
 } from '@/lib'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useUserStore } from '@/stores'
 import type { parseComment } from '@/utils'
+import {
+  ChevronRightIcon as ChevronIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useToast } from '@/hooks'
+import { useEffect, useState } from 'react'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { HiOutlineUser as UserIcon } from 'react-icons/hi2'
+import useSWR from 'swr'
+import { Modal } from '../Modal/Modal'
+import styles from './OfferDiscussionSection.module.css'
+import type { OfferDiscussionSectionProps } from './OfferDiscussionSection.types'
 
 const getRandomId = () => Math.floor(Math.random() * 1000)
 
