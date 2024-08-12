@@ -1,7 +1,7 @@
 'use client'
 import { OfferTile, Skeleton } from '@/components'
 import { useToast } from '@/hooks'
-import { getOwnerOffers } from '@/lib'
+import { deleteOffer, getOwnerOffers } from '@/lib'
 import { useUserStore } from '@/stores'
 import { getIconByManufacturer } from '@/utils'
 import { useEffect } from 'react'

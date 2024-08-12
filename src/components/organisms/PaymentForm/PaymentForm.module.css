@@ -1,0 +1,93 @@
+.container {
+  @apply mt-12 flex max-w-screen-sm flex-col gap-y-4;
+}
+
+.form {
+  @apply flex max-w-screen-sm flex-col items-stretch;
+}
+
+.heading {
+  @apply mb-1 text-2xl;
+}
+
+.loadingPlaceholder {
+  @apply absolute inset-0 flex size-full flex-col items-center justify-center text-lg font-medium text-black contrast-[0.95] backdrop-blur-md;
+
+  svg {
+    @apply mb-8 size-16 animate-spin text-orange-400;
+  }
+}
+
+.fieldsWrapper {
+  @apply relative mt-16 grid grid-cols-[0.55fr_0.2fr_0.25fr] gap-x-3 gap-y-6 overflow-hidden rounded-2xl px-12 py-8;
+
+  background: linear-gradient(
+    105deg,
+    theme(colors.orange.300) 60%,
+    theme(colors.orange.200) 60%
+  );
+}
+
+.buttonsWrapper {
+  @apply mt-12 flex gap-4;
+}
+
+.field {
+  @apply flex flex-col gap-y-1;
+
+  &:nth-child(2) {
+    @apply col-span-full;
+  }
+}
+
+.label {
+  @apply text-xs dark:text-neutral-800;
+}
+
+.input {
+  @apply h-12 w-full rounded bg-orange-50/50 p-3 text-left font-medium outline-none transition;
+
+  iframe {
+    @apply dark:mix-blend-darken;
+  }
+}
+
+.fieldSkeleton {
+  @apply h-[4.25rem] w-full;
+}
+
+.description {
+  @apply text-base leading-relaxed text-neutral-500 dark:text-neutral-400;
+}
+
+.price {
+  @apply mt-8 flex justify-between border-t border-neutral-200 pt-4 text-xl dark:border-neutral-600;
+}
+
+.priceValue {
+  @apply font-bold text-orange-400;
+}
+
+.priceSkeleton {
+  @apply h-7 w-24;
+}
+
+.chip {
+  @apply ml-auto size-16;
+}
+
+.cardHeading {
+  @apply col-span-full flex items-center justify-between;
+}
+
+.icon {
+  @apply size-6;
+}
+
+.button {
+  @apply flex-1;
+}
+
+.cardLogo {
+  @apply size-16 text-orange-50 dark:text-orange-800;
+}

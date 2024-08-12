@@ -17,8 +17,8 @@ export type StepperContext = {
   nextButtonLabel: string
   previousButtonLabel: string
   hasGuardedSteps: boolean
-  finalButtonLabel: string
-  onFinal: () => void
+  onLastStep: () => void
+  hideFooterOnLastStep: boolean
 }
 
 export type StepperStepChangeCallback = (
@@ -59,6 +59,6 @@ export interface StepperProps extends ComponentPropsWithoutRef<'div'> {
    * @default 'Previous'
    */
   previousButtonLabel?: string
-  finalButtonLabel?: string
-  onFinal?: () => void
+  hideFooterOnLastStep?: boolean
+  onLastStep?: () => void
 }

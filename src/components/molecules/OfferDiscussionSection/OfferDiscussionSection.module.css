@@ -39,7 +39,7 @@
 }
 
 .commentContent {
-  @apply flex flex-col;
+  @apply flex flex-1 flex-col;
 }
 
 .commentAuthor {

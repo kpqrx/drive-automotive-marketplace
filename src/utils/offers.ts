@@ -190,5 +190,7 @@ export const getOfferFormData = (data: AddOfferFormSchemaType) => {
 
   data.photos.forEach((photo) => formData.append('Images', photo))
 
+  console.log('formData', Object.fromEntries(formData))
+
   return formData
 }

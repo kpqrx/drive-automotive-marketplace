@@ -99,3 +99,34 @@ export const signUp = async (data: SignUpFormSchemaType) => {
     throw new Error('Wystąpił nieoczekiwany błąd. Spróbuj ponownie później')
   }
 }
+
+export const makePayment = async (nonce: string) => {
+  const res = await fetch(`${API_BASE_URL}/api/auth/MakePayment`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ paymentMethodNonce: nonce }),
+  })
+
+  if (res.ok) {
+    return { message: 'Płatność zakończona sukcesem' }
+  }
+
+  throw new Error('Wystąpił błąd serwera. Spróbuj ponownie później')
+}
+
+export const requestPayment = async () => {
+  const res = await fetch(`${API_BASE_URL}/api/auth/request-payment`)
+
+  if (res.ok) {
+    const response = (await res.json()) as {
+      token: string
+      amount: number
+      currency: string
+    }
+    return response
+  }
+
+  throw new Error('Wystąpił błąd serwera. Spróbuj ponownie później')
+}

@@ -30,6 +30,7 @@ import { useOfferParametersSuggestions, useToast } from '@/hooks'
 import { addOffer } from '@/lib'
 import { getOfferFormData } from '@/utils'
 import { useRouter } from 'next/navigation'
+import { PaymentForm } from '../PaymentForm/PaymentForm'
 
 type FormComponentType = typeof Input | typeof FileInput | typeof TextEditor
 
@@ -273,11 +274,16 @@ const createSteps: CreateAddFormStepsFn<AddOfferFormSchemaType> = (
       />
     ),
   },
-  // {
-  //   label: 'Płatność',
-  //   description: 'Dokonaj płatności za ogłoszenie',
-  //   content: () => <div>Płatności here</div>,
-  // },
+  {
+    label: 'Płatność',
+    description: 'Dokonaj płatności za ogłoszenie',
+    content: ({ onLastStep, setPreviousStep }) => (
+      <PaymentForm
+        onPaymentSuccess={onLastStep}
+        goToPreviousStep={setPreviousStep}
+      />
+    ),
+  },
 ]
 
 export const AddOfferForm = (props: AddOfferFormProps) => {
@@ -341,12 +347,13 @@ export const AddOfferForm = (props: AddOfferFormProps) => {
       finalButtonLabel="Dodaj ogłoszenie"
       steps={createSteps(control, errors, suggestions)}
       onNextStep={handleNextStep}
-      onFinal={handleSubmit(async (data) => {
+      hideFooterOnLastStep
+      onLastStep={handleSubmit(async (data) => {
         const formData = getOfferFormData(data)
 
         try {
           await addOffer(formData)
-          replace('/user-profile/my-offers#new-offer')
+          replace('/offers/add-success')
         } catch (error) {
           toast({
             title: 'Nie udało się dodać oferty',
