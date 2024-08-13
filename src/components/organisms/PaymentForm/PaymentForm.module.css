@@ -1,5 +1,5 @@
 .container {
-  @apply mt-12 flex max-w-screen-sm flex-col gap-y-4;
+  @apply flex max-w-screen-sm flex-col gap-y-4;
 }
 
 .form {

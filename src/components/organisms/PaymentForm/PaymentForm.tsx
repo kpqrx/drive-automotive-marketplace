@@ -147,7 +147,7 @@ export const PaymentForm = (props: PaymentFormProps) => {
         className={clsx(styles.container, className)}
         {...restProps}
       >
-        <h2 className={styles.heading}>Opłać ogłoszenie</h2>
+        <h2 className={styles.heading}>Zapłać za ogłoszenie</h2>
 
         <p className={styles.description}>
           Twoje ogłoszenie jest już prawie gotowe! <br />
